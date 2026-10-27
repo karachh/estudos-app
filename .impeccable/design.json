@@ -1,644 +1,762 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-27T15:22:25+00:00",
+  "generatedAt": "2026-10-27T20:03:31+00:00",
   "title": "Design System: Estudos",
   "extensions": {
     "colorMeta": {
-      "terrain-night": {
+      "print-black": {
         "role": "neutral",
-        "displayName": "Terreno noturno",
-        "canonical": "#0f130d",
+        "displayName": "Preto de impressão",
+        "canonical": "#0d0c0a",
+        "oklch": "oklch(15.5% 0.004 84.6)",
         "tonalRamp": [
-          "#0a0c09",
-          "#232622",
-          "#40433e",
-          "#5e635c",
-          "#7f847d",
-          "#a2a6a0",
-          "#c7cac5",
-          "#edefec"
+          "#0b0b0b",
+          "#242423",
+          "#40403e",
+          "#5f5d5b",
+          "#7e7d7a",
+          "#9f9e9c",
+          "#c5c4c2",
+          "#efeeed"
         ]
       },
-      "terrain-surface": {
+      "print-surface": {
         "role": "neutral",
-        "displayName": "Superfície do terreno",
-        "canonical": "#141a11",
+        "displayName": "Superfície de impressão",
+        "canonical": "#14120f",
+        "oklch": "oklch(18.3% 0.007 78.1)",
         "tonalRamp": [
-          "#0a0c09",
-          "#232621",
-          "#3f443c",
-          "#5d645a",
-          "#7e857a",
-          "#a1a79e",
-          "#c6cbc4",
-          "#ecf0ea"
+          "#0c0b0a",
+          "#252422",
+          "#413f3d",
+          "#5f5d5a",
+          "#7f7d79",
+          "#a09e9b",
+          "#c5c4c2",
+          "#efeeed"
         ]
       },
-      "terrain-raised": {
+      "print-raised": {
         "role": "neutral",
-        "displayName": "Terreno elevado",
-        "canonical": "#1b2217",
+        "displayName": "Elevado de impressão",
+        "canonical": "#1c1a16",
+        "oklch": "oklch(21.9% 0.008 84.6)",
         "tonalRamp": [
-          "#090c08",
-          "#222720",
-          "#3e443b",
-          "#5c6458",
-          "#7d8579",
-          "#a1a89d",
-          "#c6cbc3",
-          "#ecf0ea"
+          "#0c0b0a",
+          "#252422",
+          "#413f3c",
+          "#5f5d59",
+          "#7f7d78",
+          "#a09e9a",
+          "#c5c4c1",
+          "#efeeed"
         ]
       },
-      "terrain-line": {
+      "print-line": {
         "role": "neutral",
-        "displayName": "Filete do terreno",
-        "canonical": "#2a3324",
+        "displayName": "Filete",
+        "canonical": "#2e2b25",
+        "oklch": "oklch(29.0% 0.011 84.6)",
         "tonalRamp": [
-          "#090c07",
-          "#22271f",
-          "#3d4539",
-          "#5b6555",
-          "#7c8676",
-          "#a0a89a",
-          "#c5ccc1",
-          "#ebf0e8"
+          "#0c0b0a",
+          "#252421",
+          "#423f3b",
+          "#605d57",
+          "#807d76",
+          "#a19e99",
+          "#c6c4c0",
+          "#efeeec"
         ]
       },
-      "bone-ink": {
+      "print-frame": {
         "role": "neutral",
-        "displayName": "Tinta cor de osso",
-        "canonical": "#ece7d6",
+        "displayName": "Moldura",
+        "canonical": "#5a5446",
+        "oklch": "oklch(44.7% 0.023 87.6)",
+        "tonalRamp": [
+          "#0c0b08",
+          "#26241e",
+          "#433f36",
+          "#625d51",
+          "#837d6f",
+          "#a39e93",
+          "#c7c4bc",
+          "#f0eeea"
+        ]
+      },
+      "cream-ink": {
+        "role": "neutral",
+        "displayName": "Tinta creme",
+        "canonical": "#ece4cf",
+        "oklch": "oklch(92.0% 0.029 89.6)",
+        "tonalRamp": [
+          "#0c0b08",
+          "#27241c",
+          "#443f34",
+          "#635d4d",
+          "#847d6b",
+          "#a49e90",
+          "#c8c4b9",
+          "#f0eee9"
+        ]
+      },
+      "cream-ink-2": {
+        "role": "neutral",
+        "displayName": "Tinta creme secundária",
+        "canonical": "#c4bca6",
+        "oklch": "oklch(79.6% 0.031 90.4)",
         "tonalRamp": [
           "#0c0b07",
-          "#27251e",
-          "#454238",
-          "#656154",
-          "#868274",
-          "#a9a599",
-          "#ccc9bf",
-          "#f0eee7"
+          "#27241c",
+          "#443f33",
+          "#635d4c",
+          "#847d6a",
+          "#a49e8f",
+          "#c8c4b9",
+          "#f1eee8"
         ]
       },
-      "bone-ink-2": {
+      "cream-ink-3": {
         "role": "neutral",
-        "displayName": "Osso secundário",
-        "canonical": "#bdb8a4",
+        "displayName": "Tinta creme de apoio",
+        "canonical": "#9c947f",
+        "oklch": "oklch(66.8% 0.031 89.6)",
         "tonalRamp": [
-          "#0d0b06",
-          "#27251c",
-          "#454235",
-          "#666151",
-          "#878371",
-          "#a9a597",
-          "#ccc9bd",
-          "#f1efe6"
-        ]
-      },
-      "bone-ink-3": {
-        "role": "neutral",
-        "displayName": "Osso de apoio",
-        "canonical": "#96927d",
-        "tonalRamp": [
-          "#0c0b06",
-          "#27251b",
-          "#454234",
-          "#656250",
-          "#868370",
-          "#a8a595",
-          "#ccc9bd",
-          "#f0efe5"
+          "#0d0b07",
+          "#27241c",
+          "#443f33",
+          "#645d4c",
+          "#847d6a",
+          "#a49e8f",
+          "#c8c4b9",
+          "#f1eee8"
         ]
       },
       "danger-dark": {
         "role": "neutral",
-        "displayName": "Exclusão (escuro)",
+        "displayName": "Excluir (escuro)",
         "canonical": "#ef8f7f",
+        "oklch": "oklch(74.7% 0.120 30.3)",
         "tonalRamp": [
-          "#1c0201",
-          "#41150f",
-          "#6a2c23",
-          "#95463a",
-          "#bb675a",
-          "#d89083",
-          "#f3b9ae",
-          "#ffe3db"
+          "#170604",
+          "#3b1813",
+          "#632d25",
+          "#8f4438",
+          "#b66254",
+          "#cf8a7e",
+          "#e9b6ad",
+          "#ffe7e2"
         ]
       },
-      "map-paper": {
+      "print-paper": {
         "role": "neutral",
-        "displayName": "Papel de mapa",
-        "canonical": "#f7f5ec",
+        "displayName": "Papel",
+        "canonical": "#ece5d3",
+        "oklch": "oklch(92.3% 0.025 89.2)",
+        "tonalRamp": [
+          "#0c0b08",
+          "#26241e",
+          "#433f36",
+          "#625d50",
+          "#837d6e",
+          "#a39e92",
+          "#c7c4bb",
+          "#f0eee9"
+        ]
+      },
+      "print-paper-surface": {
+        "role": "neutral",
+        "displayName": "Superfície de papel",
+        "canonical": "#f2ecdd",
+        "oklch": "oklch(94.4% 0.021 88.7)",
         "tonalRamp": [
           "#0c0b09",
-          "#262521",
-          "#43423d",
-          "#63615a",
-          "#84827b",
-          "#a6a59f",
-          "#cac9c4",
-          "#efeeeb"
+          "#26241f",
+          "#433f37",
+          "#625d52",
+          "#827d70",
+          "#a29e94",
+          "#c7c4bc",
+          "#f0eeea"
         ]
       },
-      "map-paper-surface": {
+      "print-paper-line": {
         "role": "neutral",
-        "displayName": "Papel de mapa, superfície",
-        "canonical": "#fbfaf4",
-        "tonalRamp": [
-          "#0b0b0a",
-          "#262523",
-          "#43423e",
-          "#62615d",
-          "#83827e",
-          "#a6a5a1",
-          "#cac9c6",
-          "#efeeec"
-        ]
-      },
-      "map-paper-line": {
-        "role": "neutral",
-        "displayName": "Filete do papel",
-        "canonical": "#d9d4c2",
+        "displayName": "Filete no papel",
+        "canonical": "#d2c8b1",
+        "oklch": "oklch(83.5% 0.033 87.3)",
         "tonalRamp": [
           "#0d0b07",
-          "#27251d",
-          "#454237",
-          "#656153",
-          "#878273",
-          "#a9a598",
-          "#ccc9bf",
+          "#27241b",
+          "#453f32",
+          "#655d4b",
+          "#857c69",
+          "#a59e8e",
+          "#c9c4b8",
+          "#f1eee8"
+        ]
+      },
+      "print-paper-frame": {
+        "role": "neutral",
+        "displayName": "Moldura no papel",
+        "canonical": "#8c826b",
+        "oklch": "oklch(60.9% 0.035 87.3)",
+        "tonalRamp": [
+          "#0d0b07",
+          "#27241b",
+          "#453f31",
+          "#655d4a",
+          "#867c67",
+          "#a59e8d",
+          "#c9c4b7",
           "#f1eee7"
         ]
       },
-      "field-ink": {
+      "paper-ink": {
         "role": "neutral",
-        "displayName": "Tinta de campo",
-        "canonical": "#1c1e16",
+        "displayName": "Tinta no papel",
+        "canonical": "#1a1814",
+        "oklch": "oklch(21.0% 0.008 84.6)",
         "tonalRamp": [
-          "#0b0c09",
-          "#242621",
-          "#41433c",
-          "#60625a",
-          "#81847a",
-          "#a4a69e",
-          "#c8cac4",
-          "#eeefea"
+          "#0c0b0a",
+          "#252422",
+          "#413f3c",
+          "#5f5d59",
+          "#7f7d78",
+          "#a09e9a",
+          "#c5c4c1",
+          "#efeeed"
         ]
       },
       "danger-light": {
         "role": "neutral",
-        "displayName": "Exclusão (claro)",
+        "displayName": "Excluir (claro)",
         "canonical": "#b3382b",
+        "oklch": "oklch(52.0% 0.161 29.6)",
         "tonalRamp": [
-          "#200000",
-          "#490905",
-          "#751f17",
-          "#a5362a",
-          "#cc5a4b",
-          "#e78678",
-          "#ffb2a5",
-          "#ffded4"
+          "#1a0402",
+          "#42110c",
+          "#6e231a",
+          "#9e352a",
+          "#c65445",
+          "#de8173",
+          "#f5b1a5",
+          "#ffe4dd"
         ]
       },
       "accent-profissional": {
         "role": "primary",
         "displayName": "Verde-água Profissional",
         "canonical": "#6fd0b0",
+        "oklch": "oklch(78.9% 0.104 169.9)",
         "tonalRamp": [
-          "#001108",
-          "#002e20",
-          "#004f3b",
-          "#097259",
-          "#3c9579",
-          "#71b59d",
-          "#a2d7c3",
-          "#d3f9ea"
+          "#000f09",
+          "#032b20",
+          "#074b3a",
+          "#0f6e56",
+          "#349074",
+          "#6dae97",
+          "#a3d0bf",
+          "#ddf5eb"
         ]
       },
       "accent-trabalho": {
         "role": "primary",
         "displayName": "Âmbar Trabalho",
         "canonical": "#e8b04a",
+        "oklch": "oklch(79.1% 0.134 79.5)",
         "tonalRamp": [
-          "#170700",
-          "#381f00",
-          "#5e3a00",
-          "#855700",
-          "#a9780d",
-          "#c79e58",
-          "#e5c48f",
-          "#ffebc5"
+          "#130900",
+          "#341f00",
+          "#583900",
+          "#805400",
+          "#a47300",
+          "#bf9754",
+          "#dcc092",
+          "#fcecd4"
         ]
       },
       "accent-uem": {
         "role": "primary",
         "displayName": "Lilás UEM",
         "canonical": "#b69cff",
+        "oklch": "oklch(75.5% 0.141 294.9)",
         "tonalRamp": [
-          "#0e0421",
-          "#291a48",
-          "#473473",
-          "#684fa2",
-          "#8871c7",
-          "#aa98e1",
-          "#ccbffa",
-          "#f1e7ff"
+          "#0d0719",
+          "#271c40",
+          "#44336c",
+          "#644d9b",
+          "#836bc2",
+          "#a391d8",
+          "#c7bcef",
+          "#f0eaff"
         ]
       },
       "accent-igreja": {
         "role": "primary",
-        "displayName": "Dourado Igreja",
-        "canonical": "#e2b33c",
+        "displayName": "Dourado de folha Igreja",
+        "canonical": "#dcaa3c",
+        "oklch": "oklch(76.5% 0.136 83.3)",
         "tonalRamp": [
-          "#160800",
-          "#362000",
-          "#5a3c00",
-          "#815a00",
-          "#a47b00",
-          "#c2a051",
-          "#e1c68b",
-          "#ffedc2"
+          "#130900",
+          "#332000",
+          "#573a00",
+          "#7d5500",
+          "#a17500",
+          "#bc9952",
+          "#dac191",
+          "#fbedd3"
         ]
       },
       "accent-cultura": {
         "role": "primary",
-        "displayName": "Azul-céu Cultura",
+        "displayName": "Azul-céu Repertório",
         "canonical": "#7cc4f0",
+        "oklch": "oklch(78.9% 0.096 236.6)",
         "tonalRamp": [
-          "#000d1a",
-          "#01293c",
-          "#124763",
-          "#26688c",
-          "#4a8ab0",
-          "#79accd",
-          "#a7cfe9",
-          "#d6f3ff"
+          "#020d15",
+          "#0a2737",
+          "#18445d",
+          "#266487",
+          "#4485ab",
+          "#74a6c4",
+          "#a7cae0",
+          "#dff2fe"
         ]
       },
       "accent-mental": {
         "role": "primary",
-        "displayName": "Vermelhão Mental",
+        "displayName": "Vermelhão Motivação",
         "canonical": "#d4543f",
+        "oklch": "oklch(61.0% 0.166 31.6)",
         "tonalRamp": [
-          "#210000",
-          "#4a0802",
-          "#761e11",
-          "#a63523",
-          "#cd5945",
-          "#e88673",
-          "#ffb2a2",
-          "#ffded2"
+          "#1a0302",
+          "#421109",
+          "#6f2216",
+          "#9f3423",
+          "#c8533f",
+          "#df806f",
+          "#f6b0a2",
+          "#ffe4dc"
         ]
       },
       "accent-profissional-light": {
         "role": "primary",
         "displayName": "Verde-água Profissional (claro)",
         "canonical": "#0e8a68",
+        "oklch": "oklch(56.4% 0.112 167.4)",
         "tonalRamp": [
-          "#001107",
-          "#002f1e",
-          "#005039",
-          "#007355",
-          "#369676",
-          "#6eb69a",
-          "#a0d7c1",
-          "#d2f9e8"
+          "#000f09",
+          "#002c1f",
+          "#004c37",
+          "#016f52",
+          "#2e9171",
+          "#6aaf94",
+          "#a1d1bd",
+          "#dcf6ea"
         ]
       },
       "accent-trabalho-light": {
         "role": "primary",
         "displayName": "Âmbar Trabalho (claro)",
         "canonical": "#a76400",
+        "oklch": "oklch(56.5% 0.126 65.8)",
         "tonalRamp": [
-          "#190500",
-          "#3c1b00",
-          "#633500",
-          "#8c5100",
-          "#b1732b",
-          "#ce9963",
-          "#ebc097",
-          "#ffe8ca"
+          "#150800",
+          "#371d00",
+          "#5d3500",
+          "#874e00",
+          "#ac6d23",
+          "#c6935f",
+          "#e1bc99",
+          "#ffead7"
         ]
       },
       "accent-uem-light": {
         "role": "primary",
         "displayName": "Lilás UEM (claro)",
         "canonical": "#6544d6",
+        "oklch": "oklch(51.2% 0.211 286.7)",
         "tonalRamp": [
-          "#0c002d",
-          "#25115c",
-          "#412a90",
-          "#5f43c7",
-          "#7e68ee",
-          "#9f93ff",
-          "#c3bdff",
-          "#e9e6ff"
+          "#0b0522",
+          "#231751",
+          "#3e2c85",
+          "#5c42be",
+          "#7962e9",
+          "#998df8",
+          "#bfbaff",
+          "#ebeaff"
         ]
       },
       "accent-igreja-light": {
         "role": "primary",
-        "displayName": "Dourado Igreja (claro)",
-        "canonical": "#94680a",
+        "displayName": "Dourado de folha Igreja (claro)",
+        "canonical": "#8c600a",
+        "oklch": "oklch(52.3% 0.106 76.5)",
         "tonalRamp": [
-          "#150800",
-          "#362000",
-          "#5a3b00",
-          "#805901",
-          "#a37a32",
-          "#c29f68",
-          "#e0c59a",
-          "#ffeccc"
+          "#120901",
+          "#322003",
+          "#553a09",
+          "#7b5512",
+          "#9e7532",
+          "#ba9867",
+          "#d9c09d",
+          "#faecd9"
         ]
       },
       "accent-cultura-light": {
         "role": "primary",
-        "displayName": "Azul-céu Cultura (claro)",
+        "displayName": "Azul-céu Repertório (claro)",
         "canonical": "#0b72b5",
+        "oklch": "oklch(53.5% 0.134 245.9)",
         "tonalRamp": [
-          "#000c21",
-          "#002748",
-          "#004573",
-          "#0a66a2",
-          "#3988c7",
-          "#6eabe0",
-          "#9fcff9",
-          "#d1f3ff"
+          "#000c19",
+          "#032640",
+          "#07436c",
+          "#0f629b",
+          "#3283c2",
+          "#6aa4d7",
+          "#a0c9ee",
+          "#dbf2ff"
         ]
       },
       "accent-mental-light": {
         "role": "primary",
-        "displayName": "Vermelhão Mental (claro)",
+        "displayName": "Vermelhão Motivação (claro)",
         "canonical": "#a3301f",
+        "oklch": "oklch(48.2% 0.154 31.4)",
         "tonalRamp": [
-          "#200000",
-          "#470c05",
-          "#732216",
-          "#a23a2a",
-          "#c95d4b",
-          "#e48978",
-          "#feb4a5",
-          "#ffdfd4"
+          "#190402",
+          "#40130c",
+          "#6c251a",
+          "#9b3929",
+          "#c35745",
+          "#db8373",
+          "#f3b2a5",
+          "#ffe5dd"
         ]
       },
-      "contour-brown": {
+      "map-contour": {
         "role": "secondary",
-        "displayName": "Curva de nível marrom",
-        "canonical": "#a8743f",
+        "displayName": "Curva de nível",
+        "canonical": "#8d846c",
+        "oklch": "oklch(61.5% 0.036 89.9)",
         "tonalRamp": [
-          "#160700",
-          "#371e03",
-          "#5c3913",
-          "#835625",
-          "#a77747",
-          "#c59c75",
-          "#e3c2a4",
-          "#ffead3"
+          "#0d0b07",
+          "#27241b",
+          "#453f31",
+          "#655d49",
+          "#857d67",
+          "#a59e8c",
+          "#c9c4b7",
+          "#f1eee7"
         ]
       },
-      "thicket-olive": {
+      "map-dots": {
         "role": "secondary",
-        "displayName": "Vegetação oliva",
-        "canonical": "#243020",
+        "displayName": "Retícula da mata",
+        "canonical": "#4a4538",
+        "oklch": "oklch(39.1% 0.022 89.5)",
         "tonalRamp": [
-          "#080d07",
-          "#21271e",
-          "#3c4539",
-          "#596655",
-          "#7a8776",
-          "#9ea99a",
-          "#c3ccc0",
-          "#eaf1e8"
+          "#0c0b08",
+          "#26241e",
+          "#433f37",
+          "#625d51",
+          "#827d70",
+          "#a29e93",
+          "#c7c4bc",
+          "#f0eeea"
         ]
       },
-      "open-land": {
-        "role": "secondary",
-        "displayName": "Campo aberto apagado",
-        "canonical": "#3d3618",
-        "tonalRamp": [
-          "#0e0b03",
-          "#292515",
-          "#47422c",
-          "#686245",
-          "#8a8365",
-          "#aba58d",
-          "#cecab6",
-          "#f2efe0"
-        ]
-      },
-      "marsh-blue": {
-        "role": "secondary",
-        "displayName": "Pântano azul",
-        "canonical": "#4d86a8",
-        "tonalRamp": [
-          "#000d17",
-          "#0a2839",
-          "#1f475e",
-          "#346785",
-          "#5689a9",
-          "#81abc6",
-          "#adcfe4",
-          "#daf3ff"
-        ]
-      },
-      "trail-grey": {
+      "map-trail": {
         "role": "secondary",
         "displayName": "Trilha",
-        "canonical": "#8a8670",
+        "canonical": "#b8ae94",
+        "oklch": "oklch(75.2% 0.038 89.5)",
         "tonalRamp": [
-          "#0d0b05",
-          "#27251b",
-          "#454234",
-          "#65624f",
-          "#87836f",
-          "#a9a695",
-          "#cccabc",
-          "#f0efe5"
+          "#0d0b07",
+          "#27241a",
+          "#453f30",
+          "#655d48",
+          "#857d66",
+          "#a59e8c",
+          "#c9c4b6",
+          "#f1eee7"
         ]
       },
-      "sacro-moss": {
+      "sacro-leather": {
         "role": "neutral",
-        "displayName": "Musgo sacro",
-        "canonical": "#22342d",
+        "displayName": "Couro sacro",
+        "canonical": "#17110c",
+        "oklch": "oklch(18.3% 0.014 61.6)",
         "tonalRamp": [
-          "#070d0a",
-          "#1e2824",
-          "#384640",
-          "#54665f",
-          "#758780",
-          "#9aa9a3",
-          "#c0cdc7",
-          "#e8f1ed"
+          "#0c0b0a",
+          "#262321",
+          "#443f3b",
+          "#635c57",
+          "#837c76",
+          "#a39d98",
+          "#c8c3bf",
+          "#f0eeec"
         ]
       },
-      "sacro-moss-surface": {
+      "sacro-surface": {
         "role": "neutral",
-        "displayName": "Musgo, superfície",
-        "canonical": "#283b33",
+        "displayName": "Superfície sacra",
+        "canonical": "#1e1610",
+        "oklch": "oklch(20.8% 0.017 58.5)",
         "tonalRamp": [
-          "#070d0a",
-          "#1d2823",
-          "#37463f",
-          "#54665e",
-          "#74887f",
-          "#99aaa2",
-          "#c0cdc7",
-          "#e7f1ed"
+          "#0d0b09",
+          "#272320",
+          "#453e3a",
+          "#645c55",
+          "#857b74",
+          "#a59d97",
+          "#c9c3bf",
+          "#f1eeeb"
         ]
       },
-      "sacro-moss-line": {
+      "sacro-raised": {
         "role": "neutral",
-        "displayName": "Filete do musgo",
-        "canonical": "#3f564b",
+        "displayName": "Elevado sacro",
+        "canonical": "#271d15",
+        "oklch": "oklch(24.0% 0.021 60.2)",
         "tonalRamp": [
-          "#060d0a",
-          "#1c2822",
-          "#36463e",
-          "#52675d",
-          "#72887d",
-          "#97aaa1",
-          "#becdc6",
-          "#e6f2ec"
+          "#0d0b09",
+          "#28231f",
+          "#463e38",
+          "#665b53",
+          "#867b72",
+          "#a69c95",
+          "#cac3bd",
+          "#f1eeeb"
+        ]
+      },
+      "sacro-line": {
+        "role": "neutral",
+        "displayName": "Filete sacro",
+        "canonical": "#3d2e20",
+        "oklch": "oklch(31.4% 0.032 64.3)",
+        "tonalRamp": [
+          "#0e0a08",
+          "#29231c",
+          "#483e34",
+          "#695b4d",
+          "#8a7a6b",
+          "#a99c90",
+          "#ccc2b9",
+          "#f3ede8"
+        ]
+      },
+      "sacro-frame": {
+        "role": "neutral",
+        "displayName": "Moldura sacra",
+        "canonical": "#6e5638",
+        "oklch": "oklch(47.0% 0.054 72.1)",
+        "tonalRamp": [
+          "#0f0a05",
+          "#2c2216",
+          "#4c3d2a",
+          "#6e5940",
+          "#90795c",
+          "#ae9b84",
+          "#d0c2b1",
+          "#f5ede4"
         ]
       },
       "sacro-ink": {
         "role": "neutral",
-        "displayName": "Tinta creme sacra",
-        "canonical": "#f0e7cf",
+        "displayName": "Tinta sacra",
+        "canonical": "#efe3c8",
+        "oklch": "oklch(91.8% 0.038 86.9)",
         "tonalRamp": [
-          "#0d0b05",
-          "#29251a",
-          "#474233",
-          "#68614e",
-          "#89826e",
-          "#aba594",
-          "#cec9bb",
-          "#f2eee4"
-        ]
-      },
-      "sacro-cream": {
-        "role": "tertiary",
-        "displayName": "Creme do nicho",
-        "canonical": "#efe4c8",
-        "tonalRamp": [
-          "#0e0b04",
-          "#292518",
-          "#484130",
-          "#69614a",
-          "#8b826a",
-          "#aca591",
-          "#cfc9b9",
-          "#f3eee3"
+          "#0d0b07",
+          "#28241a",
+          "#463f30",
+          "#665d48",
+          "#867c66",
+          "#a69e8b",
+          "#c9c4b6",
+          "#f1eee7"
         ]
       },
       "sacro-wine": {
         "role": "secondary",
         "displayName": "Vinho sacro",
-        "canonical": "#8a2a33",
+        "canonical": "#7d2630",
+        "oklch": "oklch(40.5% 0.120 17.7)",
         "tonalRamp": [
-          "#1d0103",
-          "#431216",
-          "#6c282d",
-          "#994045",
-          "#bf6265",
-          "#db8c8d",
-          "#f7b6b6",
-          "#ffe1e0"
+          "#170506",
+          "#3b171a",
+          "#632c2f",
+          "#8f4247",
+          "#b66064",
+          "#cf888a",
+          "#e9b5b5",
+          "#ffe6e6"
         ]
       },
       "renascenca-black": {
         "role": "neutral",
-        "displayName": "Preto quente",
+        "displayName": "Preto renascentista",
         "canonical": "#13110e",
+        "oklch": "oklch(17.9% 0.007 78.1)",
         "tonalRamp": [
           "#0c0b0a",
-          "#262523",
-          "#43423f",
-          "#63615d",
-          "#84827e",
-          "#a7a5a1",
-          "#cac9c6",
-          "#efeeec"
+          "#252422",
+          "#413f3d",
+          "#5f5d5a",
+          "#7f7d79",
+          "#a09e9b",
+          "#c5c4c2",
+          "#efeeed"
         ]
       },
       "renascenca-surface": {
         "role": "neutral",
-        "displayName": "Preto quente, superfície",
+        "displayName": "Superfície renascentista",
         "canonical": "#1a1713",
+        "oklch": "oklch(20.7% 0.009 75.1)",
         "tonalRamp": [
-          "#0c0b09",
-          "#272522",
-          "#44413e",
-          "#64615c",
-          "#85827d",
-          "#a7a4a0",
-          "#cbc9c5",
-          "#f0eeec"
+          "#0c0b0a",
+          "#252422",
+          "#423f3c",
+          "#605d59",
+          "#807d78",
+          "#a19e9a",
+          "#c6c4c1",
+          "#efeeed"
         ]
       },
       "renascenca-line": {
         "role": "neutral",
-        "displayName": "Filete sépia",
+        "displayName": "Filete renascentista",
         "canonical": "#3a3229",
+        "oklch": "oklch(32.3% 0.019 70.4)",
         "tonalRamp": [
-          "#0d0b08",
-          "#29241f",
-          "#47413a",
-          "#686057",
-          "#898177",
-          "#aba49c",
-          "#cec8c1",
-          "#f2eee9"
+          "#0d0b09",
+          "#27231f",
+          "#443f38",
+          "#645c54",
+          "#847c72",
+          "#a49d95",
+          "#c8c3bd",
+          "#f1eeeb"
         ]
       },
       "renascenca-ink": {
         "role": "neutral",
-        "displayName": "Tinta de pergaminho",
+        "displayName": "Tinta renascentista",
         "canonical": "#ece2cc",
+        "oklch": "oklch(91.5% 0.031 86.5)",
         "tonalRamp": [
-          "#0e0b06",
-          "#29251b",
-          "#474134",
-          "#68604f",
-          "#8a826f",
-          "#aba495",
-          "#cec9bc",
-          "#f2eee5"
+          "#0d0b07",
+          "#27241c",
+          "#453f33",
+          "#645d4c",
+          "#857c6a",
+          "#a59e8f",
+          "#c9c4b9",
+          "#f1eee8"
         ]
       },
       "renascenca-paper": {
-        "role": "tertiary",
+        "role": "neutral",
         "displayName": "Papel sépia",
         "canonical": "#ddcdad",
+        "oklch": "oklch(85.3% 0.046 84.5)",
         "tonalRamp": [
-          "#0f0a03",
-          "#2b2416",
-          "#4b412d",
-          "#6d6045",
-          "#8e8165",
-          "#afa48d",
-          "#d1c8b6",
-          "#f5eee0"
+          "#0e0b06",
+          "#292318",
+          "#473f2d",
+          "#685c43",
+          "#897c60",
+          "#a89d87",
+          "#cbc3b3",
+          "#f2eee5"
         ]
       },
       "renascenca-ochre": {
         "role": "secondary",
         "displayName": "Ocre renascentista",
         "canonical": "#c9962e",
+        "oklch": "oklch(70.4% 0.130 80.8)",
         "tonalRamp": [
-          "#160700",
-          "#371f00",
-          "#5c3a00",
-          "#835800",
-          "#a77916",
-          "#c59f5b",
-          "#e3c591",
-          "#ffebc6"
+          "#130900",
+          "#332000",
+          "#573900",
+          "#7e5500",
+          "#a27405",
+          "#bd9857",
+          "#dac094",
+          "#fbedd4"
+        ]
+      },
+      "film-orange": {
+        "role": "secondary",
+        "displayName": "Laranja de filme",
+        "canonical": "#e5582b",
+        "oklch": "oklch(64.0% 0.185 37.4)",
+        "tonalRamp": [
+          "#1c0300",
+          "#450e00",
+          "#731d00",
+          "#a42e00",
+          "#ce4e25",
+          "#e47e5f",
+          "#faaf99",
+          "#ffe4d7"
+        ]
+      },
+      "film-lift": {
+        "role": "neutral",
+        "displayName": "Preto levantado do filme",
+        "canonical": "#34302b",
+        "oklch": "oklch(31.2% 0.010 73.5)",
+        "tonalRamp": [
+          "#0c0b0a",
+          "#252421",
+          "#423f3c",
+          "#615d58",
+          "#817c77",
+          "#a19e99",
+          "#c6c4c0",
+          "#f0eeec"
+        ]
+      },
+      "film-sky-tint": {
+        "role": "neutral",
+        "displayName": "Céu frio do filme",
+        "canonical": "#788ca0",
+        "oklch": "oklch(63.1% 0.038 248.4)",
+        "tonalRamp": [
+          "#080c0f",
+          "#1d252c",
+          "#35414d",
+          "#4f6070",
+          "#6d7f92",
+          "#92a0af",
+          "#bbc5d0",
+          "#e9eff5"
         ]
       }
     },
     "typographyMeta": {
+      "cover-display": {
+        "displayName": "Capa: letreiro",
+        "purpose": "Nome na faixa vertical das capas (página inicial e capa provisória do módulo)."
+      },
+      "cover-heading": {
+        "displayName": "Capa: título",
+        "purpose": "Nome do módulo e apresentação na etiqueta preta das capas."
+      },
+      "fine-print": {
+        "displayName": "Letra miúda",
+        "purpose": "Créditos, rodapé da faixa e listas da etiqueta; nunca abaixo de 0.72rem."
+      },
       "display": {
         "displayName": "Display",
-        "purpose": "Nome do módulo no mundo mapa."
+        "purpose": "Nome do módulo na moldura do cabeçalho (mundo mapa sem capa) e sobre a pintura sacra."
       },
       "headline": {
         "displayName": "Headline",
@@ -646,15 +764,19 @@
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Cabeçalho de bloco com filete até a borda."
+        "purpose": "Cabeçalho de bloco com estrela e filete até a borda."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Todo texto corrido, números tabulares."
+        "purpose": "Todo texto corrido, com números tabulares."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Rótulos de botão em caixa-alta condensada."
+        "purpose": "Rótulos de botão em caixa-alta, no letreiro, em todos os mundos."
+      },
+      "data": {
+        "displayName": "Data",
+        "purpose": "Números e dados: faixa de resumo, controles, frações, selos."
       },
       "sacro-display": {
         "displayName": "Sacro: serifa larga",
@@ -666,7 +788,7 @@
       },
       "renascenca-display": {
         "displayName": "Renascença: Bodoni",
-        "purpose": "Nome do módulo, grupos, lâminas e títulos na renascença."
+        "purpose": "Nome do módulo (tamanho pela largura e pelo número de letras), grupos e lâminas."
       },
       "renascenca-reading": {
         "displayName": "Renascença: Cormorant",
@@ -675,31 +797,46 @@
     },
     "shadows": [
       {
-        "name": "overprint-halo",
-        "value": "stroke: var(--bg); stroke-width: 7 (SVG); text-shadow: 0 0 6px var(--bg), 0 0 3px var(--bg)",
-        "purpose": "Halo da cor do fundo atrás de controles, triângulo e números, como a sobreimpressão ISOM."
+        "name": "map-halo",
+        "value": "stroke: var(--bg); stroke-width: 7 (SVG)",
+        "purpose": "Halo da cor do fundo atrás de controles, triângulo e números do mapa."
       },
       {
         "name": "field-focus",
         "value": "0 0 0 3px color-mix(in oklab, var(--accent) 18%, transparent)",
-        "purpose": "Anel de foco do campo; único brilho do sistema."
+        "purpose": "Anel de foco do campo; o único brilho do sistema."
       },
       {
         "name": "print-grain",
-        "value": "feTurbulence fractalNoise .85, 3 oitavas; opacity .09 (escuro) / .07 invertido (claro)",
-        "purpose": "Grão de papel impresso, só nos mundos sacro e renascença."
+        "value": "feTurbulence fractalNoise; opacity .08 (mapa), .11 (sacro), .10 (renascença); invertido e mais fraco no tema claro",
+        "purpose": "Grão de impressão fixo em todo o app."
+      },
+      {
+        "name": "film",
+        "value": "filter: saturate(.66) contrast(.86) brightness(1.05) sepia(.18) hue-rotate(-8deg); film-lift #34302b lighten 60%; vinheta radial",
+        "purpose": "Foto com cara de filme analógico nas capas."
       }
     ],
     "motion": [
       {
         "name": "land",
         "value": "650ms cubic-bezier(0.16, 1, 0.3, 1), scale 1.7 -> 1, opacity .25 -> 1, atraso 45ms por item",
-        "purpose": "Controles, auréolas e discos pousam uma vez ao abrir a tela; desligado com prefers-reduced-motion."
+        "purpose": "Controles do mapa pousam uma vez ao abrir a tela; desligado com prefers-reduced-motion."
+      },
+      {
+        "name": "niche-fill",
+        "value": "height 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Dourado sobe no nicho sacro ao marcar itens; desligado com movimento reduzido."
+      },
+      {
+        "name": "banner-grow",
+        "value": "scroll-driven (view-timeline --banner): clip-path inset(16% 14% round 1.5rem) -> inset(0); foto scale 1.2 -> 1.02",
+        "purpose": "Banners da página inicial crescem até a tela cheia; só com movimento liberado."
       },
       {
         "name": "state",
-        "value": "150ms (botão, navegação, controle), 120ms (checklist), 180ms (nicho, lâmina, disclosure)",
-        "purpose": "Transições de cor, borda e espessura de traço."
+        "value": "150ms (botão, campo, navegação), 120ms (checklist), 180ms (nicho, lâmina)",
+        "purpose": "Transições de cor e borda."
       }
     ],
     "breakpoints": [
@@ -714,6 +851,10 @@
       {
         "name": "lg",
         "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
       }
     ],
     "worlds": {
@@ -722,14 +863,15 @@
         "profissional",
         "trabalho",
         "uem",
-        "cultura"
+        "cultura (Repertório)"
       ],
       "sacro": [
         "igreja"
       ],
       "renascenca": [
-        "mental"
-      ]
+        "mental (Motivação)"
+      ],
+      "provisionalCover": "Módulos do mapa com foto em landscapes abrem com a capa da página inicial (FilmHeader)."
     }
   },
   "components": [
@@ -737,135 +879,138 @@
       "name": "Botão",
       "kind": "button",
       "refersTo": "button",
-      "description": "Ação padrão: retangular, rótulo condensado em caixa-alta.",
-      "html": "<button class=\"ds-btn\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M8 3v10M3 8h10\"/></svg>Adicionar</button>",
-      "css": ":host{--accent:#6fd0b0;--on-accent:#0f130d;--bg:#0f130d;--surface:#141a11;--raised:#1b2217;--line:#2a3324;--ink:#ece7d6;--ink-2:#bdb8a4;--ink-3:#96927d;}.ds-btn{display:inline-flex;align-items:center;gap:.45rem;border-radius:3px;padding:.5rem .95rem;font-family:'Barlow Condensed','Barlow',sans-serif;font-weight:600;font-size:1.02rem;letter-spacing:.04em;text-transform:uppercase;line-height:1.2;border:1px solid var(--line);background:var(--raised);color:var(--ink);cursor:pointer;transition:border-color 150ms,background-color 150ms,color 150ms}.ds-btn:hover{border-color:var(--accent)}.ds-btn:active{transform:translateY(1px)}.ds-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}"
+      "description": "Ação padrão: cápsula de borda fina, rótulo no letreiro.",
+      "html": "<button class=\"ds-btn\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\"><path d=\"M12 5v14M5 12h14\"/></svg>Adicionar</button>",
+      "css": ":host{--accent:#6fd0b0;--on-accent:#0d0c0a;--bg:#0d0c0a;--surface:#14120f;--raised:#1c1a16;--line:#2e2b25;--frame:#5a5446;--ink:#ece4cf;--ink-2:#c4bca6;--ink-3:#9c947f}.ds-btn{display:inline-flex;align-items:center;gap:.45rem;border-radius:999px;padding:.48rem 1rem;font-family:'Big Shoulders Display Variable','Barlow',sans-serif;font-weight:700;font-size:1.02rem;letter-spacing:.05em;text-transform:uppercase;line-height:1.2;cursor:pointer;white-space:nowrap;transition:border-color 150ms,background-color 150ms,color 150ms;border:1px solid var(--frame);background:transparent;color:var(--ink)}.ds-btn:hover{border-color:var(--accent);background:color-mix(in oklab,var(--accent) 8%,transparent)}.ds-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}"
     },
     {
       "name": "Botão primário",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Cor do módulo chapada.",
-      "html": "<button class=\"ds-btn-primary\">Registrar</button>",
-      "css": ":host{--accent:#6fd0b0;--on-accent:#0f130d;--bg:#0f130d;--surface:#141a11;--raised:#1b2217;--line:#2a3324;--ink:#ece7d6;--ink-2:#bdb8a4;--ink-3:#96927d;}.ds-btn-primary{border-radius:3px;padding:.5rem .95rem;font-family:'Barlow Condensed','Barlow',sans-serif;font-weight:600;font-size:1.02rem;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--accent);background:var(--accent);color:var(--on-accent);cursor:pointer}.ds-btn-primary:active{transform:translateY(1px)}.ds-btn-primary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}"
+      "description": "Cor do módulo chapada; uma por tela.",
+      "html": "<button class=\"ds-btn-primary\">Abrir Profissional</button>",
+      "css": ":host{--accent:#6fd0b0;--on-accent:#0d0c0a;--bg:#0d0c0a;--surface:#14120f;--raised:#1c1a16;--line:#2e2b25;--frame:#5a5446;--ink:#ece4cf;--ink-2:#c4bca6;--ink-3:#9c947f}.ds-btn-primary{display:inline-flex;align-items:center;gap:.45rem;border-radius:999px;padding:.48rem 1rem;font-family:'Big Shoulders Display Variable','Barlow',sans-serif;font-weight:700;font-size:1.02rem;letter-spacing:.05em;text-transform:uppercase;line-height:1.2;cursor:pointer;white-space:nowrap;transition:border-color 150ms,background-color 150ms,color 150ms;border:1px solid var(--accent);background:var(--accent);color:var(--on-accent)}.ds-btn-primary:hover{background:color-mix(in oklab,var(--accent) 85%,white)}.ds-btn-primary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}"
     },
     {
       "name": "Botão fantasma",
       "kind": "button",
       "refersTo": "button-ghost",
-      "description": "Ações secundárias (editar, excluir, tema).",
+      "description": "Ações secundárias (editar, excluir) e atalhos de grupo.",
       "html": "<button class=\"ds-btn-ghost\">Editar etapa</button>",
-      "css": ":host{--accent:#6fd0b0;--on-accent:#0f130d;--bg:#0f130d;--surface:#141a11;--raised:#1b2217;--line:#2a3324;--ink:#ece7d6;--ink-2:#bdb8a4;--ink-3:#96927d;}.ds-btn-ghost{border-radius:3px;padding:.5rem .95rem;font-family:'Barlow Condensed','Barlow',sans-serif;font-weight:600;font-size:1.02rem;letter-spacing:.04em;text-transform:uppercase;border:1px solid transparent;background:transparent;color:var(--ink-2);cursor:pointer;transition:color 150ms,border-color 150ms}.ds-btn-ghost:hover{color:var(--ink);border-color:var(--line)}.ds-btn-ghost:focus-visible{outline:2px solid var(--accent);outline-offset:2px}"
+      "css": ":host{--accent:#6fd0b0;--on-accent:#0d0c0a;--bg:#0d0c0a;--surface:#14120f;--raised:#1c1a16;--line:#2e2b25;--frame:#5a5446;--ink:#ece4cf;--ink-2:#c4bca6;--ink-3:#9c947f}.ds-btn-ghost{display:inline-flex;align-items:center;gap:.45rem;border-radius:999px;padding:.48rem 1rem;font-family:'Big Shoulders Display Variable','Barlow',sans-serif;font-weight:700;font-size:1.02rem;letter-spacing:.05em;text-transform:uppercase;line-height:1.2;cursor:pointer;white-space:nowrap;transition:border-color 150ms,background-color 150ms,color 150ms;border:1px solid transparent;background:transparent;color:var(--ink-2)}.ds-btn-ghost:hover{border-color:var(--accent);background:color-mix(in oklab,var(--accent) 8%,transparent);color:var(--ink)}.ds-btn-ghost:focus-visible{outline:2px solid var(--accent);outline-offset:2px}"
     },
     {
       "name": "Campo",
       "kind": "input",
       "refersTo": "field",
       "description": "Entrada de texto e anotações.",
-      "html": "<input class=\"ds-field\" placeholder=\"Novo tópico em Bronze\">",
-      "css": ":host{--accent:#6fd0b0;--on-accent:#0f130d;--bg:#0f130d;--surface:#141a11;--raised:#1b2217;--line:#2a3324;--ink:#ece7d6;--ink-2:#bdb8a4;--ink-3:#96927d;}.ds-field{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:.55rem .75rem;color:var(--ink);font:16px/1.5 'Barlow',system-ui,sans-serif;caret-color:var(--accent)}.ds-field::placeholder{color:var(--ink-3)}.ds-field:hover{border-color:color-mix(in oklab,var(--ink-3) 60%,var(--line))}.ds-field:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in oklab,var(--accent) 18%,transparent)}"
+      "html": "<input class=\"ds-field\" placeholder=\"Nova etapa\">",
+      "css": ":host{--accent:#6fd0b0;--on-accent:#0d0c0a;--bg:#0d0c0a;--surface:#14120f;--raised:#1c1a16;--line:#2e2b25;--frame:#5a5446;--ink:#ece4cf;--ink-2:#c4bca6;--ink-3:#9c947f}.ds-field{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:.7rem;padding:.55rem .85rem;color:var(--ink);font:16px/1.5 'Barlow',system-ui,sans-serif;caret-color:var(--accent);transition:border-color 150ms,box-shadow 150ms}.ds-field::placeholder{color:var(--ink-3)}.ds-field:hover{border-color:var(--frame)}.ds-field:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in oklab,var(--accent) 18%,transparent)}"
+    },
+    {
+      "name": "Faixa de resumo",
+      "kind": "custom",
+      "refersTo": "strip",
+      "description": "Cápsula chapada na cor do módulo embaixo de todo cabeçalho.",
+      "html": "<p class=\"ds-strip\"><svg width=\"13\" height=\"13\" viewBox=\"-12 -12 24 24\" fill=\"currentColor\"><path d=\"M0-12C1 -3 3-1 12 0 3 1 1 3 0 12-1 3-3 1-12 0-3-1-1-3 0-12z\"/></svg><span>12 de 126 itens marcados · 10% · 2 tópicos em andamento</span></p>",
+      "css": ":host{--accent:#6fd0b0;--on-accent:#0d0c0a;--bg:#0d0c0a;--surface:#14120f;--raised:#1c1a16;--line:#2e2b25;--frame:#5a5446;--ink:#ece4cf;--ink-2:#c4bca6;--ink-3:#9c947f}.ds-strip{display:flex;align-items:center;gap:.9rem;margin:0;border-radius:999px;background:var(--accent);color:var(--on-accent);padding:.55rem 1.1rem;font:400 .8rem/1.35 'Space Mono',ui-monospace,monospace}.ds-strip svg{flex:none}"
     },
     {
       "name": "Navegação lateral",
       "kind": "nav",
       "refersTo": "nav-item",
-      "description": "Módulos com círculo de controle; ativo cheio.",
-      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-item active\" href=\"#\"><svg width=\"18\" height=\"18\" viewBox=\"-12 -12 24 24\"><circle r=\"9.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\"/><circle r=\"5.6\" fill=\"currentColor\"/></svg>Estudos profissionais</a><a class=\"ds-nav-item\" href=\"#\" style=\"--accent:#e8b04a\"><svg width=\"18\" height=\"18\" viewBox=\"-12 -12 24 24\"><circle r=\"9.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\"/></svg>Trabalho</a></nav>",
-      "css": ":host{--accent:#6fd0b0;--on-accent:#0f130d;--bg:#0f130d;--surface:#141a11;--raised:#1b2217;--line:#2a3324;--ink:#ece7d6;--ink-2:#bdb8a4;--ink-3:#96927d;}.ds-nav{display:flex;flex-direction:column;width:15.5rem;background:color-mix(in oklab,var(--accent) 9%,color-mix(in oklab,black 30%,var(--bg)));padding:1rem 0}.ds-nav-item{display:flex;align-items:center;gap:.8rem;padding:.625rem 1.25rem;font:500 16px 'Barlow',sans-serif;color:var(--ink-2);text-decoration:none;transition:color 150ms,background-color 150ms}.ds-nav-item svg{color:var(--accent)}.ds-nav-item:hover{color:var(--ink);background:color-mix(in oklab,var(--accent) 7%,transparent)}.ds-nav-item.active{color:var(--ink);background:color-mix(in oklab,var(--accent) 15%,transparent)}.ds-nav-item:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}"
-    },
-    {
-      "name": "Linha de controle com picotes",
-      "kind": "custom",
-      "refersTo": "control-row",
-      "description": "Linha da tabela de controles do mundo mapa: número, título, picotes, fração e círculo de estado.",
-      "html": "<a class=\"ds-row\" href=\"#\"><span class=\"ds-num\">1</span><span><span class=\"ds-t\">SQL avançado</span><span class=\"ds-punches\"><i class=\"on\"></i><i class=\"on\"></i><i class=\"on\"></i><i></i><i></i><i></i></span></span><span class=\"ds-end\">3/6<svg width=\"18\" height=\"18\" viewBox=\"-12 -12 24 24\"><circle r=\"9.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\"/><path d=\"M0 0V-5.6A5.6 5.6 0 0 1 0 5.6Z\" fill=\"currentColor\"/></svg></span></a>",
-      "css": ":host{--accent:#6fd0b0;--on-accent:#0f130d;--bg:#0f130d;--surface:#141a11;--raised:#1b2217;--line:#2a3324;--ink:#ece7d6;--ink-2:#bdb8a4;--ink-3:#96927d;}.ds-row{display:grid;grid-template-columns:2.25rem minmax(0,1fr) auto;align-items:center;gap:0 .75rem;padding:.75rem .5rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg);color:var(--ink);text-decoration:none;font:16px/1.5 'Barlow',sans-serif;transition:background-color 150ms}.ds-row:hover{background:color-mix(in oklab,var(--accent) 11%,transparent)}.ds-row:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.ds-num{font-family:'Barlow Condensed','Barlow',sans-serif;font-weight:700;font-size:1.35rem;color:var(--accent);text-align:right}.ds-t{display:block;font-weight:600}.ds-punches{display:flex;gap:3px;margin-top:.375rem}.ds-punches i{width:8px;height:8px;border-radius:1px;border:1px solid color-mix(in oklab,var(--ink-3) 70%,transparent)}.ds-punches i.on{background:var(--accent);border-color:var(--accent)}.ds-end{display:flex;align-items:center;gap:.625rem;font-size:.875rem;color:var(--ink-2);font-variant-numeric:tabular-nums}.ds-end svg{color:var(--accent)}"
+      "description": "Só o nome do módulo; o ativo é uma cápsula na cor dele. Sem círculos.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-item active\" href=\"#\">Estudos profissionais</a><a class=\"ds-nav-item\" href=\"#\">Trabalho</a><a class=\"ds-nav-item\" href=\"#\">UEM</a><a class=\"ds-nav-item\" href=\"#\">Repertório</a></nav>",
+      "css": ":host{--accent:#6fd0b0;--on-accent:#0d0c0a;--bg:#0d0c0a;--surface:#14120f;--raised:#1c1a16;--line:#2e2b25;--frame:#5a5446;--ink:#ece4cf;--ink-2:#c4bca6;--ink-3:#9c947f}.ds-nav{display:flex;flex-direction:column;gap:.25rem;width:15.5rem;padding:1rem .75rem;background:color-mix(in oklab,black 30%,var(--bg))}.ds-nav-item{display:flex;align-items:center;padding:.6rem .8rem;border-radius:999px;border:1px solid transparent;font:500 16px 'Barlow',sans-serif;color:var(--ink-2);text-decoration:none;transition:color 150ms,background-color 150ms,border-color 150ms}.ds-nav-item:hover{color:var(--ink)}.ds-nav-item.active{color:var(--ink);border-color:var(--accent);background:color-mix(in oklab,var(--accent) 10%,transparent)}.ds-nav-item:focus-visible{outline:2px solid var(--accent);outline-offset:2px}"
     },
     {
       "name": "Caixa de checklist",
-      "kind": "input",
+      "kind": "custom",
       "refersTo": "check",
-      "description": "Caixa de picote do cartão de controle.",
+      "description": "Item do checklist; marcado fica chapado com o visto recortado.",
       "html": "<label class=\"ds-chk\"><input type=\"checkbox\" checked><span>Ler a documentação</span></label>",
-      "css": ":host{--accent:#6fd0b0;--on-accent:#0f130d;--bg:#0f130d;--surface:#141a11;--raised:#1b2217;--line:#2a3324;--ink:#ece7d6;--ink-2:#bdb8a4;--ink-3:#96927d;}.ds-chk{display:flex;gap:.75rem;align-items:flex-start;color:var(--ink);font:16px/1.5 'Barlow',sans-serif}.ds-chk input{appearance:none;width:1.2rem;height:1.2rem;margin-top:.15rem;border:1.5px solid var(--ink-3);border-radius:2px;background:transparent;cursor:pointer;transition:background-color 120ms,border-color 120ms}.ds-chk input:hover{border-color:var(--accent)}.ds-chk input:checked{background:var(--accent);border-color:var(--accent)}.ds-chk input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.ds-chk input:checked+span{color:var(--ink-3);text-decoration:line-through}"
+      "css": ":host{--accent:#6fd0b0;--on-accent:#0d0c0a;--bg:#0d0c0a;--surface:#14120f;--raised:#1c1a16;--line:#2e2b25;--frame:#5a5446;--ink:#ece4cf;--ink-2:#c4bca6;--ink-3:#9c947f}.ds-chk{display:flex;gap:.75rem;align-items:flex-start;color:var(--ink);font:16px/1.5 'Barlow',sans-serif}.ds-chk input{appearance:none;flex:none;width:1.2rem;height:1.2rem;margin:.15rem 0 0;border:1.5px solid var(--ink-3);border-radius:4px;background:transparent;cursor:pointer;transition:background-color 120ms,border-color 120ms}.ds-chk input:hover{border-color:var(--accent)}.ds-chk input:checked{background:var(--accent);border-color:var(--accent)}.ds-chk input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.ds-chk input:checked+span{color:var(--ink-3);text-decoration:line-through}"
     },
     {
       "name": "Nicho sacro",
       "kind": "card",
       "refersTo": "niche-head",
-      "description": "Tópico no mundo sacro: arco com cabeça creme e auréola de progresso.",
-      "html": "<a class=\"ds-niche\" href=\"#\"><span class=\"ds-niche-head\"><svg width=\"58\" height=\"58\" viewBox=\"-12 -12 24 24\"><circle r=\"11\" fill=\"currentColor\" opacity=\".16\"/><path d=\"M0 0V-11A11 11 0 0 1 11 0Z\" fill=\"currentColor\"/><circle r=\"11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\"/></svg></span><span class=\"ds-niche-t\">O Segredo do Rosário</span><span class=\"ds-niche-m\">1/4 <em>· em andamento</em></span></a>",
-      "css": ":host{--accent:#e2b33c;--cream:#efe4c8;--wine:#8a2a33;--ink:#f0e7cf;--ink-3:#b3ab93}.ds-niche{display:flex;flex-direction:column;align-items:center;text-align:center;width:11rem;background:#22342d;border:1px solid color-mix(in oklab,var(--cream) 45%,transparent);border-radius:999px 999px 3px 3px;overflow:hidden;color:var(--ink);text-decoration:none;transition:background-color 180ms,border-color 180ms}.ds-niche:hover,.ds-niche:focus-visible{background:color-mix(in oklab,var(--wine) 22%,#22342d);border-color:var(--wine);outline:none}.ds-niche-head{display:grid;place-items:center;width:100%;padding:1.7rem 0 1.2rem;background:var(--cream);color:var(--accent);border-bottom:1px solid color-mix(in oklab,var(--accent) 50%,transparent)}.ds-niche-t{margin-top:1rem;padding:0 .75rem;font:500 1.15rem/1.375 'Newsreader Variable',Georgia,serif}.ds-niche-m{padding:.75rem .75rem 1rem;font:.875rem 'Barlow',sans-serif;color:var(--ink-3)}.ds-niche-m em{font-family:'Newsreader Variable',Georgia,serif}"
+      "description": "Tópico no mundo sacro: arco que se enche de dourado de baixo para cima, sem auréola atrás.",
+      "html": "<a class=\"ds-niche\" href=\"#\"><span class=\"ds-niche-arch\"><span class=\"ds-niche-fill\" style=\"height:45%\"></span><span class=\"ds-niche-star\"><svg width=\"13\" height=\"13\" viewBox=\"-12 -12 24 24\" fill=\"currentColor\"><path d=\"M0-12C1 -3 3-1 12 0 3 1 1 3 0 12-1 3-3 1-12 0-3-1-1-3 0-12z\"/></svg></span></span><span class=\"ds-niche-t\">Catecismo da Igreja Católica</span></a>",
+      "css": ":host{--accent:#dcaa3c;--wine:#7d2630;--surface:#1e1610;--frame:#6e5638;--ink:#efe3c8}.ds-niche{display:flex;flex-direction:column;align-items:center;gap:.8rem;width:10.5rem;padding:.8rem .8rem 1rem;border:1px solid var(--frame);border-radius:999px 999px 1rem 1rem;background:var(--surface);color:var(--ink);text-align:center;text-decoration:none;transition:background-color 180ms,border-color 180ms}.ds-niche:hover,.ds-niche:focus-visible{border-color:var(--wine);background:color-mix(in oklab,var(--wine) 22%,var(--surface));outline:none}.ds-niche-arch{position:relative;display:grid;place-items:center;width:100%;aspect-ratio:3/4;border:1px solid var(--frame);border-radius:999px 999px 0 0;overflow:hidden}.ds-niche-fill{position:absolute;inset:auto 0 0;background:var(--accent);transition:height 400ms cubic-bezier(.16,1,.3,1)}.ds-niche-star{position:relative;color:var(--accent);mix-blend-mode:difference}.ds-niche-t{font:400 1.1rem/1.2 'Newsreader Variable',Georgia,serif}"
     },
     {
       "name": "Lâmina renascentista",
       "kind": "card",
       "refersTo": "plate",
       "description": "Tópico no mundo renascença com disco vermelho de progresso.",
-      "html": "<a class=\"ds-plate\" href=\"#\"><span class=\"ds-plate-top\"><span class=\"ds-plate-t\">Disciplina e constância</span><svg width=\"52\" height=\"52\" viewBox=\"-12 -12 24 24\"><circle r=\"11.5\" fill=\"currentColor\" opacity=\".22\"/></svg></span><span class=\"ds-plate-x\">Para lembrar que o resultado vem da repetição.</span><span class=\"ds-plate-m\">2 materiais</span></a>",
-      "css": ":host{--accent:#d4543f;--ochre:#c9962e}.ds-plate{display:flex;flex-direction:column;min-height:15rem;width:20rem;padding:1.4rem 1.4rem 1.2rem;border:1px solid #3a3229;background:#1a1713;color:#ece2cc;text-decoration:none;transition:border-color 180ms,background-color 180ms}.ds-plate:hover,.ds-plate:focus-visible{border-color:var(--accent);background:#221e19;outline:none}.ds-plate-top{display:flex;justify-content:space-between;gap:1rem}.ds-plate-top svg{color:var(--accent);flex:none}.ds-plate-t{max-width:14ch;font:500 1.65rem/1.05 'Bodoni Moda Variable','Didot',serif;text-transform:uppercase;letter-spacing:-.01em}.ds-plate-x{margin-top:.75rem;font:500 1.12rem/1.375 'Cormorant Garamond',Georgia,serif;color:#c8bba0}.ds-plate-m{margin-top:auto;padding-top:1.25rem;font:.875rem 'Barlow',sans-serif;color:var(--ochre)}"
+      "html": "<a class=\"ds-plate\" href=\"#\"><span class=\"ds-plate-top\"><span class=\"ds-plate-t\">Minhas razões</span><svg width=\"52\" height=\"52\" viewBox=\"-12 -12 24 24\"><circle r=\"11.5\" fill=\"currentColor\" opacity=\".22\"/><path d=\"M0 0V-11.5A11.5 11.5 0 0 1 11.5 0Z\" fill=\"currentColor\"/></svg></span><span class=\"ds-plate-x\">Para os dias em que o ânimo cai.</span></a>",
+      "css": ":host{--accent:#d4543f;--ochre:#c9962e;--surface:#1a1713;--raised:#221e19;--frame:#3a3229;--ink:#ece2cc;--ink-2:#c9bda4}.ds-plate{display:flex;flex-direction:column;min-height:15rem;width:20rem;padding:1.4rem 1.4rem 1.2rem;border:1px solid var(--frame);border-radius:1.5rem 1.5rem 1.5rem .3rem;background:var(--surface);color:var(--ink);text-decoration:none;transition:border-color 180ms,background-color 180ms}.ds-plate:hover,.ds-plate:focus-visible{border-color:var(--accent);background:var(--raised);outline:none}.ds-plate-top{display:flex;justify-content:space-between;gap:1rem}.ds-plate-top svg{color:var(--accent);flex:none}.ds-plate-t{max-width:14ch;font:500 1.65rem/1.05 'Bodoni Moda Variable','Didot',serif;text-transform:uppercase;letter-spacing:-.01em}.ds-plate-x{margin-top:.75rem;color:var(--ink-2);font:italic 500 1.12rem/1.375 'Cormorant Garamond',Georgia,serif}"
+    },
+    {
+      "name": "Capa do módulo",
+      "kind": "custom",
+      "refersTo": "cover",
+      "description": "Cabeçalho provisório do mundo mapa: foto com filtro de filme, faixa vertical e etiqueta preta. Aqui a foto vira um degradê.",
+      "html": "<div class=\"ds-cover\"><span class=\"ds-cover-photo\"></span><div class=\"ds-band\"><span class=\"ds-band-t\">PROFISSIONAL</span><span class=\"ds-fine\">✦ 4 etapas</span></div><div class=\"ds-sticker\"><h1>Estudos profissionais</h1><p>Roadmap de Engenharia de Dados + IA</p><p class=\"ds-fine ds-credit\">Foto: Stellan Johansson</p></div></div>",
+      "css": ":host{--accent:#6fd0b0;--ink:#ece4cf;--ink-2:#c9c0aa;--ink-3:#a39a84}.ds-cover{position:relative;width:40rem;height:24rem;overflow:clip;border:1px solid #5a5446;border-radius:1.5rem;background:#0d0c0a;color:var(--ink);container-type:size}.ds-cover-photo{position:absolute;inset:0;background:linear-gradient(180deg,#8fb7c4 0%,#c9d6cf 45%,#5f7d6c 70%,#3a4a3c 100%);filter:saturate(.66) contrast(.86) brightness(1.05) sepia(.18) hue-rotate(-8deg)}.ds-band{position:absolute;top:1.5rem;left:1.5rem;bottom:1.5rem;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:1.4rem .8rem 1.1rem 1.3rem;background:#0d0c0a;color:var(--accent)}.ds-band-t{writing-mode:vertical-rl;line-height:1;font:400 min(calc(80cqh / (12 * .9)),7rem)/1 'Gloock','Bodoni Moda Variable',serif}.ds-fine{writing-mode:vertical-rl;font:500 .72rem/1.3 'Archivo Narrow Variable','Barlow',sans-serif;letter-spacing:.08em;text-transform:uppercase}.ds-sticker{position:absolute;right:1.5rem;bottom:1.5rem;width:48%;padding:1.75rem 1.75rem 1.25rem;background:#0d0c0a}.ds-sticker h1{margin:0;font:400 2.3rem/1.2 'Gloock','Bodoni Moda Variable',serif}.ds-sticker p{margin:.5rem 0 0;color:var(--ink-2);font:16px/1.5 'Barlow',sans-serif}.ds-sticker .ds-credit{writing-mode:horizontal-tb;margin-top:1rem;color:var(--ink-3)}"
     }
   ],
   "narrative": {
-    "northStar": "Cada módulo é um território",
-    "overview": "O app é um caderno de estudos para um usuário só, usado à noite no PC. A casca (navegação, controles, campos, checklist) é uma só; o interior de cada módulo é um mundo próprio, escolhido por `data-world` na raiz `.app`. O mundo padrão, `mapa`, é uma prova de orientação por pontuação (score-O): cada grupo é um mapa com terreno, cada tópico um ponto de controle numerado, visitado em qualquer ordem e sobreimpresso na cor do módulo. `sacro` (Igreja) é um pôster católico: musgo, creme, dourado e vinho, grão de impresso, nichos em arco com auréola. `renascenca` (Mental) é uma colagem renascentista: preto quente, papel sépia, vermelhão e ocre, Bodoni e Cormorant, borda de papel rasgado e disco vermelho.\n\nA densidade é de ferramenta: filetes de 1px, tabela de controles, números tabulares, sem cartões arredondados nem barras de progresso. O progresso é sempre um círculo que se preenche (vazio, fatia, cheio) e, item a item, uma fila de caixinhas de picote. Nenhum desenho liga tópicos entre si nem sugere sequência.",
+    "northStar": "Uma capa de disco impressa à mão",
+    "overview": "O app é um caderno de estudos para um usuário só, usado à noite no PC e no celular. Desde 27/10/2026 a casca segue as referências soltas em `../refs/`: capas de disco e pôsteres retrô de ficção científica, impressos em serigrafia ou risografia. Isso quer dizer preto quente com grão de impressão, tinta creme, duas ou três cores chapadas, molduras finas de canto arredondado, faixas em cápsula, glifos celestes a traço (estrela de quatro pontas, órbitas cruzadas) e letreiro condensado retrô.\n\nO interior de cada módulo é um mundo próprio, escolhido por `data-world` na raiz `.app`, e todos herdam a casca (grão, molduras, cápsulas, estrela, faixa de resumo, números em Space Mono):\n- `mapa` (Profissional, Trabalho, UEM, Repertório): prova de orientação por pontuação, impressa em duas cores. As curvas de nível são creme, a mata é retícula de pontos e o campo aberto vem na cor do módulo. Provisoriamente, o cabeçalho desses módulos é a capa deles na página inicial (ver Capa do módulo).\n- `sacro` (Igreja): manuscrito medieval em couro marrom escuro e dourado de folha, com vinho. Os nichos em arco se enchem de dourado.\n- `renascenca` (Motivação): colagem renascentista com papel rasgado, Bodoni e disco vermelho.\n\nO progresso nunca é barra de porcentagem. Cada mundo tem seu desenho que se completa (controle, arco dourado, disco), e cada item do checklist vira um traço de código de barras. Nenhum desenho liga os tópicos entre si nem sugere sequência.",
     "keyCharacteristics": [
-      "Casca única, três mundos internos trocados por `data-world`.",
-      "Cor por módulo como tinta de sobreimpressão; tinge fundo, superfícies e bordas no mundo mapa.",
-      "Progresso pelo desenho do círculo e pelos picotes, nunca por barra.",
-      "Tema escuro por padrão, claro como alternativa, em todos os mundos.",
+      "Casca única de cartaz analógico; três mundos internos trocados por `data-world`.",
+      "Cor por módulo como a cor chapada da impressão; tinge de leve o fundo no mundo mapa.",
+      "Tema escuro por padrão e claro como alternativa (papel creme), em todos os mundos.",
+      "Lateral recolhível no desktop, lembrada por aparelho (`estudos:rail` no localStorage).",
       "Obras de arte em domínio público com crédito visível, empacotadas para uso offline."
     ],
     "rules": [
       {
-        "name": "The Overprint Rule",
-        "body": "A cor do módulo é a única tinta saturada da tela e marca só o que é interativo ou estado: controle, item ativo, picote, foco. Texto corrido nunca é na cor do módulo.",
-        "section": "colors"
-      },
-      {
-        "name": "The Tinted Ground Rule",
-        "body": "No mundo mapa o módulo aberto tinge o fundo por `color-mix` sobre os neutros `--*-base`; os mundos sacro e renascença usam os neutros puros, porque o mundo já carrega a identidade.",
+        "name": "The Spot Color Rule",
+        "body": "A cor do módulo é a única tinta saturada da tela. Ela marca o que é interativo, o estado e os glifos da casca. Texto corrido nunca vai na cor do módulo; a exceção é o texto escuro (`--on-accent`) dentro da faixa chapada.",
         "section": "colors"
       },
       {
         "name": "The Ink Swap Rule",
-        "body": "Superfície clara dentro de tela escura (lâmina de papel, nicho) redefine `--ink`, `--ink-2`, `--ink-3` localmente em vez de pintar texto um a um.",
+        "body": "Quando há uma superfície clara dentro de uma tela escura (como a lâmina de papel), ela redefine `--ink`, `--ink-2` e `--ink-3` localmente, em vez de pintar cada texto um a um.",
         "section": "colors"
       },
       {
         "name": "The Shell Voice Rule",
-        "body": "Mundos trocam títulos, subtítulos e o rosto dos rótulos via `--display-face`; o corpo, campos e navegação ficam sempre em Barlow.",
+        "body": "Os mundos trocam os títulos e subtítulos. O corpo, os campos, a navegação, os rótulos de botão e a marca \"Estudos\" (`.brand`) ficam sempre na voz da casca.",
         "section": "typography"
       },
       {
-        "name": "The Tabular Rule",
-        "body": "Toda contagem (frações, minutos, números de controle) é tabular; a fração é `feito/total`, nunca porcentagem isolada salvo acima de 20 itens.",
+        "name": "The Data Face Rule",
+        "body": "A monoespaçada só aparece em números e dados, nunca em texto corrido nem como fantasia de \"técnico\".",
         "section": "typography"
       },
       {
-        "name": "The Flat Sheet Rule",
-        "body": "Nada flutua: superfícies se distinguem por tom e filete, nunca por sombra projetada.",
+        "name": "The Printed Sheet Rule",
+        "body": "Nada flutua. As superfícies se distinguem por tom, moldura de 1px e grão, nunca por sombra projetada.",
         "section": "elevation"
       },
       {
-        "name": "The Circle Means State Rule",
-        "body": "Círculo que se preenche é progresso, e só progresso: vazio = não iniciado, fatia = em andamento, cheio = concluído. Os três desenhos (controle, auréola, disco) são a mesma gramática.",
+        "name": "The Filling Mark Rule",
+        "body": "O desenho de progresso de cada mundo se completa: vazio, parcial, cheio.",
         "section": "shapes"
       }
     ],
     "dos": [
-      "Do mostrar progresso pelo círculo do mundo (controle, auréola ou disco) e pelos picotes, com a fração `feito/total` ao lado.",
-      "Do criar módulo novo escolhendo um `world` existente e um par de cores de `--accent` (escuro e claro) em `[data-module]`.",
-      "Do usar os neutros `--*-base` e deixar o `.app` misturar a cor do módulo; nunca fixar hex de fundo em componente.",
-      "Do creditar toda obra de arte com autor, título e data, ligada à fonte, e empacotar a imagem no app.",
-      "Do manter o terreno do mapa só dentro do SVG, nunca atrás de texto corrido."
+      "**Do** manter a faixa de resumo, a estrela e as molduras em todo mundo novo: são o que liga os mundos à casca.",
+      "**Do** criar módulo novo escolhendo um `world` existente e um par de cores de `--accent` (escuro e claro).",
+      "**Do** usar os neutros `--*-base` e deixar o `.app` misturar a cor do módulo.",
+      "**Do** creditar toda obra de arte com autor, título e data, ligada à fonte, e empacotar a imagem no app."
     ],
     "donts": [
-      "Don't usar barra de progresso, cartão genérico de cantos arredondados (o arco do nicho sacro é a única curva de contêiner) ou sombra projetada.",
-      "Don't desenhar linha ou seta ligando tópicos, nem qualquer sinal de sequência obrigatória; o número de controle identifica, não ordena.",
-      "Don't usar vermelho de alerta, contagem de dias ou \"atrasado\"; `--danger` é só para excluir.",
-      "Don't levar o arco do sacro ou a borda rasgada da renascença para outro mundo.",
-      "Don't pintar texto corrido na cor do módulo."
+      "**Don't** usar barra de progresso, sombra projetada ou cartões aninhados.",
+      "**Don't** pôr círculo, auréola ou disco atrás do progresso no sacro (pedido do dono em 27/10/2026).",
+      "**Don't** desenhar linha ou seta ligando tópicos, nem sugerir sequência obrigatória.",
+      "**Don't** usar vermelho de alerta, contagem de dias ou \"atrasado\"; `--danger` é só para excluir.",
+      "**Don't** levar o arco do sacro ou a borda rasgada da renascença para outro mundo.",
+      "**Don't** usar a monoespaçada fora de números e dados."
     ]
   }
 }

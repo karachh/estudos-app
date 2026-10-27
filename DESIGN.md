@@ -199,9 +199,9 @@ components:
 O app é um caderno de estudos para um usuário só, usado à noite no PC e no celular. Desde 27/10/2026 a casca segue as referências soltas em `../refs/`: capas de disco e pôsteres retrô de ficção científica, impressos em serigrafia ou risografia. Isso quer dizer preto quente com grão de impressão, tinta creme, duas ou três cores chapadas, molduras finas de canto arredondado, faixas em cápsula, glifos celestes a traço (estrela de quatro pontas, órbitas cruzadas) e letreiro condensado retrô.
 
 O interior de cada módulo é um mundo próprio, escolhido por `data-world` na raiz `.app`, e todos herdam a casca (grão, molduras, cápsulas, estrela, faixa de resumo, números em Space Mono):
-- `mapa` (Profissional, Trabalho, UEM, Cultura): prova de orientação por pontuação, impressa em duas cores. As curvas de nível são creme, a mata é retícula de pontos e o campo aberto vem na cor do módulo.
+- `mapa` (Profissional, Trabalho, UEM, Repertório): prova de orientação por pontuação, impressa em duas cores. As curvas de nível são creme, a mata é retícula de pontos e o campo aberto vem na cor do módulo. Provisoriamente, o cabeçalho desses módulos é a capa deles na página inicial (ver Capa do módulo).
 - `sacro` (Igreja): manuscrito medieval em couro marrom escuro e dourado de folha, com vinho. Os nichos em arco se enchem de dourado.
-- `renascenca` (Mental): colagem renascentista com papel rasgado, Bodoni e disco vermelho.
+- `renascenca` (Motivação): colagem renascentista com papel rasgado, Bodoni e disco vermelho.
 
 O progresso nunca é barra de porcentagem. Cada mundo tem seu desenho que se completa (controle, arco dourado, disco), e cada item do checklist vira um traço de código de barras. Nenhum desenho liga os tópicos entre si nem sugere sequência.
 
@@ -217,13 +217,14 @@ O progresso nunca é barra de porcentagem. Cada mundo tem seu desenho que se com
 Referência: `../refs/c564aeb767c39bbc03d14bd03b530fc1.jpg`, uma capa de disco com foto de montanha em filme, faixa preta vertical com letreiro laranja de alto contraste, letras miúdas e código de barras. A página fica sempre escura e não tem lateral nem abas.
 - **Capa:** foto de paisagem em tela cheia com filtro de filme (`.film-img`: saturação e contraste baixos, sépia leve). Por cima vão `.film-lift` (pretos levantados) e `.film-fade` (vinheta, céu frio e grão próprio).
   - **Faixa** (`.band`): à esquerda, com "ESTUDOS" em Gloock na vertical, em laranja de filme (`#e5582b`). O rodapé da faixa vai em letra miúda.
-  - **Etiqueta** (`.sticker`): à direita, com a apresentação, o código de barras do progresso geral, o botão "Ver os módulos" e o crédito da foto.
-- **Um banner por módulo, na ordem de `modules.ts`:** cada um é uma seção de tela cheia com a foto (`landscapes` em `data/art.ts`) ou, na Igreja e no Mental, a capa pintada.
+  - **Etiqueta** (`.sticker`): à direita, com "Caderno de Estudos Pessoal" em Gloock, o código de barras do progresso geral, o botão "Ver os módulos" e o crédito da foto.
+- **Um banner por módulo, na ordem de `modules.ts`:** cada um é uma seção de tela cheia com a foto (`landscapes` em `data/art.ts`) ou, na Igreja, a capa pintada.
   - A faixa traz o nome curto na cor do módulo.
   - A etiqueta traz o nome, a tagline, os grupos com fração (três no celular, seis no desktop), o código de barras, "Abrir <módulo>" e o crédito.
 - **Crescimento:** o banner entra recortado (`clip-path: inset(16% 14% round 1.5rem)`) e cresce até a borda enquanto a foto desaproxima (escala de 1.2 a 1.02). É uma animação ligada à rolagem: `view-timeline: --banner` na seção, que precisa de `overflow: clip`, porque `hidden` cria um contêiner de rolagem e trava a animação. Sem suporte ou com movimento reduzido, o banner aparece pronto.
 - **Código de barras:** um traço por tópico; 1px a 45% se não começado, 2px se em andamento, 4px se concluído. A legenda vai em Space Mono ("N de M itens").
-- **Tamanho do letreiro na faixa:** sai do comprimento do nome (`--len`), para o nome ocupar a altura.
+- **Tamanho do letreiro na faixa:** sai do comprimento do nome (`--len` × 0.9), para o nome ocupar a altura. Na faixa a altura de linha é 1, não 0.8: com 0.8 os acentos (Ó, Ã) saíam da caixa e encostavam na borda.
+- **Rodapé da faixa:** letra miúda a 0.72rem; nada informativo fica abaixo de 11px.
 - **Voltar ao início:** a marca "Estudos" na lateral e na barra do celular leva para `/`.
 
 ## Colors
@@ -231,7 +232,7 @@ Referência: `../refs/c564aeb767c39bbc03d14bd03b530fc1.jpg`, uma capa de disco c
 Uma cor saturada por tela, a do módulo, sobre preto quente e creme.
 
 ### Primary
-- **Cor chapada do módulo** (`--accent`): uma por módulo, com par escuro e par claro. Profissional é verde-água, Trabalho âmbar, UEM lilás, Igreja dourado de folha, Cultura azul-céu e Mental vermelhão. Vai em:
+- **Cor chapada do módulo** (`--accent`): uma por módulo, com par escuro e par claro. Profissional é verde-água, Trabalho âmbar, UEM lilás, Igreja dourado de folha, Repertório azul-céu e Motivação vermelhão (os tokens mantêm os ids `cultura` e `mental`). Vai em:
   - faixa de resumo, glifos (estrela e órbita), botão primário;
   - controles, traços marcados, frações de grupo, foco e cursor de texto.
 
@@ -265,14 +266,14 @@ Uma cor saturada por tela, a do módulo, sobre preto quente e creme.
 **Character:** letreiro condensado de capa retrô em caixa-alta para títulos e rótulos de botão, grotesca neutra no corpo e monoespaçada de etiqueta técnica para os números.
 
 ### Hierarchy
-- **Display** (800, 3.5rem no celular e 5.5rem no desktop, 0.9, caixa-alta): nome do módulo dentro da moldura do cabeçalho. O sacro usa o mesmo letreiro sobre a pintura; a renascença usa Bodoni 500 na cor do módulo.
+- **Display** (800, 3.5rem no celular e 5.5rem no desktop, 0.9, caixa-alta): nome do módulo dentro da moldura do cabeçalho. O sacro usa o mesmo letreiro sobre a pintura; a renascença usa Bodoni 500 na cor do módulo, com o tamanho tirado da largura da coluna e do número de letras (`min(6rem, 130cqw / --len)`), para nome comprido não invadir a pintura. Nos módulos com capa provisória, o nome vai em Gloock na etiqueta.
 - **Headline** (800, 2.1 a 2.6rem): título do grupo, e do tópico a 2.6 a 3.4rem.
   - Sacro: Young Serif. Renascença: Bodoni.
 - **Title** (800, 1.5rem, 0.03em): cabeçalho de bloco, com estrela na frente e filete até a borda.
   - Sacro: Young Serif com filete em degradê. Renascença: Bodoni, com um disco no lugar da estrela.
 - **Body** (400, 16px, 1.5, números tabulares): texto corrido em `max-w-prose`; as anotações vão até 75ch.
 - **Label** (700, 1.02rem, 0.05em, caixa-alta): rótulo de botão, sempre no letreiro, mesmo no mundo renascença.
-- **Data** (Space Mono): resumo na faixa a 0.8rem, número do controle com dois dígitos (01, 02…), frações e selos.
+- **Data** (Space Mono): resumo na faixa a 0.8rem, número do controle com dois dígitos (01, 02…), frações e selos (selo a 0.72rem, o menor tamanho de texto informativo).
 
 ### Named Rules
 **The Shell Voice Rule.** Os mundos trocam os títulos e subtítulos. O corpo, os campos, a navegação, os rótulos de botão e a marca "Estudos" (`.brand`) ficam sempre na voz da casca.
@@ -323,6 +324,13 @@ O sistema é plano, sem sombra de caixa: a profundidade vem do tom e da moldura.
 - Cápsula de borda fina na cor da moldura, fundo transparente, rótulo no letreiro. No hover a borda fica na cor do módulo, com 8% de fundo.
 - **Primary:** cor do módulo chapada com `--on-accent`.
 - **Ghost:** sem borda até o hover. É também a base dos atalhos de grupo (Barlow, com a marca de progresso e a fração em mono).
+
+### Capa do módulo (provisória, mundo mapa)
+Enquanto Profissional, Trabalho, UEM e Repertório não ganham mundo próprio, o cabeçalho deles repete a capa da página inicial (`FilmHeader` em `ModulePage.tsx`, componentes `Film` e `Band` em `components/Cover.tsx`).
+- Moldura de 1.5rem de raio, 30rem de altura no celular e 34rem no desktop, sempre escura (troca as tintas localmente, como a página inicial).
+- Foto com o filtro de filme, faixa preta vertical com o nome curto na cor do módulo e a contagem de grupos, e etiqueta preta com o nome em Gloock, a tagline e o crédito.
+- O letreiro da faixa usa a altura da moldura (`cqh`), não a da tela.
+- A faixa de resumo continua logo abaixo. Sai quando o módulo ganhar mundo próprio.
 
 ### Faixa de resumo
 Cápsula chapada na cor do módulo, embaixo do cabeçalho de todos os mundos. Leva a estrela e o resumo em Space Mono ("N de M itens marcados · % · N em andamento").
