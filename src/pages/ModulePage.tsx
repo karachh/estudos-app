@@ -57,7 +57,7 @@ export default function ModulePage() {
         <header>
           <div className="frame relative overflow-hidden px-6 pb-7 pt-10 md:px-10 md:pt-14">
             <Orbit className="pointer-events-none absolute right-6 top-1/2 hidden w-60 -translate-y-1/2 text-accent xl:block" />
-            <h1 className="display relative max-w-[12ch] text-[3.5rem] md:text-[5.5rem]">{mod.label}</h1>
+            <h1 className="display relative max-w-[12ch] text-display">{mod.label}</h1>
             <p className="relative mt-4 max-w-[34rem] text-lg text-ink-2">{mod.tagline}</p>
           </div>
           <SummaryStrip summary={summary} />
@@ -76,7 +76,7 @@ export default function ModulePage() {
               onClick={() => document.getElementById(`group-${g.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               <ProgressMark world={mod.world} p={groupProgress(g)} size={mod.world === 'sacro' ? 18 : 16} />
-              <span className="font-sans text-[0.95rem] font-medium">{g.title}</span>
+              <span className="font-sans text-meta font-medium">{g.title}</span>
               {groupProgress(g).total > 0 && <Fraction p={groupProgress(g)} className="font-sans text-sm" />}
             </button>
           ))}
@@ -146,12 +146,12 @@ function SacredHeader({ mod, summary }: { mod: AppModule; summary: string }) {
       {/* Filete dourado por dentro, como a moldura de um painel */}
       <div className="pointer-events-none absolute inset-2.5 rounded-[1.1rem] border border-[color-mix(in_oklab,var(--accent)_55%,transparent)]" />
       <div className="relative flex min-h-[23rem] flex-col justify-end px-6 pb-7 pt-14 text-[#f0e7cf] md:min-h-[26rem] md:px-10">
-        <h1 className="display relative self-start text-[5rem] leading-[0.85] md:text-[6rem]">
+        <h1 className="display relative self-start text-display leading-[0.85]">
           {mod.label}
           <Sparkle size={22} className="absolute -right-8 -top-3 text-accent" />
           <Sparkle size={11} className="absolute -right-11 top-5 text-accent" />
         </h1>
-        <p className="italic-serif mt-3 max-w-[26rem] text-[1.45rem] leading-snug">{mod.tagline}</p>
+        <p className="italic-serif mt-3 max-w-[26rem] text-lead leading-snug">{mod.tagline}</p>
         <p className="mt-6 text-xs text-[#c9bf9f]">
           <a href={igrejaCover.source} target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:underline">
             {igrejaCover.credit}
@@ -175,7 +175,7 @@ function FilmHeader({ mod, summary, groupCount }: { mod: AppModule; summary: str
           <Band title={mod.short} foot={`${groupCount} ${groupCount === 1 ? mod.groupLabel : plural(mod.groupLabel)}`} />
         </div>
         <div className="sticker">
-          <h1 className="gloock-text text-[2rem] leading-tight md:text-[2.6rem]">{mod.label}</h1>
+          <h1 className="gloock-text text-cover leading-tight">{mod.label}</h1>
           <p className="mt-2 text-ink-2">{mod.tagline}</p>
           <p className="fine mt-4 text-ink-3">
             <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:text-ink">
@@ -208,7 +208,7 @@ function RenaissanceHeader({ mod, summary }: { mod: AppModule; summary: string }
           {mod.label}
         </h1>
         <span className="plate-rule mt-6 w-10" />
-        <p className="garamond mt-5 max-w-[24rem] text-[1.6rem] leading-snug italic">{mod.tagline}</p>
+        <p className="garamond mt-5 max-w-[24rem] text-lead leading-snug italic">{mod.tagline}</p>
       </div>
       {cover && (
         <figure className="relative">
@@ -297,7 +297,7 @@ function GroupSection({
                 loading="lazy"
               />
             )}
-            <figcaption className="mt-1.5 text-[0.7rem] leading-tight text-ink-3">
+            <figcaption className="mt-1.5 text-micro leading-tight text-ink-3">
               <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:underline">
                 {art.credit}
               </a>
@@ -307,14 +307,14 @@ function GroupSection({
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
-              <h2 id={`gh-${group.id}`} className={sacred ? 'wide-serif text-[1.9rem] sm:text-[2.3rem]' : renaissance ? 'bodoni text-[2rem] sm:text-[2.5rem]' : 'display text-[2.1rem] sm:text-[2.6rem]'}>
+              <h2 id={`gh-${group.id}`} className={`text-headline ${sacred ? 'wide-serif' : renaissance ? 'bodoni' : 'display'}`}>
                 {group.title}
               </h2>
               {group.subtitle && <p className={`mt-1.5 text-ink-3 ${sacred ? 'italic-serif text-lg' : renaissance ? 'garamond text-xl italic' : ''}`}>{group.subtitle}</p>}
             </div>
             {progress.total > 0 && (
               <p className="shrink-0 text-right leading-none">
-                <span className="display text-[2rem] text-accent sm:text-[2.6rem]">
+                <span className="display text-headline text-accent">
                   {progress.done}
                   <span className="text-ink-3">/{progress.total}</span>
                 </span>
@@ -429,13 +429,13 @@ function ControlRow({
       onBlur={() => onLight(null)}
     >
       <span className="flex items-center gap-1.5">
-        <span className="mono w-6 text-right text-[0.95rem] font-bold text-accent">{String(index + 1).padStart(2, '0')}</span>
+        <span className="mono w-6 text-right text-meta font-bold text-accent">{String(index + 1).padStart(2, '0')}</span>
       </span>
       <span className="min-w-0">
         <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
           <span className="font-semibold">{topic.title}</span>
           {topic.badge && (
-            <span className="mono rounded-full border border-accent px-2 text-[0.72rem] uppercase text-accent">
+            <span className="mono rounded-full border border-accent px-2 text-micro uppercase text-accent">
               {topic.badge}
             </span>
           )}
@@ -476,7 +476,7 @@ function Niche({
         <span className="niche-fill" style={{ height: `${ratio * 100}%` }} />
         <Sparkle size={26} className={`niche-star ${ratio >= 0.5 ? 'over' : ''}`} />
       </span>
-      <span className="mt-4 px-3 font-serif text-[1.15rem] font-medium leading-snug">{topic.title}</span>
+      <span className="mt-4 px-3 font-serif text-reading font-medium leading-snug">{topic.title}</span>
       {topic.flow && <span className="mt-1 px-3 text-sm text-ink-3">{topic.flow}</span>}
       <span className="mt-auto px-3 pb-4 pt-3 text-sm text-ink-3">
         {p.total > 0 ? <Fraction p={p} /> : contents(materials)}
@@ -504,12 +504,12 @@ function Plate({
   return (
     <Link to={`/${mod.id}/t/${topic.id}`} className={`plate w-full ${paper ? 'plate-paper torn' : ''}`}>
       <span className="flex items-start justify-between gap-4">
-        <span className="bodoni max-w-[14ch] text-[1.65rem]">{topic.title}</span>
+        <span className="bodoni max-w-[14ch] text-card">{topic.title}</span>
         <span className="land block shrink-0" style={{ animationDelay: `${index * 60}ms` }}>
           <DiskMark p={p} size={52} />
         </span>
       </span>
-      {topic.summary && <span className="plate-text garamond mt-3 line-clamp-3 text-[1.12rem] leading-snug">{topic.summary}</span>}
+      {topic.summary && <span className="plate-text garamond mt-3 line-clamp-3 text-reading leading-snug">{topic.summary}</span>}
       <span className="plate-meta mt-auto pt-5 text-sm">{p.total > 0 ? <Fraction p={p} /> : contents(materials)}</span>
     </Link>
   )

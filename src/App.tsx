@@ -77,7 +77,7 @@ export default function App() {
       {/* Navegação lateral (desktop), recolhível */}
       <aside className="sticky top-0 hidden h-dvh flex-col border-r border-line bg-(--rail) py-5 md:flex">
         <div className={`mb-7 flex items-center ${collapsed ? 'flex-col gap-3 px-2' : 'justify-between pl-5 pr-3'}`}>
-          <Link to="/" className="brand display flex items-center gap-2.5 text-[1.9rem]" title="Início" aria-label={collapsed ? 'Início' : undefined}>
+          <Link to="/" className="brand display flex items-center gap-2.5 text-brand" title="Início" aria-label={collapsed ? 'Início' : undefined}>
             <Logo className="size-8" />
             {!collapsed && 'Estudos'}
           </Link>
@@ -112,7 +112,7 @@ export default function App() {
             aria-expanded={!collapsed}
           >
             <Icon name={collapsed ? 'chevron' : 'back'} />
-            {!collapsed && <span className="text-[0.95rem]">Recolher</span>}
+            {!collapsed && <span className="text-meta">Recolher</span>}
           </button>
         </div>
       </aside>
@@ -146,7 +146,7 @@ export default function App() {
             key={m.id}
             to={`/${m.id}`}
             data-module={m.id}
-            className={({ isActive }) => `nav-tab min-w-[3.6rem] shrink-0 flex-1 px-1 pb-3 pt-3 text-[0.75rem] ${isActive ? 'active' : ''}`}
+            className={({ isActive }) => `nav-tab min-w-[3.6rem] shrink-0 flex-1 px-1 pb-3 pt-3 text-micro ${isActive ? 'active' : ''}`}
           >
             {m.short}
           </NavLink>

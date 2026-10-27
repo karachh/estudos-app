@@ -29,7 +29,7 @@ export function Checklist({
         return (
           <section key={section} aria-labelledby={`sec-${section}`}>
             <div className="mb-2 flex items-baseline justify-between">
-              <h3 id={`sec-${section}`} className="sub-head display text-[1.35rem] text-ink-2">
+              <h3 id={`sec-${section}`} className="sub-head display text-lead text-ink-2">
                 {section}
               </h3>
               {list.length > 0 && (

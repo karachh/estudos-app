@@ -23,7 +23,7 @@ function Barcode({ items, label }: { items: Progress[]; label: string }) {
           )
         })}
       </span>
-      <span className="mono mt-1.5 block text-[0.72rem] tracking-[0.2em]">{label}</span>
+      <span className="mono mt-1.5 block text-micro tracking-[0.2em]">{label}</span>
     </div>
   )
 }
@@ -43,7 +43,7 @@ export default function HomePage() {
         <Film art={landscapes.inicio} eager />
         <Band title="Estudos" foot={`${modules.length} módulos · ${total.total} itens`} />
         <div className="sticker">
-          <p className="gloock-text text-[1.45rem] leading-snug md:text-[1.7rem]">
+          <p className="gloock-text text-cover leading-tight">
             Caderno de Estudos Pessoal
           </p>
           <div className="mt-6">
@@ -89,7 +89,7 @@ function ModuleBanner({ mod, groups, topics }: { mod: AppModule; groups: { title
         {art && <Film art={art} />}
         <Band title={mod.short} foot={`${groups.length} ${groups.length === 1 ? mod.groupLabel : plural(mod.groupLabel)}`} />
         <div className="sticker banner-copy">
-          <h2 id={`bn-${mod.id}`} className="gloock-text text-[1.9rem] leading-tight md:text-[2.3rem]">
+          <h2 id={`bn-${mod.id}`} className="gloock-text text-cover leading-tight">
             {mod.label}
           </h2>
           <p className="mt-2 text-ink-2">{mod.tagline}</p>

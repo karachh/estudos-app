@@ -76,7 +76,7 @@ export default function TopicPage() {
           <ProgressMark world={mod.world} p={progress} size={mod.world === 'mapa' ? 64 : 72} />
           {number > 0 && (
             <span
-              className={`mono absolute -right-3 -top-3 text-[1.05rem] font-bold text-accent ${mod.world !== 'mapa' ? 'hidden' : ''}`}
+              className={`mono absolute -right-3 -top-3 text-meta font-bold text-accent ${mod.world !== 'mapa' ? 'hidden' : ''}`}
               style={{ textShadow: '0 0 6px var(--bg), 0 0 3px var(--bg)' }}
             >
               {String(number).padStart(2, '0')}
@@ -87,10 +87,10 @@ export default function TopicPage() {
           <AutoTextarea
             className={`w-full bg-transparent leading-tight outline-none focus-visible:underline ${
               mod.world === 'sacro'
-                ? 'wide-serif text-[2.4rem] md:text-[3rem]'
+                ? 'wide-serif text-topic'
                 : mod.world === 'renascenca'
-                  ? 'bodoni text-[2.4rem] md:text-[3.2rem]'
-                  : 'display text-[2.6rem] md:text-[3.4rem]'
+                  ? 'bodoni text-topic'
+                  : 'display text-topic'
             }`}
             value={topic.title}
             onChange={(e) => db.topics.update(id, { title: e.target.value.replace(/\n/g, ' ') })}
@@ -100,7 +100,7 @@ export default function TopicPage() {
           {topic.flow && <p className="mt-1 text-ink-3">{topic.flow}</p>}
           <AutoTextarea
             className={`mt-2 w-full max-w-prose bg-transparent text-lg text-ink-2 outline-none placeholder:text-ink-3 focus-visible:underline ${
-              mod.world === 'sacro' ? 'italic-serif text-[1.3rem]' : mod.world === 'renascenca' ? 'garamond text-[1.4rem] italic' : ''
+              mod.world === 'sacro' ? 'italic-serif text-lead' : mod.world === 'renascenca' ? 'garamond text-lead italic' : ''
             }`}
             value={topic.summary}
             placeholder="Para que serve este conteúdo?"
@@ -128,7 +128,7 @@ export default function TopicPage() {
                 style={{ objectPosition: art.position }}
               />
             )}
-            <figcaption className="mt-1.5 text-[0.7rem] leading-tight text-ink-3">
+            <figcaption className="mt-1.5 text-micro leading-tight text-ink-3">
               <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:underline">
                 {art.credit}
               </a>

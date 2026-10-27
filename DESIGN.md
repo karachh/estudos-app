@@ -85,7 +85,7 @@ typography:
     letterSpacing: "0.03em"
   body:
     fontFamily: "'Barlow', system-ui, sans-serif"
-    fontSize: "16px"
+    fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.5
     fontFeature: "tnum"
@@ -275,7 +275,25 @@ Uma cor saturada por tela, a do módulo, sobre preto quente e creme.
 - **Label** (700, 1.02rem, 0.05em, caixa-alta): rótulo de botão, sempre no letreiro, mesmo no mundo renascença.
 - **Data** (Space Mono): resumo na faixa a 0.8rem, número do controle com dois dígitos (01, 02…), frações e selos (selo a 0.72rem, o menor tamanho de texto informativo).
 
+### Escala de papéis
+Todo tamanho de texto sai de um token de papel em `src/index.css` (`--type-*`, classes `text-*` do Tailwind). Nenhum componente escreve tamanho solto (`text-[1.45rem]`).
+- `micro` (0.72rem): créditos, letra miúda, selos, abas do celular. É o piso do texto informativo.
+- `meta` (0.95rem): atalhos de grupo, número do controle, "Recolher".
+- `body` (1rem, nunca em px, para respeitar a letra escolhida no navegador).
+- `reading` (1.15rem): texto de leitura dentro de nicho e lâmina.
+- `lead` (1.4rem; 1.55rem na renascença, porque a Cormorant tem olho pequeno): tagline, subtítulo do tópico, seção do checklist.
+- `card` (1.65rem): título da lâmina.
+- `brand` (1.9rem): marca "Estudos".
+- `cover` (1.9 a 2.3rem, fluido): título na etiqueta das capas.
+- `headline` (2.1 a 2.6rem; sacro 1.9 a 2.3; renascença 2 a 2.5): título e contagem do grupo.
+- `topic` (2.6 a 3.4rem; sacro 2.4 a 3; renascença 2.4 a 3.2): título do tópico.
+- `display` (3.5 a 5.5rem; sacro 5 a 6): nome do módulo.
+
+Os mundos só redefinem o valor do token em `[data-world='sacro']` e `[data-world='renascenca']`, porque cada voz tem outro tamanho aparente. Títulos usam `text-wrap: balance` e parágrafos `text-wrap: pretty`.
+
 ### Named Rules
+**The Role Scale Rule.** Tamanho de texto é papel, não número: um texto novo escolhe um dos papéis acima. Se nenhum servir, cria-se um papel novo na escala, nunca um tamanho solto no componente.
+
 **The Shell Voice Rule.** Os mundos trocam os títulos e subtítulos. O corpo, os campos, a navegação, os rótulos de botão e a marca "Estudos" (`.brand`) ficam sempre na voz da casca.
 
 **The Data Face Rule.** A monoespaçada só aparece em números e dados, nunca em texto corrido nem como fantasia de "técnico".

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-27T20:03:31+00:00",
+  "generatedAt": "2026-10-27T20:11:16+00:00",
   "title": "Design System: Estudos",
   "extensions": {
     "colorMeta": {
@@ -976,6 +976,11 @@
         "name": "The Ink Swap Rule",
         "body": "Quando há uma superfície clara dentro de uma tela escura (como a lâmina de papel), ela redefine `--ink`, `--ink-2` e `--ink-3` localmente, em vez de pintar cada texto um a um.",
         "section": "colors"
+      },
+      {
+        "name": "The Role Scale Rule",
+        "body": "Tamanho de texto é papel, não número: um texto novo escolhe um dos papéis acima. Se nenhum servir, cria-se um papel novo na escala, nunca um tamanho solto no componente.",
+        "section": "typography"
       },
       {
         "name": "The Shell Voice Rule",
