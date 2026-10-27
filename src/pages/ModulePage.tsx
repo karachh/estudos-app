@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { AddForm } from '../components/AddForm'
+import { Band, Film } from '../components/Cover'
 import { CourseMap } from '../components/CourseMap'
 import { Icon } from '../components/Icon'
 import { ControlMark, DiskMark, Fraction, Orbit, ProgressMark, Punches, Sparkle } from '../components/Marks'
@@ -8,7 +9,7 @@ import { plural } from '../core/geometry'
 import { db, deleteTopicData, type Group, type Topic } from '../core/db'
 import { getModule, type AppModule } from '../core/modules'
 import { sumProgress, useModuleData, type Progress } from '../core/queries'
-import { artFor, covers } from '../data/art'
+import { artFor, covers, landscapes } from '../data/art'
 
 const started = (p?: Progress) => !!p && p.done > 0 && p.done < p.total
 
@@ -50,6 +51,8 @@ export default function ModulePage() {
         <SacredHeader mod={mod} summary={summary} />
       ) : mod.world === 'renascenca' ? (
         <RenaissanceHeader mod={mod} summary={summary} />
+      ) : landscapes[mod.id] ? (
+        <FilmHeader mod={mod} summary={summary} groupCount={groups.length} />
       ) : (
         <header>
           <div className="frame relative overflow-hidden px-6 pb-7 pt-10 md:px-10 md:pt-14">
@@ -156,6 +159,31 @@ function SacredHeader({ mod, summary }: { mod: AppModule; summary: string }) {
         </p>
       </div>
     </div>
+      <SummaryStrip summary={summary} />
+    </header>
+  )
+}
+
+// Provisório, até o módulo ganhar um mundo próprio: o cabeçalho repete a capa dele na página inicial.
+function FilmHeader({ mod, summary, groupCount }: { mod: AppModule; summary: string; groupCount: number }) {
+  const art = landscapes[mod.id]
+  return (
+    <header>
+      <div className="cover">
+        <Film art={art} eager />
+        <div aria-hidden="true">
+          <Band title={mod.short} foot={`${groupCount} ${groupCount === 1 ? mod.groupLabel : plural(mod.groupLabel)}`} />
+        </div>
+        <div className="sticker">
+          <h1 className="gloock-text text-[2rem] leading-tight md:text-[2.6rem]">{mod.label}</h1>
+          <p className="mt-2 text-ink-2">{mod.tagline}</p>
+          <p className="fine mt-4 text-ink-3">
+            <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:text-ink">
+              Foto: {art.credit}
+            </a>
+          </p>
+        </div>
+      </div>
       <SummaryStrip summary={summary} />
     </header>
   )

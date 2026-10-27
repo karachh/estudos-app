@@ -136,7 +136,7 @@ export const igreja: ModuleContent = {
         curso('Ferro e Fogo', 'ferro-e-fogo', 20, 'Confira o tema na página do curso.'),
         {
           title: 'Esperança nos dias difíceis',
-          summary: 'Pregações curtas para reler quando o ânimo cair. Também aparecem no módulo Mental.',
+          summary: 'Pregações curtas para reler quando o ânimo cair. Também aparecem no módulo Motivação.',
           sections: { Praticar: ['Assistir a uma pregação e rezar em seguida'] },
           links: [
             yt('KI2dZWddYTQ', 'Com Esperança Vencerás a Tribulação - Padre Paulo Ricardo'),

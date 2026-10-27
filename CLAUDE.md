@@ -13,7 +13,7 @@ Um modelo só para todos os módulos: módulo > grupo (etapa, disciplina, assunt
 - Dexie v1 era o protótipo (`pessoal_*`); v2 migra para o modelo atual; v3 remove as tabelas antigas.
 
 ## Módulos (`src/core/modules.ts`)
-profissional, trabalho, uem, igreja, cultura, mental. As telas são as mesmas para todos (`pages/ModulePage.tsx` e `pages/TopicPage.tsx`).
+profissional, trabalho, uem, igreja, cultura, mental. Os ids `cultura` e `mental` aparecem na tela como Repertório e Motivação (renomeados em 27/10/2026; o id ficou para não perder dados salvos). As telas são as mesmas para todos (`pages/ModulePage.tsx` e `pages/TopicPage.tsx`).
 Para criar um módulo: adicione em `modules.ts` (com o `world`), uma cor em `src/index.css` (`[data-module='x']`, tema escuro e claro) e o conteúdo em `src/data/content/`.
 Cada módulo tem a sua cor, e `.app` mistura essa cor no fundo e tinge a lateral (`--*-base` são os neutros). O tema padrão é escuro, com alternância para claro.
 
@@ -21,8 +21,9 @@ Cada módulo tem a sua cor, e `.app` mistura essa cor no fundo e tinge a lateral
 Mundo por módulo decidido com o dono em 27/10/2026 (ver `.impeccable/surfaces/src-app-tsx.md`); no mesmo dia ele pediu a casca "analógica/indie/antiga" das referências soltas em `../refs/` (capas de disco e pôsteres retrô de ficção científica). Detalhes em `DESIGN.md`.
 - Casca comum a todos os mundos: preto quente com grão de impressão, tinta creme, molduras finas de canto arredondado (`.frame`), botões em cápsula, estrela de quatro pontas como glifo (`Sparkle`, `Orbit` em `components/Marks.tsx`), faixa chapada com o resumo embaixo do cabeçalho (`.strip`), letreiro Big Shoulders Display e Space Mono só para números.
 - Lateral recolhível no desktop (`useRail` em `App.tsx`, guardada em `estudos:rail`).
-- Página inicial (`/`, `pages/HomePage.tsx`): capa de disco com foto de montanha em filtro de filme analógico e, rolando, um banner por módulo que cresce até a tela cheia. Referência `../refs/c564aeb767c39bbc03d14bd03b530fc1.jpg`. Fontes da capa: Gloock (letreiro) e Archivo Narrow (letra miúda). Fotos em `src/assets/paisagens/`, todas CC0 do Wikimedia Commons, com crédito em `landscapes` (`data/art.ts`). Módulo novo precisa de uma foto ali, senão o banner fica sem imagem.
-- `mapa` (padrão: Profissional, Trabalho, UEM, Cultura): prova de orientação por pontuação impressa em duas cores. Cada grupo tem um mapa (`components/CourseMap.tsx`, terreno gerado por `core/terrain.ts` com o id do grupo como semente) e a tabela de controles. Os tópicos NÃO são sequenciais: sem linha ligando controles, todos clicáveis em qualquer ordem.
+- Página inicial (`/`, `pages/HomePage.tsx`): capa de disco com foto de montanha em filtro de filme analógico e, rolando, um banner por módulo que cresce até a tela cheia. Referência `../refs/c564aeb767c39bbc03d14bd03b530fc1.jpg`. Fontes da capa: Gloock (letreiro) e Archivo Narrow (letra miúda). Fotos em `src/assets/paisagens/`, todas CC0 do Wikimedia Commons, com crédito em `landscapes` (`data/art.ts`). Módulo novo precisa de uma foto ali, senão o banner fica sem imagem. Fotos alternativas já verificadas em `../refs/paisagens/`.
+- Provisório (pedido do dono em 27/10/2026): módulos do mundo `mapa` que têm foto em `landscapes` abrem com a capa da página inicial como cabeçalho (`FilmHeader` em `ModulePage.tsx`, `.cover` em `index.css`; `Film` e `Band` em `components/Cover.tsx`). Sai quando o módulo ganhar um mundo próprio.
+- `mapa` (padrão: Profissional, Trabalho, UEM, Repertório): prova de orientação por pontuação impressa em duas cores. Cada grupo tem um mapa (`components/CourseMap.tsx`, terreno gerado por `core/terrain.ts` com o id do grupo como semente) e a tabela de controles. Os tópicos NÃO são sequenciais: sem linha ligando controles, todos clicáveis em qualquer ordem.
 - `sacro` (Igreja): manuscrito medieval, couro marrom escuro e dourado. Pintura no topo com filete dourado, nichos em arco que se enchem de dourado de baixo para cima. O dono pediu SEM círculos atrás (nada de auréola ou disco).
 - `renascenca` (Mental): colagem renascentista. Papel rasgado (máscara `.torn`), Bodoni, disco vermelho como progresso.
 - O progresso é um desenho que se completa (`components/Marks.tsx`: anel de controle, arco dourado ou disco). Um traço de código de barras por item do checklist.
@@ -49,8 +50,8 @@ Não suba o servidor na porta 5173 em testes: o dono costuma deixar o dele rodan
 
 ## Decisões / pendências
 - Dados só locais, por aparelho. Sincronizar PC e celular (Supabase) é a próxima grande etapa; anexos hoje só existem no aparelho onde foram adicionados.
-- Cultura: pedir ao dono suas referências (gostos, livros, séries, temas) e refinar o módulo. O lembrete está no próprio módulo.
-- Visual: Profissional, Trabalho, UEM e Cultura esperam referências do dono para ganhar um mundo próprio.
+- Repertório (id `cultura`): o dono mandou as referências em 27/10/2026 (newsletters sobre saúde, mente, comportamento e IA, além de documentários). Os grupos genéricos antigos (podcasts, séries, canais, literatura e fé) continuam no arquivo; o lembrete saiu.
+- Visual: Profissional, Trabalho, UEM e Repertório esperam referências do dono para ganhar um mundo próprio.
 - Igreja: os cursos do Padre Paulo Ricardo estão linkados pela lista do site; só dois aparecem como gratuitos. Confirmar quais exigem assinatura.
 - Conteúdo da UEM ainda será inserido pelo dono, disciplina a disciplina (Estrutura de Dados já veio do Notion).
 - Esta pasta fica dentro do vault do Obsidian: não alterar notas do vault (ver ../../CLAUDE.md). `_arquivo/` guarda arquivos antigos movidos em vez de apagados e está no .gitignore.

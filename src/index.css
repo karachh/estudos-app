@@ -860,6 +860,54 @@ textarea {
   }
 }
 
+/* Cabeçalho provisório dos módulos sem mundo próprio: a capa da página inicial, em moldura.
+   Escuro nos dois temas, como a capa. A letra da faixa sai da altura da moldura (cqh). */
+.cover {
+  --ink: #ece4cf;
+  --ink-2: #c9c0aa;
+  --ink-3: #a39a84;
+  position: relative;
+  height: 30rem;
+  overflow: clip;
+  border: 1px solid var(--frame);
+  border-radius: 1.5rem;
+  background: #0d0c0a;
+  color: var(--ink);
+  container-type: size;
+}
+.cover .band {
+  top: 0.75rem;
+  left: 0.75rem;
+  bottom: 42%;
+}
+.cover .band-title {
+  font-size: min(calc(36cqh / (var(--len) * 0.8)), 3.5rem);
+}
+.cover .sticker {
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.75rem;
+}
+@media (min-width: 768px) {
+  .cover {
+    height: 34rem;
+  }
+  .cover .band {
+    top: 1.5rem;
+    left: 1.5rem;
+    bottom: 1.5rem;
+  }
+  .cover .band-title {
+    font-size: min(calc(80cqh / (var(--len) * 0.8)), 7rem);
+  }
+  .cover .sticker {
+    left: auto;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    width: min(26rem, 48%);
+  }
+}
+
 /* O banner começa recortado no meio da tela e cresce até a borda conforme entra */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {

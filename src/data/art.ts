@@ -8,6 +8,7 @@ import athens from '../assets/mental/athens.jpg'
 import vitruvian from '../assets/mental/vitruvian.jpg'
 import cultura from '../assets/paisagens/cultura.jpg'
 import inicio from '../assets/paisagens/inicio.jpg'
+import mentalPhoto from '../assets/paisagens/mental.jpg'
 import profissional from '../assets/paisagens/profissional.jpg'
 import trabalho from '../assets/paisagens/trabalho.jpg'
 import uem from '../assets/paisagens/uem.jpg'
@@ -26,7 +27,7 @@ export const covers: Record<string, Artwork> = {
     src: michael,
     credit: 'Guido Reni, São Miguel Arcanjo, c. 1636',
     source: 'https://commons.wikimedia.org/wiki/File:Guido_Reni_031.jpg',
-    position: '50% 22%',
+    position: '50% 8%',
   },
   mental: {
     src: adam,
@@ -83,7 +84,7 @@ export const groupArt: Record<string, Record<string, Artwork>> = {
 export const artFor = (moduleId: string, groupTitle?: string) =>
   groupTitle ? groupArt[moduleId]?.[groupTitle] : undefined
 
-// Fotos de paisagem (CC0) da página inicial. Igreja e Mental usam a própria capa.
+// Fotos de paisagem (CC0) da página inicial. Igreja usa a própria capa.
 export const landscapes: Record<string, Artwork> = {
   inicio: {
     src: inicio,
@@ -93,24 +94,31 @@ export const landscapes: Record<string, Artwork> = {
   },
   profissional: {
     src: profissional,
-    credit: 'Anders Jildén, estrada na Islândia',
-    source: 'https://commons.wikimedia.org/wiki/File:Iceland_roads_(Unsplash).jpg',
-    position: '50% 55%',
+    credit: 'Stellan Johansson, antena de radiotelescópio',
+    source: 'https://commons.wikimedia.org/wiki/File:Sending_Signals_(Unsplash).jpg',
+    position: '50% 40%',
   },
   trabalho: {
     src: trabalho,
-    credit: 'Wann Majaw, arrozais vistos do alto',
-    source: 'https://commons.wikimedia.org/wiki/File:Rice_fields_Aerial.jpg',
+    credit: 'Albinfo, vila e lotes vistos do avião',
+    source: 'https://commons.wikimedia.org/wiki/File:Rinas_village_aerial_view.jpg',
   },
   uem: {
     src: uem,
-    credit: 'Vovogov90, trilha de floresta no outono',
-    source: 'https://commons.wikimedia.org/wiki/File:Autumn_Forest_Path_with_Tall_Trees.jpg',
+    credit: 'Victoria Heath, pátio do campus da Universidade de Toronto',
+    source: 'https://commons.wikimedia.org/wiki/File:Sir_Daniel_Wilson_Quadrangle_-_St._George_Campus,_Toronto,_Canada.jpg',
+    position: '60% 60%',
   },
   cultura: {
     src: cultura,
     credit: 'Blair Fraser, falésia verde e mar calmo',
     source: 'https://commons.wikimedia.org/wiki/File:Green_Cliff_Calm_Sea_(Unsplash).jpg',
+  },
+  mental: {
+    src: mentalPhoto,
+    credit: 'Rodion Kutsaev, árvore sozinha no campo dourado',
+    source: 'https://commons.wikimedia.org/wiki/File:Tree_in_the_golden_grassland_(Unsplash).jpg',
+    position: '35% 70%',
   },
 }
 

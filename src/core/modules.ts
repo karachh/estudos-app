@@ -1,7 +1,7 @@
 import { roadmapIntro } from '../data/roadmap'
 
 // Mundo visual do interior do módulo. 'mapa' é o padrão (prova de orientação); 'sacro' é o do Igreja;
-// 'renascenca' é o do Mental (colagem renascentista).
+// 'renascenca' é o do Motivação (colagem renascentista).
 export type World = 'mapa' | 'sacro' | 'renascenca'
 
 export interface AppModule {
@@ -74,28 +74,20 @@ export const modules: AppModule[] = [
   {
     id: 'cultura',
     world: 'mapa',
-    label: 'Cultura',
-    short: 'Cultura',
-    tagline: 'Podcasts, documentários, séries e leituras para ampliar o repertório',
-    introTitle: 'Lembrete: mande suas referências ao Claude',
-    introOpen: true,
-    intro: [
-      {
-        title: 'Esta lista ainda é um ponto de partida',
-        text: 'As sugestões daqui foram escolhidas com o pouco que o Claude sabe sobre você. Na categoria "Para enriquecer depois" há uma lista do que contar a ele (gostos, livros, séries, temas de curiosidade). Quando puder, mande esse contexto e peça para ele refinar este módulo.',
-      },
-    ],
+    label: 'Repertório',
+    short: 'Repertório',
+    tagline: 'Saúde, mente, comportamento, IA e documentários: o que vale ler, ver e ouvir',
     groupLabel: 'categoria',
     newGroup: 'Nova categoria',
     topicLabel: 'item',
-    defaultSections: ['Assistir ou ouvir', 'Anotar'],
+    defaultSections: ['Ler', 'Assistir ou ouvir', 'Anotar'],
     emptyHint: 'Crie uma categoria para guardar o que você quer ver, ouvir ou ler.',
   },
   {
     id: 'mental',
     world: 'renascenca',
-    label: 'Mental',
-    short: 'Mental',
+    label: 'Motivação',
+    short: 'Motivação',
     tagline: 'Vídeos e lembretes para os dias em que o ânimo cai',
     groupLabel: 'coleção',
     newGroup: 'Nova coleção',

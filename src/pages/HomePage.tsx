@@ -1,44 +1,11 @@
 import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
+import { Band, Film } from '../components/Cover'
 import { Icon } from '../components/Icon'
-import { Sparkle } from '../components/Marks'
 import { plural } from '../core/geometry'
 import { modules, type AppModule } from '../core/modules'
 import { sumProgress, useHomeData, type Progress } from '../core/queries'
 import { bannerFor, landscapes, type Artwork } from '../data/art'
-
-// Foto com cara de filme analógico: cores lavadas, pretos levantados, vinheta e grão.
-function Film({ art, eager }: { art: Artwork; eager?: boolean }) {
-  return (
-    <>
-      <img
-        src={art.src}
-        alt=""
-        className="film-img"
-        style={{ objectPosition: art.position }}
-        loading={eager ? 'eager' : 'lazy'}
-        decoding="async"
-      />
-      <span className="film-lift" aria-hidden="true" />
-      <span className="film-fade" aria-hidden="true" />
-    </>
-  )
-}
-
-// Faixa preta vertical com o nome em letreiro, como na capa de referência.
-function Band({ title, foot }: { title: string; foot: string }) {
-  return (
-    <div className="band">
-      <span className="band-title gloock text-accent" style={{ '--len': title.length } as CSSProperties}>
-        {title}
-      </span>
-      <span className="fine band-foot text-accent">
-        <Sparkle size={12} />
-        {foot}
-      </span>
-    </div>
-  )
-}
 
 // Código de barras do progresso: um traço por tópico, mais grosso quanto mais avançado.
 function Barcode({ items, label }: { items: Progress[]; label: string }) {
@@ -77,10 +44,7 @@ export default function HomePage() {
         <Band title="Estudos" foot={`${modules.length} módulos · ${total.total} itens`} />
         <div className="sticker">
           <p className="gloock-text text-[1.45rem] leading-snug md:text-[1.7rem]">
-            Um caderno de estudos em {modules.length} módulos, cada um com o seu mundo e o seu ritmo.
-          </p>
-          <p className="mt-3 text-ink-2">
-            Nada aqui precisa ser feito em ordem: role a página, escolha um módulo e comece por onde quiser.
+            Caderno de Estudos Pessoal
           </p>
           <div className="mt-6">
             <Barcode items={all} label={itemsLabel(total)} />
