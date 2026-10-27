@@ -1,0 +1,184 @@
+@import 'tailwindcss';
+
+@theme inline {
+  --font-serif: 'Newsreader Variable', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Schibsted Grotesk Variable', system-ui, sans-serif;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-danger: var(--danger);
+}
+
+/* Tema: grafite com texto cor de osso. Cada módulo tem uma cor de marca-texto. */
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0f1316;
+  --surface: #151a1f;
+  --raised: #1b2127;
+  --line: #262e36;
+  --ink: #e7e4db;
+  --ink-2: #a3adb4;
+  --ink-3: #78838c;
+  --on-accent: #0c1114;
+  --danger: #f08a7e;
+  --accent: #6fd0b0;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f2f3f0;
+  --surface: #fafaf8;
+  --raised: #ffffff;
+  --line: #dcdfda;
+  --ink: #171c20;
+  --ink-2: #4a555d;
+  --ink-3: #6c777e;
+  --on-accent: #ffffff;
+  --danger: #b3382b;
+  --accent: #0e8a68;
+}
+
+[data-module='profissional'] { --accent: #6fd0b0; }
+[data-module='trabalho'] { --accent: #e8b04a; }
+[data-module='uem'] { --accent: #b69cff; }
+[data-module='igreja'] { --accent: #ea8f98; }
+
+:root[data-theme='light'] [data-module='profissional'] { --accent: #0e8a68; }
+:root[data-theme='light'] [data-module='trabalho'] { --accent: #a76400; }
+:root[data-theme='light'] [data-module='uem'] { --accent: #6544d6; }
+:root[data-theme='light'] [data-module='igreja'] { --accent: #b23a4c; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+/* Campos de texto */
+.field {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  color: var(--ink);
+}
+.field::placeholder {
+  color: var(--ink-3);
+}
+.field:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* Botões */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  font-weight: 500;
+  border: 1px solid var(--line);
+  background: var(--raised);
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn:hover {
+  border-color: var(--ink-3);
+}
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+.btn-primary:hover {
+  border-color: var(--accent);
+  filter: brightness(1.08);
+}
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--ink-2);
+}
+.btn-ghost:hover {
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+/* Checkbox na cor do módulo */
+.check {
+  appearance: none;
+  flex: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.2rem;
+  border: 1.5px solid var(--ink-3);
+  border-radius: 0.3rem;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  background: transparent;
+}
+.check:hover {
+  border-color: var(--accent);
+}
+.check:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.check:checked::after {
+  content: '';
+  width: 0.7rem;
+  height: 0.7rem;
+  background: var(--on-accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.8' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.8' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Único momento de movimento: as barras de progresso crescem ao abrir a tela */
+@keyframes grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+.fill {
+  transform-origin: left;
+  animation: grow 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill {
+    animation: none;
+  }
+}

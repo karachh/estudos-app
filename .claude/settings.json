@@ -1,0 +1,42 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Edit(src/**)",
+      "Bash(git add .)",
+      "Bash(git commit*)",
+      "Bash(git push*)",
+      "PowerShell(git add .)",
+      "PowerShell(git commit*)",
+      "PowerShell(git push*)",
+      "Bash(npm run *)",
+      "Bash(npm install*)",
+      "Bash(npm ci)",
+      "Bash(npx tsc*)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "PowerShell(npm run *)",
+      "PowerShell(npm install*)",
+      "PowerShell(npm ci)",
+      "PowerShell(npx tsc*)",
+      "PowerShell(git status*)",
+      "PowerShell(git diff*)",
+      "PowerShell(git log*)"
+    ],
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "PowerShell(git push --force*)",
+      "PowerShell(git push -f*)",
+      "Bash(rm *)",
+      "PowerShell(Remove-Item*)",
+      "PowerShell(rm *)",
+      "PowerShell(del *)"
+    ]
+  }
+}
