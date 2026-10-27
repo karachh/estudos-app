@@ -18,7 +18,7 @@ O dono não acompanha o código; o Claude mantém o app.
 
 ## Product Purpose
 
-Organizar todos os estudos da vida dele num lugar só, separados em módulos (Profissional, Trabalho, UEM, Igreja, Cultura, Mental).
+Organizar todos os estudos da vida dele num lugar só, separados em módulos (Profissional, Trabalho, UEM, Igreja, Repertório e Motivação; os ids internos continuam `cultura` e `mental`).
 
 Sucesso, nas palavras dele:
 - **Tudo num lugar só**: links, vídeos, arquivos e anotações juntos, sem caçar em vários apps.
@@ -42,14 +42,14 @@ Não é um app de produtividade genérico nem um curso. É um caderno pessoal pr
 - Sem login e sem sincronização por enquanto. Sincronizar PC e celular (Supabase) é a próxima grande etapa; anexos hoje só existem no aparelho em que foram adicionados.
 - Interface toda em português.
 - Links nunca são inventados: cada URL e vídeo é verificado antes de entrar. Português primeiro; inglês só se for didático, marcado "(EN)".
-- Em aberto: refinar Cultura com as referências do dono; confirmar quais cursos da Igreja exigem assinatura; o dono ainda vai inserir o resto do conteúdo da UEM.
+- Em aberto: confirmar quais cursos da Igreja exigem assinatura; o dono ainda vai inserir o resto do conteúdo da UEM.
 
 ## Brand Commitments
 
 - Nome: "Estudos".
-- Logo: triângulo de largada com um círculo de controle (`src/components/Logo.tsx`, `public/favicon.svg`, ícones do PWA). Trocada em 27/10/2026, com aval do dono.
+- Logo: estrela de quatro pontas dentro de uma órbita, na cor do módulo (`src/components/Logo.tsx`, `public/favicon.svg`, ícones do PWA).
 - Cada módulo tem a sua cor, e essa cor tinge o app quando ele está aberto.
-- Cada módulo pode ter um mundo visual próprio, guiado pelas referências do dono (Igreja: pôster católico; Mental: colagem renascentista). Os demais usam o mapa de orientação.
+- Cada módulo pode ter um mundo visual próprio, guiado pelas referências do dono (Igreja: manuscrito medieval; Motivação: colagem renascentista). Os demais usam o mapa de orientação e, por enquanto, abrem com a capa da página inicial.
 - Conteúdo não é sequencial: nada no visual impõe ordem entre tópicos.
 - Tema escuro por padrão, com opção de claro.
 

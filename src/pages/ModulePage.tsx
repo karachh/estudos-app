@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, type CSSProperties } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { AddForm } from '../components/AddForm'
 import { Band, Film } from '../components/Cover'
@@ -203,8 +203,10 @@ function RenaissanceHeader({ mod, summary }: { mod: AppModule; summary: string }
   return (
     <header>
     <div className="grid items-center gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
-      <div>
-        <h1 className="bodoni text-[4.5rem] text-accent md:text-[6rem]">{mod.label}</h1>
+      <div className="@container">
+        <h1 className="bodoni text-[min(6rem,calc(130cqw/var(--len)))] text-accent" style={{ '--len': mod.label.length } as CSSProperties}>
+          {mod.label}
+        </h1>
         <span className="plate-rule mt-6 w-10" />
         <p className="garamond mt-5 max-w-[24rem] text-[1.6rem] leading-snug italic">{mod.tagline}</p>
       </div>
@@ -433,7 +435,7 @@ function ControlRow({
         <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
           <span className="font-semibold">{topic.title}</span>
           {topic.badge && (
-            <span className="mono rounded-full border border-accent px-2 text-[0.68rem] uppercase text-accent">
+            <span className="mono rounded-full border border-accent px-2 text-[0.72rem] uppercase text-accent">
               {topic.badge}
             </span>
           )}

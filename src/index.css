@@ -813,12 +813,13 @@ textarea {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem 0.55rem 0.9rem 1.05rem;
+  padding: 1rem 0.55rem 0.9rem 0.8rem;
   background: #0d0c0a;
 }
 .band-title {
   writing-mode: vertical-rl;
-  font-size: min(calc(30svh / (var(--len) * 0.7)), 4rem);
+  line-height: 1; /* a caixa cobre os acentos (Ó, Ã), que saíam pela borda da faixa */
+  font-size: min(calc(30svh / (var(--len) * 0.9)), 4rem);
 }
 .band-foot {
   display: flex;
@@ -826,17 +827,17 @@ textarea {
   align-items: center;
   gap: 0.5rem;
   white-space: nowrap;
-  font-size: 0.62rem;
+  font-size: 0.72rem;
 }
 @media (min-width: 768px) {
   .band {
     top: 4svh;
     left: 3.5vw;
     bottom: 10svh;
-    padding: 1.4rem 0.8rem 1.1rem 1.75rem;
+    padding: 1.4rem 0.8rem 1.1rem 1.3rem;
   }
   .band-title {
-    font-size: min(calc(62svh / (var(--len) * 0.7)), 9rem);
+    font-size: min(calc(62svh / (var(--len) * 0.9)), 9rem);
   }
 }
 

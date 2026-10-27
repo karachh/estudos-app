@@ -1,4 +1,3 @@
-import { CONTENT_VERSION, contentModules } from '../data/content'
 import type { LinkSeed, ModuleContent } from '../data/content/helpers'
 import { roadmap } from '../data/roadmap'
 import { db, type CheckItem, type Resource } from './db'
@@ -81,7 +80,9 @@ async function applyModule(c: ModuleContent) {
   }
 }
 
+// O conteúdo vem num arquivo à parte, carregado só aqui, para não pesar a abertura do app.
 async function applyContent() {
+  const { CONTENT_VERSION, contentModules } = await import('../data/content')
   await db.transaction('rw', [db.groups, db.topics, db.checks, db.resources, db.meta], async () => {
     const done = ((await db.meta.get(CONTENT_KEY))?.value as number | undefined) ?? 0
     if (done >= CONTENT_VERSION) return

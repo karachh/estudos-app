@@ -9,4 +9,5 @@ export function pie(r: number, ratio: number) {
 }
 
 // Plural simples dos rótulos dos módulos (tópico, conteúdo, item, tema).
-export const plural = (word: string) => (word.endsWith('m') ? `${word.slice(0, -1)}ns` : `${word}s`)
+export const plural = (word: string) =>
+  word.endsWith('m') ? `${word.slice(0, -1)}ns` : word.endsWith('ão') ? `${word.slice(0, -2)}ões` : `${word}s`
