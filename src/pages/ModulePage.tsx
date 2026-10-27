@@ -50,8 +50,8 @@ export default function ModulePage() {
         )}
 
         {mod.intro && (
-          <details className="mt-8 rounded-xl border border-line bg-surface p-4">
-            <summary className="cursor-pointer font-medium">Como usar este roadmap</summary>
+          <details className="mt-8 rounded-xl border border-line bg-surface p-4" open={mod.introOpen}>
+            <summary className="cursor-pointer font-medium">{mod.introTitle ?? 'Como usar este roadmap'}</summary>
             <dl className="mt-3 space-y-3">
               {mod.intro.map((item) => (
                 <div key={item.title}>

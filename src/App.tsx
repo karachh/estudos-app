@@ -74,7 +74,7 @@ export default function App() {
       {/* Abas (celular) */}
       <nav
         aria-label="Módulos"
-        className="fixed inset-x-0 bottom-0 z-10 grid grid-cols-4 border-t border-line bg-surface pb-[env(safe-area-inset-bottom)] md:hidden"
+        className="fixed inset-x-0 bottom-0 z-10 flex overflow-x-auto border-t border-line bg-surface pb-[env(safe-area-inset-bottom)] md:hidden"
       >
         {modules.map((m) => (
           <NavLink
@@ -82,7 +82,7 @@ export default function App() {
             to={`/${m.id}`}
             data-module={m.id}
             className={({ isActive }) =>
-              `border-t-2 px-1 py-3 text-center text-sm ${
+              `shrink-0 flex-1 border-t-2 px-4 py-3 text-center text-sm ${
                 isActive ? 'border-accent font-medium text-ink' : 'border-transparent text-ink-2'
               }`
             }

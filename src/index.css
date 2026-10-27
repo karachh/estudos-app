@@ -49,11 +49,15 @@
 [data-module='trabalho'] { --accent: #e8b04a; }
 [data-module='uem'] { --accent: #b69cff; }
 [data-module='igreja'] { --accent: #ea8f98; }
+[data-module='cultura'] { --accent: #7cc4f0; }
+[data-module='mental'] { --accent: #f29a6b; }
 
 :root[data-theme='light'] [data-module='profissional'] { --accent: #0e8a68; }
 :root[data-theme='light'] [data-module='trabalho'] { --accent: #a76400; }
 :root[data-theme='light'] [data-module='uem'] { --accent: #6544d6; }
 :root[data-theme='light'] [data-module='igreja'] { --accent: #b23a4c; }
+:root[data-theme='light'] [data-module='cultura'] { --accent: #0b72b5; }
+:root[data-theme='light'] [data-module='mental'] { --accent: #b4531f; }
 
 body {
   background: var(--bg);
