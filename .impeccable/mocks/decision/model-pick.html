@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1440px;height:900px;overflow:hidden}
+body{background:#121417;color:#f2f2ee;font:15px/1.5 'Archivo',sans-serif;display:grid;grid-template-columns:250px 1fr}
+:root{--acc:#2fb88a}
+aside{background:#0c0d0f;padding:30px 0}
+.brand{font:800 26px 'Archivo';font-stretch:75%;letter-spacing:.02em;text-transform:uppercase;padding:0 26px 30px}
+nav a{display:flex;gap:14px;align-items:center;padding:10px 26px;color:#a7adb4;font-weight:600}
+nav a b{width:26px;height:8px;border-radius:4px}
+nav a.on{color:#fff;background:#1b1e22}
+main{padding:42px 70px}
+.top{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:8px solid var(--acc);padding-bottom:18px}
+h1{font:800 64px/0.95 'Archivo';font-stretch:75%;text-transform:uppercase;letter-spacing:.01em}
+.sub{color:#a7adb4;font-size:17px;margin-top:8px}
+.big{text-align:right;font:800 56px/1 'Archivo';font-stretch:75%}
+.big small{display:block;font:500 14px 'Archivo';color:#a7adb4}
+.stage{margin-top:30px;display:flex;align-items:baseline;gap:16px}
+.stage h2{font:800 30px 'Archivo';font-stretch:80%;text-transform:uppercase}
+.stage span{color:#a7adb4}
+.line{position:relative;margin-top:14px;padding-left:64px}
+.line:before{content:'';position:absolute;left:23px;top:20px;bottom:20px;width:10px;background:var(--acc);border-radius:5px}
+.st{position:relative;display:grid;grid-template-columns:1fr 120px 60px;align-items:center;height:62px;border-bottom:1px solid #22262b}
+.st:before{content:'';position:absolute;left:-50px;width:22px;height:22px;border-radius:50%;background:#121417;border:5px solid var(--acc)}
+.st.done:before{background:#f2f2ee}
+.st.here:before{width:30px;height:30px;left:-54px;background:var(--acc);border-color:#f2f2ee}
+.st .t{font-weight:600;font-size:18px}
+.st.here .t:after{content:'você está aqui';margin-left:14px;font-size:12px;font-weight:700;text-transform:uppercase;background:#f2f2ee;color:#121417;padding:3px 8px;border-radius:3px}
+.bar{height:6px;background:#2a2e33;border-radius:3px;overflow:hidden}.bar i{display:block;height:100%;background:var(--acc)}
+.f{text-align:right;color:#a7adb4;font-variant-numeric:tabular-nums}
+.st.future{color:#7d838a}
+</style></head><body>
+<aside>
+  <div class="brand">Estudos</div>
+  <nav>
+    <a class="on"><b style="background:#2fb88a"></b>Profissional</a><a><b style="background:#e8b04a"></b>Trabalho</a><a><b style="background:#9b7cf5"></b>UEM</a><a><b style="background:#ef8a55"></b>Igreja</a><a><b style="background:#4fa9e6"></b>Cultura</a><a><b style="background:#e4707e"></b>Mental</a>
+  </nav>
+</aside>
+<main>
+  <div class="top">
+    <div><h1>Estudos profissionais</h1><p class="sub">Roadmap de Engenharia de Dados + IA</p></div>
+    <div class="big">8%<small>10 de 126 itens</small></div>
+  </div>
+  <div class="stage"><h2>Bronze: fundação</h2><span>out/2026 a jan/2027 · 10/51</span></div>
+  <div class="line">
+    <div class="st done"><span class="t">SQL avançado</span><div class="bar"><i style="width:58%"></i></div><span class="f">7/12</span></div>
+    <div class="st done"><span class="t">Python para dados</span><div class="bar"><i style="width:30%"></i></div><span class="f">3/10</span></div>
+    <div class="st here"><span class="t">Git e GitHub</span><div class="bar"><i style="width:0"></i></div><span class="f">0/6</span></div>
+    <div class="st future"><span class="t">Linux básico</span><div class="bar"></div><span class="f">0/5</span></div>
+    <div class="st future"><span class="t">Conceitos de ETL/ELT</span><div class="bar"></div><span class="f">0/8</span></div>
+    <div class="st future"><span class="t">Docker básico</span><div class="bar"></div><span class="f">0/5</span></div>
+    <div class="st future"><span class="t">P1: API, Python, Postgres e dashboard</span><div class="bar"></div><span class="f">0/5</span></div>
+  </div>
+</main>
+</body></html>

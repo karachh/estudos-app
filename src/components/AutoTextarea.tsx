@@ -12,8 +12,11 @@ export function AutoTextarea({ value, className = '', ...props }: TextareaHTMLAt
       el.style.height = `${el.scrollHeight}px`
     }
     fit()
-    window.addEventListener('resize', fit)
-    return () => window.removeEventListener('resize', fit)
+    // Recalcula quando a largura muda ou a fonte termina de carregar (as duas mudam a quebra de linha)
+    const observer = new ResizeObserver(fit)
+    observer.observe(el)
+    document.fonts?.ready.then(fit)
+    return () => observer.disconnect()
   }, [value])
 
   return <textarea ref={ref} rows={1} value={value} className={`resize-none overflow-hidden ${className}`} {...props} />

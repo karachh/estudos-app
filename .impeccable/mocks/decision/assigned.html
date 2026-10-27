@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1440px;height:900px;overflow:hidden}
+body{background:#0a1128;color:#e9edf5;font:15px/1.5 'Hanken Grotesk',sans-serif;display:grid;grid-template-columns:260px 1fr}
+:root{--acc:#6fd0b0;--grid:#1c2a52;--leg:#8fa3cf}
+aside{background:color-mix(in oklab,var(--acc) 14%,#0a1128);border-right:1px solid #22325e;padding:28px 0}
+.brand{font:italic 500 30px 'EB Garamond',serif;padding:0 28px 34px;display:flex;gap:10px;align-items:center}
+.brand i{width:10px;height:10px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 4px rgba(111,208,176,.18)}
+nav a{display:flex;gap:14px;align-items:center;padding:11px 28px;color:var(--leg);font-weight:500;font-size:15px}
+nav a b{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.6}
+nav a.on{color:#fff;background:rgba(111,208,176,.12);box-shadow:inset 3px 0 0 var(--acc)}
+nav a.on b{background:var(--acc);opacity:1}
+main{padding:44px 72px;position:relative}
+.kick{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--leg)}
+h1{font:500 58px/1 'EB Garamond',serif;margin:8px 0 6px}
+.sub{color:var(--leg);font-size:17px}
+.chart{margin-top:30px;height:300px;border:1px solid var(--grid);position:relative;
+background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:100px 100px;background-position:-1px -1px}
+.chart .name{position:absolute;left:28px;top:22px;font:italic 500 40px 'EB Garamond',serif}
+.chart .name small{display:block;font:500 12px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;color:var(--leg);font-style:normal}
+.chart .tot{position:absolute;right:28px;top:24px;text-align:right;font:500 44px 'EB Garamond',serif;color:var(--acc)}
+.chart .tot small{display:block;font:500 13px 'Hanken Grotesk';color:var(--leg)}
+svg{position:absolute;inset:0}
+.coord{position:absolute;bottom:6px;font-size:11px;color:#7486bb}
+.list{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;column-gap:56px}
+.row{display:grid;grid-template-columns:40px 22px 1fr auto;align-items:center;gap:10px;padding:12px 0;border-top:1px solid #1a2850}
+.row .n{color:#8293c4;font-variant-numeric:tabular-nums;font-size:14px}
+.row .t{font-weight:500;font-size:16px}
+.row .f{color:var(--leg);font-variant-numeric:tabular-nums}
+.row.next .t{color:#fff}.row.next{box-shadow:inset 0 0 0 0}
+.mag{width:14px;height:14px;border-radius:50%}
+.m1{background:#e9edf5}.m2{border:1.5px solid var(--acc);background:radial-gradient(circle,var(--acc) 35%,transparent 40%)}.m3{width:6px;height:6px;background:#3b4d82;margin-left:4px}
+.ring{outline:1.5px solid var(--acc);outline-offset:4px}
+</style></head><body>
+<aside>
+  <div class="brand"><i></i>Estudos</div>
+  <nav>
+    <a class="on"><b></b>Estudos profissionais</a><a><b></b>Trabalho</a><a><b></b>UEM</a><a><b></b>Igreja</a><a><b></b>Cultura</a><a><b></b>Mental</a>
+  </nav>
+</aside>
+<main>
+  <div class="kick">Roadmap de Engenharia de Dados + IA</div>
+  <h1>Estudos profissionais</h1>
+  <p class="sub">Etapa atual: Bronze · 10 de 51 itens · próximo: Git e GitHub</p>
+  <div class="chart">
+    <div class="name"><small>Etapa 1 · out/2026 a jan/2027</small>Bronze: fundação</div>
+    <div class="tot">10/51<small>itens marcados</small></div>
+    <svg viewBox="0 0 1100 300" preserveAspectRatio="none">
+      <polyline points="120,220 260,170 400,205 540,130" fill="none" stroke="#6fd0b0" stroke-width="1.5"/>
+      <polyline points="540,130 690,180 830,110 970,160" fill="none" stroke="#3b4d82" stroke-width="1" stroke-dasharray="4 5"/>
+      <circle cx="120" cy="220" r="9" fill="#e9edf5"/><circle cx="260" cy="170" r="6.5" fill="#e9edf5"/>
+      <circle cx="400" cy="205" r="5" fill="#cfd8ea"/><circle cx="540" cy="130" r="4" fill="#6fd0b0"/>
+      <circle cx="540" cy="130" r="14" fill="none" stroke="#6fd0b0" stroke-width="1.5"/>
+      <circle cx="690" cy="180" r="2.5" fill="#3b4d82"/><circle cx="830" cy="110" r="2.5" fill="#3b4d82"/><circle cx="970" cy="160" r="2.5" fill="#3b4d82"/>
+      <text x="96" y="252" fill="#8fa3cf" font-size="13" font-family="EB Garamond" font-style="italic">SQL avançado</text>
+      <text x="236" y="152" fill="#8fa3cf" font-size="13" font-family="EB Garamond" font-style="italic">Python</text>
+      <text x="380" y="236" fill="#8fa3cf" font-size="13" font-family="EB Garamond" font-style="italic">Linux</text>
+      <text x="560" y="118" fill="#e9edf5" font-size="15" font-family="EB Garamond" font-style="italic">Git e GitHub · próximo</text>
+    </svg>
+    <span class="coord" style="left:100px">I</span><span class="coord" style="left:300px">II</span><span class="coord" style="left:500px">III</span><span class="coord" style="left:700px">IV</span>
+  </div>
+  <div class="list">
+    <div class="row"><span class="n">1.1</span><span class="mag m1"></span><span class="t">SQL avançado</span><span class="f">7/12</span></div>
+    <div class="row"><span class="n">1.5</span><span class="mag m3"></span><span class="t">Conceitos de ETL/ELT</span><span class="f">0/8</span></div>
+    <div class="row"><span class="n">1.2</span><span class="mag m1" style="transform:scale(.8)"></span><span class="t">Python para dados</span><span class="f">3/10</span></div>
+    <div class="row"><span class="n">1.6</span><span class="mag m3"></span><span class="t">Docker básico</span><span class="f">0/5</span></div>
+    <div class="row next"><span class="n">1.3</span><span class="mag m2 ring"></span><span class="t">Git e GitHub</span><span class="f">0/6</span></div>
+    <div class="row"><span class="n">1.7</span><span class="mag m3"></span><span class="t">P1: API, Python, Postgres e dashboard</span><span class="f">0/5</span></div>
+  </div>
+</main>
+</body></html>

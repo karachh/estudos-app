@@ -32,20 +32,29 @@ export function useModuleData(moduleId: string) {
     ])
     const byTopic = new Map<number, Progress>()
     for (const c of checks) add(byTopic, c.topicId, c.done)
-    return { groups, topics, byTopic }
+    // Quantos materiais cada tópico tem: tópico sem checklist ainda pode ter vídeos e links
+    const materials = new Map<number, number>()
+    const resources = await db.resources.where('topicId').anyOf(topics.map((t) => t.id)).toArray()
+    for (const r of resources) materials.set(r.topicId, (materials.get(r.topicId) ?? 0) + 1)
+    return { groups, topics, byTopic, materials }
   }, [moduleId])
 }
 
-// Progresso total de cada módulo, para a navegação.
-export function useModuleTotals() {
+// Resumo de todos os módulos para a página inicial: progresso por grupo e por tópico.
+export function useHomeData() {
   return useLiveQuery(async () => {
-    const totals = new Map<string, Progress>()
-    await db.checks.each((c) => {
-      const p = totals.get(c.moduleId) ?? { done: 0, total: 0 }
-      p.total += 1
-      if (c.done) p.done += 1
-      totals.set(c.moduleId, p)
-    })
-    return totals
-  })
+    const [groups, topics, checks] = await Promise.all([db.groups.toArray(), db.topics.toArray(), db.checks.toArray()])
+    const byTopic = new Map<number, Progress>()
+    for (const c of checks) add(byTopic, c.topicId, c.done)
+    const modules = new Map<string, { groups: { title: string; p: Progress }[]; topics: Progress[] }>()
+    for (const g of groups.sort((a, b) => a.order - b.order)) {
+      const inGroup = topics.filter((t) => t.groupId === g.id).sort((a, b) => a.order - b.order)
+      const m = modules.get(g.moduleId) ?? { groups: [], topics: [] }
+      const ps = inGroup.map((t) => byTopic.get(t.id) ?? { done: 0, total: 0 })
+      m.groups.push({ title: g.title, p: sumProgress(ps) })
+      m.topics.push(...ps)
+      modules.set(g.moduleId, m)
+    }
+    return modules
+  }, [])
 }

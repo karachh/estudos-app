@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1440px;height:900px;overflow:hidden}
+body{background:#12160f;color:#e6e2d3;font:15px/1.5 'Barlow',sans-serif;display:grid;grid-template-columns:250px 1fr}
+:root{--acc:#6fd0b0}
+aside{background:#0c0f0a;padding:30px 0;border-right:1px solid #2b3622}
+.brand{font:700 28px 'Barlow Condensed';letter-spacing:.04em;text-transform:uppercase;padding:0 26px 30px}
+nav a{display:flex;gap:12px;align-items:center;padding:10px 26px;color:#a9a693;font-weight:500}
+nav a b{width:14px;height:14px;border-radius:50%;border:2.5px solid currentColor}
+nav a.on{color:#fff}nav a.on b{border-color:var(--acc)}
+main{padding:40px 64px}
+h1{font:700 60px/1 'Barlow Condensed';text-transform:uppercase}
+.sub{color:#a9a693;font-size:17px;margin-top:4px}
+.map{margin-top:26px;height:330px;border:1px solid #2b3622;position:relative;overflow:hidden;
+background:repeating-radial-gradient(ellipse at 30% 60%,transparent 0 22px,rgba(184,138,74,.22) 22px 23px),repeating-radial-gradient(ellipse at 78% 30%,transparent 0 18px,rgba(184,138,74,.18) 18px 19px),#161b12}
+.map h2{position:absolute;left:24px;top:18px;font:700 34px 'Barlow Condensed';text-transform:uppercase;background:#161b12;padding:0 8px}
+.map h2 small{display:block;font:500 13px 'Barlow';color:#a9a693;text-transform:none}
+svg{position:absolute;inset:0}
+.desc{margin-top:22px;width:100%;border-collapse:collapse}
+.desc th{font:700 13px 'Barlow Condensed';letter-spacing:.08em;text-transform:uppercase;color:#a9a693;text-align:left;padding:6px 10px;border-bottom:2px solid #3a4630}
+.desc td{padding:11px 10px;border-bottom:1px solid #263020;font-size:16px}
+.desc td.n{font:700 20px 'Barlow Condensed';color:var(--acc);width:60px}
+.desc tr.done td{color:#8d8a78}.desc tr.done td.n{color:#8d8a78}
+.desc tr.next td{color:#fff;background:rgba(111,208,176,.08)}
+.punch{display:inline-block;width:12px;height:12px;border-radius:2px;background:#8d8a78;margin-right:6px}
+.f{text-align:right;font-variant-numeric:tabular-nums;color:#a9a693}
+</style></head><body>
+<aside>
+  <div class="brand">Estudos</div>
+  <nav><a class="on"><b></b>Estudos profissionais</a><a><b></b>Trabalho</a><a><b></b>UEM</a><a><b></b>Igreja</a><a><b></b>Cultura</a><a><b></b>Mental</a></nav>
+</aside>
+<main>
+  <h1>Estudos profissionais</h1>
+  <p class="sub">Roadmap de Engenharia de Dados + IA · 10 de 126 itens</p>
+  <div class="map">
+    <h2><small>Etapa 1 · out/2026 a jan/2027 · 10/51</small>Bronze: fundação</h2>
+    <svg viewBox="0 0 1080 330">
+      <polygon points="120,270 102,240 138,240" fill="none" stroke="#6fd0b0" stroke-width="3"/>
+      <line x1="120" y1="250" x2="300" y2="200" stroke="#6fd0b0" stroke-width="3"/>
+      <circle cx="320" cy="195" r="20" fill="none" stroke="#8d8a78" stroke-width="3"/>
+      <line x1="338" y1="190" x2="500" y2="150" stroke="#8d8a78" stroke-width="3"/>
+      <circle cx="520" cy="145" r="20" fill="none" stroke="#8d8a78" stroke-width="3"/>
+      <line x1="540" y1="150" x2="690" y2="210" stroke="#6fd0b0" stroke-width="4"/>
+      <circle cx="710" cy="218" r="22" fill="none" stroke="#6fd0b0" stroke-width="4"/>
+      <line x1="730" y1="210" x2="860" y2="120" stroke="#6fd0b0" stroke-width="3" stroke-dasharray="8 8" opacity=".5"/>
+      <circle cx="880" cy="110" r="20" fill="none" stroke="#6fd0b0" stroke-width="3" opacity=".5"/>
+      <text x="300" y="240" fill="#8d8a78" font-family="Barlow Condensed" font-weight="700" font-size="26">1</text>
+      <text x="500" y="190" fill="#8d8a78" font-family="Barlow Condensed" font-weight="700" font-size="26">2</text>
+      <text x="740" y="260" fill="#6fd0b0" font-family="Barlow Condensed" font-weight="700" font-size="30">3</text>
+      <text x="905" y="105" fill="#6fd0b0" opacity=".6" font-family="Barlow Condensed" font-weight="700" font-size="26">4</text>
+    </svg>
+  </div>
+  <table class="desc">
+    <tr><th>Controle</th><th>Tópico</th><th>Picotado</th><th class="f">Itens</th></tr>
+    <tr class="done"><td class="n">1</td><td>SQL avançado</td><td><span class="punch"></span>7 de 12</td><td class="f">7/12</td></tr>
+    <tr class="done"><td class="n">2</td><td>Python para dados</td><td><span class="punch"></span>3 de 10</td><td class="f">3/10</td></tr>
+    <tr class="next"><td class="n">3</td><td>Git e GitHub · próxima perna</td><td>—</td><td class="f">0/6</td></tr>
+    <tr><td class="n">4</td><td>Linux básico</td><td>—</td><td class="f">0/5</td></tr>
+  </table>
+</main>
+</body></html>

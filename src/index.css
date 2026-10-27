@@ -1,12 +1,15 @@
 @import 'tailwindcss';
 
 @theme inline {
-  --font-serif: 'Newsreader Variable', Georgia, 'Times New Roman', serif;
-  --font-sans: 'Schibsted Grotesk Variable', system-ui, sans-serif;
+  --font-sans: var(--body-face);
+  --font-display: var(--display-face);
+  --font-serif: 'Newsreader Variable', Georgia, serif;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
   --color-bg: var(--bg);
   --color-surface: var(--surface);
   --color-raised: var(--raised);
   --color-line: var(--line);
+  --color-frame: var(--frame);
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);
   --color-ink-3: var(--ink-3);
@@ -15,66 +18,232 @@
   --color-danger: var(--danger);
 }
 
-/* Tema: grafite com texto cor de osso. Cada módulo tem uma cor de marca-texto. */
+/* Mundo central "cartaz analógico": capa de disco e pôster de ficção científica impressos.
+   Preto quente com grão, tinta creme, a cor do módulo como cor chapada, molduras finas de canto arredondado
+   e a estrela de quatro pontas como glifo comum. */
 :root,
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --bg: #0f1316;
-  --surface: #151a1f;
-  --raised: #1b2127;
-  --line: #262e36;
-  --ink: #e7e4db;
-  --ink-2: #a3adb4;
-  --ink-3: #78838c;
-  --on-accent: #0c1114;
-  --danger: #f08a7e;
+  --body-face: 'Barlow', system-ui, sans-serif;
+  --display-face: 'Big Shoulders Display Variable', 'Barlow', sans-serif;
+  --bg-base: #0d0c0a;
+  --surface-base: #14120f;
+  --raised-base: #1c1a16;
+  --line-base: #2e2b25;
+  --frame-base: #5a5446;
+  --bg: var(--bg-base);
+  --surface: var(--surface-base);
+  --raised: var(--raised-base);
+  --line: var(--line-base);
+  --frame: var(--frame-base);
+  --ink: #ece4cf;
+  --ink-2: #c4bca6;
+  --ink-3: #9c947f;
+  --on-accent: #0d0c0a;
+  --danger: #ef8f7f;
   --accent: #6fd0b0;
+  --t-contour: #8d846c;
+  --t-dots: #4a4538;
+  --t-trail: #b8ae94;
+  --grain: 0.08;
 }
 
 :root[data-theme='light'] {
   color-scheme: light;
-  --bg: #f2f3f0;
-  --surface: #fafaf8;
-  --raised: #ffffff;
-  --line: #dcdfda;
-  --ink: #171c20;
-  --ink-2: #4a555d;
-  --ink-3: #6c777e;
+  --bg-base: #ece5d3;
+  --surface-base: #f2ecdd;
+  --raised-base: #f8f4ea;
+  --line-base: #d2c8b1;
+  --frame-base: #8c826b;
+  --ink: #1a1814;
+  --ink-2: #47423a;
+  --ink-3: #635d51;
   --on-accent: #ffffff;
   --danger: #b3382b;
   --accent: #0e8a68;
+  --t-contour: #8a7c5c;
+  --t-dots: #b9ad8f;
+  --t-trail: #4a4438;
+  --grain: 0.06;
 }
 
 [data-module='profissional'] { --accent: #6fd0b0; }
 [data-module='trabalho'] { --accent: #e8b04a; }
 [data-module='uem'] { --accent: #b69cff; }
-[data-module='igreja'] { --accent: #ea8f98; }
+[data-module='igreja'] { --accent: #dcaa3c; }
 [data-module='cultura'] { --accent: #7cc4f0; }
-[data-module='mental'] { --accent: #f29a6b; }
+[data-module='mental'] { --accent: #d4543f; }
 
 :root[data-theme='light'] [data-module='profissional'] { --accent: #0e8a68; }
 :root[data-theme='light'] [data-module='trabalho'] { --accent: #a76400; }
 :root[data-theme='light'] [data-module='uem'] { --accent: #6544d6; }
-:root[data-theme='light'] [data-module='igreja'] { --accent: #b23a4c; }
+:root[data-theme='light'] [data-module='igreja'] { --accent: #8c600a; }
 :root[data-theme='light'] [data-module='cultura'] { --accent: #0b72b5; }
-:root[data-theme='light'] [data-module='mental'] { --accent: #b4531f; }
+:root[data-theme='light'] [data-module='mental'] { --accent: #a3301f; }
+
+/* Mundo "sacro" (Igreja): manuscrito medieval. Marrom de couro e madeira escura, pergaminho,
+   dourado de folha e vinho. Três vozes: letreiro condensado, serifa larga e serifa itálica. */
+[data-world='sacro'] {
+  --bg-base: #17110c;
+  --surface-base: #1e1610;
+  --raised-base: #271d15;
+  --line-base: #3d2e20;
+  --frame-base: #6e5638;
+  --ink: #efe3c8;
+  --ink-2: #d2c3a2;
+  --ink-3: #aa9a7c;
+  --on-accent: #1a1209;
+  --wine: #7d2630;
+  --grain: 0.11;
+}
+:root[data-theme='light'] [data-world='sacro'] {
+  --bg-base: #ece0c6;
+  --surface-base: #f2e8d3;
+  --raised-base: #f8f1e2;
+  --line-base: #d3c19c;
+  --frame-base: #9a7f55;
+  --ink: #23180e;
+  --ink-2: #4d3c28;
+  --ink-3: #685640;
+  --on-accent: #ffffff;
+  --wine: #7d2630;
+  --grain: 0.07;
+}
+
+/* Mundo "renascenca" (Mental): colagem renascentista. Preto quente, papel sépia, vermelho-vermelhão
+   e ocre; Bodoni nos títulos, Cormorant no texto de leitura. */
+[data-world='renascenca'] {
+  --display-face: 'Bodoni Moda Variable', 'Didot', serif;
+  --bg-base: #13110e;
+  --surface-base: #1a1713;
+  --raised-base: #221e19;
+  --line-base: #3a3229;
+  --frame-base: #6a5c48;
+  --ink: #ece2cc;
+  --ink-2: #c8bba0;
+  --ink-3: #a1937a;
+  --on-accent: #13110e;
+  --paper: #ddcdad;
+  --ochre: #c9962e;
+  --grain: 0.1;
+}
+:root[data-theme='light'] [data-world='renascenca'] {
+  --bg-base: #efe6d3;
+  --surface-base: #f5eedf;
+  --raised-base: #fbf6ea;
+  --line-base: #d6c7a8;
+  --frame-base: #9a8a6c;
+  --ink: #1d1913;
+  --ink-2: #4a4033;
+  --ink-3: #6b5f4d;
+  --on-accent: #ffffff;
+  --paper: #e3d3b2;
+  --ochre: #8f6514;
+  --grain: 0.07;
+}
+
+/* O módulo aberto tinge de leve o fundo, a lateral e o terreno */
+.app {
+  --bg: color-mix(in oklab, var(--accent) 2.5%, var(--bg-base));
+  --surface: color-mix(in oklab, var(--accent) 4%, var(--surface-base));
+  --raised: color-mix(in oklab, var(--accent) 6%, var(--raised-base));
+  --line: color-mix(in oklab, var(--accent) 10%, var(--line-base));
+  --frame: color-mix(in oklab, var(--accent) 22%, var(--frame-base));
+  --rail: color-mix(in oklab, var(--accent) 5%, color-mix(in oklab, black 35%, var(--bg-base)));
+  --t-open: color-mix(in oklab, var(--accent) 16%, var(--bg-base));
+  scrollbar-color: color-mix(in oklab, var(--accent) 40%, transparent) transparent;
+}
+:root[data-theme='light'] .app {
+  --rail: color-mix(in oklab, var(--accent) 6%, color-mix(in oklab, black 5%, var(--bg-base)));
+  --t-open: color-mix(in oklab, var(--accent) 18%, var(--bg-base));
+}
+[data-world='sacro'].app,
+[data-world='renascenca'].app {
+  --bg: var(--bg-base);
+  --surface: var(--surface-base);
+  --raised: var(--raised-base);
+  --line: var(--line-base);
+  --frame: var(--frame-base);
+  --rail: color-mix(in oklab, black 32%, var(--bg-base));
+}
+:root[data-theme='light'] [data-world='sacro'].app {
+  --rail: #e2d3b4;
+}
+:root[data-theme='light'] [data-world='renascenca'].app {
+  --rail: #e4d8bf;
+}
+
+/* Grão de impressão em todo o app */
+.app::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: var(--grain);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -.25'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+:root[data-theme='light'] .app::before {
+  filter: invert(1);
+}
 
 body {
-  background: var(--bg);
+  background: var(--bg-base);
   color: var(--ink);
-  font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 1.55;
+  font-family: var(--body-face);
+  font-size: 16px;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
 }
 
 h1,
 h2,
 h3 {
-  font-family: var(--font-serif);
+  text-wrap: balance;
+}
+
+/* Letreiro condensado das capas retrô */
+.display {
+  font-family: var(--display-face);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+  line-height: 0.9;
+}
+
+[data-world='renascenca'] .display {
   font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 0.92;
+}
+.mono {
+  font-family: 'Space Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+.bodoni {
+  font-family: 'Bodoni Moda Variable', 'Didot', serif;
+  font-weight: 500;
+  text-transform: uppercase;
   letter-spacing: -0.01em;
-  line-height: 1.15;
+  line-height: 1.05;
+}
+.garamond {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 500;
+}
+
+/* Serifa larga e itálica do mundo sacro */
+.wide-serif {
+  font-family: 'Young Serif', Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+.italic-serif {
+  font-family: 'Newsreader Variable', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
 }
 
 :focus-visible {
@@ -84,51 +253,214 @@ h3 {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--accent) 40%, transparent);
+  background: color-mix(in srgb, var(--accent) 38%, transparent);
+  color: var(--ink);
 }
 
-/* Campos de texto */
+input,
+textarea {
+  caret-color: var(--accent);
+}
+
+@layer components {
+/* Moldura fina de canto arredondado, como os painéis das capas */
+.frame {
+  border: 1px solid var(--frame);
+  border-radius: 1.5rem;
+}
+
+/* Faixa chapada na cor do módulo, embaixo do cabeçalho: o resumo do progresso */
+.strip {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  padding: 0.55rem 1.1rem;
+  font-family: 'Space Mono', ui-monospace, monospace;
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+/* Título de bloco: estrela, nome em letreiro e filete até a borda */
+.rule-head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--display-face);
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.rule-head::before {
+  content: '';
+  flex: none;
+  width: 0.85rem;
+  height: 0.85rem;
+  background: var(--accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0c.6 6.4 5.6 11.4 12 12-6.4.6-11.4 5.6-12 12-.6-6.4-5.6-11.4-12-12C6.4 11.4 11.4 6.4 12 0z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0c.6 6.4 5.6 11.4 12 12-6.4.6-11.4 5.6-12 12-.6-6.4-5.6-11.4-12-12C6.4 11.4 11.4 6.4 12 0z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.rule-head::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--frame);
+}
+[data-world='sacro'] .rule-head {
+  font-family: 'Young Serif', Georgia, serif;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1.55rem;
+}
+[data-world='sacro'] .rule-head::after {
+  background: linear-gradient(90deg, var(--accent), var(--wine) 35%, var(--line) 70%);
+}
+[data-world='renascenca'] .rule-head {
+  font-family: 'Bodoni Moda Variable', serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  letter-spacing: 0;
+}
+[data-world='renascenca'] .rule-head::before {
+  -webkit-mask: none;
+  mask: none;
+  border-radius: 999px;
+}
+[data-world='renascenca'] .rule-head::after {
+  background: linear-gradient(90deg, var(--ochre), var(--line) 40%);
+}
+
+/* Disclosure com o ícone do app no lugar do triângulo do navegador */
+.intro summary {
+  list-style: none;
+}
+.intro summary::-webkit-details-marker {
+  display: none;
+}
+.intro-chevron {
+  transition: transform 180ms;
+}
+.intro[open] .intro-chevron {
+  transform: rotate(90deg);
+}
+
+/* Navegação */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  border-radius: 999px;
+  font-weight: 500;
+  color: var(--ink-2);
+  transition: color 150ms, background-color 150ms, border-color 150ms;
+  border: 1px solid transparent;
+}
+.nav-item:hover {
+  color: var(--ink);
+  border-color: var(--line);
+}
+.nav-item.active {
+  color: var(--ink);
+  border-color: color-mix(in oklab, var(--accent) 55%, transparent);
+  background: color-mix(in oklab, var(--accent) 10%, transparent);
+}
+.nav-tab {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  color: var(--ink-3);
+}
+/* Lateral recolhida: só a inicial, sem forma atrás; a ativa ganha um traço embaixo */
+.nav-item.nav-mini {
+  position: relative;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+}
+.nav-item.nav-mini.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0.35rem;
+  left: 50%;
+  width: 1.1rem;
+  height: 2px;
+  translate: -50% 0;
+  background: var(--accent);
+}
+/* Aba ativa: traço na cor do módulo no topo, no lugar do círculo */
+.nav-tab.active {
+  color: var(--ink);
+  font-weight: 600;
+}
+.nav-tab.active::before {
+  content: '';
+  position: absolute;
+  inset: 0 0.6rem auto;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: var(--accent);
+}
+
+/* Campos */
 .field {
   width: 100%;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 0.5rem;
-  padding: 0.5rem 0.75rem;
+  border-radius: 0.7rem;
+  padding: 0.55rem 0.85rem;
   color: var(--ink);
 }
 .field::placeholder {
   color: var(--ink-3);
 }
+.field:hover {
+  border-color: var(--frame);
+}
 .field:focus {
   outline: none;
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 18%, transparent);
 }
 
-/* Botões */
+/* Botões em cápsula, rótulo em letreiro condensado */
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  border-radius: 0.5rem;
-  padding: 0.5rem 0.9rem;
-  font-weight: 500;
-  border: 1px solid var(--line);
-  background: var(--raised);
+  gap: 0.45rem;
+  border-radius: 999px;
+  padding: 0.48rem 1rem;
+  font-family: var(--display-face);
+  font-weight: 700;
+  font-size: 1.02rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  border: 1px solid var(--frame);
+  background: transparent;
   color: var(--ink);
   cursor: pointer;
   white-space: nowrap;
+  transition: border-color 150ms, background-color 150ms, color 150ms;
+}
+[data-world='renascenca'] .btn {
+  font-family: 'Big Shoulders Display Variable', sans-serif;
 }
 .btn:hover {
-  border-color: var(--ink-3);
+  border-color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 8%, transparent);
+}
+.btn:active {
+  transform: translateY(1px);
 }
 .btn-primary {
   background: var(--accent);
   border-color: var(--accent);
   color: var(--on-accent);
-}
-.btn-primary:hover {
-  border-color: var(--accent);
-  filter: brightness(1.08);
 }
 .btn-ghost {
   background: transparent;
@@ -138,21 +470,23 @@ h3 {
 .btn-ghost:hover {
   color: var(--ink);
   border-color: var(--line);
+  background: transparent;
 }
 
-/* Checkbox na cor do módulo */
+/* Checkbox quadrado de canto suave */
 .check {
   appearance: none;
   flex: none;
-  width: 1.15rem;
-  height: 1.15rem;
-  margin-top: 0.2rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-top: 0.15rem;
   border: 1.5px solid var(--ink-3);
-  border-radius: 0.3rem;
+  border-radius: 4px;
   display: grid;
   place-items: center;
   cursor: pointer;
   background: transparent;
+  transition: background-color 120ms, border-color 120ms;
 }
 .check:hover {
   border-color: var(--accent);
@@ -163,26 +497,408 @@ h3 {
 }
 .check:checked::after {
   content: '';
-  width: 0.7rem;
-  height: 0.7rem;
+  width: 0.72rem;
+  height: 0.72rem;
   background: var(--on-accent);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.8' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.8' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.8' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.8' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
-/* Único momento de movimento: as barras de progresso crescem ao abrir a tela */
-@keyframes grow {
-  from {
-    transform: scaleX(0);
+/* Mapa impresso em duas cores: curvas de nível creme, mata em retícula, campo aberto na cor do módulo */
+.map-sheet {
+  border: 1px solid var(--frame);
+  border-radius: 1.25rem;
+  background: var(--bg);
+}
+.map-sheet .contour {
+  fill: none;
+  stroke: var(--t-contour);
+  stroke-width: 0.8;
+  opacity: 0.6;
+}
+.map-sheet .contour.index {
+  stroke-width: 1.5;
+  opacity: 0.8;
+}
+.control .halo {
+  fill: none;
+  stroke: var(--bg);
+  stroke-width: 7;
+}
+.control .ring {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.4;
+  transition: stroke-width 150ms;
+}
+.control .num {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 15px;
+  fill: var(--accent);
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.control .focus-ring {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 3;
+  opacity: 0;
+  transition: opacity 150ms;
+}
+.control.lit .focus-ring,
+.control:focus-visible .focus-ring {
+  opacity: 1;
+}
+.control.lit .ring {
+  stroke-width: 3.4;
+}
+.control:focus-visible {
+  outline: none;
+}
+
+/* Linha da tabela acesa quando o controle correspondente está sob o mouse */
+.row-lit {
+  background: color-mix(in oklab, var(--accent) 11%, transparent);
+}
+
+/* Nicho em arco do mundo sacro. Sem auréola: o próprio arco vai se enchendo de dourado,
+   de baixo para cima, conforme o conteúdo avança. */
+.niche {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid var(--frame);
+  border-radius: 999px 999px 1rem 1rem;
+  overflow: hidden;
+  background: var(--surface);
+  transition: background-color 180ms, border-color 180ms;
+}
+.niche-head {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: calc(100% - 1.25rem);
+  height: 6.25rem;
+  margin-top: 0.625rem;
+  border: 1px solid color-mix(in oklab, var(--accent) 55%, transparent);
+  border-radius: 999px 999px 0 0;
+  overflow: hidden;
+  background: color-mix(in oklab, var(--accent) 6%, var(--bg));
+}
+.niche-fill {
+  position: absolute;
+  inset: auto 0 0;
+  background: var(--accent);
+  transition: height 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.niche-star {
+  position: relative;
+  color: var(--accent);
+}
+.niche-star.over {
+  color: var(--on-accent);
+}
+.niche:hover,
+.niche:focus-visible {
+  background: color-mix(in oklab, var(--wine) 22%, var(--surface));
+  border-color: color-mix(in oklab, var(--wine) 70%, var(--accent));
+}
+.niche-active {
+  border-color: color-mix(in oklab, var(--wine) 80%, var(--ink));
+  background: color-mix(in oklab, var(--wine) 14%, var(--surface));
+}
+
+}
+
+/* Borda de papel rasgado: máscara com ruído fractal, não um polígono desenhado */
+.torn {
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' preserveAspectRatio='none'%3E%3Cfilter id='t' x='-5%25' y='-5%25' width='110%25' height='110%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.045 .09' numOctaves='4' seed='7'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='16'/%3E%3C/filter%3E%3Crect x='10' y='10' width='380' height='280' filter='url(%23t)'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' preserveAspectRatio='none'%3E%3Cfilter id='t' x='-5%25' y='-5%25' width='110%25' height='110%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.045 .09' numOctaves='4' seed='7'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='16'/%3E%3C/filter%3E%3Crect x='10' y='10' width='380' height='280' filter='url(%23t)'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+}
+
+/* Lâmina editorial do mundo renascença: escura com moldura de canto redondo, ou papel rasgado */
+@layer components {
+  .plate {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 15rem;
+    overflow: hidden;
+    border: 1px solid var(--frame);
+    border-radius: 1.5rem 1.5rem 1.5rem 0.3rem;
+    background: var(--surface);
+    padding: 1.4rem 1.4rem 1.2rem;
+    transition: border-color 180ms, background-color 180ms;
+  }
+  .plate:hover,
+  .plate:focus-visible {
+    border-color: var(--accent);
+    background: var(--raised);
+  }
+  .plate-text {
+    color: var(--ink-2);
+  }
+  .plate-meta {
+    color: var(--ochre);
+  }
+  /* Lâmina de papel sépia: redefine as tintas para o texto ficar escuro sobre o papel */
+  .plate-paper {
+    --ink: #1d1913;
+    --ink-2: #463c30;
+    --ink-3: #5e5242;
+    --ochre: #6a470b;
+    color: var(--ink);
+    background: var(--paper);
+    border-color: transparent;
+    border-radius: 0;
+  }
+  .plate-paper:hover,
+  .plate-paper:focus-visible {
+    background: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  }
+  .plate-rule {
+    display: block;
+    width: 1.6rem;
+    height: 1px;
+    margin-top: 0.4rem;
+    background: var(--accent);
   }
 }
-.fill {
-  transform-origin: left;
-  animation: grow 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+/* Movimento: os controles e discos pousam no lugar uma vez, ao abrir a tela */
+@keyframes land {
+  from {
+    transform: scale(1.7);
+    opacity: 0.25;
+  }
+}
+.land {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: land 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .fill {
+  .land {
     animation: none;
+  }
+  .niche-fill {
+    transition: none;
+  }
+}
+
+/* Subtítulos do checklist nos mundos com serifa. Fica fora da camada de componentes
+   para vencer o .display, que também está fora dela. */
+[data-world='sacro'] .sub-head.display {
+  font-family: 'Newsreader Variable', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1.3rem;
+  line-height: 1.2;
+}
+[data-world='renascenca'] .sub-head.display {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1.4rem;
+  line-height: 1.2;
+}
+
+/* A marca do app usa sempre o letreiro, em qualquer mundo */
+.brand.display {
+  font-family: 'Big Shoulders Display Variable', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.005em;
+}
+
+/* Página inicial: capa de disco com foto de filme analógico e uma "capa" por módulo que cresce ao rolar */
+.gloock,
+.gloock-text {
+  font-family: 'Gloock', 'Bodoni Moda Variable', serif;
+  font-weight: 400;
+}
+.gloock {
+  text-transform: uppercase;
+  line-height: 0.8;
+  letter-spacing: -0.005em;
+}
+.fine {
+  font-family: 'Archivo Narrow Variable', 'Barlow', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+/* A página inicial é sempre escura, como a capa: as tintas não seguem o tema claro */
+.home {
+  --ink: #ece4cf;
+  --ink-2: #c9c0aa;
+  --ink-3: #a39a84;
+  --frame: #5a5446;
+  --line: #2e2b25;
+  --on-accent: #0d0c0a;
+  background: #0d0c0a;
+  color: var(--ink);
+}
+
+.film-section,
+.banner {
+  position: relative;
+  height: 100svh;
+  min-height: 34rem;
+  overflow: clip; /* clip, não hidden: hidden vira contêiner de rolagem e trava a animação de rolagem */
+}
+.banner {
+  view-timeline: --banner block;
+}
+.banner-frame {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+}
+
+.film-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.66) contrast(0.86) brightness(1.05) sepia(0.18) hue-rotate(-8deg);
+}
+/* Pretos levantados (o preto do filme nunca é preto) e vinheta */
+.film-lift {
+  position: absolute;
+  inset: 0;
+  background: #34302b;
+  mix-blend-mode: lighten;
+  opacity: 0.6;
+}
+.film-fade {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(130% 95% at 55% 40%, transparent 50%, rgba(12, 10, 8, 0.5)),
+    linear-gradient(180deg, rgba(120, 140, 160, 0.1), transparent 45%, rgba(40, 30, 15, 0.12));
+}
+.film-fade::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.6 -.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+/* Faixa preta vertical; o tamanho da letra sai do comprimento do nome para ele ocupar a altura */
+.band {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  left: 1rem;
+  bottom: 56%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0.55rem 0.9rem 1.05rem;
+  background: #0d0c0a;
+}
+.band-title {
+  writing-mode: vertical-rl;
+  font-size: min(calc(30svh / (var(--len) * 0.7)), 4rem);
+}
+.band-foot {
+  display: flex;
+  writing-mode: vertical-rl;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  font-size: 0.62rem;
+}
+@media (min-width: 768px) {
+  .band {
+    top: 4svh;
+    left: 3.5vw;
+    bottom: 10svh;
+    padding: 1.4rem 0.8rem 1.1rem 1.75rem;
+  }
+  .band-title {
+    font-size: min(calc(62svh / (var(--len) * 0.7)), 9rem);
+  }
+}
+
+/* Etiqueta preta com o texto, como o selo de uma contracapa */
+.sticker {
+  position: absolute;
+  z-index: 2;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  padding: 1.25rem 1.25rem 1rem;
+  background: #0d0c0a;
+}
+@media (min-width: 768px) {
+  .sticker {
+    left: auto;
+    right: 3.5vw;
+    bottom: 10svh;
+    width: min(27rem, 42vw);
+    padding: 1.75rem 1.75rem 1.25rem;
+  }
+}
+
+/* O banner começa recortado no meio da tela e cresce até a borda conforme entra */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .banner-frame {
+      animation: banner-grow linear both;
+      animation-timeline: --banner;
+      animation-range: entry 0% cover 50%;
+    }
+    .banner-frame .film-img {
+      animation: banner-settle linear both;
+      animation-timeline: --banner;
+      animation-range: entry 0% exit 100%;
+    }
+    .banner-copy {
+      animation: banner-copy linear both;
+      animation-timeline: --banner;
+      animation-range: entry 45% entry 100%;
+    }
+  }
+}
+@keyframes banner-grow {
+  from {
+    clip-path: inset(16% 14% round 1.5rem);
+  }
+  to {
+    clip-path: inset(0 round 0);
+  }
+}
+@keyframes banner-settle {
+  from {
+    transform: scale(1.2);
+  }
+  to {
+    transform: scale(1.02);
+  }
+}
+@keyframes banner-copy {
+  from {
+    opacity: 0;
+    translate: 0 2.5rem;
   }
 }

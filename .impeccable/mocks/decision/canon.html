@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1440px;height:900px;overflow:hidden}
+body{background:#111315;color:#e8e8e6;font:15px/1.5 system-ui,sans-serif;display:grid;grid-template-columns:240px 1fr}
+aside{background:#0d0f10;border-right:1px solid #22262a;padding:24px 12px}
+.brand{font-weight:650;font-size:20px;padding:0 12px 24px}
+nav a{display:block;padding:8px 12px;border-radius:6px;color:#9a9fa5;font-weight:500}
+nav a.on{background:#1d2125;color:#fff}
+main{padding:40px 64px;max-width:1000px}
+h1{font-size:34px;font-weight:650;letter-spacing:-.02em}
+.sub{color:#9a9fa5;margin-top:4px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+.stat{background:#1a1d21;border:1px solid #262a2f;border-radius:10px;padding:16px}
+.stat b{display:block;font-size:28px}.stat span{color:#9a9fa5;font-size:13px}
+.card{margin-top:22px;background:#1a1d21;border:1px solid #262a2f;border-radius:12px}
+.card header{padding:16px 20px;border-bottom:1px solid #262a2f;display:flex;justify-content:space-between}
+.card h2{font-size:18px;font-weight:600}
+.item{display:grid;grid-template-columns:1fr 140px 50px;gap:14px;align-items:center;padding:12px 20px;border-bottom:1px solid #22262a}
+.bar{height:6px;border-radius:3px;background:#2a2f34;overflow:hidden}.bar i{display:block;height:100%;background:#6fd0b0}
+.f{color:#9a9fa5;text-align:right}
+</style></head><body>
+<aside><div class="brand">Estudos</div>
+<nav><a class="on">Estudos profissionais</a><a>Trabalho</a><a>UEM</a><a>Igreja</a><a>Cultura</a><a>Mental</a></nav></aside>
+<main>
+  <h1>Estudos profissionais</h1><p class="sub">Roadmap de Engenharia de Dados + IA</p>
+  <div class="stats"><div class="stat"><b>8%</b><span>concluído</span></div><div class="stat"><b>10/126</b><span>itens</span></div><div class="stat"><b>Bronze</b><span>etapa atual</span></div></div>
+  <div class="card"><header><h2>Bronze: fundação</h2><span class="f">10/51</span></header>
+    <div class="item"><span>SQL avançado</span><div class="bar"><i style="width:58%"></i></div><span class="f">7/12</span></div>
+    <div class="item"><span>Python para dados</span><div class="bar"><i style="width:30%"></i></div><span class="f">3/10</span></div>
+    <div class="item"><span>Git e GitHub</span><div class="bar"></div><span class="f">0/6</span></div>
+    <div class="item"><span>Linux básico</span><div class="bar"></div><span class="f">0/5</span></div>
+    <div class="item"><span>Conceitos de ETL/ELT</span><div class="bar"></div><span class="f">0/8</span></div>
+  </div>
+</main>
+</body></html>

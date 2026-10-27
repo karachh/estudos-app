@@ -11,6 +11,13 @@ const paths = {
   external: 'M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5',
   pencil: 'M4 20h4L19 9a2.8 2.8 0 00-4-4L4 16v4z',
   x: 'M6 6l12 12M18 6L6 18',
+  // Ícones dos módulos na lateral recolhida
+  database: 'M5 6c0-1.7 3.1-3 7-3s7 1.3 7 3-3.1 3-7 3-7-1.3-7-3zM5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3',
+  briefcase: 'M4 8h16v11H4zM9 8V5h6v3M4 13h16',
+  cap: 'M2 9l10-5 10 5-10 5zM6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5M22 9v6',
+  cross: 'M12 3v18M7 8h10',
+  book: 'M12 6c-2-1.5-5-2-8-1.5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-13c-3-.5-6 0-8 1.5zM12 6v13',
+  sunrise: 'M5 15a7 7 0 0114 0zM3 18h18M7 21h10M12 3v3M5.6 6.6 7 8M18.4 6.6 17 8',
 } as const
 
 export type IconName = keyof typeof paths

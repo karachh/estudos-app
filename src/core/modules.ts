@@ -1,7 +1,12 @@
 import { roadmapIntro } from '../data/roadmap'
 
+// Mundo visual do interior do módulo. 'mapa' é o padrão (prova de orientação); 'sacro' é o do Igreja;
+// 'renascenca' é o do Mental (colagem renascentista).
+export type World = 'mapa' | 'sacro' | 'renascenca'
+
 export interface AppModule {
   id: string
+  world: World
   intro?: { title: string; text: string }[]
   introTitle?: string
   introOpen?: boolean
@@ -15,10 +20,11 @@ export interface AppModule {
   emptyHint: string
 }
 
-// Para criar um módulo novo: adicione aqui e uma cor em index.css. As telas são as mesmas para todos.
+// Para criar um módulo novo: adicione aqui, escolha o world e uma cor em index.css. As telas são as mesmas para todos.
 export const modules: AppModule[] = [
   {
     id: 'profissional',
+    world: 'mapa',
     label: 'Estudos profissionais',
     short: 'Profissional',
     intro: roadmapIntro,
@@ -31,6 +37,7 @@ export const modules: AppModule[] = [
   },
   {
     id: 'trabalho',
+    world: 'mapa',
     label: 'Trabalho',
     short: 'Trabalho',
     tagline: 'O que preciso dominar para o dia a dia como desenvolvedor',
@@ -42,6 +49,7 @@ export const modules: AppModule[] = [
   },
   {
     id: 'uem',
+    world: 'mapa',
     label: 'UEM',
     short: 'UEM',
     tagline: 'Disciplinas da faculdade, separadas por tópicos',
@@ -53,6 +61,7 @@ export const modules: AppModule[] = [
   },
   {
     id: 'igreja',
+    world: 'sacro',
     label: 'Igreja',
     short: 'Igreja',
     tagline: 'Plano de estudo católico: teologia, coração humano e maturidade espiritual',
@@ -64,6 +73,7 @@ export const modules: AppModule[] = [
   },
   {
     id: 'cultura',
+    world: 'mapa',
     label: 'Cultura',
     short: 'Cultura',
     tagline: 'Podcasts, documentários, séries e leituras para ampliar o repertório',
@@ -83,6 +93,7 @@ export const modules: AppModule[] = [
   },
   {
     id: 'mental',
+    world: 'renascenca',
     label: 'Mental',
     short: 'Mental',
     tagline: 'Vídeos e lembretes para os dias em que o ânimo cai',

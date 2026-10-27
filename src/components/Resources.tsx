@@ -37,7 +37,7 @@ function YouTubeCard({ resource }: { resource: Resource }) {
   const [playing, setPlaying] = useState(false)
   const id = resource.url
   return (
-    <div className="overflow-hidden rounded-xl border border-line bg-surface">
+    <div className="overflow-hidden rounded-[3px] border border-line bg-surface">
       <div className="relative aspect-video bg-raised">
         {playing ? (
           <iframe
