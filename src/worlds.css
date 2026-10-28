@@ -744,7 +744,6 @@
 }
 [data-world='psico'] .row-lit {
   background: color-mix(in oklab, var(--pink) 16%, transparent);
-  box-shadow: inset 3px 0 0 var(--pink);
 }
 .tb-psico {
   background:
