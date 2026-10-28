@@ -152,7 +152,7 @@ export default function App() {
             key={m.id}
             to={`/${m.id}`}
             data-module={m.id}
-            className={({ isActive }) => `nav-tab min-w-[3.6rem] shrink-0 flex-1 px-1 pb-3 pt-3 text-micro ${isActive ? 'active' : ''}`}
+            className={({ isActive }) => `nav-tab shrink-0 flex-[1_0_auto] px-2 pb-3 pt-3 text-micro ${isActive ? 'active' : ''}`}
           >
             {m.short}
           </NavLink>

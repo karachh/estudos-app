@@ -15,7 +15,6 @@ export interface AppModule {
   overview?: boolean // mostra todos os grupos lado a lado, em vez de um sob o outro
   sections?: { title: string; hint: string; groups: string[] }[] // divide a visão geral; grupo fora da lista vai para "Outros"
   hideGroupMeta?: boolean // esconde o prazo (subtítulo) e o critério de saída dos grupos
-  hideSummary?: boolean // sem a faixa "x de y itens marcados" no topo
   label: string
   short: string
   tagline: string
@@ -71,7 +70,6 @@ export const modules: AppModule[] = [
     world: 'sacro',
     label: 'Igreja',
     short: 'Igreja',
-    hideSummary: true,
     tagline: 'Plano de estudo católico: teologia, coração humano e maturidade espiritual',
     groupLabel: 'assunto',
     newGroup: 'Novo assunto',

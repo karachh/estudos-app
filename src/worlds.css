@@ -1,6 +1,6 @@
 /* Temas por cima do mapa: psico (Profissional), eva (UEM) e office (Trabalho). As cores e fontes de cada
    mundo estão em index.css; aqui ficam as regras que trocam a pele dos componentes. Fica fora das camadas
-   de propósito, para vencer o que .btn, .strip, .frame e .rule-head definem em @layer components. */
+   de propósito, para vencer o que .btn, .frame e .rule-head definem em @layer components. */
 
 /* ---------- Letreiro ---------- */
 [data-world='psico'] .display {
@@ -57,19 +57,7 @@
   background: linear-gradient(90deg, var(--accent) 0 18%, var(--frame) 18% 100%);
 }
 
-/* ---------- Faixa de resumo, molduras, botões, caixas de marcar ---------- */
-[data-world='psico'] .strip {
-  background: var(--pink);
-  color: #fff;
-}
-[data-world='eva'] .strip {
-  border-radius: 0.2rem;
-  background: var(--alert);
-  color: #fff;
-  clip-path: polygon(0 0, calc(100% - 0.9rem) 0, 100% 100%, 0 100%);
-  padding-right: 2rem;
-  letter-spacing: 0.02em;
-}
+/* ---------- Molduras, botões, caixas de marcar ---------- */
 
 [data-world='psico'] .frame,
 [data-world='psico'] .map-sheet {
@@ -236,7 +224,7 @@
 }
 .tb .tb-label {
   font-family: 'Space Mono', monospace;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.14em;
   fill: var(--ink-3);
@@ -283,19 +271,13 @@
 [data-world='psico'].app {
   background-image:
     radial-gradient(55rem 38rem at 100% -8%, rgba(75, 46, 230, 0.3), transparent 70%),
-    radial-gradient(40rem 30rem at -5% 105%, rgba(232, 49, 143, 0.14), transparent 70%),
-    radial-gradient(circle, rgba(244, 240, 228, 0.3) 0 1px, transparent 1.6px),
-    radial-gradient(circle, rgba(226, 185, 59, 0.22) 0 1px, transparent 1.6px);
-  background-size: auto, auto, 97px 97px, 151px 151px;
-  background-position: 0 0, 0 0, 0 0, 40px 60px;
+    radial-gradient(40rem 30rem at -5% 105%, rgba(232, 49, 143, 0.14), transparent 70%);
   background-attachment: fixed;
 }
 :root[data-theme='light'] [data-world='psico'].app {
   background-image:
     radial-gradient(55rem 38rem at 100% -8%, rgba(75, 46, 230, 0.13), transparent 70%),
-    radial-gradient(40rem 30rem at -5% 105%, rgba(212, 32, 125, 0.1), transparent 70%),
-    radial-gradient(circle, rgba(75, 46, 230, 0.22) 0 1px, transparent 1.6px),
-    radial-gradient(circle, rgba(217, 44, 28, 0.16) 0 1px, transparent 1.6px);
+    radial-gradient(40rem 30rem at -5% 105%, rgba(212, 32, 125, 0.1), transparent 70%);
 }
 [data-world='eva'].app {
   background-image:
@@ -423,7 +405,7 @@
 }
 .banner-eva .band,
 .banner-eva .sticker {
-  border: 1px solid #5b3fa8;
+  border: 1px solid #7656d0;
 }
 .banner-eva .btn-primary {
   background: #ff3b30;
@@ -465,16 +447,6 @@
   height: 2px;
   background: repeating-linear-gradient(90deg, var(--frame) 0 7px, transparent 7px 11px);
 }
-[data-world='office'] .strip {
-  border-radius: 2px;
-  background: var(--kraft);
-  color: var(--office-ink);
-  font-family: 'Special Elite', monospace;
-  box-shadow: 4px 4px 0 var(--office-red);
-}
-[data-world='office'] .strip svg {
-  color: var(--office-red);
-}
 [data-world='office'] .frame,
 [data-world='office'] .map-sheet {
   border-radius: 3px;
@@ -494,15 +466,12 @@
 }
 [data-world='office'].app {
   background-image:
-    radial-gradient(48rem 30rem at 100% 0%, rgba(217, 67, 47, 0.12), transparent 70%),
-    radial-gradient(circle, rgba(230, 207, 159, 0.12) 0 1px, transparent 1.5px);
-  background-size: auto, 9px 9px;
+    radial-gradient(48rem 30rem at 100% 0%, rgba(217, 67, 47, 0.12), transparent 70%);
   background-attachment: fixed;
 }
 :root[data-theme='light'] [data-world='office'].app {
   background-image:
-    radial-gradient(48rem 30rem at 100% 0%, rgba(184, 50, 42, 0.1), transparent 70%),
-    radial-gradient(circle, rgba(38, 38, 52, 0.12) 0 1px, transparent 1.5px);
+    radial-gradient(48rem 30rem at 100% 0%, rgba(184, 50, 42, 0.1), transparent 70%);
 }
 
 /* Cabeçalho: pôster de The Office em papel pardo, com a placa da porta, o carimbo e os cinco retratos */
@@ -523,8 +492,7 @@
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(70% 60% at 100% 0%, rgba(217, 67, 47, 0.2), transparent 70%),
-    radial-gradient(circle, rgba(38, 38, 52, 0.16) 1px, transparent 1.4px) 0 0 / 6px 6px;
+    radial-gradient(70% 60% at 100% 0%, rgba(217, 67, 47, 0.2), transparent 70%);
 }
 .office-head {
   display: flex;
@@ -548,21 +516,12 @@
 }
 .office-title {
   margin-top: 0.7rem;
-  font-family: 'Anton', sans-serif;
+  font-family: 'Alfa Slab One', serif;
   font-weight: 400;
   text-transform: uppercase;
-  line-height: 0.86;
-  font-size: min(8rem, calc(96cqw / (var(--len) * 0.5)));
+  line-height: 0.9;
+  font-size: min(7rem, calc(96cqw / (var(--len) * 0.78)));
   text-shadow: 0.035em 0.035em 0 rgba(217, 67, 47, 0.45);
-}
-.office-quote {
-  margin-top: 0.8rem;
-  max-width: 36rem;
-  font-family: 'Anton', sans-serif;
-  font-size: 1rem;
-  letter-spacing: 0.03em;
-  line-height: 1.2;
-  text-transform: uppercase;
 }
 .office-stamp {
   display: grid;
@@ -637,9 +596,7 @@
 
 /* Painel do Trabalho: mural de papel pardo, cartões coloridos com retícula */
 .tb-office {
-  background:
-    radial-gradient(circle, rgba(38, 38, 52, 0.14) 1px, transparent 1.4px) 0 0 / 6px 6px,
-    #e6cf9f;
+  background: #e6cf9f;
 }
 .tb-office .tb-cell {
   stroke: #262634;
@@ -802,7 +759,7 @@
   position: relative;
   overflow: clip;
   isolation: isolate;
-  border: 1px solid #5b3fa8;
+  border: 1px solid #7656d0;
   border-radius: 0.4rem;
   background: rgba(7, 5, 15, 0.74);
   backdrop-filter: blur(2px);
@@ -860,7 +817,7 @@
   translate: -50% 0;
   padding: 0.2rem 1.4rem 0.35rem;
   background: #0b0714;
-  border: 1px solid #5b3fa8;
+  border: 1px solid #7656d0;
   border-top: 0;
   border-radius: 0 0 0.5rem 0.5rem;
   font-family: 'Gloock', serif;
@@ -963,7 +920,7 @@
   position: relative;
   overflow: hidden;
   height: 0.75rem;
-  border: 1px solid #5b3fa8;
+  border: 1px solid #7656d0;
   background: repeating-linear-gradient(90deg, rgba(122, 86, 224, 0.25) 0 6px, transparent 6px 8px);
 }
 .eva-sync-bar > span {
@@ -1066,11 +1023,18 @@
     top: 2.6rem;
     right: 0.9rem;
   }
+  .eva-title,
+  .eva-tag {
+    padding-right: 3.6rem;
+  }
+  .eva-title {
+    font-size: min(10rem, calc((100cqw - 5rem) / (var(--len) * 0.7)));
+  }
   .eva-kanji {
-    font-size: 3.2rem;
+    font-size: 2.4rem;
   }
   .eva-alert {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -1182,6 +1146,15 @@
     mask-image: linear-gradient(90deg, transparent 0, #000 55%);
   }
 }
+/* No celular a imagem cobre a tela toda: mais apagada para o texto não brigar com o rosto da pintura */
+@media (max-width: 899px) {
+  .tbg {
+    opacity: 0.32;
+  }
+  .tbg[data-page='topic'] {
+    opacity: 0.22;
+  }
+}
 /* Linha de varredura na borda da transição */
 .tbg-scan {
   position: absolute;
@@ -1234,7 +1207,7 @@
   opacity: 0.32;
 }
 [data-module='trabalho'] .tbg::after {
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.35) 1px, transparent 1.5px) 0 0 / 5px 5px;
+  display: none;
 }
 [data-module='trabalho'] .tbg-tag {
   font-family: 'Special Elite', monospace;

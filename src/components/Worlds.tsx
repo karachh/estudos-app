@@ -190,7 +190,6 @@ export function OfficeHeader({ mod, groupCount }: HeaderProps) {
             <Icon name="office" size={34} />
           </p>
           <h1 className="office-title">{mod.short}</h1>
-          <p className="office-quote">{mod.tagline}</p>
         </div>
         <p className="office-stamp" aria-hidden="true">
           <span>Aprovado pelo</span>

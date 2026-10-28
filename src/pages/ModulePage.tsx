@@ -46,7 +46,6 @@ function kindSummary(k?: Partial<Record<ResourceKind, number>>) {
   return parts.join(' · ')
 }
 
-const started = (p?: Progress) => !!p && p.done > 0 && p.done < p.total
 
 // Com checklist mostra a fração; sem checklist, quantos materiais o tópico tem.
 const contents = (n = 0) => (n === 0 ? 'vazio' : `${n} ${n === 1 ? 'material' : 'materiais'}`)
@@ -62,12 +61,6 @@ export default function ModulePage() {
   const { groups, topics, byTopic, materials, kinds } = data
   const total = sumProgress(topics.map((t) => byTopic.get(t.id)))
   const pct = total.total ? Math.round((total.done / total.total) * 100) : 0
-  const inProgress = topics.filter((t) => started(byTopic.get(t.id))).length
-  const summary =
-    total.total > 0
-      ? `${total.done} de ${total.total} itens marcados · ${pct}% · ${inProgress} ${inProgress === 1 ? mod.topicLabel : plural(mod.topicLabel)} em andamento`
-      : 'O progresso aparece aqui quando houver itens para marcar.'
-
   const addGroup = (title: string) =>
     db.groups.add({
       moduleId: mod.id,
@@ -81,11 +74,11 @@ export default function ModulePage() {
   const groupProgress = (g: Group) => sumProgress(topics.filter((t) => t.groupId === g.id).map((t) => byTopic.get(t.id)))
 
   return (
-    <article>
+    <article key={mod.id} className="enter">
       {mod.world === 'sacro' ? (
-        <SacredHeader mod={mod} summary={summary} />
+        <SacredHeader mod={mod} />
       ) : mod.world === 'renascenca' ? (
-        <RenaissanceHeader mod={mod} summary={summary} />
+        <RenaissanceHeader mod={mod} />
       ) : mod.world === 'psico' || mod.world === 'eva' || mod.world === 'office' ? (
         <header>
           {mod.world === 'psico' ? (
@@ -95,10 +88,9 @@ export default function ModulePage() {
           ) : (
             <OfficeHeader mod={mod} groupCount={groups.length} />
           )}
-          <SummaryStrip summary={summary} />
         </header>
       ) : landscapes[mod.id] ? (
-        <FilmHeader mod={mod} summary={summary} groupCount={groups.length} />
+        <FilmHeader mod={mod} groupCount={groups.length} />
       ) : (
         <header>
           <div className="frame relative overflow-hidden px-6 pb-7 pt-10 md:px-10 md:pt-14">
@@ -106,7 +98,6 @@ export default function ModulePage() {
             <h1 className="display relative max-w-[12ch] text-display">{mod.label}</h1>
             <p className="relative mt-4 max-w-[34rem] text-lg text-ink-2">{mod.tagline}</p>
           </div>
-          <SummaryStrip summary={summary} />
         </header>
       )}
 
@@ -143,7 +134,7 @@ export default function ModulePage() {
               {sec.title && (
                 <div className="mb-4">
                   <h2 className="rule-head">{sec.title}</h2>
-                  <p className="-mt-3 text-sm text-ink-3">{sec.hint}</p>
+                  <p className="mt-2 text-sm text-ink-3">{sec.hint}</p>
                 </div>
               )}
               <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -222,7 +213,7 @@ function Intro({ mod }: { mod: AppModule }) {
   )
 }
 
-function SacredHeader({ mod, summary }: { mod: AppModule; summary: string }) {
+function SacredHeader({ mod }: { mod: AppModule }) {
   const igrejaCover = covers[mod.id]
   return (
     <header>
@@ -250,13 +241,12 @@ function SacredHeader({ mod, summary }: { mod: AppModule; summary: string }) {
         </p>
       </div>
     </div>
-      {!mod.hideSummary && <SummaryStrip summary={summary} />}
     </header>
   )
 }
 
 // Provisório, até o módulo ganhar um mundo próprio: o cabeçalho repete a capa dele na página inicial.
-function FilmHeader({ mod, summary, groupCount }: { mod: AppModule; summary: string; groupCount: number }) {
+function FilmHeader({ mod, groupCount }: { mod: AppModule; groupCount: number }) {
   const art = landscapes[mod.id]
   return (
     <header>
@@ -275,21 +265,11 @@ function FilmHeader({ mod, summary, groupCount }: { mod: AppModule; summary: str
           </p>
         </div>
       </div>
-      <SummaryStrip summary={summary} />
     </header>
   )
 }
 
-function SummaryStrip({ summary }: { summary: string }) {
-  return (
-    <p className="strip mt-2.5">
-      <Sparkle size={13} className="shrink-0" />
-      <span className="min-w-0">{summary}</span>
-    </p>
-  )
-}
-
-function RenaissanceHeader({ mod, summary }: { mod: AppModule; summary: string }) {
+function RenaissanceHeader({ mod }: { mod: AppModule }) {
   const cover = covers[mod.id]
   return (
     <header>
@@ -321,7 +301,6 @@ function RenaissanceHeader({ mod, summary }: { mod: AppModule; summary: string }
         </figure>
       )}
     </div>
-      <SummaryStrip summary={summary} />
     </header>
   )
 }
@@ -399,7 +378,7 @@ function GroupSection({
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
-              <h2 id={`gh-${group.id}`} className={`text-headline ${sacred ? 'wide-serif' : renaissance ? 'bodoni' : 'display'}`}>
+              <h2 id={`gh-${group.id}`} className={`text-headline max-sm:text-[1.65rem] ${sacred ? 'wide-serif' : renaissance ? 'bodoni' : 'display'}`}>
                 <GroupTitle title={group.title} />
               </h2>
               {meta && group.subtitle && <p className={`mt-1.5 text-ink-3 ${sacred ? 'italic-serif text-lg' : renaissance ? 'garamond text-xl italic' : ''}`}>{group.subtitle}</p>}
@@ -449,8 +428,8 @@ function GroupSection({
           ))}
         </ul>
       ) : (
-        <div className="mt-7 grid gap-6 md:grid-cols-[minmax(0,25rem)_minmax(0,1fr)] md:gap-8">
-          <div className="md:sticky md:top-6 md:self-start">
+        <div className="mt-7 grid gap-6 xl:grid-cols-[minmax(0,25rem)_minmax(0,1fr)] xl:gap-8">
+          <div className="xl:sticky xl:top-6 xl:self-start">
             {mod.world === 'mapa' ? (
               <CourseMap
                 seed={group.id}

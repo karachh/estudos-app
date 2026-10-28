@@ -36,7 +36,7 @@ colors:
   sacro-surface: "#1e1610"
   sacro-raised: "#271d15"
   sacro-line: "#3d2e20"
-  sacro-frame: "#6e5638"
+  sacro-frame: "#8a6d47"
   sacro-ink: "#efe3c8"
   sacro-wine: "#7d2630"
   renascenca-black: "#13110e"
@@ -44,7 +44,26 @@ colors:
   renascenca-line: "#3a3229"
   renascenca-ink: "#ece2cc"
   renascenca-paper: "#ddcdad"
+  renascenca-frame: "#86775e"
   renascenca-ochre: "#c9962e"
+  psico-black: "#0c0a12"
+  psico-pink: "#e8318f"
+  psico-tomato: "#ee3a2c"
+  psico-violet: "#4b2ee6"
+  psico-mustard: "#e2b93b"
+  psico-paper: "#f1e8cf"
+  eva-black: "#07050f"
+  eva-frame: "#7656d0"
+  eva-alert: "#ff3b30"
+  eva-amber: "#f0922b"
+  eva-acid: "#8cf03a"
+  eva-mint: "#d5ebe2"
+  office-ink-dark: "#15120d"
+  office-kraft: "#e6cf9f"
+  office-ink: "#262634"
+  office-red: "#d9432f"
+  office-yellow: "#f2b82e"
+  office-blue: "#7fa8c9"
   film-orange: "#e5582b"
   film-lift: "#34302b"
   film-sky-tint: "#788ca0"
@@ -61,7 +80,7 @@ typography:
     lineHeight: 1.2
   fine-print:
     fontFamily: "'Archivo Narrow Variable', 'Barlow', sans-serif"
-    fontSize: "0.72rem"
+    fontSize: "0.78rem"
     fontWeight: 500
     lineHeight: 1.3
     letterSpacing: "0.08em"
@@ -117,6 +136,22 @@ typography:
     fontWeight: 500
     lineHeight: 1.05
     letterSpacing: "-0.01em"
+  psico-display:
+    fontFamily: "'Bagel Fat One', 'Big Shoulders Display Variable', sans-serif"
+    fontSize: "5.5rem"
+    fontWeight: 400
+    lineHeight: 0.95
+    letterSpacing: "0.01em"
+  eva-display:
+    fontFamily: "'Noto Serif Display Variable', 'Gloock', serif"
+    fontSize: "10rem"
+    fontWeight: 850
+    lineHeight: 0.82
+  office-display:
+    fontFamily: "'Alfa Slab One', serif"
+    fontSize: "7rem"
+    fontWeight: 400
+    lineHeight: 0.9
   renascenca-reading:
     fontFamily: "'Cormorant Garamond', Georgia, serif"
     fontSize: "1.4rem"
@@ -169,12 +204,6 @@ components:
     backgroundColor: "transparent"
     rounded: "{rounded.check}"
     size: "1.2rem"
-  strip:
-    backgroundColor: "{colors.accent-profissional}"
-    textColor: "{colors.print-black}"
-    typography: "{typography.data}"
-    rounded: "{rounded.pill}"
-    padding: "0.55rem 1.1rem"
   niche-head:
     backgroundColor: "{colors.sacro-leather}"
     textColor: "{colors.accent-igreja}"
@@ -196,17 +225,18 @@ components:
 
 **Creative North Star: "Uma capa de disco impressa à mão"**
 
-O app é um caderno de estudos para um usuário só, usado à noite no PC e no celular. Desde 27/10/2026 a casca segue as referências soltas em `../refs/`: capas de disco e pôsteres retrô de ficção científica, impressos em serigrafia ou risografia. Isso quer dizer preto quente com grão de impressão, tinta creme, duas ou três cores chapadas, molduras finas de canto arredondado, faixas em cápsula, glifos celestes a traço (estrela de quatro pontas, órbitas cruzadas) e letreiro condensado retrô.
+O app é um caderno de estudos para um usuário só, usado à noite no PC e no celular. Desde 27/10/2026 a casca segue as referências soltas em `../refs/`: capas de disco e pôsteres retrô de ficção científica, impressos em serigrafia ou risografia. Isso quer dizer preto quente com grão de impressão, tinta creme, duas ou três cores chapadas, molduras finas de canto arredondado, botões em cápsula, glifos celestes a traço (estrela de quatro pontas, órbitas cruzadas) e letreiro condensado retrô.
 
-O interior de cada módulo é um mundo próprio, escolhido por `data-world` na raiz `.app`, e todos herdam a casca (grão, molduras, cápsulas, estrela, faixa de resumo, números em Space Mono):
-- `mapa` (Profissional, Trabalho, UEM, Repertório): prova de orientação por pontuação, impressa em duas cores. As curvas de nível são creme, a mata é retícula de pontos e o campo aberto vem na cor do módulo. Provisoriamente, o cabeçalho desses módulos é a capa deles na página inicial (ver Capa do módulo).
+O interior de cada módulo é um mundo próprio, escolhido por `data-world` na raiz `.app`, e todos herdam a casca (grão, molduras, cápsulas, estrela, números em Space Mono):
+- `mapa` (hoje só o Repertório): prova de orientação por pontuação, impressa em duas cores. As curvas de nível são creme, a mata é retícula de pontos e o campo aberto vem na cor do módulo. Provisoriamente, o cabeçalho é a capa dele na página inicial (ver Capa do módulo).
+- `psico` (Profissional), `eva` (UEM) e `office` (Trabalho): temas por cima da estrutura do mapa (mapa de orientação e tabela de controles), cada um com outra pele. Ver Mundos temáticos.
 - `sacro` (Igreja): manuscrito medieval em couro marrom escuro e dourado de folha, com vinho. Os nichos em arco se enchem de dourado.
 - `renascenca` (Motivação): colagem renascentista com papel rasgado, Bodoni e disco vermelho.
 
 O progresso nunca é barra de porcentagem. Cada mundo tem seu desenho que se completa (controle, arco dourado, disco), e cada item do checklist vira um traço de código de barras. Nenhum desenho liga os tópicos entre si nem sugere sequência.
 
 **Key Characteristics:**
-- Casca única de cartaz analógico; três mundos internos trocados por `data-world`.
+- Casca única de cartaz analógico; seis mundos internos trocados por `data-world`.
 - Cor por módulo como a cor chapada da impressão; tinge de leve o fundo no mundo mapa.
 - Tema escuro por padrão e claro como alternativa (papel creme), em todos os mundos.
 - Lateral recolhível no desktop, lembrada por aparelho (`estudos:rail` no localStorage).
@@ -224,8 +254,19 @@ Referência: `../refs/c564aeb767c39bbc03d14bd03b530fc1.jpg`, uma capa de disco c
 - **Crescimento:** o banner entra recortado (`clip-path: inset(16% 14% round 1.5rem)`) e cresce até a borda enquanto a foto desaproxima (escala de 1.2 a 1.02). É uma animação ligada à rolagem: `view-timeline: --banner` na seção, que precisa de `overflow: clip`, porque `hidden` cria um contêiner de rolagem e trava a animação. Sem suporte ou com movimento reduzido, o banner aparece pronto.
 - **Código de barras:** um traço por tópico; 1px a 45% se não começado, 2px se em andamento, 4px se concluído. A legenda vai em Space Mono ("N de M itens").
 - **Tamanho do letreiro na faixa:** sai do comprimento do nome (`--len` × 0.9), para o nome ocupar a altura. Na faixa a altura de linha é 1, não 0.8: com 0.8 os acentos (Ó, Ã) saíam da caixa e encostavam na borda.
-- **Rodapé da faixa:** letra miúda a 0.72rem; nada informativo fica abaixo de 11px.
+- **Rodapé da faixa:** letra miúda no papel `micro` (0.78rem); a faixa cresce com o conteúdo, sem altura fixa.
 - **Voltar ao início:** a marca "Estudos" na lateral e na barra do celular leva para `/`.
+
+## Mundos temáticos (psico, eva, office)
+
+Cores e fontes em `src/index.css` (`[data-world=...]`), regras dos componentes em `src/worlds.css`, cabeçalhos em `components/Worlds.tsx`, marcadores em `Marks.tsx` e o painel no lugar do mapa em `components/ThemeBoard.tsx`. Todos têm tema claro.
+- **psico (Profissional):** pôster psicodélico de OVNI em violeta elétrico, tomate, mostarda e moldura rosa-choque. Título em Bagel Fat One; só a palavra Bronze, Prata ou Ouro do título da etapa leva a cor do metal. O olho é o marcador, e o painel é um céu de olhos que piscam. Claro: papel creme.
+- **eva (UEM):** Evangelion, preto arroxeado com hexágonos finos, alerta vermelho, laranja e verde-ácido de detalhe. Título em Noto Serif Display condensada com aberração de cor; cabeçalho em grade com barra "SYNC RATE" do progresso e kanji (Yu Mincho ou equivalente do sistema). O hexágono é o marcador. Claro: verde-menta.
+- **office (Trabalho):** pôster de The Office em papel pardo, com placa da porta, carimbo e cinco retratos recortados. Título em Alfa Slab One, rótulos em Special Elite e letreiro dos blocos em Anton; o painel é um mural de papel pardo. O cabeçalho não leva tagline.
+- **Fundo temático:** imagens fixas atrás da página do módulo (`ThemeBackdrop.tsx`, `data/backdrops.ts`), apagadas pelo CSS para o texto seguir legível (opacidade menor abaixo de 900px).
+
+### Named Rules
+**The Smooth Ground Rule.** Os fundos dos módulos não levam pontilhado nem retícula de pontos (pedido do dono em 28/10/2026). Textura vem do grão de impressão e dos hexágonos da UEM. Os pontos da mata dentro do SVG do mapa são conteúdo do mapa, não fundo.
 
 ## Colors
 
@@ -233,7 +274,7 @@ Uma cor saturada por tela, a do módulo, sobre preto quente e creme.
 
 ### Primary
 - **Cor chapada do módulo** (`--accent`): uma por módulo, com par escuro e par claro. Profissional é verde-água, Trabalho âmbar, UEM lilás, Igreja dourado de folha, Repertório azul-céu e Motivação vermelhão (os tokens mantêm os ids `cultura` e `mental`). Vai em:
-  - faixa de resumo, glifos (estrela e órbita), botão primário;
+  - glifos (estrela e órbita) e botão primário;
   - controles, traços marcados, frações de grupo, foco e cursor de texto.
 
 ### Secondary
@@ -250,9 +291,10 @@ Uma cor saturada por tela, a do módulo, sobre preto quente e creme.
 - **Tinta creme** (cream-ink, cream-ink-2, cream-ink-3): texto principal, secundário e de apoio.
 - **Papel** (print-paper, print-paper-surface, print-paper-line, print-paper-frame, paper-ink): tema claro.
 - **Couro sacro** (sacro-*) e **preto quente renascentista** (renascenca-*): neutros dos dois mundos próprios. Neles a cor do módulo não tinge o fundo.
+- **Tintas de pôster** (psico-*, eva-*, office-*): paletas dos três temas por cima do mapa; ficam dentro do mundo respectivo.
 
 ### Named Rules
-**The Spot Color Rule.** A cor do módulo é a única tinta saturada da tela. Ela marca o que é interativo, o estado e os glifos da casca. Texto corrido nunca vai na cor do módulo; a exceção é o texto escuro (`--on-accent`) dentro da faixa chapada.
+**The Spot Color Rule.** A cor do módulo é a única tinta saturada da tela. Ela marca o que é interativo, o estado e os glifos da casca. Texto corrido nunca vai na cor do módulo.
 
 **The Ink Swap Rule.** Quando há uma superfície clara dentro de uma tela escura (como a lâmina de papel), ela redefine `--ink`, `--ink-2` e `--ink-3` localmente, em vez de pintar cada texto um a um.
 
@@ -260,24 +302,30 @@ Uma cor saturada por tela, a do módulo, sobre preto quente e creme.
 
 **Display Font:** Big Shoulders Display, variável (com Barlow). No mundo renascença, Bodoni Moda (com Didot).
 **Body Font:** Barlow (com system-ui).
-**Data Font:** Space Mono, só para números e dados: frações, numeração dos controles, faixa de resumo, selos.
-**Vozes de mundo:** Young Serif e Newsreader itálica, com Cinzel Decorative no título (sacro); Noto Serif Display condensada (wdth 62.5), Cormorant Garamond e Montserrat Variable (renascença, Motivação); Bagel Fat One (psico, Profissional); Noto Serif Display Variable condensada no título, Gloock e kanji em fonte do sistema, Yu Mincho e equivalentes (eva, UEM); Anton e Special Elite (office, Trabalho). Marca "Estudos" da lateral em Gloock. Regras em `src/worlds.css`.
+**Data Font:** Space Mono, só para números e dados: frações, numeração dos controles, selos.
+**Vozes de mundo** (cada uma só dentro do seu mundo, regras em `src/worlds.css`):
+- Sacro: Young Serif, Newsreader itálica e Cinzel Decorative no título.
+- Renascença: Noto Serif Display condensada (wdth 62.5), Cormorant Garamond e Montserrat Variable.
+- Psico (Profissional): Bagel Fat One.
+- Eva (UEM): Noto Serif Display Variable condensada no título; kanji em Yu Mincho ou fonte equivalente do sistema.
+- Office (Trabalho): Alfa Slab One no título, Anton nos blocos e Special Elite nos rótulos.
+- Marca "Estudos" da lateral e capas em Gloock.
 
 **Character:** letreiro condensado de capa retrô em caixa-alta para títulos e rótulos de botão, grotesca neutra no corpo e monoespaçada de etiqueta técnica para os números.
 
 ### Hierarchy
-- **Display** (800, 3.5rem no celular e 5.5rem no desktop, 0.9, caixa-alta): nome do módulo dentro da moldura do cabeçalho. O sacro usa o mesmo letreiro sobre a pintura; a renascença usa Bodoni 500 na cor do módulo, com o tamanho tirado da largura da coluna e do número de letras (`min(6rem, 130cqw / --len)`), para nome comprido não invadir a pintura. Nos módulos com capa provisória, o nome vai em Gloock na etiqueta.
+- **Display** (800, 3.5rem no celular e 5.5rem no desktop, 0.9, caixa-alta): nome do módulo dentro da moldura do cabeçalho. Nos temas psico, eva e office o letreiro é o da voz do mundo (ver acima). O sacro usa o mesmo letreiro sobre a pintura; a renascença usa Bodoni 500 na cor do módulo, com o tamanho tirado da largura da coluna e do número de letras (`min(6rem, 130cqw / --len)`), para nome comprido não invadir a pintura. Nos módulos com capa provisória, o nome vai em Gloock na etiqueta.
 - **Headline** (800, 2.1 a 2.6rem): título do grupo, e do tópico a 2.6 a 3.4rem.
   - Sacro: Young Serif. Renascença: Bodoni.
 - **Title** (800, 1.5rem, 0.03em): cabeçalho de bloco, com estrela na frente e filete até a borda.
   - Sacro: Young Serif com filete em degradê. Renascença: Bodoni, com um disco no lugar da estrela.
 - **Body** (400, 16px, 1.5, números tabulares): texto corrido em `max-w-prose`; as anotações vão até 75ch.
 - **Label** (700, 1.02rem, 0.05em, caixa-alta): rótulo de botão, sempre no letreiro, mesmo no mundo renascença.
-- **Data** (Space Mono): resumo na faixa a 0.8rem, número do controle com dois dígitos (01, 02…), frações e selos (selo a 0.72rem, o menor tamanho de texto informativo).
+- **Data** (Space Mono): número do controle com dois dígitos (01, 02…), frações e selos (selo a 0.78rem, o menor tamanho de texto informativo).
 
 ### Escala de papéis
 Todo tamanho de texto sai de um token de papel em `src/index.css` (`--type-*`, classes `text-*` do Tailwind). Nenhum componente escreve tamanho solto (`text-[1.45rem]`).
-- `micro` (0.72rem): créditos, letra miúda, selos, abas do celular. É o piso do texto informativo.
+- `micro` (0.78rem): créditos, letra miúda, selos, abas do celular. É o piso do texto informativo.
 - `meta` (0.95rem): atalhos de grupo, número do controle, "Recolher".
 - `body` (1rem, nunca em px, para respeitar a letra escolhida no navegador).
 - `reading` (1.15rem): texto de leitura dentro de nicho e lâmina.
@@ -304,12 +352,12 @@ No desktop a grade tem duas colunas.
 - **Lateral:** 15.5rem, sticky e com a altura da tela. Recolhe para 4.5rem e aí mostra só a marca e os círculos dos módulos, com o nome em `title`/`aria-label`. O botão de recolher e o de tema ficam no pé dela.
 - **Conteúdo:** centrado até 66rem.
 
-No celular a lateral vira uma barra superior com a marca, e as abas ficam fixas no rodapé.
+No celular a lateral vira uma barra superior com a marca, e as abas ficam fixas no rodapé, cada uma com a largura do próprio texto.
 
-O cabeçalho do módulo é uma moldura e, logo abaixo, a faixa chapada com o resumo. A órbita decorativa só aparece a partir de `xl`, para não cobrir o título. Os grupos se separam por filete e 4rem.
+O cabeçalho do módulo é uma moldura, sem faixa de resumo embaixo (tirada em 28/10/2026). A órbita decorativa só aparece a partir de `xl`, para não cobrir o título. Os grupos se separam por filete e 4rem.
 
 O miolo de cada grupo muda por mundo:
-- **Mapa:** o mapa (até 25rem, sticky) ao lado da tabela.
+- **Mapa e temas:** o mapa ou painel (até 25rem, sticky) ao lado da tabela, só a partir de `xl`; abaixo disso ficam empilhados, porque com a lateral aberta o conteúdo não comporta as duas colunas.
 - **Sacro:** uma grade de nichos de no mínimo 10.5rem.
 - **Renascença:** lâminas em 1, 2 ou 3 colunas.
 
@@ -326,7 +374,7 @@ O sistema é plano, sem sombra de caixa: a profundidade vem do tom e da moldura.
 ## Shapes
 
 - **Contêineres:** a moldura tem 1.5rem de raio (cabeçalho e lâmina escura, esta com o canto inferior esquerdo quase reto). O mapa tem 1.25rem e o campo 0.7rem.
-- **Cápsulas:** botões, faixa de resumo, atalhos de grupo, selos e o item ativo da navegação.
+- **Cápsulas:** botões, atalhos de grupo, selos e o item ativo da navegação.
 - **Arco pleno:** exclusivo do sacro, nos nichos, nas imagens de grupo e no ArchMark.
 - **Borda rasgada:** exclusiva da renascença, feita por máscara de ruído.
 
@@ -348,10 +396,7 @@ Enquanto Profissional, Trabalho, UEM e Repertório não ganham mundo próprio, o
 - Moldura de 1.5rem de raio, 30rem de altura no celular e 34rem no desktop, sempre escura (troca as tintas localmente, como a página inicial).
 - Foto com o filtro de filme, faixa preta vertical com o nome curto na cor do módulo e a contagem de grupos, e etiqueta preta com o nome em Gloock, a tagline e o crédito.
 - O letreiro da faixa usa a altura da moldura (`cqh`), não a da tela.
-- A faixa de resumo continua logo abaixo. Sai quando o módulo ganhar mundo próprio.
-
-### Faixa de resumo
-Cápsula chapada na cor do módulo, embaixo do cabeçalho de todos os mundos. Leva a estrela e o resumo em Space Mono ("N de M itens marcados · % · N em andamento").
+- Sai quando o módulo ganhar mundo próprio.
 
 ### Inputs / Fields
 - Superfície com filete de 1px e 0.7rem de raio; no foco, borda na cor do módulo e anel de 3px a 18%.
@@ -363,7 +408,7 @@ Nenhum círculo na navegação, a pedido do dono em 27/10/2026.
   - Os itens são só o nome; o ativo é uma cápsula com borda e 10% de fundo na cor do módulo.
   - O botão "Recolher" fica no pé da lateral.
 - **Lateral recolhida:** um ícone a traço por módulo (`moduleIcons` em `App.tsx`: banco de dados, maleta, capelo, cruz, livro, sol nascente), na cor dele e sem forma atrás; o ativo ganha um traço de 2px embaixo. Módulo novo precisa de um ícone ali.
-- **Celular:** abas só com o nome curto; a ativa tem um traço de 3px na cor do módulo no topo.
+- **Celular:** abas só com o nome curto, com largura pelo texto; a ativa tem um traço de 3px na cor do módulo no topo.
 
 ### Mapa de percurso (mundo mapa)
 - SVG dentro de uma moldura arredondada, com terreno gerado pela semente do grupo.
@@ -391,7 +436,7 @@ Cada linha tem o número com dois dígitos em mono na cor do módulo, o título 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** manter a faixa de resumo, a estrela e as molduras em todo mundo novo: são o que liga os mundos à casca.
+- **Do** manter a estrela, as molduras e o grão em todo mundo novo: são o que liga os mundos à casca.
 - **Do** criar módulo novo escolhendo um `world` existente e um par de cores de `--accent` (escuro e claro).
 - **Do** usar os neutros `--*-base` e deixar o `.app` misturar a cor do módulo.
 - **Do** creditar toda obra de arte com autor, título e data, ligada à fonte, e empacotar a imagem no app.
@@ -403,3 +448,5 @@ Cada linha tem o número com dois dígitos em mono na cor do módulo, o título 
 - **Don't** usar vermelho de alerta, contagem de dias ou "atrasado"; `--danger` é só para excluir.
 - **Don't** levar o arco do sacro ou a borda rasgada da renascença para outro mundo.
 - **Don't** usar a monoespaçada fora de números e dados.
+- **Don't** pôr faixa de resumo de progresso ("N de M itens marcados") nos módulos (pedido do dono em 28/10/2026).
+- **Don't** usar pontilhado ou retícula de pontos como textura de fundo (pedido do dono em 28/10/2026).

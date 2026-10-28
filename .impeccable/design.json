@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-27T20:11:16+00:00",
+  "generatedAt": "2026-10-28T12:36:43+00:00",
   "title": "Design System: Estudos",
   "extensions": {
     "colorMeta": {
@@ -551,17 +551,16 @@
       "sacro-frame": {
         "role": "neutral",
         "displayName": "Moldura sacra",
-        "canonical": "#6e5638",
-        "oklch": "oklch(47.0% 0.054 72.1)",
+        "canonical": "#8a6d47",
         "tonalRamp": [
-          "#0f0a05",
-          "#2c2216",
-          "#4c3d2a",
-          "#6e5940",
-          "#90795c",
-          "#ae9b84",
-          "#d0c2b1",
-          "#f5ede4"
+          "#181510",
+          "#3f3527",
+          "#68553c",
+          "#967750",
+          "#b49874",
+          "#cabaa5",
+          "#e3dcd4",
+          "#f7f5f3"
         ]
       },
       "sacro-ink": {
@@ -739,6 +738,291 @@
           "#bbc5d0",
           "#e9eff5"
         ]
+      },
+      "renascenca-frame": {
+        "role": "neutral",
+        "displayName": "Moldura renascentista",
+        "canonical": "#86775e",
+        "tonalRamp": [
+          "#171512",
+          "#3a352c",
+          "#5e5546",
+          "#867860",
+          "#a59882",
+          "#c2baae",
+          "#e0dcd7",
+          "#f6f5f4"
+        ]
+      },
+      "psico-black": {
+        "role": "neutral",
+        "displayName": "Preto psicodélico",
+        "canonical": "#0c0a12",
+        "tonalRamp": [
+          "#131118",
+          "#2e283e",
+          "#483e65",
+          "#635392",
+          "#8678b0",
+          "#afa7c8",
+          "#d8d4e2",
+          "#f4f3f7"
+        ]
+      },
+      "psico-pink": {
+        "role": "secondary",
+        "displayName": "Rosa-choque",
+        "canonical": "#e8318f",
+        "tonalRamp": [
+          "#1f0a15",
+          "#511534",
+          "#881b53",
+          "#ca1b75",
+          "#e34496",
+          "#e58ab9",
+          "#efc8dc",
+          "#faf0f5"
+        ]
+      },
+      "psico-tomato": {
+        "role": "secondary",
+        "displayName": "Vermelho-tomate",
+        "canonical": "#ee3a2c",
+        "tonalRamp": [
+          "#1f0b0a",
+          "#531813",
+          "#8c2017",
+          "#d02316",
+          "#e84c3f",
+          "#e88e87",
+          "#f0cac7",
+          "#faf0f0"
+        ]
+      },
+      "psico-violet": {
+        "role": "secondary",
+        "displayName": "Violeta elétrico",
+        "canonical": "#4b2ee6",
+        "tonalRamp": [
+          "#0e0a1e",
+          "#1f1650",
+          "#2d1c87",
+          "#381dc9",
+          "#5e46e2",
+          "#998be5",
+          "#cec8ee",
+          "#f2f0fa"
+        ]
+      },
+      "psico-mustard": {
+        "role": "tertiary",
+        "displayName": "Mostarda",
+        "canonical": "#e2b93b",
+        "tonalRamp": [
+          "#1e190b",
+          "#4f4117",
+          "#846b1f",
+          "#c49c21",
+          "#deb94a",
+          "#e2cd8d",
+          "#ede4c9",
+          "#f9f7f0"
+        ]
+      },
+      "psico-paper": {
+        "role": "neutral",
+        "displayName": "Papel creme psico",
+        "canonical": "#f1e8cf",
+        "tonalRamp": [
+          "#1b180d",
+          "#473d1f",
+          "#77632c",
+          "#af8f37",
+          "#caae5d",
+          "#d7c698",
+          "#e9e2ce",
+          "#f8f6f2"
+        ]
+      },
+      "eva-black": {
+        "role": "neutral",
+        "displayName": "Preto arroxeado",
+        "canonical": "#07050f",
+        "tonalRamp": [
+          "#110e1b",
+          "#282046",
+          "#3d2f74",
+          "#523caa",
+          "#7662c6",
+          "#a69bd4",
+          "#d4cfe7",
+          "#f3f2f8"
+        ]
+      },
+      "eva-frame": {
+        "role": "neutral",
+        "displayName": "Moldura violeta",
+        "canonical": "#7656d0",
+        "tonalRamp": [
+          "#110d1c",
+          "#291e48",
+          "#3f2b78",
+          "#5535b1",
+          "#795ccc",
+          "#a897d8",
+          "#d5cee9",
+          "#f3f1f8"
+        ]
+      },
+      "eva-alert": {
+        "role": "secondary",
+        "displayName": "Vermelho de alerta",
+        "canonical": "#ff3b30",
+        "tonalRamp": [
+          "#210908",
+          "#58120e",
+          "#96140d",
+          "#e01105",
+          "#f73b31",
+          "#f1847e",
+          "#f3c6c3",
+          "#fbefef"
+        ]
+      },
+      "eva-amber": {
+        "role": "tertiary",
+        "displayName": "Laranja de aviso",
+        "canonical": "#f0922b",
+        "tonalRamp": [
+          "#1f1509",
+          "#533413",
+          "#8d5416",
+          "#d27714",
+          "#ea983e",
+          "#e9ba86",
+          "#f0dcc6",
+          "#faf5f0"
+        ]
+      },
+      "eva-acid": {
+        "role": "tertiary",
+        "displayName": "Verde-ácido",
+        "canonical": "#8cf03a",
+        "tonalRamp": [
+          "#131f0a",
+          "#305313",
+          "#4c8c17",
+          "#69d115",
+          "#8be93f",
+          "#b3e986",
+          "#d9f0c7",
+          "#f4faf0"
+        ]
+      },
+      "eva-mint": {
+        "role": "neutral",
+        "displayName": "Verde-menta",
+        "canonical": "#d5ebe2",
+        "tonalRamp": [
+          "#101915",
+          "#264035",
+          "#396a56",
+          "#4c9a7a",
+          "#71b79a",
+          "#a3ccbb",
+          "#d3e4dd",
+          "#f3f7f5"
+        ]
+      },
+      "office-ink-dark": {
+        "role": "neutral",
+        "displayName": "Tinta marrom quase preta",
+        "canonical": "#15120d",
+        "tonalRamp": [
+          "#171511",
+          "#3c352a",
+          "#625642",
+          "#8d7959",
+          "#ab9a7d",
+          "#c5bbaa",
+          "#e1ddd6",
+          "#f6f5f3"
+        ]
+      },
+      "office-kraft": {
+        "role": "neutral",
+        "displayName": "Papel pardo",
+        "canonical": "#e6cf9f",
+        "tonalRamp": [
+          "#1c170d",
+          "#493b1d",
+          "#7a6029",
+          "#b38932",
+          "#cea85a",
+          "#d9c396",
+          "#e9e0cd",
+          "#f8f6f1"
+        ]
+      },
+      "office-ink": {
+        "role": "neutral",
+        "displayName": "Tinta azul-grafite",
+        "canonical": "#262634",
+        "tonalRamp": [
+          "#121216",
+          "#2d2d39",
+          "#47475c",
+          "#626284",
+          "#8484a3",
+          "#afafc1",
+          "#d8d8df",
+          "#f4f4f6"
+        ]
+      },
+      "office-red": {
+        "role": "secondary",
+        "displayName": "Vermelho de retícula",
+        "canonical": "#d9432f",
+        "tonalRamp": [
+          "#1d0e0c",
+          "#4d1f19",
+          "#812d22",
+          "#be3927",
+          "#d95f4f",
+          "#df9990",
+          "#eccfcb",
+          "#f9f2f1"
+        ]
+      },
+      "office-yellow": {
+        "role": "tertiary",
+        "displayName": "Mostarda dos retratos",
+        "canonical": "#f2b82e",
+        "tonalRamp": [
+          "#201909",
+          "#544012",
+          "#8e6a15",
+          "#d49a12",
+          "#ecb83c",
+          "#eacc85",
+          "#f1e4c6",
+          "#faf7f0"
+        ]
+      },
+      "office-blue": {
+        "role": "tertiary",
+        "displayName": "Azul dos retratos",
+        "canonical": "#7fa8c9",
+        "tonalRamp": [
+          "#0f151a",
+          "#243542",
+          "#36556d",
+          "#46789f",
+          "#6b98bc",
+          "#a0bacf",
+          "#d1dce5",
+          "#f2f5f7"
+        ]
       }
     },
     "typographyMeta": {
@@ -776,7 +1060,7 @@
       },
       "data": {
         "displayName": "Data",
-        "purpose": "Números e dados: faixa de resumo, controles, frações, selos."
+        "purpose": "Números e dados: controles, frações, selos."
       },
       "sacro-display": {
         "displayName": "Sacro: serifa larga",
@@ -793,6 +1077,18 @@
       "renascenca-reading": {
         "displayName": "Renascença: Cormorant",
         "purpose": "Texto de leitura, taglines e subtítulos na renascença."
+      },
+      "psico-display": {
+        "displayName": "Psico: letreiro",
+        "purpose": "Título do módulo e das etapas no tema psicodélico (Profissional), em Bagel Fat One."
+      },
+      "eva-display": {
+        "displayName": "Eva: letreiro",
+        "purpose": "Título da UEM em Noto Serif Display condensada com aberração de cor."
+      },
+      "office-display": {
+        "displayName": "Office: letreiro",
+        "purpose": "Título do Trabalho em Alfa Slab One, no pôster de papel pardo."
       }
     },
     "shadows": [
@@ -860,10 +1156,16 @@
     "worlds": {
       "selector": "data-world on .app",
       "mapa": [
-        "profissional",
-        "trabalho",
-        "uem",
         "cultura (Repertório)"
+      ],
+      "psico": [
+        "profissional"
+      ],
+      "eva": [
+        "uem"
+      ],
+      "office": [
+        "trabalho"
       ],
       "sacro": [
         "igreja"
@@ -871,7 +1173,7 @@
       "renascenca": [
         "mental (Motivação)"
       ],
-      "provisionalCover": "Módulos do mapa com foto em landscapes abrem com a capa da página inicial (FilmHeader)."
+      "provisionalCover": "Módulos do mapa com foto em landscapes abrem com a capa da página inicial (FilmHeader); hoje só o Repertório."
     }
   },
   "components": [
@@ -906,14 +1208,6 @@
       "description": "Entrada de texto e anotações.",
       "html": "<input class=\"ds-field\" placeholder=\"Nova etapa\">",
       "css": ":host{--accent:#6fd0b0;--on-accent:#0d0c0a;--bg:#0d0c0a;--surface:#14120f;--raised:#1c1a16;--line:#2e2b25;--frame:#5a5446;--ink:#ece4cf;--ink-2:#c4bca6;--ink-3:#9c947f}.ds-field{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:.7rem;padding:.55rem .85rem;color:var(--ink);font:16px/1.5 'Barlow',system-ui,sans-serif;caret-color:var(--accent);transition:border-color 150ms,box-shadow 150ms}.ds-field::placeholder{color:var(--ink-3)}.ds-field:hover{border-color:var(--frame)}.ds-field:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in oklab,var(--accent) 18%,transparent)}"
-    },
-    {
-      "name": "Faixa de resumo",
-      "kind": "custom",
-      "refersTo": "strip",
-      "description": "Cápsula chapada na cor do módulo embaixo de todo cabeçalho.",
-      "html": "<p class=\"ds-strip\"><svg width=\"13\" height=\"13\" viewBox=\"-12 -12 24 24\" fill=\"currentColor\"><path d=\"M0-12C1 -3 3-1 12 0 3 1 1 3 0 12-1 3-3 1-12 0-3-1-1-3 0-12z\"/></svg><span>12 de 126 itens marcados · 10% · 2 tópicos em andamento</span></p>",
-      "css": ":host{--accent:#6fd0b0;--on-accent:#0d0c0a;--bg:#0d0c0a;--surface:#14120f;--raised:#1c1a16;--line:#2e2b25;--frame:#5a5446;--ink:#ece4cf;--ink-2:#c4bca6;--ink-3:#9c947f}.ds-strip{display:flex;align-items:center;gap:.9rem;margin:0;border-radius:999px;background:var(--accent);color:var(--on-accent);padding:.55rem 1.1rem;font:400 .8rem/1.35 'Space Mono',ui-monospace,monospace}.ds-strip svg{flex:none}"
     },
     {
       "name": "Navegação lateral",
@@ -958,9 +1252,9 @@
   ],
   "narrative": {
     "northStar": "Uma capa de disco impressa à mão",
-    "overview": "O app é um caderno de estudos para um usuário só, usado à noite no PC e no celular. Desde 27/10/2026 a casca segue as referências soltas em `../refs/`: capas de disco e pôsteres retrô de ficção científica, impressos em serigrafia ou risografia. Isso quer dizer preto quente com grão de impressão, tinta creme, duas ou três cores chapadas, molduras finas de canto arredondado, faixas em cápsula, glifos celestes a traço (estrela de quatro pontas, órbitas cruzadas) e letreiro condensado retrô.\n\nO interior de cada módulo é um mundo próprio, escolhido por `data-world` na raiz `.app`, e todos herdam a casca (grão, molduras, cápsulas, estrela, faixa de resumo, números em Space Mono):\n- `mapa` (Profissional, Trabalho, UEM, Repertório): prova de orientação por pontuação, impressa em duas cores. As curvas de nível são creme, a mata é retícula de pontos e o campo aberto vem na cor do módulo. Provisoriamente, o cabeçalho desses módulos é a capa deles na página inicial (ver Capa do módulo).\n- `sacro` (Igreja): manuscrito medieval em couro marrom escuro e dourado de folha, com vinho. Os nichos em arco se enchem de dourado.\n- `renascenca` (Motivação): colagem renascentista com papel rasgado, Bodoni e disco vermelho.\n\nO progresso nunca é barra de porcentagem. Cada mundo tem seu desenho que se completa (controle, arco dourado, disco), e cada item do checklist vira um traço de código de barras. Nenhum desenho liga os tópicos entre si nem sugere sequência.",
+    "overview": "O app é um caderno de estudos para um usuário só, usado à noite no PC e no celular. Desde 27/10/2026 a casca segue as referências soltas em `../refs/`: capas de disco e pôsteres retrô de ficção científica, impressos em serigrafia ou risografia. Isso quer dizer preto quente com grão de impressão, tinta creme, duas ou três cores chapadas, molduras finas de canto arredondado, botões em cápsula, glifos celestes a traço (estrela de quatro pontas, órbitas cruzadas) e letreiro condensado retrô.\n\nO interior de cada módulo é um mundo próprio, escolhido por `data-world` na raiz `.app`, e todos herdam a casca (grão, molduras, cápsulas, estrela, números em Space Mono):\n- `mapa` (hoje só o Repertório): prova de orientação por pontuação, impressa em duas cores. As curvas de nível são creme, a mata é retícula de pontos e o campo aberto vem na cor do módulo. Provisoriamente, o cabeçalho é a capa dele na página inicial (ver Capa do módulo).\n- `psico` (Profissional), `eva` (UEM) e `office` (Trabalho): temas por cima da estrutura do mapa (mapa de orientação e tabela de controles), cada um com outra pele. Ver Mundos temáticos.\n- `sacro` (Igreja): manuscrito medieval em couro marrom escuro e dourado de folha, com vinho. Os nichos em arco se enchem de dourado.\n- `renascenca` (Motivação): colagem renascentista com papel rasgado, Bodoni e disco vermelho.\n\nO progresso nunca é barra de porcentagem. Cada mundo tem seu desenho que se completa (controle, arco dourado, disco), e cada item do checklist vira um traço de código de barras. Nenhum desenho liga os tópicos entre si nem sugere sequência.",
     "keyCharacteristics": [
-      "Casca única de cartaz analógico; três mundos internos trocados por `data-world`.",
+      "Casca única de cartaz analógico; seis mundos internos trocados por `data-world`.",
       "Cor por módulo como a cor chapada da impressão; tinge de leve o fundo no mundo mapa.",
       "Tema escuro por padrão e claro como alternativa (papel creme), em todos os mundos.",
       "Lateral recolhível no desktop, lembrada por aparelho (`estudos:rail` no localStorage).",
@@ -1001,10 +1295,15 @@
         "name": "The Filling Mark Rule",
         "body": "O desenho de progresso de cada mundo se completa: vazio, parcial, cheio.",
         "section": "shapes"
+      },
+      {
+        "name": "The Smooth Ground Rule",
+        "body": "Os fundos dos módulos não levam pontilhado nem retícula de pontos (pedido do dono em 28/10/2026). Textura vem do grão de impressão e dos hexágonos da UEM. Os pontos da mata dentro do SVG do mapa são conteúdo do mapa, não fundo.",
+        "section": "worlds"
       }
     ],
     "dos": [
-      "**Do** manter a faixa de resumo, a estrela e as molduras em todo mundo novo: são o que liga os mundos à casca.",
+      "**Do** manter a estrela, as molduras e o grão em todo mundo novo: são o que liga os mundos à casca.",
       "**Do** criar módulo novo escolhendo um `world` existente e um par de cores de `--accent` (escuro e claro).",
       "**Do** usar os neutros `--*-base` e deixar o `.app` misturar a cor do módulo.",
       "**Do** creditar toda obra de arte com autor, título e data, ligada à fonte, e empacotar a imagem no app."
@@ -1015,7 +1314,9 @@
       "**Don't** desenhar linha ou seta ligando tópicos, nem sugerir sequência obrigatória.",
       "**Don't** usar vermelho de alerta, contagem de dias ou \"atrasado\"; `--danger` é só para excluir.",
       "**Don't** levar o arco do sacro ou a borda rasgada da renascença para outro mundo.",
-      "**Don't** usar a monoespaçada fora de números e dados."
+      "**Don't** usar a monoespaçada fora de números e dados.",
+      "**Don't** pôr faixa de resumo de progresso (\"N de M itens marcados\") nos módulos (pedido do dono em 28/10/2026).",
+      "**Don't** usar pontilhado ou retícula de pontos como textura de fundo (pedido do dono em 28/10/2026)."
     ]
   }
 }

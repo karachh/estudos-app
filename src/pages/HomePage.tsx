@@ -41,8 +41,9 @@ export default function HomePage() {
   return (
     <div className="home">
       <section className="film-section" aria-label="Início" style={{ '--accent': '#e5582b' } as CSSProperties}>
+        <h1 className="sr-only">Caderno de Estudos Pessoal</h1>
         <Film art={landscapes.inicio} eager />
-        <Band title="Estudos" foot={`${modules.length} módulos · ${total.total} itens`} />
+        <Band title="Estudos"foot={`${modules.length} módulos · ${total.total} itens`} />
         <div className="sticker">
           <p className="gloock-text text-cover leading-tight">
             Caderno de Estudos Pessoal

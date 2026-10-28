@@ -31,7 +31,7 @@
 /* Escala de papéis tipográficos. Cada papel tem um tamanho; os mundos só ajustam o valor do token,
    porque cada voz (letreiro condensado, serifa larga, Bodoni, Cormorant) tem outro tamanho aparente. */
 :root {
-  --type-micro: 0.72rem; /* créditos, letra miúda, selos, abas do celular: o menor texto informativo */
+  --type-micro: 0.78rem; /* créditos, letra miúda, selos, abas do celular: o menor texto informativo */
   --type-meta: 0.95rem; /* atalhos de grupo, número do controle, "Recolher" */
   --type-reading: 1.15rem; /* texto de leitura dentro de nicho e lâmina */
   --type-lead: 1.4rem; /* tagline, subtítulo do tópico, seção do checklist */
@@ -135,7 +135,7 @@
   --surface-base: #1e1610;
   --raised-base: #271d15;
   --line-base: #3d2e20;
-  --frame-base: #6e5638;
+  --frame-base: #8a6d47;
   --ink: #efe3c8;
   --ink-2: #d2c3a2;
   --ink-3: #aa9a7c;
@@ -165,7 +165,7 @@
   --surface-base: #1a1713;
   --raised-base: #221e19;
   --line-base: #3a3229;
-  --frame-base: #6a5c48;
+  --frame-base: #86775e;
   --ink: #ece2cc;
   --ink-2: #c8bba0;
   --ink-3: #a1937a;
@@ -239,7 +239,7 @@
   --surface-base: #0f0a1d;
   --raised-base: #181129;
   --line-base: #2a1f47;
-  --frame-base: #5b3fa8;
+  --frame-base: #7656d0;
   --ink: #f2eefc;
   --ink-2: #cbc2e6;
   --ink-3: #9b90c2;
@@ -464,20 +464,6 @@ textarea {
 .frame {
   border: 1px solid var(--frame);
   border-radius: 1.5rem;
-}
-
-/* Faixa chapada na cor do módulo, embaixo do cabeçalho: o resumo do progresso */
-.strip {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  border-radius: 999px;
-  background: var(--accent);
-  color: var(--on-accent);
-  padding: 0.55rem 1.1rem;
-  font-family: 'Space Mono', ui-monospace, monospace;
-  font-size: 0.8rem;
-  line-height: 1.35;
 }
 
 /* Título de bloco: estrela, nome em letreiro e filete até a borda */
@@ -1004,7 +990,6 @@ textarea {
   z-index: 2;
   top: 1rem;
   left: 1rem;
-  bottom: 56%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1146,5 +1131,27 @@ textarea {
   from {
     opacity: 0;
     translate: 0 2.5rem;
+  }
+}
+
+/* Entrada da página do módulo: cabeçalho, atalhos e grupos chegam um depois do outro */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes enter-up {
+    from {
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+  }
+  .enter > * {
+    animation: enter-up 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .enter > :nth-child(2) {
+    animation-delay: 90ms;
+  }
+  .enter > :nth-child(3) {
+    animation-delay: 170ms;
+  }
+  .enter > :nth-child(n + 4) {
+    animation-delay: 250ms;
   }
 }
