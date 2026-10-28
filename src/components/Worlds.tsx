@@ -216,12 +216,22 @@ export function BannerBackdrop({ world }: { world: AppModule['world'] }) {
   if (world === 'psico') {
     return (
       <div className="banner-theme" aria-hidden="true">
-        <span className="bt-blob torn" />
+        <img src={backdrops.profissional.images[2].src} alt="" className="bt-psy-img" />
+        <span className="bt-psy-wash" />
+        <span className="bt-psy-wash hot" />
+        {[
+          ['#e8318f', '0s'],
+          ['#e2b93b', '-3s'],
+          ['#ee3a2c', '-6s'],
+        ].map(([c, d]) => (
+          <span key={c} className="bt-ring" style={{ '--c': c, '--d': d } as CSSProperties} />
+        ))}
         <PlaneTrail className="bt-plane" id="bt-plane" />
         <Ufo className="bt-art bt-ufo" />
         <Sparkle size={16} className="twinkle absolute left-[24%] top-[14%] text-[#f4f0e4]" />
         <Sparkle size={10} className="twinkle absolute left-[46%] top-[30%] text-[#e2b93b] [animation-delay:1s]" />
         <Sparkle size={12} className="twinkle absolute bottom-[18%] left-[34%] text-[#e8318f] [animation-delay:2s]" />
+        <Sparkle size={14} className="twinkle absolute right-[38%] top-[20%] text-[#f4f0e4] [animation-delay:1.6s]" />
       </div>
     )
   }

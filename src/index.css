@@ -200,7 +200,7 @@
   --frame-base: #e8318f;
   --ink: #f4f0e4;
   --ink-2: #d4cbea;
-  --ink-3: #a99fcb;
+  --ink-3: #bdb4dc;
   --on-accent: #0c0a12;
   --pink: #e8318f;
   --tomato: #ee3a2c;
@@ -939,13 +939,13 @@ textarea {
 
 .film-section,
 .banner {
-  position: relative;
+  --p: 1;
+  --cover: 0;
+  position: sticky;
+  top: 0;
   height: 100svh;
   min-height: 34rem;
-  overflow: clip; /* clip, não hidden: hidden vira contêiner de rolagem e trava a animação de rolagem */
-}
-.banner {
-  view-timeline: --banner block;
+  overflow: clip;
 }
 .banner-frame {
   position: absolute;
@@ -1091,49 +1091,133 @@ textarea {
   }
 }
 
-/* O banner começa recortado no meio da tela e cresce até a borda conforme entra */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .banner-frame {
-      animation: banner-grow linear both;
-      animation-timeline: --banner;
-      animation-range: entry 0% cover 50%;
-    }
-    .banner-frame .film-img {
-      animation: banner-settle linear both;
-      animation-timeline: --banner;
-      animation-range: entry 0% exit 100%;
-    }
-    .banner-copy {
-      animation: banner-copy linear both;
-      animation-timeline: --banner;
-      animation-range: entry 45% entry 100%;
-    }
+/* Telas empilhadas: cada uma fica presa no topo e a seguinte sobe por baixo e a cobre.
+   --p e --cover vêm do JS (useStack em HomePage.tsx). */
+.film-section,
+.banner {
+  --edge: var(--accent);
+  scale: calc(1 - var(--cover) * 0.04);
+  filter: brightness(calc(1 - var(--cover) * 0.6));
+}
+/* A beirada de cima da tela que sobe leva um filete na cor do tema, que some quando ela assenta */
+.banner::before {
+  content: '';
+  position: absolute;
+  z-index: 6;
+  inset: 0 0 auto;
+  height: 0.5rem;
+  background: var(--edge);
+  opacity: clamp(0, calc((1 - var(--p)) * 6), 1);
+}
+.banner-frame {
+  filter: brightness(calc(1 + (1 - var(--p)) * 0.5));
+  scale: calc(1 + (1 - var(--p)) * 0.06);
+}
+
+/* Cartão de informações: ocupa a altura toda de um lado; o título (faixa) vai para o outro. A linha grossa
+   na beirada separa o cartão do fundo, na cor do tema (--edge). */
+.pane {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 78%;
+  overflow: hidden auto;
+  padding: 1.5rem 1.25rem 1.25rem;
+  background: #0d0c0a;
+  border-top: 0.5rem solid var(--edge);
+  translate: 0 calc((1 - clamp(0, (var(--p) - 0.1) * 1.4, 1)) * 100%);
+}
+.pane > * {
+  opacity: clamp(0, calc((var(--p) - 0.45) * 3), 1);
+  translate: 0 calc((1 - clamp(0, (var(--p) - 0.45) * 3, 1)) * 1.25rem);
+}
+.pane > :nth-child(2) { opacity: clamp(0, calc((var(--p) - 0.55) * 3), 1); }
+.pane > :nth-child(3) { opacity: clamp(0, calc((var(--p) - 0.65) * 3), 1); }
+.pane > :nth-child(n + 4) { opacity: clamp(0, calc((var(--p) - 0.75) * 3), 1); }
+@media (min-width: 768px) {
+  .pane {
+    --dir: 1;
+    top: 0;
+    left: auto;
+    right: 0;
+    width: min(31rem, 42vw);
+    max-height: none;
+    padding: 3rem 2.75rem 2.5rem 3rem;
+    border-top: 0;
+    border-left: 0.75rem solid var(--edge);
+    translate: calc((1 - clamp(0, (var(--p) - 0.1) * 1.4, 1)) * 100%) 0;
+  }
+  .pane h2 {
+    font-size: clamp(2.2rem, 3.2vw, 3.2rem);
+  }
+  .pane ul.fine {
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+  .pane > p:not(.fine) {
+    font-size: 1.1rem;
+  }
+  /* Segundo filete, fino, por dentro da linha grossa */
+  .pane::after {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0.75rem;
+    width: 3px;
+    background: var(--edge);
+    opacity: 0.55;
+  }
+  .banner[data-side='left'] .pane {
+    left: 0;
+    right: auto;
+    padding: 3rem 3rem 2.5rem 2.75rem;
+    border-left: 0;
+    border-right: 0.75rem solid var(--edge);
+    translate: calc((1 - clamp(0, (var(--p) - 0.1) * 1.4, 1)) * -100%) 0;
+  }
+  .banner[data-side='left'] .pane::after {
+    inset: 0 0.75rem 0 auto;
+  }
+  .banner[data-side='left'] .band {
+    left: auto;
+    right: 3.5vw;
   }
 }
-@keyframes banner-grow {
-  from {
-    clip-path: inset(16% 14% round 1.5rem);
+@media (prefers-reduced-motion: reduce) {
+  .pane,
+  .pane > *,
+  .banner-frame {
+    translate: none;
+    scale: none;
+    filter: none;
+    opacity: 1;
   }
-  to {
-    clip-path: inset(0 round 0);
-  }
-}
-@keyframes banner-settle {
-  from {
-    transform: scale(1.2);
-  }
-  to {
-    transform: scale(1.02);
-  }
-}
-@keyframes banner-copy {
-  from {
-    opacity: 0;
-    translate: 0 2.5rem;
+  .banner::before {
+    display: none;
   }
 }
 
+/* Só na tela inicial (desktop): as informações da capa ficam no centro */
+@media (min-width: 768px) {
+  .film-section .sticker {
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    width: min(30rem, calc(100% - 2rem));
+    translate: -50% -50%;
+    text-align: center;
+  }
+  .film-section .sticker .btn {
+    display: flex;
+    width: fit-content;
+    margin-inline: auto;
+  }
+}
 /* Entrada da página do módulo: cabeçalho, atalhos e grupos chegam um depois do outro */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes enter-up {
@@ -1154,4 +1238,11 @@ textarea {
   .enter > :nth-child(n + 4) {
     animation-delay: 250ms;
   }
+}
+
+/* Contagem do grupo sobre a imagem de fundo do tema: uma placa quase opaca garante a leitura */
+.count-plate {
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.4rem;
+  background: color-mix(in oklab, var(--bg) 78%, transparent);
 }

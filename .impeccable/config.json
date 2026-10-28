@@ -5,5 +5,53 @@
       "maxFindings": 5,
       "maxChars": 8000
     }
+  },
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "yu mincho",
+        "createdAt": "2026-10-28T15:14:26.477Z",
+        "reason": "fonte de mundo temático, documentada em DESIGN.md (Typography > Vozes de mundo) e no CLAUDE.md; escolha do projeto, não do dono por fonte"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "special elite",
+        "createdAt": "2026-10-28T15:14:26.490Z",
+        "reason": "fonte de mundo temático, documentada em DESIGN.md (Typography > Vozes de mundo) e no CLAUDE.md; escolha do projeto, não do dono por fonte"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "anton",
+        "createdAt": "2026-10-28T15:14:26.504Z",
+        "reason": "fonte de mundo temático, documentada em DESIGN.md (Typography > Vozes de mundo) e no CLAUDE.md; escolha do projeto, não do dono por fonte"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "krona one",
+        "createdAt": "2026-10-28T15:14:26.518Z",
+        "reason": "fonte de mundo temático, documentada em DESIGN.md (Typography > Vozes de mundo) e no CLAUDE.md; escolha do projeto, não do dono por fonte"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "bagel fat one",
+        "createdAt": "2026-10-28T15:14:26.532Z",
+        "reason": "fonte de mundo temático, documentada em DESIGN.md (Typography > Vozes de mundo) e no CLAUDE.md; escolha do projeto, não do dono por fonte"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "cinzel decorative",
+        "createdAt": "2026-10-28T15:14:26.545Z",
+        "reason": "fonte de mundo temático, documentada em DESIGN.md (Typography > Vozes de mundo) e no CLAUDE.md; escolha do projeto, não do dono por fonte"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "montserrat variable",
+        "createdAt": "2026-10-28T15:14:26.559Z",
+        "reason": "fonte de mundo temático, documentada em DESIGN.md (Typography > Vozes de mundo) e no CLAUDE.md; escolha do projeto, não do dono por fonte"
+      }
+    ]
   }
 }

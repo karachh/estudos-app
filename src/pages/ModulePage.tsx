@@ -384,12 +384,12 @@ function GroupSection({
               {meta && group.subtitle && <p className={`mt-1.5 text-ink-3 ${sacred ? 'italic-serif text-lg' : renaissance ? 'garamond text-xl italic' : ''}`}>{group.subtitle}</p>}
             </div>
             {progress.total > 0 && (
-              <p className="shrink-0 text-right leading-none">
+              <p className="count-plate shrink-0 text-right leading-none">
                 <span className="display text-headline text-accent">
                   {progress.done}
-                  <span className="text-ink-3">/{progress.total}</span>
+                  <span className="text-ink-2">/{progress.total}</span>
                 </span>
-                <span className="mono mt-1.5 block text-xs text-ink-3">itens</span>
+                <span className="mono mt-1.5 block text-xs text-ink-2">itens</span>
               </p>
             )}
           </div>

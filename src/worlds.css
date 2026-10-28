@@ -319,7 +319,8 @@
 @media (min-width: 768px) {
   .bt-art {
     right: auto;
-    left: 17%;
+    left: 50%;
+    translate: -50% 0;
     top: auto;
     bottom: 6svh;
     width: min(28rem, 34vw);
@@ -328,22 +329,73 @@
 
 .banner-psico {
   --accent: #e2b93b;
+  --edge: #e8318f;
   --on-accent: #0c0a12;
   --pink: #e8318f;
   --tomato: #ee3a2c;
 }
 .banner-psico .banner-frame {
   background: #0c0a12;
-  border: 4px solid var(--pink);
 }
-.bt-blob {
-  position: absolute;
-  inset: 1rem 0.5rem;
-  background: #4b2ee6;
-}
-.banner-psico .band,
-.banner-psico .sticker {
+.banner-psico .band {
   border: 2px solid var(--pink);
+}
+/* Fundo do Profissional na home: a imagem do módulo (laranja e preto em retícula) sob um véu violeta, com
+   ondas que saem do olho como no pôster psicodélico de referência. */
+.bt-psy-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 45%;
+  filter: saturate(1.3) contrast(1.1);
+  animation: psy-drift 28s ease-in-out infinite alternate;
+}
+.bt-psy-wash {
+  position: absolute;
+  inset: 0;
+  background: #4b2ee6;
+  mix-blend-mode: multiply;
+  opacity: 0.8;
+}
+.bt-psy-wash.hot {
+  background: #e8318f;
+  mix-blend-mode: screen;
+  opacity: 0.18;
+}
+.bt-ring {
+  position: absolute;
+  left: 50%;
+  bottom: 14%;
+  width: min(34rem, 60vw);
+  aspect-ratio: 2 / 1;
+  translate: -50% 50%;
+  border: 0.45rem solid var(--c);
+  border-radius: 50%;
+  opacity: 0;
+  animation: psy-ring 9s linear infinite;
+  animation-delay: var(--d);
+}
+@keyframes psy-ring {
+  0% {
+    scale: 0.25;
+    opacity: 0.95;
+  }
+  100% {
+    scale: 3.2;
+    opacity: 0;
+  }
+}
+@keyframes psy-drift {
+  from {
+    scale: 1.04;
+    translate: -1.5% 0;
+  }
+  to {
+    scale: 1.14;
+    translate: 1.5% -2%;
+  }
 }
 .banner-psico .gloock {
   font-family: 'Bagel Fat One', sans-serif;
@@ -363,6 +415,7 @@
 
 .banner-eva {
   --accent: #a98bff;
+  --edge: #ff3b30;
   --on-accent: #0b0714;
 }
 .banner-eva .banner-frame {
@@ -403,9 +456,17 @@
   color: #f2eefc;
   text-transform: uppercase;
 }
-.banner-eva .band,
-.banner-eva .sticker {
+.banner-eva .band {
   border: 1px solid #7656d0;
+}
+/* O cartão da UEM fica à direita: a figura vai para o meio, longe dele */
+.banner-eva .bt-img {
+  right: auto;
+  left: 14%;
+  width: min(60%, 48rem);
+  opacity: 0.9;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 30%, #000 70%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 30%, #000 70%, transparent 100%);
 }
 .banner-eva .btn-primary {
   background: #ff3b30;
@@ -515,13 +576,28 @@
   line-height: 1.1;
 }
 .office-title {
-  margin-top: 0.7rem;
-  font-family: 'Alfa Slab One', serif;
+  display: inline-block;
+  margin-top: 0.9rem;
+  font-family: 'Krona One', sans-serif;
   font-weight: 400;
   text-transform: uppercase;
-  line-height: 0.9;
-  font-size: min(7rem, calc(96cqw / (var(--len) * 0.78)));
-  text-shadow: 0.035em 0.035em 0 rgba(217, 67, 47, 0.45);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  font-size: min(5.2rem, calc(92cqw / (var(--len) * 0.98)));
+}
+/* Duas barras vermelhas em volta do título, como no pôster de referência */
+.office-title::before,
+.office-title::after {
+  content: '';
+  display: block;
+  height: 0.16em;
+  background: #d9432f;
+}
+.office-title::before {
+  margin-bottom: 0.22em;
+}
+.office-title::after {
+  margin-top: 0.22em;
 }
 .office-stamp {
   display: grid;
@@ -1213,7 +1289,7 @@
   font-family: 'Special Elite', monospace;
 }
 [data-module='profissional'] .tbg {
-  opacity: 0.55;
+  opacity: 0.4;
 }
 [data-module='cultura'] .tbg::after {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.25), transparent 30%, transparent 70%, rgba(0, 0, 0, 0.35));
@@ -1255,6 +1331,7 @@
 }
 .banner-office {
   --accent: #f2b82e;
+  --edge: #d9432f;
   --on-accent: #15120d;
 }
 .banner-office .banner-frame {
@@ -1268,8 +1345,10 @@
   mask-image: linear-gradient(90deg, transparent 0, #000 35%);
 }
 .banner-office .band,
-.banner-office .sticker {
+.banner-office .pane {
   background: #262634;
+}
+.banner-office .band {
   border: 2px solid #262634;
 }
 .banner-office .gloock,
@@ -1287,6 +1366,10 @@
 
 /* Quem pediu menos movimento no sistema vê tudo parado */
 @media (prefers-reduced-motion: reduce) {
+  .bt-psy-img,
+  .bt-ring {
+    animation: none;
+  }
   .eva-glow,
   .eva-sweep,
   .eva-warns span,

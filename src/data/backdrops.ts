@@ -20,8 +20,10 @@ import cultura from '../assets/paisagens/cultura.jpg'
 import concorde from '../assets/profissional/bg-concorde.jpg'
 import ufo from '../assets/profissional/bg-ufo.jpg'
 import upside from '../assets/profissional/bg-upside.jpg'
+import officeComic from '../assets/trabalho/bg-comic.jpg'
 import officeFear from '../assets/trabalho/bg-fear.jpg'
 import officePoster from '../assets/trabalho/bg-poster.jpg'
+import officeRedstar from '../assets/trabalho/bg-redstar.jpg'
 
 // Fundo de cada módulo (components/ThemeBackdrop.tsx): imagens fixas atrás da página que se trocam.
 // - scroll: a cada ~uma tela rolada entra a próxima, com uma linha de varredura (o efeito do Evangelion);
@@ -69,7 +71,9 @@ export const backdrops: Record<string, Backdrop> = {
     tag: 'DUNDER MIFFLIN · SCRANTON, PA',
     images: [
       { src: officePoster, pos: '50% 20%', tint: '#d9432f' },
+      { src: officeRedstar, pos: '50% 60%', tint: '#d9432f' },
       { src: officeFear, pos: '50% 35%', tint: '#f2b82e' },
+      { src: officeComic, pos: '50% 45%', tint: '#d9432f' },
     ],
   },
   profissional: {

@@ -148,10 +148,10 @@ typography:
     fontWeight: 850
     lineHeight: 0.82
   office-display:
-    fontFamily: "'Alfa Slab One', serif"
-    fontSize: "7rem"
+    fontFamily: "'Krona One', sans-serif"
+    fontSize: "5.2rem"
     fontWeight: 400
-    lineHeight: 0.9
+    lineHeight: 1
   renascenca-reading:
     fontFamily: "'Cormorant Garamond', Georgia, serif"
     fontSize: "1.4rem"
@@ -248,10 +248,13 @@ Referência: `../refs/c564aeb767c39bbc03d14bd03b530fc1.jpg`, uma capa de disco c
 - **Capa:** foto de paisagem em tela cheia com filtro de filme (`.film-img`: saturação e contraste baixos, sépia leve). Por cima vão `.film-lift` (pretos levantados) e `.film-fade` (vinheta, céu frio e grão próprio).
   - **Faixa** (`.band`): à esquerda, com "ESTUDOS" em Gloock na vertical, em laranja de filme (`#e5582b`). O rodapé da faixa vai em letra miúda.
   - **Etiqueta** (`.sticker`): à direita, com "Caderno de Estudos Pessoal" em Gloock, o código de barras do progresso geral, o botão "Ver os módulos" e o crédito da foto.
-- **Um banner por módulo, na ordem de `modules.ts`:** cada um é uma seção de tela cheia com a foto (`landscapes` em `data/art.ts`) ou, na Igreja, a capa pintada.
+- **Um banner por módulo, na ordem de `modules.ts`:** cada um é uma seção de tela cheia com a foto (`landscapes` em `data/art.ts`), a capa pintada (Igreja) ou o fundo do tema (psico, eva, office).
   - A faixa traz o nome curto na cor do módulo.
-  - A etiqueta traz o nome, a tagline, os grupos com fração (três no celular, seis no desktop), o código de barras, "Abrir <módulo>" e o crédito.
-- **Crescimento:** o banner entra recortado (`clip-path: inset(16% 14% round 1.5rem)`) e cresce até a borda enquanto a foto desaproxima (escala de 1.2 a 1.02). É uma animação ligada à rolagem: `view-timeline: --banner` na seção, que precisa de `overflow: clip`, porque `hidden` cria um contêiner de rolagem e trava a animação. Sem suporte ou com movimento reduzido, o banner aparece pronto.
+  - O cartão (`.pane`) ocupa a altura toda de um lado e traz o nome, a tagline, os grupos com fração (três no celular, seis no desktop), o código de barras, "Abrir <módulo>" e o crédito. Uma linha grossa (0.75rem) mais uma fina, na cor do tema (`--edge`), separam o cartão do fundo.
+  - O lado alterna a cada módulo: o cartão vai à direita e a faixa à esquerda, depois o inverso. No celular o cartão é uma folha embaixo, com a linha em cima.
+  - Na primeira tela (capa) as informações ficam centralizadas, só no desktop.
+- **Empilhamento:** cada tela fica presa no topo (`position: sticky`) e a seguinte sobe por baixo e a cobre. `useStack` em `HomePage.tsx` escreve `--p` (quanto a tela subiu) e `--cover` (quanto a próxima já a cobriu) em cada seção. A tela coberta escurece e encolhe um pouco; a que sobe leva um filete da cor do tema na beirada, o cartão entra deslizando do lado dele e os itens do cartão aparecem um depois do outro. Com movimento reduzido tudo fica assentado.
+- **Abrir o módulo:** o clique no botão faz o cartão crescer até tomar a tela (`expandInto` em `HomePage.tsx`, 520ms), a rota troca e o véu se desfaz por cima da página do módulo.
 - **Código de barras:** um traço por tópico; 1px a 45% se não começado, 2px se em andamento, 4px se concluído. A legenda vai em Space Mono ("N de M itens").
 - **Tamanho do letreiro na faixa:** sai do comprimento do nome (`--len` × 0.9), para o nome ocupar a altura. Na faixa a altura de linha é 1, não 0.8: com 0.8 os acentos (Ó, Ã) saíam da caixa e encostavam na borda.
 - **Rodapé da faixa:** letra miúda no papel `micro` (0.78rem); a faixa cresce com o conteúdo, sem altura fixa.
@@ -262,7 +265,7 @@ Referência: `../refs/c564aeb767c39bbc03d14bd03b530fc1.jpg`, uma capa de disco c
 Cores e fontes em `src/index.css` (`[data-world=...]`), regras dos componentes em `src/worlds.css`, cabeçalhos em `components/Worlds.tsx`, marcadores em `Marks.tsx` e o painel no lugar do mapa em `components/ThemeBoard.tsx`. Todos têm tema claro.
 - **psico (Profissional):** pôster psicodélico de OVNI em violeta elétrico, tomate, mostarda e moldura rosa-choque. Título em Bagel Fat One; só a palavra Bronze, Prata ou Ouro do título da etapa leva a cor do metal. O olho é o marcador, e o painel é um céu de olhos que piscam. Claro: papel creme.
 - **eva (UEM):** Evangelion, preto arroxeado com hexágonos finos, alerta vermelho, laranja e verde-ácido de detalhe. Título em Noto Serif Display condensada com aberração de cor; cabeçalho em grade com barra "SYNC RATE" do progresso e kanji (Yu Mincho ou equivalente do sistema). O hexágono é o marcador. Claro: verde-menta.
-- **office (Trabalho):** pôster de The Office em papel pardo, com placa da porta, carimbo e cinco retratos recortados. Título em Alfa Slab One, rótulos em Special Elite e letreiro dos blocos em Anton; o painel é um mural de papel pardo. O cabeçalho não leva tagline.
+- **office (Trabalho):** pôster de The Office em papel pardo, com placa da porta, carimbo e cinco retratos recortados. Título em Krona One (geométrica larga, entre duas barras vermelhas como no pôster de referência), rótulos em Special Elite e letreiro dos blocos em Anton; o painel é um mural de papel pardo. O cabeçalho não leva tagline.
 - **Fundo temático:** imagens fixas atrás da página do módulo (`ThemeBackdrop.tsx`, `data/backdrops.ts`), apagadas pelo CSS para o texto seguir legível (opacidade menor abaixo de 900px).
 
 ### Named Rules
@@ -308,7 +311,7 @@ Uma cor saturada por tela, a do módulo, sobre preto quente e creme.
 - Renascença: Noto Serif Display condensada (wdth 62.5), Cormorant Garamond e Montserrat Variable.
 - Psico (Profissional): Bagel Fat One.
 - Eva (UEM): Noto Serif Display Variable condensada no título; kanji em Yu Mincho ou fonte equivalente do sistema.
-- Office (Trabalho): Alfa Slab One no título, Anton nos blocos e Special Elite nos rótulos.
+- Office (Trabalho): Krona One no título, Anton nos blocos e Special Elite nos rótulos.
 - Marca "Estudos" da lateral e capas em Gloock.
 
 **Character:** letreiro condensado de capa retrô em caixa-alta para títulos e rótulos de botão, grotesca neutra no corpo e monoespaçada de etiqueta técnica para os números.
