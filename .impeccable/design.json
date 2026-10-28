@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-28T12:36:43+00:00",
+  "generatedAt": "2026-10-28T17:06:36+00:00",
   "title": "Design System: Estudos",
   "extensions": {
     "colorMeta": {
@@ -1023,6 +1023,126 @@
           "#d1dce5",
           "#f2f5f7"
         ]
+      },
+      "eva-ink-2": {
+        "role": "neutral",
+        "displayName": "Tinta lilás",
+        "canonical": "#cbc2e6",
+        "tonalRamp": [
+          "#120f1a",
+          "#2b2343",
+          "#43356e",
+          "#5c45a1",
+          "#7f6abe",
+          "#aca0d0",
+          "#d6d1e5",
+          "#f4f2f7"
+        ]
+      },
+      "eva-hex-line": {
+        "role": "neutral",
+        "displayName": "Linha de hexágono",
+        "canonical": "#7a56e0",
+        "tonalRamp": [
+          "#100c1d",
+          "#27194d",
+          "#3b2281",
+          "#4f27be",
+          "#734fd8",
+          "#a590df",
+          "#d3cbec",
+          "#f3f1f9"
+        ]
+      },
+      "eva-frame-light": {
+        "role": "neutral",
+        "displayName": "Moldura violeta (claro)",
+        "canonical": "#5a2fb8",
+        "tonalRamp": [
+          "#120d1c",
+          "#2b1d49",
+          "#43297a",
+          "#5b32b4",
+          "#7e59cf",
+          "#ab96da",
+          "#d6cdea",
+          "#f3f1f8"
+        ]
+      },
+      "eva-panel-deep": {
+        "role": "neutral",
+        "displayName": "Violeta profundo",
+        "canonical": "#1c1140",
+        "tonalRamp": [
+          "#100d1c",
+          "#281d49",
+          "#3c2a79",
+          "#5133b2",
+          "#755ace",
+          "#a696d9",
+          "#d4cde9",
+          "#f3f1f8"
+        ]
+      },
+      "eva-kicker": {
+        "role": "secondary",
+        "displayName": "Coral de etiqueta",
+        "canonical": "#ff6a5e",
+        "tonalRamp": [
+          "#210a08",
+          "#58130e",
+          "#96170d",
+          "#e01505",
+          "#f73f31",
+          "#f1877e",
+          "#f3c7c3",
+          "#fbf0ef"
+        ]
+      },
+      "eva-kicker-light": {
+        "role": "secondary",
+        "displayName": "Coral de etiqueta (claro)",
+        "canonical": "#ffb3ad",
+        "tonalRamp": [
+          "#210a08",
+          "#58130e",
+          "#96170d",
+          "#e01505",
+          "#f73f31",
+          "#f1877e",
+          "#f3c7c3",
+          "#fbf0ef"
+        ]
+      },
+      "scrim-black": {
+        "role": "neutral",
+        "displayName": "Véu preto",
+        "canonical": "#000000",
+        "tonalRamp": [
+          "#141414",
+          "#333333",
+          "#525252",
+          "#737373",
+          "#949494",
+          "#b8b8b8",
+          "#dbdbdb",
+          "#f5f5f5"
+        ]
+      },
+      "on-accent-white": {
+        "role": "neutral",
+        "displayName": "Branco sobre cor chapada",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#141414",
+          "#333333",
+          "#525252",
+          "#737373",
+          "#949494",
+          "#b8b8b8",
+          "#dbdbdb",
+          "#f5f5f5"
+        ]
       }
     },
     "typographyMeta": {
@@ -1089,6 +1209,22 @@
       "office-display": {
         "displayName": "Office: letreiro",
         "purpose": "Título do Trabalho em Krona One, no pôster de papel pardo."
+      },
+      "pane-title": {
+        "displayName": "Cartão: título",
+        "purpose": "Nome do módulo no cartão de informações da página inicial."
+      },
+      "pane-list": {
+        "displayName": "Cartão: lista",
+        "purpose": "Grupos do módulo no cartão da página inicial."
+      },
+      "pane-lead": {
+        "displayName": "Cartão: tagline",
+        "purpose": "Frase de apresentação no cartão da página inicial."
+      },
+      "group-title-compact": {
+        "displayName": "Título do grupo (celular)",
+        "purpose": "Título de grupo abaixo de 640px."
       }
     },
     "shadows": [
@@ -1111,6 +1247,11 @@
         "name": "film",
         "value": "filter: saturate(.66) contrast(.86) brightness(1.05) sepia(.18) hue-rotate(-8deg); film-lift #34302b lighten 60%; vinheta radial",
         "purpose": "Foto com cara de filme analógico nas capas."
+      },
+      {
+        "name": "office-stamp",
+        "value": "6px 6px 0 #d9432f",
+        "purpose": "Única sombra sólida do sistema: o carimbo do pôster do Office."
       }
     ],
     "motion": [

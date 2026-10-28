@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react'
+import { useId, type CSSProperties } from 'react'
 import face1 from '../assets/trabalho/face-1.jpg'
 import face2 from '../assets/trabalho/face-2.jpg'
 import face3 from '../assets/trabalho/face-3.jpg'
@@ -19,52 +19,190 @@ const count = (mod: AppModule, n: number) => `${n} ${n === 1 ? mod.groupLabel : 
 
 /* ---------- Psico: pôster psicodélico de OVNI ---------- */
 
+// Quem pediu menos movimento no sistema vê as cenas paradas (animações SMIL não obedecem ao CSS).
+const stillMotion = () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+// Contorno ondulado e simétrico, largo embaixo: a aura do pôster e o feixe usam a mesma construção.
+function wavy(top: number, bottom: number, half: (t: number) => number, amp: number, freq: number) {
+  const pts: [number, number][] = []
+  const n = 46
+  for (let i = 0; i <= n; i++) {
+    const t = i / n
+    const y = top + (bottom - top) * t
+    pts.push([half(t) + amp * Math.sin(t * freq), y])
+  }
+  const right = pts.map(([x, y]) => `${(150 + x).toFixed(1)} ${y.toFixed(1)}`)
+  const left = [...pts].reverse().map(([x, y]) => `${(150 - x).toFixed(1)} ${y.toFixed(1)}`)
+  return `M${right.join('L')}L${left.join('L')}Z`
+}
+// o topo é arredondado (a largura cresce com a raiz perto do início)
+const AURA = wavy(26, 372, (t) => (46 + 40 * t + 42 * t * t) * Math.min(1, Math.sqrt(t / 0.1)), 7, 26)
+const BEAM = wavy(160, 372, (t) => 12 + 62 * t, 4, 18)
+const ECHOES = [
+  { k: 1.07, c: '#ee3a2c', w: 5, d: '0s' },
+  { k: 1.15, c: '#e8318f', w: 4, d: '-1.2s' },
+  { k: 1.23, c: '#e2b93b', w: 3.5, d: '-2.4s' },
+  { k: 1.31, c: '#8d7cff', w: 3, d: '-3.6s' },
+]
+
+/* O OVNI do pôster de referência: aura violeta de borda derretida com contornos que se repetem, disco com
+   cúpula, olho de raios dourados e um feixe de ondas que desce até a borda do quadro. */
 export function Ufo({ className = '' }: { className?: string }) {
+  const id = useId().replace(/:/g, '')
+  const still = stillMotion()
+  const rays = Array.from({ length: 18 }, (_, i) => (i * 360) / 18)
   return (
-    <svg viewBox="0 0 220 230" aria-hidden="true" className={className}>
-      {/* feixe */}
-      <path d="M88 118h44l36 112H52z" fill="#0c0a10" />
-      <path d="M96 118h28l22 112H74z" fill="#0c0a10" stroke="#e8318f" strokeWidth="1.5" opacity="0.9" />
-      {/* cúpula */}
-      <path d="M62 62c6-30 90-30 96 0z" fill="#e2b93b" />
-      <path d="M78 52c8-10 56-10 64 0" fill="none" stroke="#fff6d8" strokeWidth="3" strokeLinecap="round" opacity="0.8" />
-      {/* disco */}
-      <ellipse cx="110" cy="76" rx="104" ry="26" fill="#0c0a10" />
-      <ellipse cx="110" cy="76" rx="104" ry="26" fill="none" stroke="#e8318f" strokeWidth="2" />
-      <ellipse cx="110" cy="74" rx="84" ry="15" fill="none" stroke="#4b2ee6" strokeWidth="5" />
-      <ellipse cx="110" cy="74" rx="62" ry="10" fill="none" stroke="#f4f0e4" strokeWidth="3" strokeDasharray="14 8" />
-      {/* olho */}
-      <path d="M52 112Q110 70 168 112Q110 150 52 112Z" fill="#f4f0e4" stroke="#0c0a10" strokeWidth="3" />
-      <circle cx="110" cy="112" r="21" fill="#0c0a10" />
-      <circle cx="110" cy="112" r="21" fill="none" stroke="#e2b93b" strokeWidth="2" strokeDasharray="2 4" />
-      <circle cx="110" cy="112" r="8" fill="#e2b93b" />
-      <circle cx="105" cy="107" r="2.6" fill="#fff" />
+    <svg viewBox="0 0 300 372" aria-hidden="true" className={`ufo ${className}`} preserveAspectRatio="xMidYMax meet">
+      <defs>
+        <filter id={`${id}-melt`} x="-15%" y="-5%" width="130%" height="110%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.012 0.04" numOctaves="2" seed="7" result="n">
+            {!still && <animate attributeName="baseFrequency" values="0.012 0.04;0.017 0.05;0.012 0.04" dur="9s" repeatCount="indefinite" />}
+          </feTurbulence>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="9" />
+        </filter>
+        <clipPath id={`${id}-beam`}>
+          <path d={BEAM} />
+        </clipPath>
+        <clipPath id={`${id}-eye`}>
+          <path d="M66 150Q150 92 234 150Q150 208 66 150Z" />
+        </clipPath>
+      </defs>
+
+      <g filter={`url(#${id}-melt)`}>
+        {ECHOES.map((e) => (
+          <path key={e.k} d={AURA} fill="none" stroke={e.c} strokeWidth={e.w} className="ufo-echo" style={{ '--k': e.k, '--d': e.d } as CSSProperties} vectorEffect="non-scaling-stroke" />
+        ))}
+        <path d={AURA} fill="#4b2ee6" />
+        <path d={AURA} fill="none" stroke="#0c0a12" strokeWidth="5" vectorEffect="non-scaling-stroke" />
+      </g>
+
+      {/* feixe: preto, com ondas de ouro e rosa que descem */}
+      <path d={BEAM} fill="#0c0a12" />
+      <g clipPath={`url(#${id}-beam)`}>
+        {[0, 1, 2, 3].map((i) => (
+          <ellipse key={i} cx="150" cy="190" rx="14" ry="5" fill="none" stroke={i % 2 ? '#e8318f' : '#e2b93b'} strokeWidth="3" opacity="0">
+            {!still && (
+              <>
+                <animate attributeName="cy" values="190;372" dur="4.8s" begin={`${-i * 1.2}s`} repeatCount="indefinite" />
+                <animate attributeName="rx" values="14;78" dur="4.8s" begin={`${-i * 1.2}s`} repeatCount="indefinite" />
+                <animate attributeName="ry" values="5;22" dur="4.8s" begin={`${-i * 1.2}s`} repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.7;1" dur="4.8s" begin={`${-i * 1.2}s`} repeatCount="indefinite" />
+              </>
+            )}
+          </ellipse>
+        ))}
+      </g>
+      <path d={BEAM} fill="none" stroke="#e8318f" strokeWidth="2.5" opacity="0.9" />
+
+      {/* disco e cúpula */}
+      <path d="M92 80C96 30 204 30 208 80Z" fill="#e2b93b" stroke="#0c0a12" strokeWidth="4" />
+      <path d="M112 62C122 46 178 46 188 62" fill="none" stroke="#fff6d8" strokeWidth="4" strokeLinecap="round" opacity="0.85" />
+      <ellipse cx="150" cy="86" rx="120" ry="28" fill="#0c0a12" stroke="#e8318f" strokeWidth="3.5" />
+      <ellipse cx="150" cy="84" rx="94" ry="17" fill="none" stroke="#4b2ee6" strokeWidth="7" />
+      <ellipse cx="150" cy="84" rx="68" ry="11" fill="none" stroke="#f4f0e4" strokeWidth="3.5" strokeDasharray="14 9">
+        {!still && <animate attributeName="stroke-dashoffset" values="0;-92" dur="3s" repeatCount="indefinite" />}
+      </ellipse>
+
+      {/* luz que desce do disco ao olho */}
+      <path d="M96 104L204 104L176 138L124 138Z" fill="#e8318f" opacity="0.5" />
+      <path d="M118 104L182 104L168 138L132 138Z" fill="#fff6d8" opacity="0.55">
+        {!still && <animate attributeName="opacity" values="0.55;0.2;0.55" dur="2.4s" repeatCount="indefinite" />}
+      </path>
+
+      {/* olho: a pupila passeia e as pálpebras fecham de tempos em tempos */}
+      <g transform="translate(150 150)">
+        <g>
+          {!still && <animateTransform attributeName="transform" type="scale" values="1 1;1 1;1 0.08;1 1" keyTimes="0;0.92;0.96;1" dur="6s" repeatCount="indefinite" />}
+          <g transform="translate(-150 -150)">
+            <path d="M66 150Q150 92 234 150Q150 208 66 150Z" fill="#f4f0e4" />
+            <g clipPath={`url(#${id}-eye)`}>
+              <g>
+                {!still && <animateTransform attributeName="transform" type="translate" values="-10 0;10 2;-10 0" dur="7s" repeatCount="indefinite" />}
+                <circle cx="150" cy="150" r="30" fill="#0c0a12" />
+                <g>
+                  {!still && <animateTransform attributeName="transform" type="rotate" values="0 150 150;360 150 150" dur="30s" repeatCount="indefinite" />}
+                  {rays.map((r) => (
+                    <line key={r} x1="150" y1="114" x2="150" y2="121" stroke="#e2b93b" strokeWidth="2.2" strokeLinecap="round" transform={`rotate(${r} 150 150)`} />
+                  ))}
+                  <circle cx="150" cy="150" r="24" fill="none" stroke="#e2b93b" strokeWidth="2" strokeDasharray="2 5" />
+                </g>
+                <circle cx="150" cy="150" r="10" fill="#e2b93b" />
+                <circle cx="145" cy="145" r="3" fill="#fff" />
+              </g>
+            </g>
+            <path d="M66 150Q150 92 234 150Q150 208 66 150Z" fill="none" stroke="#0c0a12" strokeWidth="4.5" />
+          </g>
+        </g>
+      </g>
     </svg>
   )
 }
 
-// O Concorde da referência: um jato branco que atravessa o quadro deixando um rastro de luz azul, creme e laranja.
+// O Concorde da referência: um jato branco que atravessa o quadro deixando fitas de luz azul, creme e laranja.
 const TRAIL = 'M-40 228C90 214 200 150 320 120S520 58 660 18'
+const RIBBONS = [
+  { dy: 7, from: '#2b3cf5', mid: '#6a7bff', w: 3.5, d: '0s' },
+  { dy: 0, from: '#4d63ff', mid: '#fff6d8', w: 4.5, d: '0.12s' },
+  { dy: -7, from: '#ee7a2c', mid: '#ffb15c', w: 3, d: '0.24s' },
+]
 
 export function PlaneTrail({ className = '', id = 'plane' }: { className?: string; id?: string }) {
+  const still = stillMotion()
   return (
     <svg viewBox="0 0 600 240" preserveAspectRatio="xMidYMid slice" className={`plane ${className}`} aria-hidden="true">
       <defs>
-        <linearGradient id={`${id}-g`} x1="0" x2="1">
-          <stop offset="0" stopColor="#2b3cf5" stopOpacity="0" />
-          <stop offset="0.3" stopColor="#4d63ff" />
-          <stop offset="0.6" stopColor="#fff6d8" />
-          <stop offset="0.85" stopColor="#ee7a2c" />
-          <stop offset="1" stopColor="#ee7a2c" stopOpacity="0" />
-        </linearGradient>
+        {RIBBONS.map((r, i) => (
+          <linearGradient key={i} id={`${id}-g${i}`} x1="0" x2="1">
+            <stop offset="0" stopColor={r.from} stopOpacity="0" />
+            <stop offset="0.3" stopColor={r.from} />
+            <stop offset="0.62" stopColor={r.mid} />
+            <stop offset="0.88" stopColor="#ee7a2c" />
+            <stop offset="1" stopColor="#ee7a2c" stopOpacity="0" />
+          </linearGradient>
+        ))}
       </defs>
-      <path d={TRAIL} pathLength={1} className="plane-glow" stroke={`url(#${id}-g)`} />
-      <path d={TRAIL} pathLength={1} className="plane-trail" stroke={`url(#${id}-g)`} />
-      <g className="plane-jet">
-        <path d="M-26-1.3L14-1.5Q25-.8 30 0Q25 .8 14 1.5L-26 1.3z" fill="#fff" />
-        <path d="M4 0L-17-11h-5l9 11-9 11h5z" fill="#fff" />
-        <circle r="7" fill="#fff6d8" opacity="0.35" />
-        <animateMotion dur="7s" repeatCount="indefinite" rotate="auto" path={TRAIL} />
+      <path d={TRAIL} pathLength={1} className="plane-glow" stroke={`url(#${id}-g1)`} />
+      {RIBBONS.map((r, i) => (
+        <path
+          key={i}
+          d={TRAIL}
+          pathLength={1}
+          className="plane-trail"
+          stroke={`url(#${id}-g${i})`}
+          strokeWidth={r.w}
+          transform={`translate(0 ${r.dy})`}
+          style={{ animationDelay: r.d }}
+        />
+      ))}
+      <g className="plane-jet" transform={still ? 'translate(330 118) rotate(-17)' : undefined}>
+        {!still && <animateMotion dur="7s" repeatCount="indefinite" rotate="auto" path={TRAIL} />}
+        {/* o jato diminui ao se afastar, como no horizonte do pôster, e balança de leve */}
+        <g>
+          {!still && <animateTransform attributeName="transform" type="scale" values="1.9;1.1;0.6" keyTimes="0;0.5;1" dur="7s" repeatCount="indefinite" />}
+          <g>
+            {!still && <animateTransform attributeName="transform" type="rotate" values="-4;3;-4" dur="2.6s" repeatCount="indefinite" additive="sum" />}
+            {/* pós-combustor */}
+            <ellipse cx="-30" cy="0" rx="10" ry="2.4" fill="#ee7a2c" opacity="0.9">
+              {!still && <animate attributeName="rx" values="8;15;9;14;8" dur="0.45s" repeatCount="indefinite" />}
+            </ellipse>
+            <ellipse cx="-28" cy="0" rx="5" ry="1.3" fill="#9fb2ff">
+              {!still && <animate attributeName="rx" values="4;8;5;7;4" dur="0.35s" repeatCount="indefinite" />}
+            </ellipse>
+            <path d="M-26-1.3L14-1.5Q25-.8 30 0Q25 .8 14 1.5L-26 1.3z" fill="#fff" />
+            <path d="M4 0L-17-11h-5l9 11-9 11h5z" fill="#fff" />
+            <circle r="8" fill="#fff6d8" opacity="0.35">
+              {!still && <animate attributeName="opacity" values="0.2;0.5;0.2" dur="1.2s" repeatCount="indefinite" />}
+            </circle>
+            {/* onda de choque no nariz */}
+            {!still &&
+              [0, 0.6].map((b) => (
+                <circle key={b} cx="30" cy="0" r="2" fill="none" stroke="#fff6d8" strokeWidth="0.9">
+                  <animate attributeName="r" values="2;16" dur="1.2s" begin={`${b}s`} repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0.8;0" dur="1.2s" begin={`${b}s`} repeatCount="indefinite" />
+                </circle>
+              ))}
+          </g>
+        </g>
       </g>
     </svg>
   )
@@ -216,7 +354,7 @@ export function BannerBackdrop({ world }: { world: AppModule['world'] }) {
   if (world === 'psico') {
     return (
       <div className="banner-theme" aria-hidden="true">
-        <img src={backdrops.profissional.images[2].src} alt="" className="bt-psy-img" />
+        <img src={backdrops.profissional.images[2].src} alt="" className="bt-psy-img" loading="lazy" decoding="async" />
         <span className="bt-psy-wash" />
         <span className="bt-psy-wash hot" />
         {[
@@ -240,7 +378,7 @@ export function BannerBackdrop({ world }: { world: AppModule['world'] }) {
       <div className="banner-theme" aria-hidden="true">
         <Hexes />
         <span className="eva-glow" />
-        <img src={backdrops.uem.images[3].src} alt="" className="bt-img" />
+        <img src={backdrops.uem.images[3].src} alt="" className="bt-img" loading="lazy" decoding="async" />
         <span className="bt-kanji" lang="ja">
           新世紀
         </span>
@@ -255,7 +393,7 @@ export function BannerBackdrop({ world }: { world: AppModule['world'] }) {
     return (
       <div className="banner-theme" aria-hidden="true">
         <span className="office-halftone" />
-        <img src={backdrops.trabalho.images[0].src} alt="" className="bt-img bt-office-img" />
+        <img src={backdrops.trabalho.images[0].src} alt="" className="bt-img bt-office-img" loading="lazy" decoding="async" />
       </div>
     )
   }

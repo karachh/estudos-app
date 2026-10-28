@@ -58,6 +58,14 @@ colors:
   eva-amber: "#f0922b"
   eva-acid: "#8cf03a"
   eva-mint: "#d5ebe2"
+  eva-ink-2: "#cbc2e6"
+  eva-hex-line: "#7a56e0"
+  eva-frame-light: "#5a2fb8"
+  eva-panel-deep: "#1c1140"
+  eva-kicker: "#ff6a5e"
+  eva-kicker-light: "#ffb3ad"
+  scrim-black: "#000000"
+  on-accent-white: "#ffffff"
   office-ink-dark: "#15120d"
   office-kraft: "#e6cf9f"
   office-ink: "#262634"
@@ -136,6 +144,27 @@ typography:
     fontWeight: 500
     lineHeight: 1.05
     letterSpacing: "-0.01em"
+  pane-title:
+    fontFamily: "'Gloock', 'Bodoni Moda Variable', serif"
+    fontSize: "3.2rem"
+    fontWeight: 400
+    lineHeight: 1.1
+  pane-list:
+    fontFamily: "'Archivo Narrow Variable', 'Barlow', sans-serif"
+    fontSize: "0.92rem"
+    fontWeight: 500
+    lineHeight: 1.4
+    letterSpacing: "0.08em"
+  pane-lead:
+    fontFamily: "'Barlow', system-ui, sans-serif"
+    fontSize: "1.1rem"
+    fontWeight: 400
+    lineHeight: 1.5
+  group-title-compact:
+    fontFamily: "'Big Shoulders Display Variable', 'Barlow', sans-serif"
+    fontSize: "1.65rem"
+    fontWeight: 800
+    lineHeight: 0.9
   psico-display:
     fontFamily: "'Bagel Fat One', 'Big Shoulders Display Variable', sans-serif"
     fontSize: "5.5rem"
@@ -158,6 +187,9 @@ typography:
     fontWeight: 500
     lineHeight: 1.2
 rounded:
+  badge: "0.4rem"
+  tag: "0.5rem"
+  sign: "0.55rem"
   bar: "1px"
   tab: "3px"
   check: "4px"
@@ -252,7 +284,7 @@ Referência: `../refs/c564aeb767c39bbc03d14bd03b530fc1.jpg`, uma capa de disco c
   - A faixa traz o nome curto na cor do módulo.
   - O cartão (`.pane`) ocupa a altura toda de um lado e traz o nome, a tagline, os grupos com fração (três no celular, seis no desktop), o código de barras, "Abrir <módulo>" e o crédito. Uma linha grossa (0.75rem) mais uma fina, na cor do tema (`--edge`), separam o cartão do fundo.
   - O lado alterna a cada módulo: o cartão vai à direita e a faixa à esquerda, depois o inverso. No celular o cartão é uma folha embaixo, com a linha em cima.
-  - Na primeira tela (capa) as informações ficam centralizadas, só no desktop.
+  - Na primeira tela (capa) o título "ESTUDOS" é uma faixa horizontal e fica centralizado sobre o cartão de informações (`.hero-group`); só nessa tela a faixa é horizontal.
 - **Empilhamento:** cada tela fica presa no topo (`position: sticky`) e a seguinte sobe por baixo e a cobre. `useStack` em `HomePage.tsx` escreve `--p` (quanto a tela subiu) e `--cover` (quanto a próxima já a cobriu) em cada seção. A tela coberta escurece e encolhe um pouco; a que sobe leva um filete da cor do tema na beirada, o cartão entra deslizando do lado dele e os itens do cartão aparecem um depois do outro. Com movimento reduzido tudo fica assentado.
 - **Abrir o módulo:** o clique no botão faz o cartão crescer até tomar a tela (`expandInto` em `HomePage.tsx`, 520ms), a rota troca e o véu se desfaz por cima da página do módulo.
 - **Código de barras:** um traço por tópico; 1px a 45% se não começado, 2px se em andamento, 4px se concluído. A legenda vai em Space Mono ("N de M itens").
@@ -263,7 +295,7 @@ Referência: `../refs/c564aeb767c39bbc03d14bd03b530fc1.jpg`, uma capa de disco c
 ## Mundos temáticos (psico, eva, office)
 
 Cores e fontes em `src/index.css` (`[data-world=...]`), regras dos componentes em `src/worlds.css`, cabeçalhos em `components/Worlds.tsx`, marcadores em `Marks.tsx` e o painel no lugar do mapa em `components/ThemeBoard.tsx`. Todos têm tema claro.
-- **psico (Profissional):** pôster psicodélico de OVNI em violeta elétrico, tomate, mostarda e moldura rosa-choque. Título em Bagel Fat One; só a palavra Bronze, Prata ou Ouro do título da etapa leva a cor do metal. O olho é o marcador, e o painel é um céu de olhos que piscam. Claro: papel creme.
+- **psico (Profissional):** pôster psicodélico de OVNI em violeta elétrico, tomate, mostarda e moldura rosa-choque. O OVNI (`Ufo` em `Worlds.tsx`) é uma cena desenhada no estilo do pôster: aura violeta de borda derretida com contornos que se repetem, disco com cúpula, olho de raios dourados e feixe de ondas que desce até a borda do quadro; pupila, pálpebras, ondas e contornos se mexem. O Concorde (`PlaneTrail`) voa em três fitas de luz, diminui ao se afastar, balança, tem pós-combustor e onda de choque; com movimento reduzido tudo fica parado. Título em Bagel Fat One; só a palavra Bronze, Prata ou Ouro do título da etapa leva a cor do metal. O olho é o marcador, e o painel é um céu de olhos que piscam. Claro: papel creme.
 - **eva (UEM):** Evangelion, preto arroxeado com hexágonos finos, alerta vermelho, laranja e verde-ácido de detalhe. Título em Noto Serif Display condensada com aberração de cor; cabeçalho em grade com barra "SYNC RATE" do progresso e kanji (Yu Mincho ou equivalente do sistema). O hexágono é o marcador. Claro: verde-menta.
 - **office (Trabalho):** pôster de The Office em papel pardo, com placa da porta, carimbo e cinco retratos recortados. Título em Krona One (geométrica larga, entre duas barras vermelhas como no pôster de referência), rótulos em Special Elite e letreiro dos blocos em Anton; o painel é um mural de papel pardo. O cabeçalho não leva tagline.
 - **Fundo temático:** imagens fixas atrás da página do módulo (`ThemeBackdrop.tsx`, `data/backdrops.ts`), apagadas pelo CSS para o texto seguir legível (opacidade menor abaixo de 900px).
@@ -370,6 +402,11 @@ O sistema é plano, sem sombra de caixa: a profundidade vem do tom e da moldura.
 - o grão de impressão fixo em todo o app (8% no mapa, 11% no sacro e 10% na renascença; invertido e mais fraco no tema claro);
 - o halo da cor do fundo atrás dos controles do mapa;
 - o degradê escuro sobre a pintura sacra, com um filete dourado por dentro.
+
+### Exceções documentadas
+- **Pôster do Office:** o cabeçalho do Trabalho leva uma sombra sólida de 6px na cor vermelha (`box-shadow: 6px 6px 0 #d9432f`), como o carimbo impresso do pôster. Vale só nesse mundo; é a única sombra do sistema além do halo do mapa e do anel de foco do campo.
+- **Brilhos de mundo:** UEM e Profissional usam halos radiais suaves (violeta, rosa) no fundo, sempre abaixo de 30% de opacidade, como luz de pôster. São atmosfera, não profundidade.
+- **Véus e escurecimentos:** o preto translúcido (`scrim-black` em 22%, 25%, 35%, 55%) escurece fotos para o texto ler. Não é sombra.
 
 ### Named Rules
 **The Printed Sheet Rule.** Nada flutua. As superfícies se distinguem por tom, moldura de 1px e grão, nunca por sombra projetada.

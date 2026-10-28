@@ -118,7 +118,7 @@ export default function TopicPage() {
               />
             )}
             <figcaption className="mt-1.5 text-micro leading-tight text-ink-3">
-              <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:underline">
+              <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:underline credit">
                 {art.credit}
               </a>
             </figcaption>

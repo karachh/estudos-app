@@ -11,7 +11,7 @@ import { bannerFor, landscapes, type Artwork } from '../data/art'
 // Código de barras do progresso: um traço por tópico, mais grosso quanto mais avançado.
 function Barcode({ items, label, center }: { items: Progress[]; label: string; center?: boolean }) {
   return (
-    <div className={`text-accent ${center ? 'flex flex-col items-center' : ''}`}>
+    <div className={`text-accent ${center ? 'flex flex-col md:items-center' : ''}`}>
       <span className="flex h-11 items-stretch gap-[2px]" aria-hidden="true">
         {items.map((p, i) => {
           const done = p.total > 0 && p.done === p.total
@@ -45,24 +45,26 @@ export default function HomePage() {
       <section className="film-section" aria-label="Início" style={{ '--accent': '#e5582b' } as CSSProperties}>
         <h1 className="sr-only">Caderno de Estudos Pessoal</h1>
         <Film art={landscapes.inicio} eager />
-        <Band title="Estudos"foot={`${modules.length} módulos · ${total.total} itens`} />
-        <div className="sticker">
-          <p className="gloock-text text-cover leading-tight">
-            Caderno de Estudos Pessoal
-          </p>
-          <div className="mt-6">
-            <Barcode items={all} label={itemsLabel(total)} center />
+        <div className="hero-group">
+          <Band title="Estudos"foot={`${modules.length} módulos · ${total.total} itens`} />
+          <div className="sticker">
+            <p className="gloock-text text-cover leading-tight">
+              Caderno de Estudos Pessoal
+            </p>
+            <div className="mt-6">
+              <Barcode items={all} label={itemsLabel(total)} center />
+            </div>
+            <button
+              className="btn mt-6"
+              onClick={() => document.getElementById(`mod-${modules[0].id}`)?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Ver os módulos
+              <span className="rotate-90">
+                <Icon name="chevron" size={16} />
+              </span>
+            </button>
+            <Credit art={landscapes.inicio} />
           </div>
-          <button
-            className="btn mt-6"
-            onClick={() => document.getElementById(`mod-${modules[0].id}`)?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            Ver os módulos
-            <span className="rotate-90">
-              <Icon name="chevron" size={16} />
-            </span>
-          </button>
-          <Credit art={landscapes.inicio} />
         </div>
       </section>
 
@@ -89,25 +91,43 @@ function useStack(root: React.RefObject<HTMLDivElement | null>, ready: boolean) 
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const clamp = (v: number) => Math.min(1, Math.max(0, v))
     let raf = 0
+    let h = 0
+    let base = 0
+    // Medidas só quando a janela muda; a rolagem só lê scrollY
+    const measure = () => {
+      h = screens[0].offsetHeight
+      base = el.getBoundingClientRect().top + window.scrollY
+    }
     const paint = () => {
       raf = 0
-      const h = screens[0].offsetHeight
-      const y = window.scrollY - (el.getBoundingClientRect().top + window.scrollY)
+      const y = window.scrollY - base
       const p = screens.map((_, i) => (i === 0 || still ? 1 : clamp((y - (i - 1) * h) / h)))
       screens.forEach((s, i) => {
+        const cover = still ? 0 : (p[i + 1] ?? 0)
         s.style.setProperty('--p', p[i].toFixed(3))
-        s.style.setProperty('--cover', (still ? 0 : (p[i + 1] ?? 0)).toFixed(3))
+        s.style.setProperty('--cover', cover.toFixed(3))
+        // Só filtra e escala enquanto há o que mostrar; animações infinitas só rodam na tela à vista
+        s.toggleAttribute('data-dim', cover > 0.001)
+        s.toggleAttribute('data-rise', p[i] < 0.999)
+        s.toggleAttribute('data-live', p[i] > 0 && cover < 1)
+        // Tela totalmente coberta: sai da ordem do Tab e dos leitores de tela
+        s.inert = !still && cover >= 0.999
       })
     }
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(paint)
     }
+    const onResize = () => {
+      measure()
+      onScroll()
+    }
+    measure()
     paint()
     window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
+    window.addEventListener('resize', onResize)
     return () => {
       window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
+      window.removeEventListener('resize', onResize)
       if (raf) cancelAnimationFrame(raf)
     }
   }, [root, ready])
@@ -147,7 +167,7 @@ function expandInto(e: MouseEvent<HTMLAnchorElement>, go: () => void) {
 function Credit({ art }: { art: Artwork }) {
   return (
     <p className="fine mt-5 text-ink-3">
-      <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:text-ink">
+      <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:text-ink credit">
         Foto: {art.credit}
       </a>
     </p>
@@ -162,6 +182,7 @@ function ModuleBanner({ mod, side, groups, topics }: { mod: AppModule; side: 'le
   const themed = mod.world === 'psico' || mod.world === 'eva' || mod.world === 'office'
   return (
     <section id={`mod-${mod.id}`} data-module={mod.id} data-side={side} className={`banner ${themed ? `banner-${mod.world}` : ''}`} aria-labelledby={`bn-${mod.id}`}>
+      <span className="banner-edge" aria-hidden="true" />
       <div className="banner-frame">
         {themed ? <BannerBackdrop world={mod.world} /> : art && <Film art={art} />}
         <Band title={mod.short} foot={`${groups.length} ${groups.length === 1 ? mod.groupLabel : plural(mod.groupLabel)}`} />
@@ -199,7 +220,7 @@ function ModuleBanner({ mod, side, groups, topics }: { mod: AppModule; side: 'le
           </Link>
           {art && !themed && (
             <p className="fine mt-5 text-ink-3">
-              <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:text-ink">
+              <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:text-ink credit">
                 {landscapes[mod.id] ? 'Foto' : 'Obra'}: {art.credit}
               </a>
             </p>

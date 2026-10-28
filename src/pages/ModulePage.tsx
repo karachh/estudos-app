@@ -220,6 +220,7 @@ function SacredHeader({ mod }: { mod: AppModule }) {
     <div className="relative overflow-hidden rounded-[1.5rem] bg-[#0c0a08]">
       <img
         src={igrejaCover.src}
+        decoding="async"
         alt=""
         className="absolute inset-0 h-full w-full object-cover opacity-85"
         style={{ objectPosition: igrejaCover.position }}
@@ -235,7 +236,7 @@ function SacredHeader({ mod }: { mod: AppModule }) {
         </h1>
         <p className="italic-serif mt-3 max-w-[26rem] text-lead leading-snug">{mod.tagline}</p>
         <p className="mt-6 text-xs text-[#c9bf9f]">
-          <a href={igrejaCover.source} target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:underline">
+          <a href={igrejaCover.source} target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:underline credit">
             {igrejaCover.credit}
           </a>
         </p>
@@ -259,7 +260,7 @@ function FilmHeader({ mod, groupCount }: { mod: AppModule; groupCount: number })
           <h1 className="gloock-text text-cover leading-tight">{mod.label}</h1>
           <p className="mt-2 text-ink-2">{mod.tagline}</p>
           <p className="fine mt-4 text-ink-3">
-            <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:text-ink">
+            <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:text-ink credit">
               Foto: {art.credit}
             </a>
           </p>
@@ -288,13 +289,14 @@ function RenaissanceHeader({ mod }: { mod: AppModule }) {
           <div className="torn relative bg-(--paper) p-3">
             <img
               src={cover.src}
+              decoding="async"
               alt=""
               className="aspect-[4/3] w-full object-cover sepia-[.25]"
               style={{ objectPosition: cover.position }}
             />
           </div>
           <figcaption className="mt-2 text-right text-xs text-ink-3">
-            <a href={cover.source} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            <a href={cover.source} target="_blank" rel="noopener noreferrer" className="hover:underline credit">
               {cover.credit}
             </a>
           </figcaption>
@@ -362,6 +364,7 @@ function GroupSection({
             ) : (
               <img
                 src={art.src}
+                decoding="async"
                 alt=""
                 className="aspect-[3/4] w-full rounded-t-full border border-[color-mix(in_oklab,var(--accent)_60%,transparent)] object-cover"
                 style={{ objectPosition: art.position }}
@@ -369,7 +372,7 @@ function GroupSection({
               />
             )}
             <figcaption className="mt-1.5 text-micro leading-tight text-ink-3">
-              <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:underline">
+              <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:underline credit">
                 {art.credit}
               </a>
             </figcaption>

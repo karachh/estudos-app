@@ -71,7 +71,7 @@ export function ThemeBackdrop({ backdrop }: { backdrop: Backdrop }) {
     <div ref={root} className="tbg" data-fx={mode === 'section' ? 'fade' : 'scan'} data-page={pathname.includes('/t/') ? 'topic' : 'module'} aria-hidden="true">
       {images.map((a) => (
         <div key={a.src} className="tbg-layer" data-role="off">
-          <img src={a.src} alt="" className="tbg-img" style={{ objectPosition: a.pos }} />
+          <img src={a.src} alt="" decoding="async" className="tbg-img" style={{ objectPosition: a.pos }} />
         </div>
       ))}
       <span className="tbg-scan" />
