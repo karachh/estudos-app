@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { Link, NavLink, Navigate, Route, Routes, useMatch } from 'react-router-dom'
 import { Icon, type IconName } from './components/Icon'
 import { Logo } from './components/Logo'
+import { ThemeBackdrop } from './components/ThemeBackdrop'
 import { getModule, modules } from './core/modules'
+import { backdrops } from './data/backdrops'
 import { useTheme } from './core/theme'
 import ModulePage from './pages/ModulePage'
 import HomePage from './pages/HomePage'
@@ -24,7 +26,7 @@ function ThemeToggle() {
 // Ícone de cada módulo, usado quando a lateral está recolhida
 const moduleIcons: Record<string, IconName> = {
   profissional: 'database',
-  trabalho: 'briefcase',
+  trabalho: 'office',
   uem: 'cap',
   igreja: 'cross',
   cultura: 'book',
@@ -58,6 +60,7 @@ export default function App() {
   const current = getModule(useMatch('/:moduleId/*')?.params.moduleId) ?? modules[0]
   const { collapsed, toggle } = useRail()
   const home = useMatch('/')
+  const backdrop = backdrops[current.id]
 
   // A página inicial ocupa a tela inteira, sem lateral nem abas
   if (home) {
@@ -72,12 +75,15 @@ export default function App() {
     <div
       data-module={current.id}
       data-world={current.world}
+      data-backdrop={backdrop ? '' : undefined}
       className={`app min-h-dvh bg-bg md:grid ${collapsed ? 'md:grid-cols-[4.5rem_minmax(0,1fr)]' : 'md:grid-cols-[15.5rem_minmax(0,1fr)]'}`}
     >
+      {backdrop && <ThemeBackdrop backdrop={backdrop} />}
+
       {/* Navegação lateral (desktop), recolhível */}
       <aside className="sticky top-0 hidden h-dvh flex-col border-r border-line bg-(--rail) py-5 md:flex">
         <div className={`mb-7 flex items-center ${collapsed ? 'flex-col gap-3 px-2' : 'justify-between pl-5 pr-3'}`}>
-          <Link to="/" className="brand display flex items-center gap-2.5 text-brand" title="Início" aria-label={collapsed ? 'Início' : undefined}>
+          <Link to="/" className="brand flex items-center gap-2.5 text-brand" title="Início" aria-label={collapsed ? 'Início' : undefined}>
             <Logo className="size-8" />
             {!collapsed && 'Estudos'}
           </Link>
@@ -119,7 +125,7 @@ export default function App() {
 
       {/* Barra superior (celular) */}
       <header className="flex items-center justify-between border-b border-line bg-(--rail) px-4 py-2 md:hidden">
-        <Link to="/" className="brand display flex items-center gap-2 text-2xl" title="Início">
+        <Link to="/" className="brand flex items-center gap-2 text-2xl" title="Início">
           <Logo className="size-7" />
           Estudos
         </Link>

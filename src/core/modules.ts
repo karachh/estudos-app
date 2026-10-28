@@ -1,8 +1,10 @@
-import { roadmapIntro } from '../data/roadmap'
-
 // Mundo visual do interior do módulo. 'mapa' é o padrão (prova de orientação); 'sacro' é o do Igreja;
-// 'renascenca' é o do Motivação (colagem renascentista).
-export type World = 'mapa' | 'sacro' | 'renascenca'
+// 'renascenca' é o do Motivação (colagem renascentista). 'psico' (Profissional, pôster psicodélico),
+// 'eva' (UEM, Evangelion) e 'office' (Trabalho, The Office) são temas do mapa: mesma estrutura, outra pele.
+export type World = 'mapa' | 'psico' | 'eva' | 'office' | 'sacro' | 'renascenca'
+
+// Mundos que mostram o mapa de orientação com a tabela de controles
+export const hasMap = (w: World) => w !== 'sacro' && w !== 'renascenca'
 
 export interface AppModule {
   id: string
@@ -10,6 +12,10 @@ export interface AppModule {
   intro?: { title: string; text: string }[]
   introTitle?: string
   introOpen?: boolean
+  overview?: boolean // mostra todos os grupos lado a lado, em vez de um sob o outro
+  sections?: { title: string; hint: string; groups: string[] }[] // divide a visão geral; grupo fora da lista vai para "Outros"
+  hideGroupMeta?: boolean // esconde o prazo (subtítulo) e o critério de saída dos grupos
+  hideSummary?: boolean // sem a faixa "x de y itens marcados" no topo
   label: string
   short: string
   tagline: string
@@ -24,10 +30,10 @@ export interface AppModule {
 export const modules: AppModule[] = [
   {
     id: 'profissional',
-    world: 'mapa',
+    world: 'psico',
     label: 'Estudos profissionais',
     short: 'Profissional',
-    intro: roadmapIntro,
+    hideGroupMeta: true,
     tagline: 'Roadmap de Engenharia de Dados + IA',
     groupLabel: 'etapa',
     newGroup: 'Nova etapa',
@@ -37,7 +43,7 @@ export const modules: AppModule[] = [
   },
   {
     id: 'trabalho',
-    world: 'mapa',
+    world: 'office',
     label: 'Trabalho',
     short: 'Trabalho',
     tagline: 'O que preciso dominar para o dia a dia como desenvolvedor',
@@ -49,10 +55,11 @@ export const modules: AppModule[] = [
   },
   {
     id: 'uem',
-    world: 'mapa',
+    overview: true,
+    world: 'eva',
     label: 'UEM',
     short: 'UEM',
-    tagline: 'Disciplinas da faculdade, separadas por tópicos',
+    tagline: 'Controle de disciplinas do semestre',
     groupLabel: 'disciplina',
     newGroup: 'Nova disciplina',
     topicLabel: 'conteúdo',
@@ -64,6 +71,7 @@ export const modules: AppModule[] = [
     world: 'sacro',
     label: 'Igreja',
     short: 'Igreja',
+    hideSummary: true,
     tagline: 'Plano de estudo católico: teologia, coração humano e maturidade espiritual',
     groupLabel: 'assunto',
     newGroup: 'Novo assunto',
@@ -73,6 +81,19 @@ export const modules: AppModule[] = [
   },
   {
     id: 'cultura',
+    overview: true,
+    sections: [
+      {
+        title: 'Por tema',
+        hint: 'Newsletters, vídeos e artigos sobre cada assunto',
+        groups: ['Saúde e longevidade', 'Mente e bem-estar', 'Comportamento e comunicação', 'IA: bastidores e debates'],
+      },
+      {
+        title: 'Por formato',
+        hint: 'Documentários, podcasts, séries, canais e livros',
+        groups: ['Documentários e filmes', 'Podcasts', 'Séries', 'Canais e artigos', 'Literatura e fé'],
+      },
+    ],
     world: 'mapa',
     label: 'Repertório',
     short: 'Repertório',

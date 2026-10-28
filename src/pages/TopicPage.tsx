@@ -1,13 +1,13 @@
 import { useLiveQuery } from 'dexie-react-hooks'
-import { useState, type FormEvent, type ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
 import { AutoTextarea } from '../components/AutoTextarea'
 import { Checklist } from '../components/Checklist'
 import { Icon } from '../components/Icon'
 import { Fraction, ProgressMark, Punches } from '../components/Marks'
 import { Resources } from '../components/Resources'
-import { db, deleteTopicData, today } from '../core/db'
-import { getModule } from '../core/modules'
+import { db, deleteTopicData } from '../core/db'
+import { getModule, hasMap } from '../core/modules'
 import { sumProgress } from '../core/queries'
 import { artFor } from '../data/art'
 
@@ -33,11 +33,9 @@ export default function TopicPage() {
     async () => (topic ? db.topics.where('groupId').equals(topic.groupId).sortBy('order') : []),
     [topic?.groupId],
   )
-  const sessions = useLiveQuery(() => db.sessions.where('topicId').equals(id).reverse().sortBy('date'), [id])
-  const [minutes, setMinutes] = useState('')
 
   if (!mod) return <Navigate to="/" replace />
-  if (topic === undefined || !items || !sessions) return null
+  if (topic === undefined || !items) return null
   if (topic === null || !topic) return <Navigate to={`/${mod.id}`} replace />
 
   const progress = sumProgress([
@@ -45,15 +43,6 @@ export default function TopicPage() {
   ])
   const art = artFor(mod.id, group?.title)
   const number = (siblings?.findIndex((s) => s.id === id) ?? -1) + 1
-  const totalMinutes = sessions.reduce((sum, s) => sum + s.minutes, 0)
-
-  async function addSession(e: FormEvent) {
-    e.preventDefault()
-    const m = Number(minutes)
-    if (!Number.isFinite(m) || m <= 0) return
-    await db.sessions.add({ topicId: id, minutes: Math.round(m), date: today(), note: '' })
-    setMinutes('')
-  }
 
   async function remove() {
     if (!confirm(`Excluir "${topic?.title}" e tudo dentro dele? Isso não pode ser desfeito.`)) return
@@ -73,10 +62,10 @@ export default function TopicPage() {
 
       <header className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-5 md:grid-cols-[auto_minmax(0,1fr)_auto]">
         <span className="relative mt-1 grid place-items-center">
-          <ProgressMark world={mod.world} p={progress} size={mod.world === 'mapa' ? 64 : 72} />
+          <ProgressMark world={mod.world} p={progress} size={hasMap(mod.world) ? 64 : 72} />
           {number > 0 && (
             <span
-              className={`mono absolute -right-3 -top-3 text-meta font-bold text-accent ${mod.world !== 'mapa' ? 'hidden' : ''}`}
+              className={`mono absolute -right-3 -top-3 text-meta font-bold text-accent ${!hasMap(mod.world) ? 'hidden' : ''}`}
               style={{ textShadow: '0 0 6px var(--bg), 0 0 3px var(--bg)' }}
             >
               {String(number).padStart(2, '0')}
@@ -166,48 +155,6 @@ export default function TopicPage() {
           onChange={(e) => db.topics.update(id, { notes: e.target.value })}
           aria-label="Anotações"
         />
-      </Block>
-
-      <Block title="Tempo de estudo">
-        <p className="mb-3 text-ink-2">
-          {totalMinutes > 0
-            ? `${Math.floor(totalMinutes / 60)}h${String(totalMinutes % 60).padStart(2, '0')} no total`
-            : 'Registre quanto tempo você dedicou a este conteúdo.'}
-        </p>
-        <form onSubmit={addSession} className="flex gap-2">
-          <input
-            className="field max-w-48"
-            type="number"
-            min="1"
-            inputMode="numeric"
-            value={minutes}
-            onChange={(e) => setMinutes(e.target.value)}
-            placeholder="Minutos"
-            aria-label="Minutos estudados"
-          />
-          <button type="submit" className="btn">
-            <Icon name="plus" size={16} />
-            Registrar
-          </button>
-        </form>
-        {sessions.length > 0 && (
-          <ul className="mt-4">
-            {sessions.slice(0, 8).map((s) => (
-              <li key={s.id} className="flex items-center justify-between border-t border-line py-2 first:border-t-0">
-                <span className="tabular-nums text-ink-2">
-                  {new Date(`${s.date}T12:00:00`).toLocaleDateString('pt-BR')} · {s.minutes} min
-                </span>
-                <button
-                  className="btn-ghost rounded p-1 text-ink-3 hover:text-danger"
-                  onClick={() => db.sessions.delete(s.id)}
-                  aria-label={`Remover sessão de ${s.minutes} minutos`}
-                >
-                  <Icon name="x" size={15} />
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
       </Block>
 
       <div className="mt-16 border-t border-line pt-6">

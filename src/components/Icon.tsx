@@ -14,6 +14,9 @@ const paths = {
   // Ícones dos módulos na lateral recolhida
   database: 'M5 6c0-1.7 3.1-3 7-3s7 1.3 7 3-3.1 3-7 3-7-1.3-7-3zM5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3',
   briefcase: 'M4 8h16v11H4zM9 8V5h6v3M4 13h16',
+  // Placa da porta de The Office: alguém chega com a pasta, outro trabalha sentado à mesa
+  office:
+    'M4.5 3h15A1.5 1.5 0 0121 4.5v15a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 19.5v-15A1.5 1.5 0 014.5 3zM9.6 6.4a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0zM8.4 8.8v5.4l-.8 4M8.4 14.2l.8 4M5.2 12.4h2v2.6h-2zM17 8.2a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0zM15.9 10l-.5 3.4h-2.2M15.4 13.4l.8 4.8M18.2 11.4v6.8M11.4 13.4h3.4M12.3 13.4v4.8',
   cap: 'M2 9l10-5 10 5-10 5zM6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5M22 9v6',
   cross: 'M12 3v18M7 8h10',
   book: 'M12 6c-2-1.5-5-2-8-1.5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-13c-3-.5-6 0-8 1.5zM12 6v13',

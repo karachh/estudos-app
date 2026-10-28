@@ -43,9 +43,64 @@ export function DiskMark({ p, size = 40, filled }: { p?: Progress; size?: number
   )
 }
 
+// Hexágono do Evangelion: o preenchimento sobe de baixo para cima.
+export function HexMark({ p, size = 20, filled }: { p?: Progress; size?: number; filled?: boolean }) {
+  const r = filled ? 1 : ratioOf(p)
+  const clip = useId()
+  const hex = 'M0-10.5L9.1-5.25V5.25L0 10.5-9.1 5.25V-5.25Z'
+  return (
+    <svg width={size} height={size} viewBox="-12 -12 24 24" aria-hidden="true" className="shrink-0 text-accent">
+      <clipPath id={clip}>
+        <path d={hex} />
+      </clipPath>
+      {r > 0 && <rect x="-12" y={10.5 - 21 * r} width="24" height="22" fill="currentColor" clipPath={`url(#${clip})`} />}
+      <path d={hex} fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+// Grade 3×3 de retícula do mundo office: um pixel aceso a cada nona parte concluída.
+export function PixelMark({ p, size = 20, filled }: { p?: Progress; size?: number; filled?: boolean }) {
+  const r = filled ? 1 : ratioOf(p)
+  const lit = r >= 1 ? 9 : Math.floor(r * 9 + (r > 0 ? 0.999 : 0))
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" className="shrink-0 text-accent">
+      {Array.from({ length: 9 }, (_, i) => (
+        <rect
+          key={i}
+          x={1.5 + (i % 3) * 7.5}
+          y={1.5 + Math.floor(i / 3) * 7.5}
+          width="6"
+          height="6"
+          fill={i < lit ? 'currentColor' : 'none'}
+          stroke="currentColor"
+          strokeWidth="1.3"
+          opacity={i < lit ? 1 : 0.55}
+        />
+      ))}
+    </svg>
+  )
+}
+
+// Olho do pôster psicodélico: a íris cresce até encher o olho quando o tópico termina.
+export function EyeMark({ p, size = 20, filled }: { p?: Progress; size?: number; filled?: boolean }) {
+  const r = filled ? 1 : ratioOf(p)
+  const eye = 'M-11.5 0Q0-11 11.5 0Q0 11-11.5 0Z'
+  return (
+    <svg width={size} height={size} viewBox="-12 -12 24 24" aria-hidden="true" className="shrink-0 text-accent">
+      <path d={eye} fill={r >= 1 ? 'currentColor' : 'none'} fillOpacity={r >= 1 ? 0.28 : 0} stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      <circle r={r > 0 ? 2 + 4 * r : 1.6} fill="currentColor" />
+      {r >= 1 && <circle r="2" fill="var(--bg)" />}
+    </svg>
+  )
+}
+
 export function ProgressMark({ world, ...props }: { world: World; p?: Progress; size?: number; filled?: boolean }) {
   if (world === 'sacro') return <ArchMark {...props} />
   if (world === 'renascenca') return <DiskMark {...props} />
+  if (world === 'eva') return <HexMark {...props} />
+  if (world === 'office') return <PixelMark {...props} />
+  if (world === 'psico') return <EyeMark {...props} />
   return <ControlMark {...props} />
 }
 

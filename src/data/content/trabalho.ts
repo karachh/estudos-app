@@ -4,46 +4,6 @@ export const trabalho: ModuleContent = {
   moduleId: 'trabalho',
   groups: [
     {
-      title: 'Scrum e agilidade',
-      subtitle: 'Como o time organiza o trabalho em sprints',
-      description: 'O vocabulário e o ritmo do dia a dia de uma equipe de desenvolvimento.',
-      topics: [
-        {
-          title: 'Scrum: papéis, eventos e artefatos',
-          summary: 'A base para entender daily, planning, review e retrospectiva sem se perder nas reuniões.',
-          sections: {
-            Estudar: [
-              'Papéis: Product Owner, Scrum Master e Developers',
-              'A Sprint e o Sprint Goal',
-              'Eventos: Sprint Planning, Daily Scrum, Sprint Review e Sprint Retrospective',
-              'Artefatos: Product Backlog, Sprint Backlog e Incremento',
-              'Definition of Done e critérios de aceite',
-              'Estimativa: story points e planning poker',
-            ],
-            Fazer: [
-              'Ler o Guia do Scrum 2020 inteiro (cerca de 15 páginas)',
-              'Acompanhar uma sprint real do meu time e anotar o que acontece em cada evento',
-              'Escrever 3 histórias de usuário no formato "Como..., quero..., para..."',
-            ],
-          },
-          links: [
-            link('Guia do Scrum 2020 (PDF oficial, português do Brasil)', 'https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-PortugueseBR-3.0.pdf'),
-            link('Atlassian: o que é Scrum (português)', 'https://www.atlassian.com/br/agile/scrum'),
-            yt('6lbGPwQeUOk', 'Metodologias Ágeis - Cerimônias do Scrum'),
-            yt('s3y95I79D_Q', '(EN) The Scrum Guide: full course'),
-          ],
-          terms: [
-            ['Sprint', 'Período fixo (em geral de 1 a 4 semanas) em que o time entrega um incremento de produto.'],
-            ['Product Backlog', 'Lista ordenada de tudo que pode ser feito no produto. Quem prioriza é o Product Owner.'],
-            ['Sprint Backlog', 'Os itens escolhidos para a sprint, mais o plano do time para entregá-los.'],
-            ['Daily Scrum', 'Encontro de até 15 minutos para o time alinhar o andamento em direção ao Sprint Goal.'],
-            ['Retrospectiva', 'Reunião ao fim da sprint para decidir o que o time vai melhorar no jeito de trabalhar.'],
-            ['Story point', 'Unidade relativa de esforço usada para estimar histórias. Não é medida de horas.'],
-          ],
-        },
-      ],
-    },
-    {
       title: 'Java',
       subtitle: 'A linguagem do backend',
       topics: [

@@ -1,6 +1,6 @@
 import type { LinkSeed, ModuleContent } from '../data/content/helpers'
 import { roadmap } from '../data/roadmap'
-import { db, type CheckItem, type Resource } from './db'
+import { db, deleteTopicData, type CheckItem, type Resource } from './db'
 
 const SEED_KEY = 'seed:v1'
 const CONTENT_KEY = 'content'
@@ -83,9 +83,17 @@ async function applyModule(c: ModuleContent) {
 // O conteúdo vem num arquivo à parte, carregado só aqui, para não pesar a abertura do app.
 async function applyContent() {
   const { CONTENT_VERSION, contentModules } = await import('../data/content')
-  await db.transaction('rw', [db.groups, db.topics, db.checks, db.resources, db.meta], async () => {
+  await db.transaction('rw', [db.groups, db.topics, db.checks, db.resources, db.sessions, db.meta], async () => {
     const done = ((await db.meta.get(CONTENT_KEY))?.value as number | undefined) ?? 0
     if (done >= CONTENT_VERSION) return
+    // v4: o dono pediu para tirar o grupo de Scrum do Trabalho (27/10/2026)
+    if (done < 4) {
+      const scrum = await db.groups.where('moduleId').equals('trabalho').filter((g) => g.title === 'Scrum e agilidade').first()
+      if (scrum) {
+        for (const t of await db.topics.where('groupId').equals(scrum.id).toArray()) await deleteTopicData(t.id)
+        await db.groups.delete(scrum.id)
+      }
+    }
     for (const c of contentModules) await applyModule(c)
     await db.meta.put({ key: CONTENT_KEY, value: CONTENT_VERSION })
   })

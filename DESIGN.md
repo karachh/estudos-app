@@ -261,7 +261,7 @@ Uma cor saturada por tela, a do módulo, sobre preto quente e creme.
 **Display Font:** Big Shoulders Display, variável (com Barlow). No mundo renascença, Bodoni Moda (com Didot).
 **Body Font:** Barlow (com system-ui).
 **Data Font:** Space Mono, só para números e dados: frações, numeração dos controles, faixa de resumo, selos.
-**Vozes de mundo:** Young Serif e Newsreader itálica (sacro); Cormorant Garamond (renascença).
+**Vozes de mundo:** Young Serif e Newsreader itálica, com Cinzel Decorative no título (sacro); Noto Serif Display condensada (wdth 62.5), Cormorant Garamond e Montserrat Variable (renascença, Motivação); Bagel Fat One (psico, Profissional); Noto Serif Display Variable condensada no título, Gloock e kanji em fonte do sistema, Yu Mincho e equivalentes (eva, UEM); Anton e Special Elite (office, Trabalho). Marca "Estudos" da lateral em Gloock. Regras em `src/worlds.css`.
 
 **Character:** letreiro condensado de capa retrô em caixa-alta para títulos e rótulos de botão, grotesca neutra no corpo e monoespaçada de etiqueta técnica para os números.
 

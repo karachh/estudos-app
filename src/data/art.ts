@@ -3,8 +3,8 @@ import emmaus from '../assets/igreja/emmaus.jpg'
 import matthew from '../assets/igreja/matthew.jpg'
 import michael from '../assets/igreja/michael.jpg'
 import prodigal from '../assets/igreja/prodigal.jpg'
-import adam from '../assets/mental/adam.jpg'
 import athens from '../assets/mental/athens.jpg'
+import transfiguration from '../assets/mental/transfiguration.jpg'
 import vitruvian from '../assets/mental/vitruvian.jpg'
 import cultura from '../assets/paisagens/cultura.jpg'
 import inicio from '../assets/paisagens/inicio.jpg'
@@ -30,10 +30,10 @@ export const covers: Record<string, Artwork> = {
     position: '50% 8%',
   },
   mental: {
-    src: adam,
-    credit: 'Michelangelo, A criação de Adão, c. 1512',
-    source: 'https://commons.wikimedia.org/wiki/File:Michelangelo_-_Creation_of_Adam_(cropped).jpg',
-    position: '58% 40%',
+    src: transfiguration,
+    credit: 'Rafael, A Transfiguração, 1516–1520',
+    source: 'https://commons.wikimedia.org/wiki/File:Transfiguration_Raphael.jpg',
+    position: '50% 18%',
   },
 }
 

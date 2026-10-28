@@ -47,6 +47,18 @@
   --type-topic: clamp(2.4rem, 1.7rem + 1.6vw, 3rem);
   --type-display: clamp(5rem, 4rem + 2vw, 6rem);
 }
+[data-world='psico'] {
+  --type-headline: clamp(1.9rem, 1.4rem + 1.2vw, 2.4rem);
+  --type-topic: clamp(2.3rem, 1.5rem + 2vw, 3.1rem);
+}
+[data-world='eva'] {
+  --type-headline: clamp(2rem, 1.4rem + 1.3vw, 2.5rem);
+  --type-topic: clamp(2.4rem, 1.6rem + 2vw, 3.2rem);
+}
+[data-world='office'] {
+  --type-headline: clamp(1.6rem, 1.2rem + 1.1vw, 2.05rem);
+  --type-topic: clamp(1.9rem, 1.3rem + 1.6vw, 2.5rem);
+}
 [data-world='renascenca'] {
   --type-lead: 1.55rem; /* Cormorant tem olho pequeno: precisa de um passo a mais */
   --type-headline: clamp(2rem, 1.4rem + 1.4vw, 2.5rem);
@@ -102,16 +114,16 @@
   --grain: 0.06;
 }
 
-[data-module='profissional'] { --accent: #6fd0b0; }
-[data-module='trabalho'] { --accent: #e8b04a; }
-[data-module='uem'] { --accent: #b69cff; }
+[data-module='profissional'] { --accent: #e2b93b; }
+[data-module='trabalho'] { --accent: #f2b82e; }
+[data-module='uem'] { --accent: #a98bff; }
 [data-module='igreja'] { --accent: #dcaa3c; }
 [data-module='cultura'] { --accent: #7cc4f0; }
 [data-module='mental'] { --accent: #d4543f; }
 
-:root[data-theme='light'] [data-module='profissional'] { --accent: #0e8a68; }
-:root[data-theme='light'] [data-module='trabalho'] { --accent: #a76400; }
-:root[data-theme='light'] [data-module='uem'] { --accent: #6544d6; }
+:root[data-theme='light'] [data-module='profissional'] { --accent: #4b2ee6; }
+:root[data-theme='light'] [data-module='trabalho'] { --accent: #b8322a; }
+:root[data-theme='light'] [data-module='uem'] { --accent: #5a2fb8; }
 :root[data-theme='light'] [data-module='igreja'] { --accent: #8c600a; }
 :root[data-theme='light'] [data-module='cultura'] { --accent: #0b72b5; }
 :root[data-theme='light'] [data-module='mental'] { --accent: #a3301f; }
@@ -177,6 +189,133 @@
   --grain: 0.07;
 }
 
+/* Mundo "psico" (Profissional): pôster psicodélico de OVNI. Preto, violeta elétrico, vermelho-tomate,
+   mostarda e a moldura rosa-choque. No claro vira papel creme impresso com as mesmas tintas. */
+[data-world='psico'] {
+  --display-face: 'Bagel Fat One', 'Big Shoulders Display Variable', sans-serif;
+  --bg-base: #0c0a12;
+  --surface-base: #150f26;
+  --raised-base: #1e1538;
+  --line-base: #2e2060;
+  --frame-base: #e8318f;
+  --ink: #f4f0e4;
+  --ink-2: #d4cbea;
+  --ink-3: #a99fcb;
+  --on-accent: #0c0a12;
+  --pink: #e8318f;
+  --tomato: #ee3a2c;
+  --violet: #4b2ee6;
+  --grain: 0.14;
+  --t-open-world: #2a1b8c;
+  --t-contour: #e8318f;
+  --t-dots: #5a3df0;
+  --t-trail: #e2b93b;
+}
+:root[data-theme='light'] [data-world='psico'] {
+  --bg-base: #f1e8cf;
+  --surface-base: #f6eed9;
+  --raised-base: #fbf5e6;
+  --line-base: #d8caa4;
+  --frame-base: #d4207d;
+  --ink: #17102e;
+  --ink-2: #40356a;
+  --ink-3: #5d5283;
+  --on-accent: #ffffff;
+  --pink: #d4207d;
+  --tomato: #d92c1c;
+  --violet: #4b2ee6;
+  --grain: 0.08;
+  --t-open-world: #cdc3ff;
+  --t-contour: #4b2ee6;
+  --t-dots: #9c8bf5;
+  --t-trail: #d92c1c;
+}
+
+/* Mundo "eva" (UEM): pôster de anime. Preto arroxeado com brilho violeta, vermelho de alerta, laranja e
+   verde-ácido de detalhe; no claro, o verde-menta do primeiro pôster. Serifa pesada nos títulos. */
+[data-world='eva'] {
+  --display-face: 'Gloock', 'Bodoni Moda Variable', serif;
+  --bg-base: #07050f;
+  --surface-base: #0f0a1d;
+  --raised-base: #181129;
+  --line-base: #2a1f47;
+  --frame-base: #5b3fa8;
+  --ink: #f2eefc;
+  --ink-2: #cbc2e6;
+  --ink-3: #9b90c2;
+  --on-accent: #0b0714;
+  --alert: #ff3b30;
+  --amber: #f0922b;
+  --acid: #8cf03a;
+  --grain: 0.12;
+  --t-open-world: #1d1238;
+  --t-contour: #9a7cff;
+  --t-dots: #3b2a6b;
+  --t-trail: #f0922b;
+}
+:root[data-theme='light'] [data-world='eva'] {
+  --bg-base: #d5ebe2;
+  --surface-base: #e0f0e9;
+  --raised-base: #ecf7f2;
+  --line-base: #b3d4c6;
+  --frame-base: #5a2fb8;
+  --ink: #120a24;
+  --ink-2: #3a2d5c;
+  --ink-3: #54497a;
+  --on-accent: #ffffff;
+  --alert: #b3262a;
+  --amber: #b9650b;
+  --acid: #3f8f0f;
+  --grain: 0.07;
+  --t-open-world: #bde0d1;
+  --t-contour: #5a2fb8;
+  --t-dots: #8dbba9;
+  --t-trail: #b9650b;
+}
+
+/* Mundo "office" (Trabalho): pôster de The Office em papel pardo. No escuro, tinta marrom quase preta com
+   letras de papel; no claro, o próprio papel pardo. Vermelho de retícula, mostarda e azul dos retratos.
+   Letreiro em Anton (o "THE OFFICE" condensado) e rótulos em Special Elite (máquina de escrever). */
+[data-world='office'] {
+  --display-face: 'Anton', 'Big Shoulders Display Variable', sans-serif;
+  --bg-base: #15120d;
+  --surface-base: #1e1a13;
+  --raised-base: #29231a;
+  --line-base: #3a3226;
+  --frame-base: #8a7350;
+  --ink: #efe2c4;
+  --ink-2: #d4c5a2;
+  --ink-3: #ab9b7a;
+  --on-accent: #15120d;
+  --kraft: #e6cf9f;
+  --office-ink: #262634;
+  --office-red: #d9432f;
+  --office-yellow: #f2b82e;
+  --office-blue: #7fa8c9;
+  --grain: 0.14;
+  --t-open-world: #2a2318;
+  --t-contour: #f2b82e;
+  --t-dots: #4a3f2e;
+  --t-trail: #d9432f;
+}
+:root[data-theme='light'] [data-world='office'] {
+  --bg-base: #eadcbc;
+  --surface-base: #f3e8cd;
+  --raised-base: #f8f0dc;
+  --line-base: #d1bf98;
+  --frame-base: #262634;
+  --ink: #23222c;
+  --ink-2: #45414a;
+  --ink-3: #5f5853;
+  --on-accent: #ffffff;
+  --office-red: #b8322a;
+  --grain: 0.08;
+  --t-open-world: #e0cfa8;
+  --t-contour: #b8322a;
+  --t-dots: #c9b68c;
+  --t-trail: #b8322a;
+}
+
 /* O módulo aberto tinge de leve o fundo, a lateral e o terreno */
 .app {
   --bg: color-mix(in oklab, var(--accent) 2.5%, var(--bg-base));
@@ -193,7 +332,10 @@
   --t-open: color-mix(in oklab, var(--accent) 18%, var(--bg-base));
 }
 [data-world='sacro'].app,
-[data-world='renascenca'].app {
+[data-world='renascenca'].app,
+[data-world='psico'].app,
+[data-world='eva'].app,
+[data-world='office'].app {
   --bg: var(--bg-base);
   --surface: var(--surface-base);
   --raised: var(--raised-base);
@@ -206,6 +348,23 @@
 }
 :root[data-theme='light'] [data-world='renascenca'].app {
   --rail: #e4d8bf;
+}
+:root[data-theme='light'] [data-world='psico'].app {
+  --rail: #e8dcb9;
+}
+:root[data-theme='light'] [data-world='eva'].app {
+  --rail: #c3ded2;
+}
+:root[data-theme='light'] [data-world='office'].app {
+  --rail: #dfcfa9;
+}
+[data-world='psico'].app,
+[data-world='eva'].app,
+[data-world='office'].app,
+:root[data-theme='light'] [data-world='psico'].app,
+:root[data-theme='light'] [data-world='eva'].app,
+:root[data-theme='light'] [data-world='office'].app {
+  --t-open: var(--t-open-world);
 }
 
 /* Grão de impressão em todo o app */
@@ -752,10 +911,12 @@ textarea {
 }
 
 /* A marca do app usa sempre o letreiro, em qualquer mundo */
-.brand.display {
-  font-family: 'Big Shoulders Display Variable', sans-serif;
-  font-weight: 800;
-  letter-spacing: 0.005em;
+/* Marca no topo da lateral: o mesmo letreiro serifado da capa (Gloock), igual em todos os módulos */
+.brand {
+  font-family: 'Gloock', serif;
+  font-size: 1.65rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
 }
 
 /* Página inicial: capa de disco com foto de filme analógico e uma "capa" por módulo que cresce ao rolar */

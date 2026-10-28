@@ -4,12 +4,47 @@ import { AddForm } from '../components/AddForm'
 import { Band, Film } from '../components/Cover'
 import { CourseMap } from '../components/CourseMap'
 import { Icon } from '../components/Icon'
-import { ControlMark, DiskMark, Fraction, Orbit, ProgressMark, Punches, Sparkle } from '../components/Marks'
+import { DiskMark, Fraction, Orbit, ProgressMark, Punches, Sparkle } from '../components/Marks'
+import { ThemeBoard } from '../components/ThemeBoard'
+import { EvaHeader, OfficeHeader, PsicoHeader } from '../components/Worlds'
 import { plural } from '../core/geometry'
-import { db, deleteTopicData, type Group, type Topic } from '../core/db'
+import { db, deleteTopicData, type Group, type ResourceKind, type Topic } from '../core/db'
 import { getModule, type AppModule } from '../core/modules'
 import { sumProgress, useModuleData, type Progress } from '../core/queries'
 import { artFor, covers, landscapes } from '../data/art'
+
+// Níveis do Profissional ("Bronze: fundação"...) ganham a cor do metal; os outros grupos não têm nível.
+const tierOf = (title: string) => /^(bronze|prata|ouro)[: ]/i.exec(title)?.[1].toLowerCase()
+
+// Título do grupo com só a palavra do nível pintada na cor do metal
+function GroupTitle({ title }: { title: string }) {
+  const tier = tierOf(title)
+  if (!tier) return <>{title}</>
+  return (
+    <>
+      <span className="tier-word" data-tier={tier}>
+        {title.slice(0, tier.length)}
+      </span>
+      {title.slice(tier.length)}
+    </>
+  )
+}
+
+type Kinds = Map<number, Partial<Record<ResourceKind, number>>>
+const kindNames: Record<ResourceKind, [string, string]> = {
+  youtube: ['vídeo', 'vídeos'],
+  link: ['link', 'links'],
+  file: ['arquivo', 'arquivos'],
+}
+// "2 vídeos · 1 link": o que tem dentro, por tipo de material
+function kindSummary(k?: Partial<Record<ResourceKind, number>>) {
+  const parts: string[] = []
+  for (const key of Object.keys(kindNames) as ResourceKind[]) {
+    const n = k?.[key] ?? 0
+    if (n) parts.push(`${n} ${kindNames[key][n === 1 ? 0 : 1]}`)
+  }
+  return parts.join(' · ')
+}
 
 const started = (p?: Progress) => !!p && p.done > 0 && p.done < p.total
 
@@ -24,7 +59,7 @@ export default function ModulePage() {
   if (!mod) return <Navigate to="/" replace />
   if (!data) return null
 
-  const { groups, topics, byTopic, materials } = data
+  const { groups, topics, byTopic, materials, kinds } = data
   const total = sumProgress(topics.map((t) => byTopic.get(t.id)))
   const pct = total.total ? Math.round((total.done / total.total) * 100) : 0
   const inProgress = topics.filter((t) => started(byTopic.get(t.id))).length
@@ -51,6 +86,17 @@ export default function ModulePage() {
         <SacredHeader mod={mod} summary={summary} />
       ) : mod.world === 'renascenca' ? (
         <RenaissanceHeader mod={mod} summary={summary} />
+      ) : mod.world === 'psico' || mod.world === 'eva' || mod.world === 'office' ? (
+        <header>
+          {mod.world === 'psico' ? (
+            <PsicoHeader mod={mod} groupCount={groups.length} />
+          ) : mod.world === 'eva' ? (
+            <EvaHeader mod={mod} groupCount={groups.length} pct={pct} />
+          ) : (
+            <OfficeHeader mod={mod} groupCount={groups.length} />
+          )}
+          <SummaryStrip summary={summary} />
+        </header>
       ) : landscapes[mod.id] ? (
         <FilmHeader mod={mod} summary={summary} groupCount={groups.length} />
       ) : (
@@ -64,7 +110,7 @@ export default function ModulePage() {
         </header>
       )}
 
-      {groups.length > 1 && (
+      {groups.length > 1 && !mod.overview && (
         <nav
           aria-label={`Ir para ${mod.groupLabel}`}
           className="-mx-4 mt-7 flex gap-2 overflow-x-auto px-4 pb-1 md:mx-0 md:flex-wrap md:overflow-visible md:px-0"
@@ -76,7 +122,9 @@ export default function ModulePage() {
               onClick={() => document.getElementById(`group-${g.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               <ProgressMark world={mod.world} p={groupProgress(g)} size={mod.world === 'sacro' ? 18 : 16} />
-              <span className="font-sans text-meta font-medium">{g.title}</span>
+              <span className="font-sans text-meta font-medium">
+                <GroupTitle title={g.title} />
+              </span>
               {groupProgress(g).total > 0 && <Fraction p={groupProgress(g)} className="font-sans text-sm" />}
             </button>
           ))}
@@ -87,7 +135,36 @@ export default function ModulePage() {
         <p className="mt-14 max-w-prose border border-dashed border-line p-5 text-ink-2">{mod.emptyHint}</p>
       )}
 
-      {groups.map((group, gi) => (
+      {mod.overview && groups.length > 0 && (
+        <>
+          <Intro mod={mod} />
+          {overviewSections(mod, groups).map((sec) => (
+            <section key={sec.title || 'todos'} className="mt-10 first-of-type:mt-8" aria-label={sec.title || mod.label}>
+              {sec.title && (
+                <div className="mb-4">
+                  <h2 className="rule-head">{sec.title}</h2>
+                  <p className="-mt-3 text-sm text-ink-3">{sec.hint}</p>
+                </div>
+              )}
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                {sec.groups.map((group) => (
+                  <GroupCard
+                    key={group.id}
+                    mod={mod}
+                    group={group}
+                    topics={topics.filter((t) => t.groupId === group.id)}
+                    byTopic={byTopic}
+                    materials={materials}
+                    kinds={kinds}
+                  />
+                ))}
+              </div>
+            </section>
+          ))}
+        </>
+      )}
+
+      {!mod.overview && groups.map((group, gi) => (
         <Fragment key={group.id}>
           <GroupSection
             mod={mod}
@@ -107,6 +184,20 @@ export default function ModulePage() {
       </div>
     </article>
   )
+}
+
+// Divide os grupos da visão geral nas seções do módulo (Repertório: por tema e por formato)
+function overviewSections(mod: AppModule, groups: Group[]) {
+  if (!mod.sections) return [{ title: '', hint: '', groups }]
+  const used = new Set<number>()
+  const out = mod.sections.map((sec) => {
+    const list = groups.filter((g) => sec.groups.includes(g.title))
+    list.forEach((g) => used.add(g.id))
+    return { title: sec.title, hint: sec.hint, groups: list }
+  })
+  const rest = groups.filter((g) => !used.has(g.id))
+  if (rest.length) out.push({ title: 'Outros', hint: 'Categorias criadas por você', groups: rest })
+  return out.filter((sec) => sec.groups.length > 0)
 }
 
 function Intro({ mod }: { mod: AppModule }) {
@@ -146,7 +237,7 @@ function SacredHeader({ mod, summary }: { mod: AppModule; summary: string }) {
       {/* Filete dourado por dentro, como a moldura de um painel */}
       <div className="pointer-events-none absolute inset-2.5 rounded-[1.1rem] border border-[color-mix(in_oklab,var(--accent)_55%,transparent)]" />
       <div className="relative flex min-h-[23rem] flex-col justify-end px-6 pb-7 pt-14 text-[#f0e7cf] md:min-h-[26rem] md:px-10">
-        <h1 className="display relative self-start text-display leading-[0.85]">
+        <h1 className="cinzel relative self-start leading-[0.95]">
           {mod.label}
           <Sparkle size={22} className="absolute -right-8 -top-3 text-accent" />
           <Sparkle size={11} className="absolute -right-11 top-5 text-accent" />
@@ -159,7 +250,7 @@ function SacredHeader({ mod, summary }: { mod: AppModule; summary: string }) {
         </p>
       </div>
     </div>
-      <SummaryStrip summary={summary} />
+      {!mod.hideSummary && <SummaryStrip summary={summary} />}
     </header>
   )
 }
@@ -254,6 +345,7 @@ function GroupSection({
   const sacred = mod.world === 'sacro'
   const renaissance = mod.world === 'renascenca'
   const art = artFor(mod.id, group.title)
+  const meta = !mod.hideGroupMeta
 
   const addTopic = (title: string) =>
     db.topics.add({
@@ -308,9 +400,9 @@ function GroupSection({
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
               <h2 id={`gh-${group.id}`} className={`text-headline ${sacred ? 'wide-serif' : renaissance ? 'bodoni' : 'display'}`}>
-                {group.title}
+                <GroupTitle title={group.title} />
               </h2>
-              {group.subtitle && <p className={`mt-1.5 text-ink-3 ${sacred ? 'italic-serif text-lg' : renaissance ? 'garamond text-xl italic' : ''}`}>{group.subtitle}</p>}
+              {meta && group.subtitle && <p className={`mt-1.5 text-ink-3 ${sacred ? 'italic-serif text-lg' : renaissance ? 'garamond text-xl italic' : ''}`}>{group.subtitle}</p>}
             </div>
             {progress.total > 0 && (
               <p className="shrink-0 text-right leading-none">
@@ -323,7 +415,7 @@ function GroupSection({
             )}
           </div>
           {group.description && <p className="mt-3 max-w-prose text-ink-2">{group.description}</p>}
-          {group.criteria && (
+          {meta && group.criteria && (
             <p className="mt-3 flex max-w-prose gap-2.5 text-ink-2">
               {renaissance ? (
                 <span className="mt-2 size-3 shrink-0 rounded-full bg-accent" aria-hidden="true" />
@@ -359,15 +451,28 @@ function GroupSection({
       ) : (
         <div className="mt-7 grid gap-6 md:grid-cols-[minmax(0,25rem)_minmax(0,1fr)] md:gap-8">
           <div className="md:sticky md:top-6 md:self-start">
-            <CourseMap
-              seed={group.id}
-              title={group.title}
-              moduleId={mod.id}
-              topics={topics}
-              byTopic={byTopic}
-              lit={lit}
-              onLight={setLit}
-            />
+            {mod.world === 'mapa' ? (
+              <CourseMap
+                seed={group.id}
+                title={group.title}
+                moduleId={mod.id}
+                topics={topics}
+                byTopic={byTopic}
+                lit={lit}
+                onLight={setLit}
+              />
+            ) : (
+              <ThemeBoard
+                world={mod.world}
+                seed={group.id}
+                title={group.title}
+                moduleId={mod.id}
+                topics={topics}
+                byTopic={byTopic}
+                lit={lit}
+                onLight={setLit}
+              />
+            )}
           </div>
           <ol className="border-t border-line">
             {topics.map((t, i) => (
@@ -389,6 +494,107 @@ function GroupSection({
 
       <div className="mt-6 space-y-2">
         <AddForm placeholder={`Novo ${mod.topicLabel} em ${group.title}`} onAdd={addTopic} />
+        <button className="btn btn-ghost -ml-[0.95rem]" onClick={() => setEditing((v) => !v)} aria-expanded={editing}>
+          <Icon name="pencil" size={15} />
+          Editar {mod.groupLabel}
+        </button>
+        {editing && (
+          <GroupEditor group={group} groupLabel={mod.groupLabel} onDelete={removeGroup} onClose={() => setEditing(false)} />
+        )}
+      </div>
+    </section>
+  )
+}
+
+// Visão geral: todos os grupos de uma vez, cada um com os seus tópicos em lista curta (sem o mapa).
+function GroupCard({
+  mod,
+  group,
+  topics,
+  byTopic,
+  materials,
+  kinds,
+}: {
+  mod: AppModule
+  group: Group
+  topics: Topic[]
+  byTopic: Map<number, Progress>
+  materials: Map<number, number>
+  kinds: Kinds
+}) {
+  const [editing, setEditing] = useState(false)
+  const progress = sumProgress(topics.map((t) => byTopic.get(t.id)))
+  // Soma dos tipos de material do grupo inteiro, para a linha de resumo do cartão
+  const total: Partial<Record<ResourceKind, number>> = {}
+  for (const t of topics)
+    for (const [k, n] of Object.entries(kinds.get(t.id) ?? {})) total[k as ResourceKind] = (total[k as ResourceKind] ?? 0) + n
+  const totalKinds = kindSummary(total)
+
+  const addTopic = (title: string) =>
+    db.topics.add({
+      moduleId: mod.id,
+      groupId: group.id,
+      title,
+      summary: '',
+      badge: '',
+      flow: '',
+      isProject: false,
+      notes: '',
+      glossary: [],
+      order: Math.max(-1, ...topics.map((t) => t.order)) + 1,
+      createdAt: Date.now(),
+    })
+
+  async function removeGroup() {
+    const msg = `Excluir "${group.title}" com ${topics.length} ${mod.topicLabel}(s) e tudo dentro? Isso não pode ser desfeito.`
+    if (!confirm(msg)) return
+    await db.transaction('rw', [db.groups, db.topics, db.checks, db.resources, db.sessions], async () => {
+      for (const t of topics) await deleteTopicData(t.id)
+      await db.groups.delete(group.id)
+    })
+  }
+
+  return (
+    <section className="frame group-card flex h-full flex-col p-4" aria-labelledby={`gh-${group.id}`}>
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h2 id={`gh-${group.id}`} className="display text-xl leading-tight">
+            {group.title}
+          </h2>
+          {group.subtitle && <p className="mt-0.5 text-sm text-ink-3">{group.subtitle}</p>}
+          {totalKinds && <p className="mono mt-1.5 text-micro uppercase tracking-wide text-accent">{totalKinds}</p>}
+        </div>
+        {progress.total > 0 && (
+          <p className="display shrink-0 text-xl leading-none text-accent">
+            {progress.done}
+            <span className="text-ink-3">/{progress.total}</span>
+          </p>
+        )}
+      </div>
+
+      {topics.length === 0 ? (
+        <p className="mt-3 text-sm text-ink-3">Nenhum {mod.topicLabel} ainda.</p>
+      ) : (
+        <ul className="card-list mt-3 max-h-[17.5rem] overflow-y-auto border-t border-line">
+          {topics.map((t) => {
+            const p = byTopic.get(t.id) ?? { done: 0, total: 0 }
+            return (
+              <li key={t.id} className="border-b border-line">
+                <Link to={`/${mod.id}/t/${t.id}`} className="flex items-center gap-2 px-1 py-2 transition-colors hover:bg-raised">
+                  <span className="min-w-0 flex-1 text-sm font-medium leading-snug">{t.title}</span>
+                  <span className="shrink-0 text-xs text-ink-3">
+                    {p.total > 0 ? <Fraction p={p} /> : kindSummary(kinds.get(t.id)) || contents(materials.get(t.id))}
+                  </span>
+                  <ProgressMark world={mod.world} p={p} size={16} />
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      )}
+
+      <div className="mt-auto space-y-2 pt-3">
+        <AddForm placeholder={`Novo ${mod.topicLabel}`} onAdd={addTopic} />
         <button className="btn btn-ghost -ml-[0.95rem]" onClick={() => setEditing((v) => !v)} aria-expanded={editing}>
           <Icon name="pencil" size={15} />
           Editar {mod.groupLabel}
@@ -449,7 +655,7 @@ function ControlRow({
       </span>
       <span className="flex items-center gap-2.5">
         {p.total > 0 ? <Fraction p={p} className="text-sm" /> : <span className="text-sm text-ink-3">{contents(materials)}</span>}
-        <ControlMark p={p} size={18} />
+        <ProgressMark world={mod.world} p={p} size={18} />
       </span>
     </Link>
   )

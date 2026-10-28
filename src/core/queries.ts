@@ -1,5 +1,5 @@
 import { useLiveQuery } from 'dexie-react-hooks'
-import { db } from './db'
+import { db, type ResourceKind } from './db'
 
 export interface Progress {
   done: number
@@ -34,9 +34,16 @@ export function useModuleData(moduleId: string) {
     for (const c of checks) add(byTopic, c.topicId, c.done)
     // Quantos materiais cada tópico tem: tópico sem checklist ainda pode ter vídeos e links
     const materials = new Map<number, number>()
+    // E de que tipo: vídeo do YouTube, link (artigo, site) ou arquivo
+    const kinds = new Map<number, Partial<Record<ResourceKind, number>>>()
     const resources = await db.resources.where('topicId').anyOf(topics.map((t) => t.id)).toArray()
-    for (const r of resources) materials.set(r.topicId, (materials.get(r.topicId) ?? 0) + 1)
-    return { groups, topics, byTopic, materials }
+    for (const r of resources) {
+      materials.set(r.topicId, (materials.get(r.topicId) ?? 0) + 1)
+      const k = kinds.get(r.topicId) ?? {}
+      k[r.kind] = (k[r.kind] ?? 0) + 1
+      kinds.set(r.topicId, k)
+    }
+    return { groups, topics, byTopic, materials, kinds }
   }, [moduleId])
 }
 

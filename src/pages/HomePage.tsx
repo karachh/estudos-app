@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { Band, Film } from '../components/Cover'
 import { Icon } from '../components/Icon'
+import { BannerBackdrop } from '../components/Worlds'
 import { plural } from '../core/geometry'
 import { modules, type AppModule } from '../core/modules'
 import { sumProgress, useHomeData, type Progress } from '../core/queries'
@@ -83,10 +84,11 @@ function Credit({ art }: { art: Artwork }) {
 function ModuleBanner({ mod, groups, topics }: { mod: AppModule; groups: { title: string; p: Progress }[]; topics: Progress[] }) {
   const art = bannerFor(mod.id)
   const p = sumProgress(topics)
+  const themed = mod.world === 'psico' || mod.world === 'eva' || mod.world === 'office'
   return (
-    <section id={`mod-${mod.id}`} data-module={mod.id} className="banner" aria-labelledby={`bn-${mod.id}`}>
+    <section id={`mod-${mod.id}`} data-module={mod.id} className={`banner ${themed ? `banner-${mod.world}` : ''}`} aria-labelledby={`bn-${mod.id}`}>
       <div className="banner-frame">
-        {art && <Film art={art} />}
+        {themed ? <BannerBackdrop world={mod.world} /> : art && <Film art={art} />}
         <Band title={mod.short} foot={`${groups.length} ${groups.length === 1 ? mod.groupLabel : plural(mod.groupLabel)}`} />
         <div className="sticker banner-copy">
           <h2 id={`bn-${mod.id}`} className="gloock-text text-cover leading-tight">
@@ -120,7 +122,7 @@ function ModuleBanner({ mod, groups, topics }: { mod: AppModule; groups: { title
             Abrir {mod.short}
             <Icon name="chevron" size={16} />
           </Link>
-          {art && (
+          {art && !themed && (
             <p className="fine mt-5 text-ink-3">
               <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:text-ink">
                 {landscapes[mod.id] ? 'Foto' : 'Obra'}: {art.credit}

@@ -1,0 +1,1339 @@
+/* Temas por cima do mapa: psico (Profissional), eva (UEM) e office (Trabalho). As cores e fontes de cada
+   mundo estão em index.css; aqui ficam as regras que trocam a pele dos componentes. Fica fora das camadas
+   de propósito, para vencer o que .btn, .strip, .frame e .rule-head definem em @layer components. */
+
+/* ---------- Letreiro ---------- */
+[data-world='psico'] .display {
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 0.98;
+  text-shadow: 0.05em 0.05em 0 var(--pink);
+}
+[data-world='eva'] .display {
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+}
+
+/* Subtítulo do checklist: o letreiro grande demais para o corpo do texto volta para o condensado */
+[data-world='psico'] .sub-head.display {
+  font-family: 'Big Shoulders Display Variable', sans-serif;
+  font-weight: 800;
+  text-shadow: none;
+}
+[data-world='eva'] .sub-head.display {
+  text-shadow: none;
+}
+
+/* ---------- Título de bloco ---------- */
+[data-world='psico'] .rule-head {
+  font-weight: 400;
+  font-size: 1.45rem;
+  letter-spacing: 0.02em;
+}
+[data-world='psico'] .rule-head::before {
+  -webkit-mask: none;
+  mask: none;
+  width: 1.1rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--bg) 0 22%, transparent 24%), var(--accent);
+}
+[data-world='psico'] .rule-head::after {
+  height: 4px;
+  background: repeating-linear-gradient(90deg, var(--pink) 0 10px, transparent 10px 16px);
+}
+[data-world='eva'] .rule-head {
+  font-weight: 400;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+}
+[data-world='eva'] .rule-head::before {
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-12 -12 24 24'%3E%3Cpath d='M0-11L9.5-5.5V5.5L0 11-9.5 5.5V-5.5z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-12 -12 24 24'%3E%3Cpath d='M0-11L9.5-5.5V5.5L0 11-9.5 5.5V-5.5z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+[data-world='eva'] .rule-head::after {
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent) 0 18%, var(--frame) 18% 100%);
+}
+
+/* ---------- Faixa de resumo, molduras, botões, caixas de marcar ---------- */
+[data-world='psico'] .strip {
+  background: var(--pink);
+  color: #fff;
+}
+[data-world='eva'] .strip {
+  border-radius: 0.2rem;
+  background: var(--alert);
+  color: #fff;
+  clip-path: polygon(0 0, calc(100% - 0.9rem) 0, 100% 100%, 0 100%);
+  padding-right: 2rem;
+  letter-spacing: 0.02em;
+}
+
+[data-world='psico'] .frame,
+[data-world='psico'] .map-sheet {
+  border-width: 2px;
+}
+[data-world='eva'] .frame,
+[data-world='eva'] .map-sheet {
+  border-radius: 0.4rem;
+}
+
+[data-world='psico'] .btn,
+[data-world='eva'] .btn {
+  font-family: 'Big Shoulders Display Variable', sans-serif;
+}
+
+[data-world='psico'] .check {
+  border-radius: 50%;
+}
+[data-world='eva'] .check {
+  border-radius: 1px;
+  transform: rotate(45deg) scale(0.82);
+}
+
+/* ---------- Níveis bronze, prata e ouro (Profissional) ---------- */
+[data-tier='bronze'] {
+  --tier: #e0803f;
+}
+[data-tier='prata'] {
+  --tier: #c3cde4;
+}
+[data-tier='ouro'] {
+  --tier: #f5c82e;
+}
+:root[data-theme='light'] [data-tier='bronze'] {
+  --tier: #a4501a;
+}
+:root[data-theme='light'] [data-tier='prata'] {
+  --tier: #5d6a8a;
+}
+:root[data-theme='light'] [data-tier='ouro'] {
+  --tier: #a87a00;
+}
+
+/* ---------- Psico: pôster psicodélico ---------- */
+.psy-poster {
+  --ink: #f4f0e4;
+  --ink-2: #d4cbea;
+  container-type: inline-size;
+  position: relative;
+  overflow: clip;
+  min-height: 24rem;
+  border: 4px solid var(--pink);
+  border-radius: 1.5rem;
+  background: #0c0a12;
+  color: var(--ink);
+}
+.psy-blob {
+  position: absolute;
+  inset: 0.5rem 0.25rem;
+  background: var(--violet);
+}
+.psy-ufo {
+  position: absolute;
+  right: 3%;
+  bottom: 0;
+  width: min(15rem, 44%);
+  height: auto;
+}
+.psy-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: min(100%, 38rem);
+  padding: 2rem 1.5rem 1.75rem;
+}
+.psy-title {
+  font-family: 'Bagel Fat One', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  font-size: min(5.5rem, calc(92cqw / (var(--len) * 0.72)));
+  color: var(--tomato);
+  text-shadow: 0.035em 0.035em 0 #e2b93b, -0.03em -0.02em 0 var(--pink);
+  filter: url(#psy-warp);
+  padding: 0.1em 0.12em 0.14em 0;
+}
+.psy-tag {
+  margin-top: 1rem;
+  max-width: 23rem;
+  font-family: 'Bagel Fat One', sans-serif;
+  font-size: 1.15rem;
+  line-height: 1.25;
+  color: #e2b93b;
+}
+.psy-chip {
+  margin-top: 1.25rem;
+  padding: 0.2rem 0.9rem;
+  border: 2px solid var(--pink);
+  border-radius: 999px;
+  background: #0c0a12;
+  color: #f4f0e4;
+  font-family: 'Space Mono', monospace;
+  font-size: var(--type-micro);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+@media (min-width: 768px) {
+  .psy-poster {
+    min-height: 26rem;
+  }
+  .psy-copy {
+    padding: 3rem 3rem 2.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .psy-title {
+    filter: none;
+  }
+}
+
+/* ---------- Painel do tema no lugar do mapa (ThemeBoard) ---------- */
+.tb .tb-node {
+  cursor: pointer;
+}
+.tb .tb-node:focus-visible {
+  outline: none;
+}
+.tb .tb-cell {
+  fill: var(--raised);
+}
+.tb .tb-edge {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  transition: stroke-width 150ms;
+}
+.tb .tb-fill {
+  fill: var(--accent);
+}
+.tb .tb-off {
+  fill: var(--ink-3);
+  opacity: 0.28;
+}
+.tb .tb-pupil {
+  fill: var(--bg);
+}
+.tb .tb-num {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: var(--type-meta);
+  fill: var(--ink);
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 3.5px;
+  stroke-linejoin: round;
+}
+.tb .tb-num-tag {
+  fill: var(--accent);
+}
+.tb .tb-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  fill: var(--ink-3);
+}
+.tb .tb-label-hot {
+  fill: var(--accent);
+}
+.tb .tb-rule {
+  stroke: var(--frame);
+  stroke-width: 1;
+}
+.tb .tb-ring {
+  fill: none;
+  stroke: var(--pink);
+  stroke-width: 1.2;
+  stroke-dasharray: 2 6;
+  opacity: 0.7;
+}
+.tb .tb-eye {
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+.tb .tb-node.lit .tb-edge,
+.tb .tb-node:focus-visible .tb-edge,
+.tb .tb-node.lit .tb-eye,
+.tb .tb-node:focus-visible .tb-eye {
+  stroke: var(--ink);
+  stroke-width: 3;
+}
+.tb-eva .tb-cell {
+  fill: color-mix(in oklab, var(--alert) 14%, var(--bg));
+}
+.tb-eva .tb-edge {
+  stroke: var(--frame);
+}
+.tb-eva .tb-label-hot {
+  fill: var(--alert);
+}
+.tb-psico {
+  background: radial-gradient(70% 60% at 50% 100%, color-mix(in oklab, var(--violet) 55%, transparent), transparent 75%), var(--bg);
+}
+
+/* ---------- Fundo da página, um desenho leve por tema (não passa de ~15% de opacidade, para o texto seguir legível) ---------- */
+[data-world='psico'].app {
+  background-image:
+    radial-gradient(55rem 38rem at 100% -8%, rgba(75, 46, 230, 0.3), transparent 70%),
+    radial-gradient(40rem 30rem at -5% 105%, rgba(232, 49, 143, 0.14), transparent 70%),
+    radial-gradient(circle, rgba(244, 240, 228, 0.3) 0 1px, transparent 1.6px),
+    radial-gradient(circle, rgba(226, 185, 59, 0.22) 0 1px, transparent 1.6px);
+  background-size: auto, auto, 97px 97px, 151px 151px;
+  background-position: 0 0, 0 0, 0 0, 40px 60px;
+  background-attachment: fixed;
+}
+:root[data-theme='light'] [data-world='psico'].app {
+  background-image:
+    radial-gradient(55rem 38rem at 100% -8%, rgba(75, 46, 230, 0.13), transparent 70%),
+    radial-gradient(40rem 30rem at -5% 105%, rgba(212, 32, 125, 0.1), transparent 70%),
+    radial-gradient(circle, rgba(75, 46, 230, 0.22) 0 1px, transparent 1.6px),
+    radial-gradient(circle, rgba(217, 44, 28, 0.16) 0 1px, transparent 1.6px);
+}
+[data-world='eva'].app {
+  background-image:
+    radial-gradient(50rem 34rem at 100% 0%, rgba(110, 70, 235, 0.22), transparent 70%),
+    radial-gradient(34rem 24rem at 0% 100%, rgba(255, 59, 48, 0.08), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='97'%3E%3Cpath d='M28 0l28 16.2v32.4L28 64.8 0 48.6V16.2zM0 64.8l28 16.2v16M56 64.8L28 81' fill='none' stroke='%237a56e0' stroke-opacity='.1' stroke-width='1'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+}
+:root[data-theme='light'] [data-world='eva'].app {
+  background-image:
+    radial-gradient(50rem 34rem at 100% 0%, rgba(90, 47, 184, 0.1), transparent 70%),
+    radial-gradient(34rem 24rem at 0% 100%, rgba(179, 38, 42, 0.06), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='97'%3E%3Cpath d='M28 0l28 16.2v32.4L28 64.8 0 48.6V16.2zM0 64.8l28 16.2v16M56 64.8L28 81' fill='none' stroke='%235a2fb8' stroke-opacity='.1' stroke-width='1'/%3E%3C/svg%3E");
+}
+
+/* A imagem que entra aparece de cima para baixo, na frente da que sai */
+
+/* Linha de varredura vermelha na borda da transição */
+
+/* Linhas de monitor por cima de tudo */
+
+/* Cartões e painéis semitransparentes: a imagem aparece por trás, sem tirar a leitura do texto */
+
+/* ---------- Banners temáticos da página inicial (sempre escuros, como a capa) ---------- */
+
+.banner-theme {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  isolation: isolate;
+}
+.bt-art {
+  position: absolute;
+  height: auto;
+  right: 4%;
+  top: 6%;
+  width: min(15rem, 52%);
+}
+@media (min-width: 768px) {
+  .bt-art {
+    right: auto;
+    left: 17%;
+    top: auto;
+    bottom: 6svh;
+    width: min(28rem, 34vw);
+  }
+}
+
+.banner-psico {
+  --accent: #e2b93b;
+  --on-accent: #0c0a12;
+  --pink: #e8318f;
+  --tomato: #ee3a2c;
+}
+.banner-psico .banner-frame {
+  background: #0c0a12;
+  border: 4px solid var(--pink);
+}
+.bt-blob {
+  position: absolute;
+  inset: 1rem 0.5rem;
+  background: #4b2ee6;
+}
+.banner-psico .band,
+.banner-psico .sticker {
+  border: 2px solid var(--pink);
+}
+.banner-psico .gloock {
+  font-family: 'Bagel Fat One', sans-serif;
+  text-transform: uppercase;
+  color: var(--tomato);
+  text-shadow: 0.04em 0.04em 0 #e2b93b;
+}
+.banner-psico .gloock-text {
+  font-family: 'Bagel Fat One', sans-serif;
+  color: #e2b93b;
+}
+.banner-psico .btn-primary {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: #fff;
+}
+
+.banner-eva {
+  --accent: #a98bff;
+  --on-accent: #0b0714;
+}
+.banner-eva .banner-frame {
+  background: #07050f;
+}
+.bt-kanji {
+  position: absolute;
+  top: 12%;
+  right: 6%;
+  writing-mode: vertical-rl;
+  font-family: 'Yu Mincho', 'Hiragino Mincho ProN', 'Noto Serif CJK JP', 'Noto Serif JP', serif;
+  font-weight: 900;
+  font-size: min(7rem, 22vw);
+  line-height: 1;
+  color: #0b0714;
+  -webkit-text-stroke: 1.5px #cbc2e6;
+  text-shadow: 0 0 24px rgba(160, 120, 255, 0.55);
+}
+@media (min-width: 768px) {
+  .bt-kanji {
+    right: auto;
+    left: 30%;
+  }
+}
+.bt-alert {
+  position: absolute;
+  bottom: 14%;
+  left: 36%;
+  font-family: 'Yu Mincho', 'Hiragino Mincho ProN', 'Noto Serif CJK JP', 'Noto Serif JP', serif;
+  font-weight: 900;
+  font-size: min(8rem, 18vw);
+  line-height: 1;
+  color: #ff3b30;
+  mix-blend-mode: screen;
+  opacity: 0.75;
+}
+.banner-eva .gloock {
+  color: #f2eefc;
+  text-transform: uppercase;
+}
+.banner-eva .band,
+.banner-eva .sticker {
+  border: 1px solid #5b3fa8;
+}
+.banner-eva .btn-primary {
+  background: #ff3b30;
+  border-color: #ff3b30;
+  color: #fff;
+}
+
+/* ---------- Níveis do Profissional: só a palavra (Bronze, Prata, Ouro) leva a cor do metal ---------- */
+.tier-word {
+  color: var(--tier);
+}
+
+/* ---------- Office (Trabalho): letreiro, blocos, botões ---------- */
+[data-world='office'] .display {
+  font-weight: 400;
+  letter-spacing: 0.015em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+[data-world='office'] .sub-head.display {
+  text-transform: none;
+}
+[data-world='office'] .rule-head {
+  font-family: 'Special Elite', monospace;
+  font-weight: 400;
+  font-size: 1.25rem;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+[data-world='office'] .rule-head::before {
+  -webkit-mask: none;
+  mask: none;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 0;
+  background: var(--office-red);
+}
+[data-world='office'] .rule-head::after {
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--frame) 0 7px, transparent 7px 11px);
+}
+[data-world='office'] .strip {
+  border-radius: 2px;
+  background: var(--kraft);
+  color: var(--office-ink);
+  font-family: 'Special Elite', monospace;
+  box-shadow: 4px 4px 0 var(--office-red);
+}
+[data-world='office'] .strip svg {
+  color: var(--office-red);
+}
+[data-world='office'] .frame,
+[data-world='office'] .map-sheet {
+  border-radius: 3px;
+  border-width: 2px;
+}
+[data-world='office'] .btn {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  border-radius: 3px;
+}
+[data-world='office'] .nav-item {
+  border-radius: 3px;
+}
+[data-world='office'] .check {
+  border-radius: 1px;
+}
+[data-world='office'].app {
+  background-image:
+    radial-gradient(48rem 30rem at 100% 0%, rgba(217, 67, 47, 0.12), transparent 70%),
+    radial-gradient(circle, rgba(230, 207, 159, 0.12) 0 1px, transparent 1.5px);
+  background-size: auto, 9px 9px;
+  background-attachment: fixed;
+}
+:root[data-theme='light'] [data-world='office'].app {
+  background-image:
+    radial-gradient(48rem 30rem at 100% 0%, rgba(184, 50, 42, 0.1), transparent 70%),
+    radial-gradient(circle, rgba(38, 38, 52, 0.12) 0 1px, transparent 1.5px);
+}
+
+/* Cabeçalho: pôster de The Office em papel pardo, com a placa da porta, o carimbo e os cinco retratos */
+.office-poster {
+  container-type: inline-size;
+  position: relative;
+  overflow: clip;
+  isolation: isolate;
+  padding: 1.25rem;
+  border: 2px solid #262634;
+  border-radius: 4px;
+  background: #e6cf9f;
+  color: #262634;
+  box-shadow: 6px 6px 0 #d9432f;
+}
+.office-halftone {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(70% 60% at 100% 0%, rgba(217, 67, 47, 0.2), transparent 70%),
+    radial-gradient(circle, rgba(38, 38, 52, 0.16) 1px, transparent 1.4px) 0 0 / 6px 6px;
+}
+.office-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+}
+.office-sign {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.3rem 0.5rem 0.3rem 0.9rem;
+  border-radius: 0.55rem;
+  background: #262634;
+  color: #efe2c4;
+  font-family: 'Barlow', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.office-title {
+  margin-top: 0.7rem;
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.86;
+  font-size: min(8rem, calc(96cqw / (var(--len) * 0.5)));
+  text-shadow: 0.035em 0.035em 0 rgba(217, 67, 47, 0.45);
+}
+.office-quote {
+  margin-top: 0.8rem;
+  max-width: 36rem;
+  font-family: 'Anton', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+.office-stamp {
+  display: grid;
+  justify-items: center;
+  gap: 0.15rem;
+  padding: 0.5rem 0.85rem;
+  border: 2px solid #262634;
+  outline: 2px solid #262634;
+  outline-offset: 3px;
+  background: #efe2c4;
+  font-family: 'Special Elite', monospace;
+  font-size: 0.72rem;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+  transform: rotate(4deg);
+}
+.office-stamp strong {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: #d9432f;
+}
+.office-faces {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin-top: 1.4rem;
+}
+.office-face {
+  display: grid;
+  gap: 0.35rem;
+  text-align: center;
+}
+.office-face img {
+  width: 100%;
+  aspect-ratio: 187 / 222;
+  object-fit: cover;
+  border: 2px solid #262634;
+  transform: rotate(-1.2deg);
+  transition: transform 220ms ease;
+}
+.office-face:nth-child(even) img {
+  transform: rotate(1deg);
+}
+.office-face span {
+  overflow: hidden;
+  font-family: 'Anton', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+@media (hover: hover) {
+  .office-face:hover img {
+    transform: rotate(0) scale(1.05);
+  }
+}
+@media (min-width: 768px) {
+  .office-poster {
+    padding: 2rem 2rem 1.75rem;
+  }
+  .office-faces {
+    gap: 1rem;
+  }
+  .office-face span {
+    font-size: 0.85rem;
+  }
+}
+
+/* Painel do Trabalho: mural de papel pardo, cartões coloridos com retícula */
+.tb-office {
+  background:
+    radial-gradient(circle, rgba(38, 38, 52, 0.14) 1px, transparent 1.4px) 0 0 / 6px 6px,
+    #e6cf9f;
+}
+.tb-office .tb-cell {
+  stroke: #262634;
+  stroke-width: 2;
+}
+.tb-office .tb-edge {
+  stroke: #262634;
+}
+.tb-office .tb-fill {
+  fill: #262634;
+}
+.tb-office .tb-off {
+  fill: #262634;
+  opacity: 0.14;
+}
+.tb-office .tb-num,
+.tb-office .tb-label {
+  fill: #262634;
+  stroke: #e6cf9f;
+}
+.tb-office .tb-label-hot {
+  fill: #d9432f;
+}
+.tb-office .tb-node.lit .tb-edge,
+.tb-office .tb-node:focus-visible .tb-edge {
+  stroke: #d9432f;
+}
+
+/* ---------- Psico (Profissional): mais vida no pôster e no painel ---------- */
+.psy-plane {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.plane-glow,
+.plane-trail {
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: plane-draw 7s linear infinite;
+}
+.plane-glow {
+  stroke-width: 16;
+  opacity: 0.35;
+  filter: blur(6px);
+}
+.plane-trail {
+  stroke-width: 3.5;
+}
+@keyframes plane-draw {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+.psy-ufo {
+  right: calc(3% + 1.4rem);
+}
+.psy-side {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: 0.55rem;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%) rotate(180deg);
+  font-family: 'Space Mono', monospace;
+  font-size: var(--type-micro);
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: #f4f0e4;
+  opacity: 0.8;
+  white-space: nowrap;
+}
+.twinkle {
+  animation: twinkle 3.2s ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.25;
+    transform: scale(0.6);
+  }
+}
+[data-world='psico'] .map-sheet {
+  border: 2px solid var(--pink);
+  box-shadow: 6px 6px 0 var(--violet);
+}
+[data-world='psico'] .row-lit {
+  background: color-mix(in oklab, var(--pink) 16%, transparent);
+  box-shadow: inset 3px 0 0 var(--pink);
+}
+.tb-psico {
+  background:
+    radial-gradient(70% 60% at 50% 100%, color-mix(in oklab, var(--violet) 70%, transparent), transparent 75%),
+    radial-gradient(45% 40% at 12% 8%, color-mix(in oklab, var(--pink) 28%, transparent), transparent 75%),
+    #0c0a12;
+}
+.tb-psico .tb-num {
+  fill: #f4f0e4;
+  stroke: #0c0a12;
+}
+.tb-psico .tb-cell {
+  fill: #f4f0e4;
+}
+.tb-psico .tb-pupil {
+  fill: #0c0a12;
+}
+.tb-ring {
+  animation: ring-run 18s linear infinite;
+}
+@keyframes ring-run {
+  to {
+    stroke-dashoffset: -160;
+  }
+}
+.tb-blink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: blink 6s infinite;
+}
+@keyframes blink {
+  0%,
+  94%,
+  100% {
+    transform: scaleY(1);
+  }
+  97% {
+    transform: scaleY(0.1);
+  }
+}
+.tb-star {
+  fill: #f4f0e4;
+  animation: star 3s ease-in-out infinite;
+}
+@keyframes star {
+  50% {
+    opacity: 0.2;
+  }
+}
+
+/* ---------- Eva (UEM): cabeçalho NERV alinhado em grade, com sincronia e alerta piscando ---------- */
+.eva-panel {
+  --ink: #f2eefc;
+  --ink-2: #cbc2e6;
+  container-type: inline-size;
+  position: relative;
+  overflow: clip;
+  isolation: isolate;
+  border: 1px solid #5b3fa8;
+  border-radius: 0.4rem;
+  background: rgba(7, 5, 15, 0.74);
+  backdrop-filter: blur(2px);
+  color: var(--ink);
+}
+.eva-hex {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  color: #7a56e0;
+  opacity: 0.2;
+}
+.eva-glow {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(60% 90% at 78% 40%, rgba(110, 70, 235, 0.55), transparent 70%),
+    radial-gradient(40% 50% at 100% 100%, rgba(255, 59, 48, 0.28), transparent 70%);
+  animation: eva-pulse 5s ease-in-out infinite alternate;
+}
+.eva-art {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  width: min(60%, 32rem);
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 22%;
+  opacity: 0.6;
+  mix-blend-mode: lighten;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 60%);
+  mask-image: linear-gradient(90deg, transparent, #000 60%);
+}
+.eva-sweep {
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: #ff3b30;
+  box-shadow: 0 0 16px 3px rgba(255, 59, 48, 0.6);
+  opacity: 0.7;
+  animation: eva-sweep 5.5s linear infinite;
+}
+.eva-tab {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 50%;
+  translate: -50% 0;
+  padding: 0.2rem 1.4rem 0.35rem;
+  background: #0b0714;
+  border: 1px solid #5b3fa8;
+  border-top: 0;
+  border-radius: 0 0 0.5rem 0.5rem;
+  font-family: 'Gloock', serif;
+  font-size: var(--type-micro);
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+.eva-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 1rem 1.5rem;
+  min-height: 22rem;
+  padding: 3rem 1.25rem 1.25rem;
+}
+.eva-kicker {
+  font-family: 'Space Mono', monospace;
+  font-size: var(--type-micro);
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: #ff6a5e;
+}
+.eva-title {
+  margin-top: 0.35rem;
+  font-family: 'Noto Serif Display Variable', 'Gloock', serif;
+  font-stretch: 62.5%;
+  font-weight: 850;
+  text-transform: uppercase;
+  line-height: 0.82;
+  letter-spacing: -0.005em;
+  font-size: min(10rem, calc(88cqw / (var(--len) * 0.55)));
+  text-shadow:
+    0.025em 0 0 rgba(255, 59, 48, 0.75),
+    -0.02em 0 0 rgba(140, 240, 58, 0.35),
+    0 0 34px rgba(150, 110, 255, 0.6);
+}
+.eva-tag {
+  margin-top: 0.8rem;
+  max-width: 26rem;
+  font-family: 'Gloock', serif;
+  font-size: 1.2rem;
+  line-height: 1.3;
+  color: var(--ink-2);
+}
+.eva-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0.75rem;
+  margin-top: 1.4rem;
+}
+.eva-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.8rem 0.45rem;
+  background: #f2eefc;
+  color: #1c1140;
+  border: 1px solid #1c1140;
+  outline: 2px solid #f2eefc;
+  outline-offset: 2px;
+}
+.eva-unit-label {
+  font-family: 'Space Mono', monospace;
+  font-size: var(--type-micro);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.eva-unit-num {
+  font-family: 'Gloock', serif;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: #5a2fb8;
+}
+.eva-sync {
+  display: flex;
+  flex: 1 1 15rem;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-width: 13rem;
+  max-width: 24rem;
+}
+.eva-sync-head {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Space Mono', monospace;
+  font-size: var(--type-micro);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #cbc2e6;
+}
+.eva-sync-pct {
+  color: #8cf03a;
+}
+.eva-sync-bar {
+  position: relative;
+  overflow: hidden;
+  height: 0.75rem;
+  border: 1px solid #5b3fa8;
+  background: repeating-linear-gradient(90deg, rgba(122, 86, 224, 0.25) 0 6px, transparent 6px 8px);
+}
+.eva-sync-bar > span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: max(var(--sync), 3%);
+  background: repeating-linear-gradient(90deg, #8cf03a 0 6px, transparent 6px 8px);
+  box-shadow: 0 0 12px rgba(140, 240, 58, 0.6);
+  animation: eva-load 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.eva-warns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.eva-warns span {
+  padding: 0.2rem 0.6rem;
+  border: 1px solid #ff3b30;
+  background: repeating-linear-gradient(135deg, rgba(255, 59, 48, 0.28) 0 6px, rgba(255, 59, 48, 0.08) 6px 12px);
+  color: #ffb3ad;
+  font-family: 'Space Mono', monospace;
+  font-size: var(--type-micro);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  animation: eva-blink 2.4s steps(1) infinite;
+}
+.eva-warns span + span {
+  animation-delay: 1.2s;
+}
+.eva-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  align-self: stretch;
+  gap: 0.6rem;
+}
+.eva-kanji {
+  writing-mode: vertical-rl;
+  font-family: 'Yu Mincho', 'Hiragino Mincho ProN', 'Noto Serif CJK JP', 'Noto Serif JP', serif;
+  font-weight: 900;
+  font-size: min(5.2rem, 18cqw);
+  line-height: 1;
+  color: #0b0714;
+  -webkit-text-stroke: 1.5px #cbc2e6;
+  text-shadow: 0 0 22px rgba(160, 120, 255, 0.55);
+}
+.eva-alert {
+  font-family: 'Yu Mincho', 'Hiragino Mincho ProN', 'Noto Serif CJK JP', 'Noto Serif JP', serif;
+  font-weight: 900;
+  font-size: min(3.4rem, 12cqw);
+  line-height: 1;
+  color: #ff3b30;
+  text-shadow: 0 0 18px rgba(255, 59, 48, 0.7);
+  animation: eva-blink 1.6s steps(1) infinite;
+}
+@keyframes eva-blink {
+  0%,
+  62% {
+    opacity: 1;
+  }
+  63%,
+  100% {
+    opacity: 0.25;
+  }
+}
+@keyframes eva-pulse {
+  from {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes eva-sweep {
+  from {
+    top: -2%;
+  }
+  to {
+    top: 102%;
+  }
+}
+@keyframes eva-load {
+  from {
+    width: 0;
+  }
+}
+@media (min-width: 768px) {
+  .eva-grid {
+    min-height: 25rem;
+    padding: 3.6rem 2.5rem 2rem;
+  }
+}
+@media (max-width: 520px) {
+  .eva-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .eva-side {
+    position: absolute;
+    top: 2.6rem;
+    right: 0.9rem;
+  }
+  .eva-kanji {
+    font-size: 3.2rem;
+  }
+  .eva-alert {
+    font-size: 2rem;
+  }
+}
+
+/* ---------- Igreja: título em letra de inscrição sacra ---------- */
+.cinzel {
+  font-family: 'Cinzel Decorative', 'Young Serif', serif;
+  font-weight: 700;
+  font-size: clamp(3rem, 1.6rem + 4vw, 5.2rem);
+  letter-spacing: 0.01em;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+}
+
+/* ---------- Motivação: tipografia do caderno renascentista (Bodoni condensado, Cormorant, Montserrat) ---------- */
+[data-world='renascenca'] .bodoni {
+  font-family: 'Noto Serif Display Variable', 'Bodoni Moda Variable', serif;
+  font-stretch: 62.5%;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.015em;
+  line-height: 0.92;
+}
+[data-world='renascenca'] .display {
+  font-family: 'Noto Serif Display Variable', 'Bodoni Moda Variable', serif;
+  font-stretch: 62.5%;
+  text-transform: uppercase;
+}
+[data-world='renascenca'] .rule-head {
+  font-family: 'Montserrat Variable', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+[data-world='renascenca'] .mono,
+[data-world='renascenca'] .plate-meta,
+[data-world='renascenca'] .btn {
+  font-family: 'Montserrat Variable', sans-serif;
+  letter-spacing: 0.08em;
+}
+
+/* ---------- Fundo temático (components/ThemeBackdrop.tsx): imagens que se trocam ao rolar ---------- */
+.app {
+  isolation: isolate;
+}
+.tbg {
+  --w: 0;
+  --scan: 0;
+  --tint: #d12a2a;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.5;
+}
+.tbg[data-page='topic'] {
+  opacity: 0.32;
+}
+:root[data-theme='light'] .tbg {
+  opacity: 0.22;
+}
+:root[data-theme='light'] .tbg[data-page='topic'] {
+  opacity: 0.15;
+}
+.tbg-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.tbg-layer[data-role='cur'] {
+  opacity: 1;
+  z-index: 1;
+}
+/* A imagem que entra aparece de cima para baixo, na frente da que sai */
+.tbg-layer[data-role='next'] {
+  opacity: 1;
+  z-index: 2;
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(var(--w) * 130% - 30%), transparent calc(var(--w) * 130%));
+  mask-image: linear-gradient(180deg, #000 calc(var(--w) * 130% - 30%), transparent calc(var(--w) * 130%));
+}
+/* Modo "section" (Igreja): troca limpa, com esmaecimento e uma aproximação lenta */
+.tbg[data-fx='fade'] .tbg-layer {
+  transform: scale(1.05);
+  transition:
+    opacity 1.6s ease,
+    transform 10s ease-out;
+}
+.tbg[data-fx='fade'] .tbg-layer[data-role='cur'] {
+  transform: scale(1);
+}
+.tbg[data-fx='fade'] .tbg-scan {
+  display: none;
+}
+.tbg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.15) contrast(1.05);
+}
+@media (min-width: 900px) {
+  /* No computador a imagem fica à direita e se dissolve para a esquerda, onde está o texto */
+  .tbg-img {
+    left: auto;
+    right: 0;
+    width: min(64vw, 62rem);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 55%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 55%);
+  }
+}
+/* Linha de varredura na borda da transição */
+.tbg-scan {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  top: calc(var(--w) * 130% - 15%);
+  height: 2px;
+  background: var(--tint);
+  box-shadow:
+    0 0 14px 2px var(--tint),
+    0 -18px 40px 6px color-mix(in oklab, var(--tint) 40%, transparent);
+  opacity: var(--scan);
+}
+/* Linhas de monitor por cima de tudo (cada módulo troca por outra textura) */
+.tbg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 4px);
+}
+.tbg-tag {
+  position: absolute;
+  z-index: 5;
+  right: 1rem;
+  bottom: 1rem;
+  font-family: 'Space Mono', monospace;
+  font-size: var(--type-micro);
+  letter-spacing: 0.14em;
+  color: var(--tint);
+}
+@media (max-width: 767px) {
+  .tbg-tag {
+    display: none;
+  }
+}
+[data-module='igreja'] .tbg-img {
+  filter: sepia(0.4) saturate(0.9) contrast(1.05);
+}
+[data-module='igreja'] .tbg::after,
+[data-module='mental'] .tbg::after {
+  background: radial-gradient(120% 90% at 70% 40%, transparent 40%, rgba(14, 9, 5, 0.85) 100%);
+}
+[data-module='igreja'] .tbg-tag {
+  font-family: 'Cinzel Decorative', serif;
+  letter-spacing: 0.2em;
+}
+[data-module='trabalho'] .tbg {
+  opacity: 0.32;
+}
+[data-module='trabalho'] .tbg::after {
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.35) 1px, transparent 1.5px) 0 0 / 5px 5px;
+}
+[data-module='trabalho'] .tbg-tag {
+  font-family: 'Special Elite', monospace;
+}
+[data-module='profissional'] .tbg {
+  opacity: 0.55;
+}
+[data-module='cultura'] .tbg::after {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.25), transparent 30%, transparent 70%, rgba(0, 0, 0, 0.35));
+}
+[data-module='mental'] .tbg-img {
+  filter: sepia(0.25) contrast(1.05);
+}
+[data-module='mental'] .tbg-tag {
+  font-family: 'Montserrat Variable', sans-serif;
+  letter-spacing: 0.3em;
+}
+/* Cartões semitransparentes: a imagem aparece por trás, sem tirar a leitura do texto */
+.app[data-backdrop] .frame {
+  background: color-mix(in oklab, var(--surface) 80%, transparent);
+  backdrop-filter: blur(3px);
+}
+.card-list {
+  scrollbar-width: thin;
+}
+
+/* ---------- Banners da página inicial: imagem do tema e o pôster do Office ---------- */
+.bt-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(62%, 38rem);
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  opacity: 0.8;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 45%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 45%);
+}
+.bt-plane {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.banner-office {
+  --accent: #f2b82e;
+  --on-accent: #15120d;
+}
+.banner-office .banner-frame {
+  background: #e6cf9f;
+}
+.bt-office-img {
+  width: min(72%, 46rem);
+  opacity: 0.95;
+  mix-blend-mode: multiply;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 35%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 35%);
+}
+.banner-office .band,
+.banner-office .sticker {
+  background: #262634;
+  border: 2px solid #262634;
+}
+.banner-office .gloock,
+.banner-office .gloock-text {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+.banner-office .btn-primary {
+  background: #d9432f;
+  border-color: #d9432f;
+  color: #fff;
+}
+
+/* Quem pediu menos movimento no sistema vê tudo parado */
+@media (prefers-reduced-motion: reduce) {
+  .eva-glow,
+  .eva-sweep,
+  .eva-warns span,
+  .eva-alert,
+  .eva-sync-bar > span,
+  .twinkle,
+  .tb-blink,
+  .tb-star,
+  .tb-ring,
+  .plane-glow,
+  .plane-trail {
+    animation: none;
+  }
+  .plane-glow,
+  .plane-trail {
+    stroke-dashoffset: 0;
+  }
+  .plane-jet,
+  .eva-sweep {
+    display: none;
+  }
+}
