@@ -2,11 +2,11 @@ import { useMemo } from 'react'
 import type { Topic } from '../core/db'
 import type { World } from '../core/modules'
 import type { Progress } from '../core/queries'
-import { MAP_H, MAP_W, placeControls } from '../core/terrain'
+import { MAP_H, MAP_W } from '../core/terrain'
 import { sumProgress } from '../core/queries'
 
 // Painel de cada tema no lugar do mapa de orientação: eva = favo de hexágonos (painel de sincronia),
-// office = mural de papel pardo com retícula colorida, psico = céu de olhos que piscam. Os tópicos continuam clicáveis em qualquer ordem.
+// office = mural de papel pardo com retícula colorida, cosmos = céu de estrelas sobre o mar de nuvens. Os tópicos continuam clicáveis em qualquer ordem.
 
 type Props = {
   world: World
@@ -24,9 +24,28 @@ const ratio = (p?: Progress) => (p && p.total > 0 ? p.done / p.total : 0)
 // Fundos dos cartões do Trabalho, nas cores dos retratos do pôster de The Office
 const OFFICE_TONES = ['#7fa8c9', '#f2b82e', '#e7837a', '#ec8a3f', '#e6cf9f']
 
+// Posições das estrelas no céu (parte de cima do painel): grade com desvio sorteado pela semente, para o
+// mesmo grupo sempre desenhar o mesmo céu e as estrelas nunca se encostarem
+function skySpots(n: number, seed: number): [number, number][] {
+  const cols = Math.max(1, Math.ceil(Math.sqrt((n * (MAP_W - 60)) / (MAP_H * 0.55))))
+  const rows = Math.max(1, Math.ceil(n / cols))
+  const cw = (MAP_W - 60) / cols
+  const ch = (MAP_H * 0.58) / rows
+  return Array.from({ length: n }, (_, i) => {
+    const r = Math.floor(i / cols)
+    const c = i % cols
+    const jx = (((i * 73 + seed * 31) % 17) / 17 - 0.5) * cw * 0.5
+    const jy = (((i * 41 + seed * 19) % 13) / 13 - 0.5) * ch * 0.5
+    return [30 + cw * (c + 0.5) + jx + (r % 2 ? cw * 0.18 : 0), 44 + ch * (r + 0.5) + jy]
+  })
+}
+
+// Cordilheira escura em primeiro plano, como na foto de referência
+const RIDGE = 'M0 300V262L22 252 46 258 78 238 104 250 134 228 160 244 196 232 228 248 262 226 292 240 326 222 356 238 380 230 400 240V300Z'
+
 export function ThemeBoard(props: Props) {
   const { world, seed, title, moduleId, topics, byTopic, lit, onLight } = props
-  const spots = useMemo(() => (world === 'psico' ? placeControls(topics.length, seed) : []), [world, topics.length, seed])
+  const spots = useMemo(() => (world === 'eva' || world === 'office' ? [] : skySpots(topics.length, seed)), [world, topics.length, seed])
   const total = sumProgress(topics.map((t) => byTopic.get(t.id)))
   const pct = total.total ? Math.round((total.done / total.total) * 100) : 0
 
@@ -154,37 +173,57 @@ export function ThemeBoard(props: Props) {
       </>
     )
   } else {
+    // cosmos: céu estrelado sobre o mar de nuvens; cada tópico é uma estrela que ganha a cruz de luz ao avançar
     body = (
       <>
-        {[1, 2, 3].map((k) => (
-          <ellipse key={k} cx={MAP_W / 2} cy={MAP_H * 0.9} rx={70 * k + 30} ry={22 * k + 10} className="tb-ring" />
-        ))}
-        {/* céu estrelado do pôster */}
-        {Array.from({ length: 26 }, (_, k) => (
+        <defs>
+          <radialGradient id={`cos-sun-${seed}`} cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stopColor="#ffd9a0" />
+            <stop offset="0.35" stopColor="#ee5a35" />
+            <stop offset="1" stopColor="#ee5a35" stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id={`cos-sea-${seed}`} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#f0b890" stopOpacity="0.55" />
+            <stop offset="1" stopColor="#5a6a8c" stopOpacity="0.1" />
+          </linearGradient>
+        </defs>
+        {Array.from({ length: 34 }, (_, k) => (
           <circle
             key={`s${k}`}
             cx={((k * 97 + seed * 13) % (MAP_W - 20)) + 10}
-            cy={((k * 61 + seed * 7) % (MAP_H * 0.7)) + 8}
-            r={k % 5 === 0 ? 1.6 : 0.9}
+            cy={((k * 61 + seed * 7) % (MAP_H * 0.62)) + 8}
+            r={k % 5 === 0 ? 1.5 : 0.8}
             className="tb-star"
             style={{ animationDelay: `${(k % 7) * 0.6}s` }}
           />
         ))}
+        <circle cx={MAP_W * 0.5} cy={MAP_H * 0.8} r="46" fill={`url(#cos-sun-${seed})`} className="tb-sun" />
+        <circle cx={MAP_W * 0.5} cy={MAP_H * 0.8} r="15" className="tb-sundisc" />
+        <rect x="0" y={MAP_H * 0.72} width={MAP_W} height={MAP_H * 0.28} fill={`url(#cos-sea-${seed})`} className="tb-sea" />
+        <path className="tb-drift" d={`M-30 ${MAP_H * 0.77}Q40 ${MAP_H * 0.74} 100 ${MAP_H * 0.77}T220 ${MAP_H * 0.77}T340 ${MAP_H * 0.77}T460 ${MAP_H * 0.77}`} />
+        <path className="tb-drift tb-drift-2" d={`M-30 ${MAP_H * 0.83}Q50 ${MAP_H * 0.8} 120 ${MAP_H * 0.83}T250 ${MAP_H * 0.83}T380 ${MAP_H * 0.83}T500 ${MAP_H * 0.83}`} />
+        <path d={RIDGE} className="tb-ridge" />
         {topics.map((t, i) => {
           const [x, y] = spots[i] ?? [0, 0]
           const k = ratio(byTopic.get(t.id))
-          const iris = k > 0 ? 4 + 8 * k : 3
+          const arm = 7 + 20 * k
           return link(
             t,
             i,
             <g transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`}>
-              <circle r="24" fill="transparent" />
-              <g className="tb-blink" style={{ animationDelay: `${(i * 1.7) % 6}s` }}>
-                <path d="M-22 0Q0-21 22 0Q0 21-22 0Z" className="tb-cell tb-eye" />
-                <circle r={iris} className="tb-fill" />
-                <circle r={Math.max(1.8, iris * 0.38)} className="tb-pupil" />
+              <circle r="22" fill="transparent" />
+              <g className="tb-twinkle" style={{ animationDelay: `${(i * 1.3) % 5}s` }}>
+                {k > 0 && (
+                  <>
+                    <line x1={-arm} x2={arm} className="tb-ray" />
+                    <line y1={-arm} y2={arm} className="tb-ray" />
+                  </>
+                )}
+                <circle r={k >= 1 ? 4.2 : k > 0 ? 3.2 : 2.4} className={k > 0 ? 'tb-fill' : 'tb-cell tb-dim'} />
+                {k > 0 && <circle r={k >= 1 ? 8 : 6} className="tb-halo" />}
+                {k === 0 && <circle r="6" className="tb-edge tb-dashed" />}
               </g>
-              <text x="0" y="-16" textAnchor="middle" className="tb-num">
+              <text x="0" y="-12" textAnchor="middle" className="tb-num">
                 {i + 1}
               </text>
             </g>,

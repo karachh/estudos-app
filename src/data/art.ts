@@ -3,10 +3,6 @@ import emmaus from '../assets/igreja/emmaus.jpg'
 import matthew from '../assets/igreja/matthew.jpg'
 import michael from '../assets/igreja/michael.jpg'
 import prodigal from '../assets/igreja/prodigal.jpg'
-import athens from '../assets/mental/athens.jpg'
-import transfiguration from '../assets/mental/transfiguration.jpg'
-import vitruvian from '../assets/mental/vitruvian.jpg'
-import cultura from '../assets/paisagens/cultura.jpg'
 import inicio from '../assets/paisagens/inicio.jpg'
 import mentalPhoto from '../assets/paisagens/mental.jpg'
 import profissional from '../assets/paisagens/profissional.jpg'
@@ -29,12 +25,6 @@ export const covers: Record<string, Artwork> = {
     source: 'https://commons.wikimedia.org/wiki/File:Guido_Reni_031.jpg',
     position: '50% 8%',
   },
-  mental: {
-    src: transfiguration,
-    credit: 'Rafael, A Transfiguração, 1516–1520',
-    source: 'https://commons.wikimedia.org/wiki/File:Transfiguration_Raphael.jpg',
-    position: '50% 18%',
-  },
 }
 
 // Imagem de cada grupo, pelo título. Grupo criado depois fica sem imagem.
@@ -52,7 +42,7 @@ export const groupArt: Record<string, Record<string, Artwork>> = {
       source: 'https://commons.wikimedia.org/wiki/File:St-thomas-aquinas.jpg',
       position: '55% 18%',
     },
-    'Sentimentos humanos': {
+    'Nosso coração': {
       src: prodigal,
       credit: 'Rembrandt, O retorno do filho pródigo, c. 1668',
       source: 'https://commons.wikimedia.org/wiki/File:Rembrandt_Harmensz_van_Rijn_-_Return_of_the_Prodigal_Son_-_Google_Art_Project.jpg',
@@ -63,20 +53,6 @@ export const groupArt: Record<string, Record<string, Artwork>> = {
       credit: 'Caravaggio, A vocação de São Mateus, 1599–1600',
       source: 'https://commons.wikimedia.org/wiki/File:The_Calling_of_Saint_Matthew-Caravaggo_(1599-1600).jpg',
       position: '70% 55%',
-    },
-  },
-  mental: {
-    'Para os dias de desânimo': {
-      src: athens,
-      credit: 'Rafael, A Escola de Atenas, 1509–1511',
-      source: 'https://commons.wikimedia.org/wiki/File:%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg',
-      position: '50% 45%',
-    },
-    'Minhas razões': {
-      src: vitruvian,
-      credit: 'Leonardo da Vinci, Homem Vitruviano, c. 1490',
-      source: 'https://commons.wikimedia.org/wiki/File:Da_Vinci_Vitruve_Luc_Viatour_(cropped).jpg',
-      position: '50% 40%',
     },
   },
 }
@@ -109,16 +85,10 @@ export const landscapes: Record<string, Artwork> = {
     source: 'https://commons.wikimedia.org/wiki/File:Sir_Daniel_Wilson_Quadrangle_-_St._George_Campus,_Toronto,_Canada.jpg',
     position: '60% 60%',
   },
-  cultura: {
-    src: cultura,
-    credit: 'Blair Fraser, falésia verde e mar calmo',
-    source: 'https://commons.wikimedia.org/wiki/File:Green_Cliff_Calm_Sea_(Unsplash).jpg',
-  },
   mental: {
     src: mentalPhoto,
-    credit: 'Rodion Kutsaev, árvore sozinha no campo dourado',
-    source: 'https://commons.wikimedia.org/wiki/File:Tree_in_the_golden_grassland_(Unsplash).jpg',
-    position: '35% 70%',
+    credit: 'Blair Fraser, falésia verde e mar calmo',
+    source: 'https://commons.wikimedia.org/wiki/File:Green_Cliff_Calm_Sea_(Unsplash).jpg',
   },
 }
 

@@ -77,9 +77,7 @@ export default function TopicPage() {
             className={`w-full bg-transparent leading-tight outline-none focus-visible:underline ${
               mod.world === 'sacro'
                 ? 'wide-serif text-topic'
-                : mod.world === 'renascenca'
-                  ? 'bodoni text-topic'
-                  : 'display text-topic'
+                : 'display text-topic'
             }`}
             value={topic.title}
             onChange={(e) => db.topics.update(id, { title: e.target.value.replace(/\n/g, ' ') })}
@@ -89,7 +87,7 @@ export default function TopicPage() {
           {topic.flow && <p className="mt-1 text-ink-3">{topic.flow}</p>}
           <AutoTextarea
             className={`mt-2 w-full max-w-prose bg-transparent text-lg text-ink-2 outline-none placeholder:text-ink-3 focus-visible:underline ${
-              mod.world === 'sacro' ? 'italic-serif text-lead' : mod.world === 'renascenca' ? 'garamond text-lead italic' : ''
+              mod.world === 'sacro' ? 'italic-serif text-lead' : ''
             }`}
             value={topic.summary}
             placeholder="Para que serve este conteúdo?"
@@ -105,18 +103,12 @@ export default function TopicPage() {
         </div>
         {art && (
           <figure className="hidden w-36 md:block">
-            {mod.world === 'renascenca' ? (
-              <div className="torn bg-(--paper) p-2">
-                <img src={art.src} alt="" className="aspect-square w-full object-cover sepia-[.3]" style={{ objectPosition: art.position }} />
-              </div>
-            ) : (
-              <img
-                src={art.src}
-                alt=""
-                className="aspect-[3/4] w-full rounded-t-full border border-[color-mix(in_oklab,var(--accent)_60%,transparent)] object-cover"
-                style={{ objectPosition: art.position }}
-              />
-            )}
+            <img
+              src={art.src}
+              alt=""
+              className="aspect-[3/4] w-full rounded-t-full border border-[color-mix(in_oklab,var(--accent)_60%,transparent)] object-cover"
+              style={{ objectPosition: art.position }}
+            />
             <figcaption className="mt-1.5 text-micro leading-tight text-ink-3">
               <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:underline credit">
                 {art.credit}

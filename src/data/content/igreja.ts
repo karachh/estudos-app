@@ -81,7 +81,7 @@ export const igreja: ModuleContent = {
       ],
     },
     {
-      title: 'Sentimentos humanos',
+      title: 'Nosso coração',
       subtitle: 'Entender o coração, o seu e o dos outros, para saber aconselhar',
       description:
         'Emoções, temperamentos, ansiedade, tristeza e tentações. A ideia é conhecer o próprio interior e ganhar repertório para ouvir e aconselhar quem está sofrendo. Comece por temperamentos, que dão o vocabulário para o resto.',

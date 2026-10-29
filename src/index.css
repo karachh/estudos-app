@@ -47,9 +47,13 @@
   --type-topic: clamp(2.4rem, 1.7rem + 1.6vw, 3rem);
   --type-display: clamp(5rem, 4rem + 2vw, 6rem);
 }
-[data-world='psico'] {
+[data-world='cosmos'] {
   --type-headline: clamp(1.9rem, 1.4rem + 1.2vw, 2.4rem);
   --type-topic: clamp(2.3rem, 1.5rem + 2vw, 3.1rem);
+}
+[data-world='bebop'] {
+  --type-headline: clamp(2rem, 1.4rem + 1.3vw, 2.5rem);
+  --type-topic: clamp(2.4rem, 1.6rem + 2vw, 3.2rem);
 }
 [data-world='eva'] {
   --type-headline: clamp(2rem, 1.4rem + 1.3vw, 2.5rem);
@@ -58,11 +62,6 @@
 [data-world='office'] {
   --type-headline: clamp(1.6rem, 1.2rem + 1.1vw, 2.05rem);
   --type-topic: clamp(1.9rem, 1.3rem + 1.6vw, 2.5rem);
-}
-[data-world='renascenca'] {
-  --type-lead: 1.55rem; /* Cormorant tem olho pequeno: precisa de um passo a mais */
-  --type-headline: clamp(2rem, 1.4rem + 1.4vw, 2.5rem);
-  --type-topic: clamp(2.4rem, 1.4rem + 2.2vw, 3.2rem);
 }
 
 /* Mundo central "cartaz analógico": capa de disco e pôster de ficção científica impressos.
@@ -114,19 +113,19 @@
   --grain: 0.06;
 }
 
-[data-module='profissional'] { --accent: #e2b93b; }
+[data-module='profissional'] { --accent: #ee5a35; }
 [data-module='trabalho'] { --accent: #f2b82e; }
 [data-module='uem'] { --accent: #a98bff; }
 [data-module='igreja'] { --accent: #dcaa3c; }
-[data-module='cultura'] { --accent: #7cc4f0; }
-[data-module='mental'] { --accent: #d4543f; }
+[data-module='cultura'] { --accent: #f2c230; }
+[data-module='mental'] { --accent: #7cc4f0; }
 
-:root[data-theme='light'] [data-module='profissional'] { --accent: #4b2ee6; }
+:root[data-theme='light'] [data-module='profissional'] { --accent: #b3321a; }
 :root[data-theme='light'] [data-module='trabalho'] { --accent: #b8322a; }
 :root[data-theme='light'] [data-module='uem'] { --accent: #5a2fb8; }
 :root[data-theme='light'] [data-module='igreja'] { --accent: #8c600a; }
-:root[data-theme='light'] [data-module='cultura'] { --accent: #0b72b5; }
-:root[data-theme='light'] [data-module='mental'] { --accent: #a3301f; }
+:root[data-theme='light'] [data-module='cultura'] { --accent: #b8321f; }
+:root[data-theme='light'] [data-module='mental'] { --accent: #0b72b5; }
 
 /* Mundo "sacro" (Igreja): manuscrito medieval. Marrom de couro e madeira escura, pergaminho,
    dourado de folha e vinho. Três vozes: letreiro condensado, serifa larga e serifa itálica. */
@@ -157,78 +156,72 @@
   --grain: 0.07;
 }
 
-/* Mundo "renascenca" (Mental): colagem renascentista. Preto quente, papel sépia, vermelho-vermelhão
-   e ocre; Bodoni nos títulos, Cormorant no texto de leitura. */
-[data-world='renascenca'] {
-  --display-face: 'Bodoni Moda Variable', 'Didot', serif;
-  --bg-base: #13110e;
-  --surface-base: #1a1713;
-  --raised-base: #221e19;
-  --line-base: #3a3229;
-  --frame-base: #86775e;
-  --ink: #ece2cc;
-  --ink-2: #c8bba0;
-  --ink-3: #a1937a;
-  --on-accent: #13110e;
-  --paper: #ddcdad;
-  --ochre: #c9962e;
-  --grain: 0.1;
+/* Mundo "cosmos" (Profissional): o sol vermelho sobre o mar de nuvens, a Terra com a cruz de luz, a nebulosa.
+   Preto de céu, brasa, creme de nuvem e linhas finas cor de cobre. No claro vira o papel do céu de amanhecer. */
+[data-world='cosmos'] {
+  --bg-base: #07060a;
+  --surface-base: #0e0b10;
+  --raised-base: #171219;
+  --line-base: #2a1d23;
+  --frame-base: #7a4430;
+  --ink: #efe6d6;
+  --ink-2: #cfc3ae;
+  --ink-3: #a89c88;
+  --on-accent: #0a0709;
+  --ember: #ee5a35;
+  --sun: #f0a860;
+  --cloud: #cfd8e8;
+  --grain: 0.12;
 }
-:root[data-theme='light'] [data-world='renascenca'] {
-  --bg-base: #efe6d3;
-  --surface-base: #f5eedf;
-  --raised-base: #fbf6ea;
-  --line-base: #d6c7a8;
-  --frame-base: #9a8a6c;
-  --ink: #1d1913;
-  --ink-2: #4a4033;
-  --ink-3: #6b5f4d;
+:root[data-theme='light'] [data-world='cosmos'] {
+  --bg-base: #ebe1ca;
+  --surface-base: #f1e8d3;
+  --raised-base: #f7f0df;
+  --line-base: #d3c5a6;
+  --frame-base: #8a6a52;
+  --ink: #1c1612;
+  --ink-2: #473b30;
+  --ink-3: #635547;
   --on-accent: #ffffff;
-  --paper: #e3d3b2;
-  --ochre: #8f6514;
-  --grain: 0.07;
+  --ember: #b3321a;
+  --sun: #b3541a;
+  --cloud: #5d6a8a;
+  --grain: 0.08;
 }
 
-/* Mundo "psico" (Profissional): pôster psicodélico de OVNI. Preto, violeta elétrico, vermelho-tomate,
-   mostarda e a moldura rosa-choque. No claro vira papel creme impresso com as mesmas tintas. */
-[data-world='psico'] {
-  --display-face: 'Bagel Fat One', 'Big Shoulders Display Variable', sans-serif;
-  --bg-base: #0c0a12;
-  --surface-base: #150f26;
-  --raised-base: #1e1538;
-  --line-base: #2e2060;
-  --frame-base: #e8318f;
-  --ink: #f4f0e4;
-  --ink-2: #d4cbea;
-  --ink-3: #bdb4dc;
-  --on-accent: #0c0a12;
-  --pink: #e8318f;
-  --tomato: #ee3a2c;
-  --violet: #4b2ee6;
-  --grain: 0.14;
-  --t-open-world: #2a1b8c;
-  --t-contour: #e8318f;
-  --t-dots: #5a3df0;
-  --t-trail: #e2b93b;
+/* Mundo "bebop" (Repertório): pôsteres de Cowboy Bebop. Preto de impressão, creme, os painéis de cor
+   (amarelo, verde, vermelho, laranja, azul) e a nave vermelha. No claro vira o papel pardo do pôster. */
+[data-world='bebop'] {
+  --bg-base: #0b0a0a;
+  --surface-base: #131110;
+  --raised-base: #1c1917;
+  --line-base: #2f2a26;
+  --frame-base: #6a5d50;
+  --ink: #f1e9d6;
+  --ink-2: #cfc6b0;
+  --ink-3: #a39a85;
+  --on-accent: #0b0a0a;
+  --bb-yellow: #f2c230;
+  --bb-green: #3c8d4a;
+  --bb-red: #d9382c;
+  --bb-orange: #e8761e;
+  --bb-blue: #3b7de0;
+  --bb-pink: #e7b8c4;
+  --grain: 0.13;
 }
-:root[data-theme='light'] [data-world='psico'] {
-  --bg-base: #f1e8cf;
-  --surface-base: #f6eed9;
-  --raised-base: #fbf5e6;
-  --line-base: #d8caa4;
-  --frame-base: #d4207d;
-  --ink: #17102e;
-  --ink-2: #40356a;
-  --ink-3: #5d5283;
+:root[data-theme='light'] [data-world='bebop'] {
+  --bg-base: #e9dcc0;
+  --surface-base: #efe4cb;
+  --raised-base: #f5ecd8;
+  --line-base: #d0c09a;
+  --frame-base: #5b4a3a;
+  --ink: #1b1713;
+  --ink-2: #453b30;
+  --ink-3: #605444;
   --on-accent: #ffffff;
-  --pink: #d4207d;
-  --tomato: #d92c1c;
-  --violet: #4b2ee6;
+  --bb-red: #b8321f;
+  --bb-yellow: #c28a00;
   --grain: 0.08;
-  --t-open-world: #cdc3ff;
-  --t-contour: #4b2ee6;
-  --t-dots: #9c8bf5;
-  --t-trail: #d92c1c;
 }
 
 /* Mundo "eva" (UEM): pôster de anime. Preto arroxeado com brilho violeta, vermelho de alerta, laranja e
@@ -332,8 +325,8 @@
   --t-open: color-mix(in oklab, var(--accent) 18%, var(--bg-base));
 }
 [data-world='sacro'].app,
-[data-world='renascenca'].app,
-[data-world='psico'].app,
+[data-world='cosmos'].app,
+[data-world='bebop'].app,
 [data-world='eva'].app,
 [data-world='office'].app {
   --bg: var(--bg-base);
@@ -346,11 +339,11 @@
 :root[data-theme='light'] [data-world='sacro'].app {
   --rail: #e2d3b4;
 }
-:root[data-theme='light'] [data-world='renascenca'].app {
-  --rail: #e4d8bf;
+:root[data-theme='light'] [data-world='cosmos'].app {
+  --rail: #e2d6bb;
 }
-:root[data-theme='light'] [data-world='psico'].app {
-  --rail: #e8dcb9;
+:root[data-theme='light'] [data-world='bebop'].app {
+  --rail: #dccfb0;
 }
 :root[data-theme='light'] [data-world='eva'].app {
   --rail: #c3ded2;
@@ -358,10 +351,12 @@
 :root[data-theme='light'] [data-world='office'].app {
   --rail: #dfcfa9;
 }
-[data-world='psico'].app,
+[data-world='cosmos'].app,
+[data-world='bebop'].app,
 [data-world='eva'].app,
 [data-world='office'].app,
-:root[data-theme='light'] [data-world='psico'].app,
+:root[data-theme='light'] [data-world='cosmos'].app,
+:root[data-theme='light'] [data-world='bebop'].app,
 :root[data-theme='light'] [data-world='eva'].app,
 :root[data-theme='light'] [data-world='office'].app {
   --t-open: var(--t-open-world);
@@ -409,27 +404,10 @@ p {
   line-height: 0.9;
 }
 
-[data-world='renascenca'] .display {
-  font-weight: 500;
-  letter-spacing: -0.015em;
-  line-height: 0.92;
-}
 .mono {
   font-family: 'Space Mono', ui-monospace, monospace;
   font-variant-numeric: tabular-nums;
 }
-.bodoni {
-  font-family: 'Bodoni Moda Variable', 'Didot', serif;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
-  line-height: 1.05;
-}
-.garamond {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-weight: 500;
-}
-
 /* Serifa larga e itálica do mundo sacro */
 .wide-serif {
   font-family: 'Young Serif', Georgia, serif;
@@ -502,20 +480,6 @@ textarea {
 }
 [data-world='sacro'] .rule-head::after {
   background: linear-gradient(90deg, var(--accent), var(--wine) 35%, var(--line) 70%);
-}
-[data-world='renascenca'] .rule-head {
-  font-family: 'Bodoni Moda Variable', serif;
-  font-weight: 500;
-  font-size: 1.5rem;
-  letter-spacing: 0;
-}
-[data-world='renascenca'] .rule-head::before {
-  -webkit-mask: none;
-  mask: none;
-  border-radius: 999px;
-}
-[data-world='renascenca'] .rule-head::after {
-  background: linear-gradient(90deg, var(--ochre), var(--line) 40%);
 }
 
 /* Disclosure com o ícone do app no lugar do triângulo do navegador */
@@ -629,9 +593,6 @@ textarea {
   cursor: pointer;
   white-space: nowrap;
   transition: border-color 150ms, background-color 150ms, color 150ms;
-}
-[data-world='renascenca'] .btn {
-  font-family: 'Big Shoulders Display Variable', sans-serif;
 }
 .btn:hover {
   border-color: var(--accent);
@@ -799,61 +760,6 @@ textarea {
 
 }
 
-/* Borda de papel rasgado: máscara com ruído fractal, não um polígono desenhado */
-.torn {
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' preserveAspectRatio='none'%3E%3Cfilter id='t' x='-5%25' y='-5%25' width='110%25' height='110%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.045 .09' numOctaves='4' seed='7'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='16'/%3E%3C/filter%3E%3Crect x='10' y='10' width='380' height='280' filter='url(%23t)'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' preserveAspectRatio='none'%3E%3Cfilter id='t' x='-5%25' y='-5%25' width='110%25' height='110%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.045 .09' numOctaves='4' seed='7'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='16'/%3E%3C/filter%3E%3Crect x='10' y='10' width='380' height='280' filter='url(%23t)'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
-}
-
-/* Lâmina editorial do mundo renascença: escura com moldura de canto redondo, ou papel rasgado */
-@layer components {
-  .plate {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-height: 15rem;
-    overflow: hidden;
-    border: 1px solid var(--frame);
-    border-radius: 1.5rem 1.5rem 1.5rem 0.3rem;
-    background: var(--surface);
-    padding: 1.4rem 1.4rem 1.2rem;
-    transition: border-color 180ms, background-color 180ms;
-  }
-  .plate:hover,
-  .plate:focus-visible {
-    border-color: var(--accent);
-    background: var(--raised);
-  }
-  .plate-text {
-    color: var(--ink-2);
-  }
-  .plate-meta {
-    color: var(--ochre);
-  }
-  /* Lâmina de papel sépia: redefine as tintas para o texto ficar escuro sobre o papel */
-  .plate-paper {
-    --ink: #1d1913;
-    --ink-2: #463c30;
-    --ink-3: #5e5242;
-    --ochre: #6a470b;
-    color: var(--ink);
-    background: var(--paper);
-    border-color: transparent;
-    border-radius: 0;
-  }
-  .plate-paper:hover,
-  .plate-paper:focus-visible {
-    background: color-mix(in oklab, var(--accent) 12%, var(--paper));
-  }
-  .plate-rule {
-    display: block;
-    width: 1.6rem;
-    height: 1px;
-    margin-top: 0.4rem;
-    background: var(--accent);
-  }
-}
-
 /* Movimento: os controles e discos pousam no lugar uma vez, ao abrir a tela */
 @keyframes land {
   from {
@@ -883,14 +789,6 @@ textarea {
   font-family: 'Newsreader Variable', Georgia, serif;
   font-style: italic;
   font-weight: 400;
-  text-transform: none;
-  letter-spacing: 0;
-  line-height: 1.2;
-}
-[data-world='renascenca'] .sub-head.display {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-style: italic;
-  font-weight: 500;
   text-transform: none;
   letter-spacing: 0;
   line-height: 1.2;
@@ -995,13 +893,58 @@ textarea {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem 0.55rem 0.9rem 0.8rem;
+  padding: 1.55rem 0.8rem 0.9rem 0.8rem;
   background: #0d0c0a;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Camadas vivas da faixa: brilho que passa, medidor do progresso e uma estrela que pisca.
+   Cada mundo troca a pele em worlds.css (`band-<mundo>`). */
+.band-glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  /* sem brilho que passa: só um tom suave que sobe do rodapé, parado */
+  background: linear-gradient(0deg, color-mix(in oklab, var(--accent) 14%, transparent), transparent 55%);
+}
+.band-meter {
+  position: absolute;
+  top: 0.9rem;
+  bottom: 0.9rem;
+  right: 0.3rem;
+  width: 3px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: color-mix(in oklab, var(--accent) 22%, transparent);
+}
+.band-meter i {
+  position: absolute;
+  inset: auto 0 0;
+  height: max(var(--pct), 4%);
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  transform-origin: bottom;
+  animation: meter-rise 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes meter-rise {
+  from {
+    transform: scaleY(0);
+  }
+}
+.band-star {
+  position: absolute;
+  top: 0.5rem;
+  left: 50%;
+  translate: -50% 0;
+  color: var(--accent);
+}
+.band-home .band-meter {
+  display: none;
 }
 .band-title {
   writing-mode: vertical-rl;
   line-height: 1; /* a caixa cobre os acentos (Ó, Ã), que saíam pela borda da faixa */
-  font-size: min(calc(30svh / (var(--len) * 0.9)), 4rem);
+  font-size: min(calc(24svh / (var(--len) * 0.9)), 3.1rem);
 }
 .band-foot {
   display: flex;
@@ -1016,10 +959,10 @@ textarea {
     top: 4svh;
     left: 3.5vw;
     bottom: 10svh;
-    padding: 1.4rem 0.8rem 1.1rem 1.3rem;
+    padding: 2.1rem 1.15rem 1.1rem 1.3rem;
   }
   .band-title {
-    font-size: min(calc(62svh / (var(--len) * 0.9)), 9rem);
+    font-size: min(calc(46svh / (var(--len) * 0.9)), 6.75rem);
   }
 }
 
@@ -1091,16 +1034,15 @@ textarea {
   }
 }
 
-/* Telas empilhadas: cada uma fica presa no topo e a seguinte sobe por baixo e a cobre.
-   --p e --cover vêm do JS (useStack em HomePage.tsx). */
+/* Telas empilhadas: cada uma fica presa no topo e a seguinte sobe por cima e a cobre. --p e --cover vêm do
+   JS (useStack em HomePage.tsx). Movimento só em duas coisas: a de baixo escurece e o cartão desliza. */
 .film-section,
 .banner {
   --edge: var(--accent);
 }
 .film-section[data-dim],
 .banner[data-dim] {
-  scale: calc(1 - var(--cover) * 0.04);
-  filter: brightness(calc(1 - var(--cover) * 0.6));
+  filter: brightness(calc(1 - var(--cover) * 0.5));
 }
 /* Tela coberta por inteiro não pinta nada */
 .film-section[inert],
@@ -1110,20 +1052,6 @@ textarea {
 /* Animações contínuas só rodam na tela que está à vista */
 .banner:not([data-live]) * {
   animation-play-state: paused !important;
-}
-/* A beirada de cima da tela que sobe leva um filete na cor do tema, que some quando ela assenta */
-.banner-edge {
-  content: '';
-  position: absolute;
-  z-index: 6;
-  inset: 0 0 auto;
-  height: 0.5rem;
-  background: var(--edge);
-  opacity: clamp(0, calc((1 - var(--p)) * 6), 1);
-}
-.banner[data-rise] .banner-frame {
-  filter: brightness(calc(1 + (1 - var(--p)) * 0.5));
-  scale: calc(1 + (1 - var(--p)) * 0.06);
 }
 
 /* Cartão de informações: ocupa a altura toda de um lado; o título (faixa) vai para o outro. A linha grossa
@@ -1142,18 +1070,13 @@ textarea {
   padding: 1.5rem 1.25rem 1.25rem;
   background: #0d0c0a;
   border-top: 0.5rem solid var(--edge);
-  translate: 0 calc((1 - clamp(0, (var(--p) - 0.1) * 1.4, 1)) * 100%);
+  translate: 0 calc((1 - clamp(0, (var(--p) - 0.05) * 1.6, 1)) * 100%);
 }
 .pane > * {
-  opacity: clamp(0, calc((var(--p) - 0.45) * 3), 1);
-  translate: 0 calc((1 - clamp(0, (var(--p) - 0.45) * 3, 1)) * 1.25rem);
+  opacity: clamp(0, calc((var(--p) - 0.5) * 3), 1);
 }
-.pane > :nth-child(2) { opacity: clamp(0, calc((var(--p) - 0.55) * 3), 1); }
-.pane > :nth-child(3) { opacity: clamp(0, calc((var(--p) - 0.65) * 3), 1); }
-.pane > :nth-child(n + 4) { opacity: clamp(0, calc((var(--p) - 0.75) * 3), 1); }
 @media (min-width: 768px) {
   .pane {
-    --dir: 1;
     top: 0;
     left: auto;
     right: 0;
@@ -1162,7 +1085,7 @@ textarea {
     padding: 3rem 2.75rem 2.5rem 3rem;
     border-top: 0;
     border-left: 0.75rem solid var(--edge);
-    translate: calc((1 - clamp(0, (var(--p) - 0.1) * 1.4, 1)) * 100%) 0;
+    translate: calc((1 - clamp(0, (var(--p) - 0.05) * 1.6, 1)) * 100%) 0;
   }
   .pane h2 {
     font-size: clamp(2.2rem, 3.2vw, 3.2rem);
@@ -1189,7 +1112,7 @@ textarea {
     padding: 3rem 3rem 2.5rem 2.75rem;
     border-left: 0;
     border-right: 0.75rem solid var(--edge);
-    translate: calc((1 - clamp(0, (var(--p) - 0.1) * 1.4, 1)) * -100%) 0;
+    translate: calc((1 - clamp(0, (var(--p) - 0.05) * 1.6, 1)) * -100%) 0;
   }
   .banner[data-side='left'] .pane::after {
     inset: 0 0.75rem 0 auto;
@@ -1201,15 +1124,13 @@ textarea {
 }
 @media (prefers-reduced-motion: reduce) {
   .pane,
-  .pane > *,
-  .banner-frame {
+  .pane > * {
     translate: none;
-    scale: none;
-    filter: none;
     opacity: 1;
   }
-  .banner-edge {
-    display: none;
+  .band-glow,
+  .band-meter i {
+    animation: none;
   }
 }
 

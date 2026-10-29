@@ -94,6 +94,12 @@ async function applyContent() {
         await db.groups.delete(scrum.id)
       }
     }
+    // v5: o dono renomeou o assunto "Sentimentos humanos" da Igreja para "Nosso coração" (28/10/2026)
+    if (done < 5) {
+      const groups = await db.groups.where('moduleId').equals('igreja').toArray()
+      const old = groups.find((g) => g.title === 'Sentimentos humanos')
+      if (old && !groups.some((g) => g.title === 'Nosso coração')) await db.groups.update(old.id, { title: 'Nosso coração' })
+    }
     for (const c of contentModules) await applyModule(c)
     await db.meta.put({ key: CONTENT_KEY, value: CONTENT_VERSION })
   })

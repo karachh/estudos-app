@@ -32,13 +32,35 @@ export function ArchMark({ p, size = 40, filled }: { p?: Progress; size?: number
   )
 }
 
-// Disco vermelho das colagens renascentistas: o vermelho cobre o disco conforme o tópico avança.
-export function DiskMark({ p, size = 40, filled }: { p?: Progress; size?: number; filled?: boolean }) {
+// Sol nascendo atrás do horizonte (cosmos): o disco sobe e se enche de brasa conforme o tópico avança.
+export function SunMark({ p, size = 20, filled }: { p?: Progress; size?: number; filled?: boolean }) {
   const r = filled ? 1 : ratioOf(p)
+  const clip = useId()
   return (
     <svg width={size} height={size} viewBox="-12 -12 24 24" aria-hidden="true" className="shrink-0 text-accent">
-      <circle r="11.5" fill="currentColor" opacity="0.22" />
-      {r > 0 && <path d={pie(11.5, r)} fill="currentColor" />}
+      <clipPath id={clip}>
+        <circle r="8.2" />
+      </clipPath>
+      {r > 0 && <rect x="-9" y={8.2 - 16.4 * r} width="18" height="17" fill="currentColor" clipPath={`url(#${clip})`} />}
+      <circle r="8.2" fill="none" stroke="currentColor" strokeWidth="1.3" />
+      <path d="M-11.5 4.6H11.5" stroke="currentColor" strokeWidth="1" opacity="0.65" />
+      {r >= 1 && <path d="M0-11.5v2.4M0 9.1v2.4M-11.5 0h2.4M9.1 0h2.4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />}
+    </svg>
+  )
+}
+
+// Painel colorido do pôster de Cowboy Bebop: o bloco se enche de baixo para cima, com hachura enquanto está pela metade.
+export function BlockMark({ p, size = 20, filled }: { p?: Progress; size?: number; filled?: boolean }) {
+  const r = filled ? 1 : ratioOf(p)
+  const clip = useId()
+  return (
+    <svg width={size} height={size} viewBox="-12 -12 24 24" aria-hidden="true" className="shrink-0 text-accent">
+      <clipPath id={clip}>
+        <rect x="-9.5" y="-9.5" width="19" height="19" />
+      </clipPath>
+      {r > 0 && <rect x="-9.5" y={9.5 - 19 * r} width="19" height="19" fill="currentColor" clipPath={`url(#${clip})`} />}
+      {r > 0 && r < 1 && <path d="M-12 12L12-12M-12 6L6-12M-6 12L12-6" stroke="var(--bg)" strokeWidth="1.2" opacity="0.55" clipPath={`url(#${clip})`} />}
+      <rect x="-9.5" y="-9.5" width="19" height="19" fill="none" stroke="currentColor" strokeWidth="2" />
     </svg>
   )
 }
@@ -82,25 +104,12 @@ export function PixelMark({ p, size = 20, filled }: { p?: Progress; size?: numbe
   )
 }
 
-// Olho do pôster psicodélico: a íris cresce até encher o olho quando o tópico termina.
-export function EyeMark({ p, size = 20, filled }: { p?: Progress; size?: number; filled?: boolean }) {
-  const r = filled ? 1 : ratioOf(p)
-  const eye = 'M-11.5 0Q0-11 11.5 0Q0 11-11.5 0Z'
-  return (
-    <svg width={size} height={size} viewBox="-12 -12 24 24" aria-hidden="true" className="shrink-0 text-accent">
-      <path d={eye} fill={r >= 1 ? 'currentColor' : 'none'} fillOpacity={r >= 1 ? 0.28 : 0} stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-      <circle r={r > 0 ? 2 + 4 * r : 1.6} fill="currentColor" />
-      {r >= 1 && <circle r="2" fill="var(--bg)" />}
-    </svg>
-  )
-}
-
 export function ProgressMark({ world, ...props }: { world: World; p?: Progress; size?: number; filled?: boolean }) {
   if (world === 'sacro') return <ArchMark {...props} />
-  if (world === 'renascenca') return <DiskMark {...props} />
   if (world === 'eva') return <HexMark {...props} />
   if (world === 'office') return <PixelMark {...props} />
-  if (world === 'psico') return <EyeMark {...props} />
+  if (world === 'cosmos') return <SunMark {...props} />
+  if (world === 'bebop') return <BlockMark {...props} />
   return <ControlMark {...props} />
 }
 

@@ -4,9 +4,9 @@ import { AddForm } from '../components/AddForm'
 import { Band, Film } from '../components/Cover'
 import { CourseMap } from '../components/CourseMap'
 import { Icon } from '../components/Icon'
-import { DiskMark, Fraction, Orbit, ProgressMark, Punches, Sparkle } from '../components/Marks'
+import { Fraction, Orbit, ProgressMark, Punches, Sparkle } from '../components/Marks'
 import { ThemeBoard } from '../components/ThemeBoard'
-import { EvaHeader, OfficeHeader, PsicoHeader } from '../components/Worlds'
+import { BebopHeader, CosmosHeader, EvaHeader, OfficeHeader } from '../components/Worlds'
 import { plural } from '../core/geometry'
 import { db, deleteTopicData, type Group, type ResourceKind, type Topic } from '../core/db'
 import { getModule, type AppModule } from '../core/modules'
@@ -77,12 +77,12 @@ export default function ModulePage() {
     <article key={mod.id} className="enter">
       {mod.world === 'sacro' ? (
         <SacredHeader mod={mod} />
-      ) : mod.world === 'renascenca' ? (
-        <RenaissanceHeader mod={mod} />
-      ) : mod.world === 'psico' || mod.world === 'eva' || mod.world === 'office' ? (
+      ) : mod.world === 'cosmos' || mod.world === 'bebop' || mod.world === 'eva' || mod.world === 'office' ? (
         <header>
-          {mod.world === 'psico' ? (
-            <PsicoHeader mod={mod} groupCount={groups.length} />
+          {mod.world === 'cosmos' ? (
+            <CosmosHeader mod={mod} groupCount={groups.length} pct={pct} />
+          ) : mod.world === 'bebop' ? (
+            <BebopHeader mod={mod} groupCount={groups.length} />
           ) : mod.world === 'eva' ? (
             <EvaHeader mod={mod} groupCount={groups.length} pct={pct} />
           ) : (
@@ -141,6 +141,7 @@ export default function ModulePage() {
                 {sec.groups.map((group) => (
                   <GroupCard
                     key={group.id}
+                    index={groups.indexOf(group)}
                     mod={mod}
                     group={group}
                     topics={topics.filter((t) => t.groupId === group.id)}
@@ -254,7 +255,7 @@ function FilmHeader({ mod, groupCount }: { mod: AppModule; groupCount: number })
       <div className="cover">
         <Film art={art} eager />
         <div aria-hidden="true">
-          <Band title={mod.short} foot={`${groupCount} ${groupCount === 1 ? mod.groupLabel : plural(mod.groupLabel)}`} />
+          <Band title={mod.short} world="mapa" foot={`${groupCount} ${groupCount === 1 ? mod.groupLabel : plural(mod.groupLabel)}`} />
         </div>
         <div className="sticker">
           <h1 className="gloock-text text-cover leading-tight">{mod.label}</h1>
@@ -266,43 +267,6 @@ function FilmHeader({ mod, groupCount }: { mod: AppModule; groupCount: number })
           </p>
         </div>
       </div>
-    </header>
-  )
-}
-
-function RenaissanceHeader({ mod }: { mod: AppModule }) {
-  const cover = covers[mod.id]
-  return (
-    <header>
-    <div className="grid items-center gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
-      <div className="@container">
-        <h1 className="bodoni text-[min(6rem,calc(130cqw/var(--len)))] text-accent" style={{ '--len': mod.label.length } as CSSProperties}>
-          {mod.label}
-        </h1>
-        <span className="plate-rule mt-6 w-10" />
-        <p className="garamond mt-5 max-w-[24rem] text-lead leading-snug italic">{mod.tagline}</p>
-      </div>
-      {cover && (
-        <figure className="relative">
-          <span className="absolute -left-6 top-4 size-40 rounded-full bg-accent md:size-52" aria-hidden="true" />
-          <span className="absolute -left-12 -top-2 size-52 rounded-full border border-(--ochre) md:size-64" aria-hidden="true" />
-          <div className="torn relative bg-(--paper) p-3">
-            <img
-              src={cover.src}
-              decoding="async"
-              alt=""
-              className="aspect-[4/3] w-full object-cover sepia-[.25]"
-              style={{ objectPosition: cover.position }}
-            />
-          </div>
-          <figcaption className="mt-2 text-right text-xs text-ink-3">
-            <a href={cover.source} target="_blank" rel="noopener noreferrer" className="hover:underline credit">
-              {cover.credit}
-            </a>
-          </figcaption>
-        </figure>
-      )}
-    </div>
     </header>
   )
 }
@@ -324,7 +288,6 @@ function GroupSection({
   const [lit, setLit] = useState<number | null>(null)
   const progress = sumProgress(topics.map((t) => byTopic.get(t.id)))
   const sacred = mod.world === 'sacro'
-  const renaissance = mod.world === 'renascenca'
   const art = artFor(mod.id, group.title)
   const meta = !mod.hideGroupMeta
 
@@ -356,21 +319,15 @@ function GroupSection({
     <section id={`group-${group.id}`} className="mt-16 scroll-mt-6 border-t border-line pt-8" aria-labelledby={`gh-${group.id}`}>
       <div className="flex items-start gap-5">
         {art && (
-          <figure className={`hidden shrink-0 sm:block ${renaissance ? 'w-36' : 'w-28'}`}>
-            {renaissance ? (
-              <div className="torn bg-(--paper) p-2">
-                <img src={art.src} alt="" className="aspect-square w-full object-cover sepia-[.3]" style={{ objectPosition: art.position }} loading="lazy" />
-              </div>
-            ) : (
-              <img
-                src={art.src}
-                decoding="async"
-                alt=""
-                className="aspect-[3/4] w-full rounded-t-full border border-[color-mix(in_oklab,var(--accent)_60%,transparent)] object-cover"
-                style={{ objectPosition: art.position }}
-                loading="lazy"
-              />
-            )}
+          <figure className="hidden w-28 shrink-0 sm:block">
+            <img
+              src={art.src}
+              decoding="async"
+              alt=""
+              className="aspect-[3/4] w-full rounded-t-full border border-[color-mix(in_oklab,var(--accent)_60%,transparent)] object-cover"
+              style={{ objectPosition: art.position }}
+              loading="lazy"
+            />
             <figcaption className="mt-1.5 text-micro leading-tight text-ink-3">
               <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:underline credit">
                 {art.credit}
@@ -381,10 +338,10 @@ function GroupSection({
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
-              <h2 id={`gh-${group.id}`} className={`text-headline max-sm:text-[1.65rem] ${sacred ? 'wide-serif' : renaissance ? 'bodoni' : 'display'}`}>
+              <h2 id={`gh-${group.id}`} className={`text-headline max-sm:text-[1.65rem] ${sacred ? 'wide-serif' : 'display'}`}>
                 <GroupTitle title={group.title} />
               </h2>
-              {meta && group.subtitle && <p className={`mt-1.5 text-ink-3 ${sacred ? 'italic-serif text-lg' : renaissance ? 'garamond text-xl italic' : ''}`}>{group.subtitle}</p>}
+              {meta && group.subtitle && <p className={`mt-1.5 text-ink-3 ${sacred ? 'italic-serif text-lg' : ''}`}>{group.subtitle}</p>}
             </div>
             {progress.total > 0 && (
               <p className="count-plate shrink-0 text-right leading-none">
@@ -399,11 +356,7 @@ function GroupSection({
           {group.description && <p className="mt-3 max-w-prose text-ink-2">{group.description}</p>}
           {meta && group.criteria && (
             <p className="mt-3 flex max-w-prose gap-2.5 text-ink-2">
-              {renaissance ? (
-                <span className="mt-2 size-3 shrink-0 rounded-full bg-accent" aria-hidden="true" />
-              ) : (
-                <Sparkle size={15} className="mt-1 shrink-0 text-accent" />
-              )}
+              <Sparkle size={15} className="mt-1 shrink-0 text-accent" />
               <span>
                 <strong className="font-semibold text-ink">Critério de saída.</strong> {group.criteria}
               </span>
@@ -414,14 +367,6 @@ function GroupSection({
 
       {topics.length === 0 ? (
         <p className="mt-6 text-ink-3">Nenhum {mod.topicLabel} ainda.</p>
-      ) : renaissance ? (
-        <ul className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {topics.map((t, i) => (
-            <li key={t.id} className="flex">
-              <Plate mod={mod} topic={t} index={i} progress={byTopic.get(t.id)} materials={materials.get(t.id)} />
-            </li>
-          ))}
-        </ul>
       ) : sacred ? (
         <ul className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-[repeat(auto-fill,minmax(10.5rem,1fr))] sm:gap-4">
           {topics.map((t) => (
@@ -489,7 +434,11 @@ function GroupSection({
 }
 
 // Visão geral: todos os grupos de uma vez, cada um com os seus tópicos em lista curta (sem o mapa).
+// Cores dos painéis do pôster de Cowboy Bebop, uma por cartão
+const SESSION_TONES = ['#f2c230', '#3c8d4a', '#d9382c', '#e8761e', '#3b7de0']
+
 function GroupCard({
+  index,
   mod,
   group,
   topics,
@@ -497,6 +446,7 @@ function GroupCard({
   materials,
   kinds,
 }: {
+  index: number
   mod: AppModule
   group: Group
   topics: Topic[]
@@ -506,6 +456,7 @@ function GroupCard({
 }) {
   const [editing, setEditing] = useState(false)
   const progress = sumProgress(topics.map((t) => byTopic.get(t.id)))
+  const session = mod.world === 'bebop'
   // Soma dos tipos de material do grupo inteiro, para a linha de resumo do cartão
   const total: Partial<Record<ResourceKind, number>> = {}
   for (const t of topics)
@@ -537,7 +488,17 @@ function GroupCard({
   }
 
   return (
-    <section className="frame group-card flex h-full flex-col p-4" aria-labelledby={`gh-${group.id}`}>
+    <section
+      className={`frame group-card flex h-full flex-col p-4 ${session ? 'session-card' : ''}`}
+      style={session ? ({ '--tone': SESSION_TONES[index % SESSION_TONES.length], '--i': index } as CSSProperties) : undefined}
+      aria-labelledby={`gh-${group.id}`}
+    >
+      {session && (
+        <p className="session-tab" aria-hidden="true">
+          <span>Session {String(index + 1).padStart(2, '0')}</span>
+          <ProgressMark world={mod.world} p={progress} size={18} />
+        </p>
+      )}
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h2 id={`gh-${group.id}`} className="display text-xl leading-tight">
@@ -670,35 +631,6 @@ function Niche({
         {p.total > 0 ? <Fraction p={p} /> : contents(materials)}
         {state && <span className="italic-serif text-ink-2"> · {state}</span>}
       </span>
-    </Link>
-  )
-}
-
-function Plate({
-  mod,
-  topic,
-  index,
-  progress,
-  materials,
-}: {
-  mod: AppModule
-  topic: Topic
-  index: number
-  progress?: Progress
-  materials?: number
-}) {
-  const p = progress ?? { done: 0, total: 0 }
-  const paper = index % 2 === 1
-  return (
-    <Link to={`/${mod.id}/t/${topic.id}`} className={`plate w-full ${paper ? 'plate-paper torn' : ''}`}>
-      <span className="flex items-start justify-between gap-4">
-        <span className="bodoni max-w-[14ch] text-card">{topic.title}</span>
-        <span className="land block shrink-0" style={{ animationDelay: `${index * 60}ms` }}>
-          <DiskMark p={p} size={52} />
-        </span>
-      </span>
-      {topic.summary && <span className="plate-text garamond mt-3 line-clamp-3 text-reading leading-snug">{topic.summary}</span>}
-      <span className="plate-meta mt-auto pt-5 text-sm">{p.total > 0 ? <Fraction p={p} /> : contents(materials)}</span>
     </Link>
   )
 }

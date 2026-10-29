@@ -1,10 +1,10 @@
-// Mundo visual do interior do módulo. 'mapa' é o padrão (prova de orientação); 'sacro' é o do Igreja;
-// 'renascenca' é o do Motivação (colagem renascentista). 'psico' (Profissional, pôster psicodélico),
+// Mundo visual do interior do módulo. 'mapa' é o padrão (prova de orientação, hoje o do Motivação);
+// 'sacro' é o do Igreja. 'cosmos' (Profissional, sol sobre o mar de nuvens), 'bebop' (Repertório, Cowboy Bebop),
 // 'eva' (UEM, Evangelion) e 'office' (Trabalho, The Office) são temas do mapa: mesma estrutura, outra pele.
-export type World = 'mapa' | 'psico' | 'eva' | 'office' | 'sacro' | 'renascenca'
+export type World = 'mapa' | 'cosmos' | 'bebop' | 'eva' | 'office' | 'sacro'
 
 // Mundos que mostram o mapa de orientação com a tabela de controles
-export const hasMap = (w: World) => w !== 'sacro' && w !== 'renascenca'
+export const hasMap = (w: World) => w !== 'sacro'
 
 export interface AppModule {
   id: string
@@ -29,7 +29,7 @@ export interface AppModule {
 export const modules: AppModule[] = [
   {
     id: 'profissional',
-    world: 'psico',
+    world: 'cosmos',
     label: 'Estudos profissionais',
     short: 'Profissional',
     hideGroupMeta: true,
@@ -45,7 +45,7 @@ export const modules: AppModule[] = [
     world: 'office',
     label: 'Trabalho',
     short: 'Trabalho',
-    tagline: 'O que preciso dominar para o dia a dia como desenvolvedor',
+    tagline: 'dev/suporte na Tributech',
     groupLabel: 'área',
     newGroup: 'Nova área',
     topicLabel: 'tópico',
@@ -70,7 +70,7 @@ export const modules: AppModule[] = [
     world: 'sacro',
     label: 'Igreja',
     short: 'Igreja',
-    tagline: 'Plano de estudo católico: teologia, coração humano e maturidade espiritual',
+    tagline: 'Plano de Estudo Católico',
     groupLabel: 'assunto',
     newGroup: 'Novo assunto',
     topicLabel: 'conteúdo',
@@ -92,7 +92,7 @@ export const modules: AppModule[] = [
         groups: ['Documentários e filmes', 'Podcasts', 'Séries', 'Canais e artigos', 'Literatura e fé'],
       },
     ],
-    world: 'mapa',
+    world: 'bebop',
     label: 'Repertório',
     short: 'Repertório',
     tagline: 'Saúde, mente, comportamento, IA e documentários: o que vale ler, ver e ouvir',
@@ -104,7 +104,7 @@ export const modules: AppModule[] = [
   },
   {
     id: 'mental',
-    world: 'renascenca',
+    world: 'mapa',
     label: 'Motivação',
     short: 'Motivação',
     tagline: 'Vídeos e lembretes para os dias em que o ânimo cai',
