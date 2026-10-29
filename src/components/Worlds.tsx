@@ -1,5 +1,6 @@
 import { useRef, type CSSProperties, type PointerEvent } from 'react'
 import swordfish from '../assets/bebop/swordfish.png'
+import swordfishPixel from '../assets/bebop/swordfish-pixel.png'
 import evaAberta from '../assets/eva/eva-lua-boca-aberta.jpg'
 import evaMeia from '../assets/eva/eva-lua-boca-meia.jpg'
 import face1 from '../assets/trabalho/face-1.jpg'
@@ -297,7 +298,7 @@ export function BannerBackdrop({ world }: { world: AppModule['world'] }) {
   return null
 }
 
-// A Swordfish II do banner do Repertório: dá para pegar e arrastar com o mouse (ou o dedo). Ela inclina conforme a
+// A Swordfish II do banner do Repertório, em pixel art (gerada da imagem original): dá para pegar e arrastar com o mouse (ou o dedo). Ela inclina conforme a
 // velocidade do arrasto e fica onde foi solta; é de lá que ela parte quando o módulo é aberto (flyIn em HomePage.tsx).
 function DragShip() {
   const drag = useRef<{ x: number; y: number; dx: number; dy: number; lastX: number; t: number } | null>(null)
@@ -326,9 +327,9 @@ function DragShip() {
   }
   return (
     <img
-      src={swordfish}
+      src={swordfishPixel}
       alt=""
-      className="swordfish bt-ship"
+      className="swordfish bt-ship pixel"
       draggable={false}
       loading="lazy"
       decoding="async"

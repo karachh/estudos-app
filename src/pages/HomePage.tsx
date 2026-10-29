@@ -1,6 +1,6 @@
 import { useEffect, useRef, type CSSProperties, type MouseEvent } from 'react'
 import { Link, useNavigate, useNavigationType } from 'react-router-dom'
-import swordfish from '../assets/bebop/swordfish.png'
+import swordfishPixel from '../assets/bebop/swordfish-pixel.png'
 import { Band, Film } from '../components/Cover'
 import { Icon } from '../components/Icon'
 import { BannerBackdrop } from '../components/Worlds'
@@ -203,133 +203,164 @@ function expandInto(e: MouseEvent<HTMLAnchorElement>, go: () => void) {
   })
 }
 
-// Repertório: ao abrir, a Swordfish II sai na hora de onde estiver (inclusive se foi arrastada) e faz uma curva em S:
-// avança para o lado em que o nariz aponta, sobe, vira e mergulha na direção da tela, crescendo até tapar a visão.
-// Ela inclina seguindo a própria trajetória, balança como quem pilota, solta chama pelo motor e deixa rastro; no
-// fim surgem linhas de velocidade e a tela treme de leve. Um véu escuro fecha a passagem e a página do módulo entra.
+// Repertório: ao abrir, a Swordfish II dispara para fora da tela na direção do nariz. A página do módulo é montada
+// fora da tela, desse mesmo lado, e a nave volta por ali, de frente, puxando-a por um cabo até ela cobrir a tela.
+// Aí o cabo solta e a nave segue até sair pelo outro lado. Enquanto a página entra, uma cópia do banner fica
+// por baixo, para não aparecer fundo vazio. Dura cerca de 1,5 s, pouco mais que a troca de tela dos outros módulos.
 const smooth = (t: number) => t * t * (3 - 2 * t)
 const clamp01 = (t: number) => Math.min(1, Math.max(0, t))
-const bezier = (a: number, b: number, c: number, d: number, t: number) =>
-  (1 - t) ** 3 * a + 3 * (1 - t) ** 2 * t * b + 3 * (1 - t) * t * t * c + t ** 3 * d
-const bezierSlope = (a: number, b: number, c: number, d: number, t: number) =>
-  3 * (1 - t) ** 2 * (b - a) + 6 * (1 - t) * t * (c - b) + 3 * t * t * (d - c)
 
 function flyIn(e: MouseEvent<HTMLAnchorElement>, go: () => void) {
   if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
   e.preventDefault()
   const banner = (e.currentTarget as HTMLElement).closest<HTMLElement>('.banner')
   const pane = banner?.querySelector<HTMLElement>('.pane')
-  const frameEl = banner?.querySelector<HTMLElement>('.banner-frame')
   const rest = banner?.querySelector<HTMLElement>('.bt-ship')
-  if (!banner || !pane || !frameEl || !rest || still()) return go()
+  if (!banner || !pane || !rest || still()) return go()
   if (pane.dataset.flying) return
   pane.dataset.flying = '1'
 
   const r = rest.getBoundingClientRect()
-  const flip = getComputedStyle(rest).scale.startsWith('-1') ? -1 : 1 // espelhada ou não
-  const facing = -flip // a imagem original aponta o nariz para a esquerda
   const W = window.innerWidth
   const H = window.innerHeight
-  const P0 = { x: r.left + r.width / 2, y: r.top + r.height / 2 }
-  const P3 = { x: W / 2, y: H * 0.48 }
-  const P1 = { x: P0.x + facing * W * 0.26, y: P0.y - H * 0.26 }
-  const P2 = { x: P3.x - facing * W * 0.2, y: P3.y - H * 0.18 }
-  // Escala final: a nave passa a cobrir bem mais que a tela
-  const grow = (Math.max(W, H) / r.width) * 3.2
+  const w = r.width
+  const h = r.height
+  // A imagem original aponta o nariz para a esquerda; espelhada, para a direita
+  const dir = getComputedStyle(rest).scale.startsWith('-1') ? 1 : -1 // lado para onde ela sai (e por onde volta)
 
-  const make = (cls: string) => {
-    const el = document.createElement('div')
-    el.className = cls
-    Object.assign(el.style, { width: `${r.width}px`, height: `${r.height}px`, left: `${-r.width / 2}px`, top: `${-r.height / 2}px` })
-    const img = new Image()
-    img.src = swordfish
-    img.alt = ''
-    img.style.transform = `scaleX(${flip})`
-    el.append(img)
-    return el
-  }
-  const ghosts = [0.3, 0.18, 0.09].map((o) => {
-    const g = make('tow-ship fly-ghost')
-    g.style.opacity = '0'
-    g.dataset.o = String(o)
-    return g
-  })
-  const ship = make('tow-ship')
-  // Chama do motor, presa na traseira (a imagem tem os motores do lado oposto ao nariz, um pouco acima do meio)
+  const ship = document.createElement('div')
+  ship.className = 'tow-ship'
+  Object.assign(ship.style, { width: `${w}px`, height: `${h}px`, left: `${-w / 2}px`, top: `${-h / 2}px` })
+  const img = new Image()
+  img.src = swordfishPixel
+  img.alt = ''
   const flame = document.createElement('span')
   flame.className = 'fly-flame'
-  Object.assign(flame.style, {
-    left: `${50 - facing * 44}%`,
-    top: '34%',
-    transformOrigin: facing === 1 ? '100% 50%' : '0 50%',
-  })
-  flame.dataset.side = facing === 1 ? 'back-left' : 'back-right'
-  ship.prepend(flame)
-  const lines = document.createElement('div')
-  lines.className = 'fly-lines'
-  const veil = document.createElement('div')
-  veil.className = 'tow-veil'
-  document.body.append(lines, ...ghosts, ship, veil)
-  rest.style.visibility = 'hidden'
-  pane.style.willChange = 'transform, filter'
-
-  const trail: string[] = []
-  const T = 1500
-  const t0 = performance.now()
-  const frame = (now: number) => {
-    const u = clamp01((now - t0) / T)
-    // Ponto da curva: começa rápido (sem parada) e assenta no centro
-    const k = 1 - (1 - u) ** 1.8
-    const x = bezier(P0.x, P1.x, P2.x, P3.x, k)
-    const y = bezier(P0.y, P1.y, P2.y, P3.y, k)
-    // Tamanho: cresce desde o início e acelera no fim, como algo vindo na nossa direção
-    const near = 0.22 * u + 0.78 * u ** 2.6
-    const scale = Math.exp(Math.log(grow) * near)
-    // Inclinação: o nariz segue a tangente da curva; perto de nós ela se endireita. Mais o balanço do piloto.
-    const tx = bezierSlope(P0.x, P1.x, P2.x, P3.x, k)
-    const ty = bezierSlope(P0.y, P1.y, P2.y, P3.y, k)
-    const heading = (Math.atan2(ty * facing, tx * facing) * 180) / Math.PI
-    const bank = Math.max(-55, Math.min(55, heading)) * (1 - 0.85 * near)
-    const sway = Math.sin(u * Math.PI * 3.2) * 7 * (1 - u)
-    const roll = 1 - 0.22 * Math.sin(u * Math.PI * 2.2) ** 2 * (1 - u) // achata como quem gira no próprio eixo
-    const tf = `translate(${x}px, ${y}px) rotate(${(bank + sway).toFixed(2)}deg) scale(${scale.toFixed(3)}, ${(scale * roll).toFixed(3)})`
-    ship.style.transform = tf
-    ship.style.filter = `blur(${(u ** 3 * 6).toFixed(2)}px)`
-    flame.style.scale = `${(0.75 + Math.random() * 0.5 + u).toFixed(2)} ${(0.85 + Math.random() * 0.3).toFixed(2)}`
-
-    // Rastro: cópias que repetem onde a nave esteve alguns quadros atrás
-    trail.unshift(tf)
-    if (trail.length > 12) trail.pop()
-    ghosts.forEach((g, i) => {
-      const old = trail[(i + 1) * 3]
-      if (!old) return
-      g.style.transform = old
-      g.style.opacity = String(Number(g.dataset.o) * (1 - u * 0.6))
-    })
-
-    // Linhas de velocidade e um tremor leve quando ela já está perto
-    lines.style.opacity = String((smooth(clamp01((u - 0.35) / 0.5)) * 0.9).toFixed(3))
-    lines.style.transform = `scale(${(1 + u * 0.6).toFixed(3)}) rotate(${(u * 8).toFixed(2)}deg)`
-    const shake = smooth(clamp01((u - 0.5) / 0.5)) * 5
-    frameEl.style.translate = `${((Math.random() - 0.5) * shake).toFixed(1)}px ${((Math.random() - 0.5) * shake).toFixed(1)}px`
-
-    // O cartão fica para trás: recua e escurece
-    pane.style.transform = `scale(${(1 - 0.06 * k).toFixed(4)})`
-    pane.style.filter = `brightness(${(1 - 0.5 * k).toFixed(3)})`
-
-    // Quando a nave já tapa a tela, o véu fecha
-    veil.style.opacity = String(smooth(clamp01((u - 0.72) / 0.28)))
-
-    if (u < 1) return void requestAnimationFrame(frame)
-    go()
-    window.setTimeout(() => {
-      ship.remove()
-      lines.remove()
-      ghosts.forEach((g) => g.remove())
-      veil.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 480, fill: 'forwards' }).finished.then(() => veil.remove())
-    }, 60)
+  ship.append(flame, img)
+  // Vira a nave para um lado: espelha a imagem e põe a chama na traseira
+  const face = (side: 1 | -1) => {
+    img.style.transform = `scaleX(${-side})`
+    flame.style.left = `${50 - side * 44}%`
+    flame.style.top = '34%'
+    flame.style.transformOrigin = side === 1 ? '100% 50%' : '0 50%'
+    flame.dataset.side = side === 1 ? 'back-left' : 'back-right'
   }
-  requestAnimationFrame(frame)
+  face(dir)
+
+  const ns = 'http://www.w3.org/2000/svg'
+  const svg = document.createElementNS(ns, 'svg')
+  svg.setAttribute('class', 'tow-line')
+  const cable = document.createElementNS(ns, 'path')
+  const spark = document.createElementNS(ns, 'circle')
+  spark.setAttribute('r', '0')
+  svg.append(cable, spark)
+  document.body.append(svg, ship)
+  rest.style.visibility = 'hidden'
+
+  let bank = 0
+  let last = performance.now()
+  const tilt = (target: number, now: number) => {
+    bank += (target - bank) * (1 - Math.exp(-(now - last) / 140))
+    last = now
+    return bank
+  }
+  const flicker = (boost: number) =>
+    (flame.style.scale = `${(0.8 + Math.random() * 0.4 + boost).toFixed(2)} ${(0.85 + Math.random() * 0.3).toFixed(2)}`)
+
+  // 1) Saída: acelera na direção do nariz, subindo um pouco, até sumir pela borda
+  const start = { x: r.left + w / 2, y: r.top + h / 2 }
+  const out = { x: dir === 1 ? W + w * 0.8 : -w * 0.8, y: start.y - H * 0.12 }
+  const A = 420
+  const tA = performance.now()
+  const exit = (now: number) => {
+    const u = clamp01((now - tA) / A)
+    const k = u * u * (1.6 - 0.6 * u) // arranca e acelera
+    const x = start.x + (out.x - start.x) * k
+    const y = start.y + (out.y - start.y) * smooth(u)
+    const b = tilt(-dir * 10 * Math.sin(Math.PI * u), now) // nariz para cima na subida
+    ship.style.transform = `translate(${x}px, ${y}px) rotate(${b.toFixed(2)}deg) scale(${(1 + 0.15 * u).toFixed(3)})`
+    flicker(u * 1.2)
+    pane.style.transform = `scale(${(1 - 0.03 * u).toFixed(4)})`
+    if (u < 1) return void requestAnimationFrame(exit)
+    swap()
+  }
+
+  // 2) Troca: monta a página do módulo, guarda uma cópia do banner por baixo e põe a página fora da tela
+  const under = document.createElement('div')
+  under.className = 'tow-under'
+  const swap = () => {
+    const copy = banner.cloneNode(true) as HTMLElement
+    copy.removeAttribute('id')
+    copy.querySelectorAll('[id]').forEach((n) => n.removeAttribute('id'))
+    under.append(copy)
+    document.body.append(under)
+    go()
+    window.scrollTo({ top: 0, behavior: 'instant' })
+    const id = banner.dataset.module
+    const t0 = performance.now()
+    const wait = () => {
+      const app = document.querySelector<HTMLElement>(`.app[data-module="${id}"]`)
+      if (app) return tow(app)
+      if (performance.now() - t0 < 800) return void requestAnimationFrame(wait)
+      finish(null)
+    }
+    requestAnimationFrame(wait)
+  }
+
+  // 3) Volta: a nave entra pelo mesmo lado, agora de frente para dentro, puxando a página pelo cabo
+  const tow = (app: HTMLElement) => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+    Object.assign(app.style, { position: 'relative', zIndex: '99', willChange: 'transform', boxShadow: '0 0 80px rgba(0,0,0,.7)' })
+    face(dir === 1 ? -1 : 1)
+    bank = 0
+    const from = dir === 1 ? W + w * 0.7 : -w * 0.7
+    const gap = 80 // comprimento do cabo esticado
+    // Ponto em que a página encaixa (a beirada chega na borda da tela); a nave chega nele a 80% do caminho
+    // e usa o resto para soltar o cabo e sair embalada
+    const lockAt = dir === 1 ? -gap - w * 0.55 : W + gap + w * 0.55
+    const to = from + (lockAt - from) / 0.8
+    const B = 1050
+    const tB = performance.now()
+    let locked = 0 // instante em que a página encaixou e o cabo soltou
+    const step = (now: number) => {
+      const u = clamp01((now - tB) / B)
+      // Entra embalada, perde velocidade enquanto arrasta o peso da página e, solta, acelera de novo para sair
+      const k = u + 0.12 * Math.sin(2 * Math.PI * u)
+      const x = from + (to - from) * k
+      const y = H * 0.4 - Math.sin(Math.PI * u) * H * 0.06
+      const b = tilt(dir * 6 * Math.cos(Math.PI * u), now) // leve mergulho e subida ao cruzar a tela
+      ship.style.transform = `translate(${x}px, ${y}px) rotate(${b.toFixed(2)}deg) scale(1.2)`
+      flicker(0.6)
+
+      // Traseira da nave (do lado de onde veio) e a beirada da página, que segue o cabo até encaixar
+      const tail = x + dir * w * 0.55
+      const edge = dir === 1 ? Math.max(0, tail + gap) : Math.min(W, tail - gap)
+      app.style.transform = `translateX(${dir === 1 ? edge : edge - W}px)`
+      under.style.filter = `brightness(${(0.4 + 0.6 * Math.abs(dir === 1 ? edge : W - edge) / W).toFixed(3)})`
+      if (!locked && (dir === 1 ? edge <= 0 : edge >= W)) locked = now
+
+      const slack = locked ? clamp01((now - locked) / 180) : 0
+      const hook = { x: edge, y: y + 18 }
+      cable.setAttribute('d', `M${tail} ${y + 6}Q${(tail + hook.x) / 2} ${(y + hook.y) / 2 + 10 + slack * 30} ${hook.x} ${hook.y}`)
+      cable.setAttribute('stroke-opacity', String(1 - slack))
+      spark.setAttribute('cx', String(hook.x))
+      spark.setAttribute('cy', String(hook.y))
+      spark.setAttribute('r', String(locked ? 14 * Math.sin(Math.PI * slack) : 0))
+
+      if (u < 1) return void requestAnimationFrame(step)
+      finish(app)
+    }
+    requestAnimationFrame(step)
+  }
+
+  const finish = (app: HTMLElement | null) => {
+    if (app) Object.assign(app.style, { position: '', zIndex: '', willChange: '', boxShadow: '', transform: '' })
+    ship.remove()
+    svg.remove()
+    under.remove()
+  }
+
+  requestAnimationFrame(exit)
 }
 
 function Credit({ art }: { art: Artwork }) {

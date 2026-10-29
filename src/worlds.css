@@ -1844,7 +1844,7 @@
   border-radius: 0.2rem;
 }
 
-/* A nave que voa até a tela (HomePage.tsx, flyIn) e o véu da passagem: soltos sobre a tela inteira */
+/* A nave que sai e volta puxando a página do módulo (HomePage.tsx, flyIn): soltos sobre a tela inteira */
 .tow-ship {
   position: fixed;
   z-index: 101;
@@ -1860,11 +1860,10 @@
   height: 100%;
   filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.55));
 }
-.fly-ghost {
-  z-index: 100;
-}
-.fly-ghost img {
-  filter: blur(2px) saturate(1.4);
+/* Pixel art: cada pixel vira um bloco nítido, por maior que a nave fique */
+.pixel,
+.tow-ship img {
+  image-rendering: pixelated;
 }
 /* Chama do motor: um jato curto e quente, que tremula (a escala muda a cada quadro em flyIn) */
 .fly-flame {
@@ -1884,24 +1883,37 @@
   translate: -100% -50%;
   background: radial-gradient(ellipse at 100% 50%, #fff6d8 0, #ffc04a 22%, rgba(238, 90, 53, 0.75) 48%, transparent 72%);
 }
-/* Linhas de velocidade que saem do centro quando a nave já vem em cima de nós */
-.fly-lines {
+/* Cabo que prende a página do módulo à nave */
+.tow-line {
   position: fixed;
-  z-index: 99;
-  inset: -25%;
-  pointer-events: none;
-  opacity: 0;
-  background: repeating-conic-gradient(from 0deg at 50% 48%, transparent 0 2.2deg, rgba(241, 233, 214, 0.18) 2.2deg 2.6deg, transparent 2.6deg 5deg);
-  -webkit-mask-image: radial-gradient(circle at 50% 48%, transparent 14%, #000 46%);
-  mask-image: radial-gradient(circle at 50% 48%, transparent 14%, #000 46%);
-}
-.tow-veil {
-  position: fixed;
-  z-index: 102;
+  z-index: 100;
   inset: 0;
-  background: #0b0a0a;
-  opacity: 0;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
+}
+.tow-line path {
+  fill: none;
+  stroke: #f1e9d6;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+.tow-line circle {
+  fill: #fff3d8;
+  filter: drop-shadow(0 0 8px #f2c230);
+}
+/* Cópia do banner que fica por baixo enquanto a página do módulo entra */
+.tow-under {
+  position: fixed;
+  z-index: 98;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.tow-under > .banner {
+  position: absolute;
+  inset: 0;
+  height: 100%;
 }
 
 /* =====================================================================================================
