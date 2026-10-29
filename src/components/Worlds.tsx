@@ -55,7 +55,7 @@ export function Flare({ className = '', style }: { className?: string; style?: C
 export function CosmosHeader({ mod, groupCount, pct = 0 }: HeaderProps) {
   return (
     <div className="cos-poster" style={{ '--len': mod.short.length, '--orbit': `${pct}%` } as CSSProperties}>
-      <img src={backdrops.profissional.images[0].src} alt="" className="cos-art" aria-hidden="true" />
+      <img src={backdrops.profissional.images[1].src} alt="" className="cos-art" aria-hidden="true" />
       <span className="cos-mist" aria-hidden="true" />
       <span className="cos-mist cos-mist-2" aria-hidden="true" />
       <Stars n={34} seed={3} className="cos-stars" />
@@ -248,7 +248,7 @@ export function BannerBackdrop({ world }: { world: AppModule['world'] }) {
   if (world === 'cosmos') {
     return (
       <div className="banner-theme" aria-hidden="true">
-        <img src={backdrops.profissional.images[0].src} alt="" className="bt-cos-img" loading="lazy" decoding="async" />
+        <img src={backdrops.profissional.images[1].src} alt="" className="bt-cos-img" loading="lazy" decoding="async" />
         <span className="cos-mist" />
         <span className="cos-mist cos-mist-2" />
         <Stars n={40} seed={9} className="cos-stars" />

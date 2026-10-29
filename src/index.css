@@ -1215,3 +1215,21 @@ textarea {
     min-height: 2.75rem;
   }
 }
+
+/* Logo → início: o selo gira e a página some (App.tsx, useGoHome) */
+.app[data-leaving] .brand svg {
+  animation: logo-spin 0.52s cubic-bezier(0.5, 0, 0.2, 1) forwards;
+}
+.app[data-leaving] main,
+.app[data-leaving] .tbg {
+  opacity: 0;
+  transform: scale(0.985);
+  transition:
+    opacity 0.45s ease 0.07s,
+    transform 0.5s ease;
+}
+@keyframes logo-spin {
+  to {
+    transform: rotate(360deg) scale(1.15);
+  }
+}

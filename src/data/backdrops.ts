@@ -83,10 +83,10 @@ export const backdrops: Record<string, Backdrop> = {
     tag: 'OBSERVATÓRIO · DADOS + IA',
     images: [
       { src: cosmosCidade, pos: '50% 78%', tint: '#ece4cf' },
-      { src: cosmosSolNuvens, pos: '50% 40%', tint: '#ee5a35' },
-      { src: cosmosTerraCruz, pos: '50% 50%', tint: '#f0a860' },
-      { src: cosmosNebulosa, pos: '50% 35%', tint: '#a58bff' },
-      { src: cosmosSolSepia, pos: '50% 45%', tint: '#ee5a35' },
+      { src: cosmosSolNuvens, pos: '50% 75%', tint: '#ee5a35' },
+      { src: cosmosTerraCruz, pos: '50% 62%', tint: '#f0a860' },
+      { src: cosmosNebulosa, pos: '50% 55%', tint: '#a58bff' },
+      { src: cosmosSolSepia, pos: '50% 55%', tint: '#ee5a35' },
     ],
   },
   // Repertório: os pôsteres de Cowboy Bebop

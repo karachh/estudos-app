@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Link, NavLink, Navigate, Route, Routes, useMatch } from 'react-router-dom'
+import { useRef, useState, type MouseEvent } from 'react'
+import { Link, NavLink, Navigate, Route, Routes, useMatch, useNavigate } from 'react-router-dom'
 import { Icon, type IconName } from './components/Icon'
 import { Logo } from './components/Logo'
 import { ThemeBackdrop } from './components/ThemeBackdrop'
@@ -56,11 +56,28 @@ function useRail() {
   return { collapsed, toggle }
 }
 
+// Logo → início com uma saída curta: o selo gira e a página some antes de trocar de tela
+function useGoHome() {
+  const navigate = useNavigate()
+  const [leaving, setLeaving] = useState(false)
+  const timer = useRef(0)
+  const go = (e: MouseEvent) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    e.preventDefault()
+    if (leaving) return
+    setLeaving(true)
+    timer.current = window.setTimeout(() => navigate('/'), 520)
+  }
+  return { leaving, go }
+}
+
 export default function App() {
   const current = getModule(useMatch('/:moduleId/*')?.params.moduleId) ?? modules[0]
   const { collapsed, toggle } = useRail()
   const home = useMatch('/')
   const backdrop = backdrops[current.id]
+  const { leaving, go } = useGoHome()
 
   // A página inicial ocupa a tela inteira, sem lateral nem abas
   if (home) {
@@ -76,6 +93,7 @@ export default function App() {
       data-module={current.id}
       data-world={current.world}
       data-backdrop={backdrop ? '' : undefined}
+      data-leaving={leaving ? '' : undefined}
       className={`app min-h-dvh bg-bg md:grid ${collapsed ? 'md:grid-cols-[4.5rem_minmax(0,1fr)]' : 'md:grid-cols-[15.5rem_minmax(0,1fr)]'}`}
     >
       {backdrop && <ThemeBackdrop backdrop={backdrop} />}
@@ -83,7 +101,7 @@ export default function App() {
       {/* Navegação lateral (desktop), recolhível */}
       <aside className="sticky top-0 hidden h-dvh flex-col border-r border-line bg-(--rail) py-5 md:flex">
         <div className={`mb-7 flex items-center ${collapsed ? 'flex-col gap-3 px-2' : 'justify-between pl-5 pr-3'}`}>
-          <Link to="/" className="brand flex items-center gap-2.5 text-brand" title="Início" aria-label={collapsed ? 'Início' : undefined}>
+          <Link to="/" onClick={go} className="brand flex items-center gap-2.5 text-brand" title="Início" aria-label={collapsed ? 'Início' : undefined}>
             <Logo className="size-8" />
             {!collapsed && 'Estudos'}
           </Link>
@@ -125,7 +143,7 @@ export default function App() {
 
       {/* Barra superior (celular) */}
       <header className="flex items-center justify-between border-b border-line bg-(--rail) px-4 py-2 md:hidden">
-        <Link to="/" className="brand flex items-center gap-2 text-2xl" title="Início">
+        <Link to="/" onClick={go} className="brand flex items-center gap-2 text-2xl" title="Início">
           <Logo className="size-7" />
           Estudos
         </Link>
