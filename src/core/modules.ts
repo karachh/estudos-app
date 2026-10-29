@@ -82,11 +82,6 @@ export const modules: AppModule[] = [
     overview: true,
     sections: [
       {
-        title: 'Por tema',
-        hint: 'Newsletters, vídeos e artigos sobre cada assunto',
-        groups: ['Saúde e longevidade', 'Mente e bem-estar', 'Comportamento e comunicação', 'IA: bastidores e debates'],
-      },
-      {
         title: 'Por formato',
         hint: 'Documentários, podcasts, séries, canais e livros',
         groups: ['Documentários e filmes', 'Podcasts', 'Séries', 'Canais e artigos', 'Literatura e fé'],
@@ -95,7 +90,7 @@ export const modules: AppModule[] = [
     world: 'bebop',
     label: 'Repertório',
     short: 'Repertório',
-    tagline: 'Saúde, mente, comportamento, IA e documentários: o que vale ler, ver e ouvir',
+    tagline: 'Saúde, comportamento, documentários e cultura',
     groupLabel: 'categoria',
     newGroup: 'Nova categoria',
     topicLabel: 'item',

@@ -100,6 +100,24 @@ async function applyContent() {
       const old = groups.find((g) => g.title === 'Sentimentos humanos')
       if (old && !groups.some((g) => g.title === 'Nosso coração')) await db.groups.update(old.id, { title: 'Nosso coração' })
     }
+    // v6: o dono renomeou o assunto "Teologia pura" da Igreja para "Teologia" (29/10/2026)
+    if (done < 6) {
+      const groups = await db.groups.where('moduleId').equals('igreja').toArray()
+      const old = groups.find((g) => g.title === 'Teologia pura')
+      if (old && !groups.some((g) => g.title === 'Teologia')) await db.groups.update(old.id, { title: 'Teologia' })
+    }
+    // v7: o dono tirou a seção "Por tema" do Repertório (29/10/2026). Grupo com item marcado fica, para não perder progresso.
+    if (done < 7) {
+      const gone = ['Saúde e longevidade', 'Mente e bem-estar', 'Comportamento e comunicação', 'IA: bastidores e debates']
+      const groups = await db.groups.where('moduleId').equals('cultura').filter((g) => gone.includes(g.title)).toArray()
+      for (const g of groups) {
+        const topics = await db.topics.where('groupId').equals(g.id).toArray()
+        const marked = await db.checks.where('topicId').anyOf(topics.map((t) => t.id)).filter((c) => c.done).count()
+        if (marked) continue
+        for (const t of topics) await deleteTopicData(t.id)
+        await db.groups.delete(g.id)
+      }
+    }
     for (const c of contentModules) await applyModule(c)
     await db.meta.put({ key: CONTENT_KEY, value: CONTENT_VERSION })
   })

@@ -36,7 +36,7 @@ export const groupArt: Record<string, Record<string, Artwork>> = {
       source: 'https://commons.wikimedia.org/wiki/File:Supper_at_Emmaus-Caravaggio_(1601).jpg',
       position: '52% 30%',
     },
-    'Teologia pura': {
+    Teologia: {
       src: aquinas,
       credit: 'Carlo Crivelli, São Tomás de Aquino, 1476',
       source: 'https://commons.wikimedia.org/wiki/File:St-thomas-aquinas.jpg',

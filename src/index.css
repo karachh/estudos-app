@@ -1233,3 +1233,67 @@ textarea {
     transform: rotate(360deg) scale(1.15);
   }
 }
+
+/* Capa: relevo sob o título (BumpTitle em Cover.tsx). --w (0 a 1) é a altura da lombada sob cada letra. */
+.bump {
+  position: relative;
+  display: inline-block;
+}
+.bump-row {
+  display: inline-flex;
+}
+.bump-l {
+  --w: 0;
+  display: inline-block;
+  transform: translateY(calc(var(--w) * -0.17em)) scale(calc(1 + var(--w) * 0.07));
+  transform-origin: 50% 100%;
+  text-shadow: 0 calc(var(--w) * 0.12em) calc(var(--w) * 0.18em) rgba(0, 0, 0, 0.55);
+  transition:
+    transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+    text-shadow 0.28s ease;
+}
+/* As letras que sobem saem da caixa da faixa */
+.film-section .band {
+  overflow: visible;
+}
+
+/* Entrada da capa: o título e a etiqueta deslizam para o lugar, um depois do outro */
+@keyframes box-in {
+  from {
+    opacity: 0;
+    transform: translateY(2.5rem);
+  }
+}
+.film-section .band {
+  animation: box-in 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s both;
+}
+.film-section .sticker {
+  animation: box-in 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.35s both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .film-section .band,
+  .film-section .sticker {
+    animation: none;
+  }
+  .bump-l {
+    transition: none;
+  }
+}
+
+/* Rolagem com "trava": um ponto de parada por tela; passa de uma tela por gesto, em vez de atravessar várias */
+.home {
+  position: relative;
+}
+.snap-mark {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  top: calc(var(--i) * max(100svh, 34rem));
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  pointer-events: none;
+}
+html[data-snap] {
+  scroll-snap-type: y mandatory;
+}

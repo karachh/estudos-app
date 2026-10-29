@@ -44,7 +44,7 @@ export const igreja: ModuleContent = {
       ],
     },
     {
-      title: 'Teologia pura',
+      title: 'Teologia',
       subtitle: 'Doutrina, Bíblia e história da Igreja',
       description:
         'Ordem sugerida: fundamentos, depois doutrina, depois aprofundamento e, por último, história e apologética. Um curso por vez; ritmo de 1 a 2 aulas por dia nos dias úteis.',

@@ -187,7 +187,7 @@
 .bt-kanji {
   position: absolute;
   top: 10%;
-  left: calc(3.5vw + 13.5rem);
+  left: 3.5vw;
   writing-mode: vertical-rl;
   font-family: 'Yu Mincho', 'Hiragino Mincho ProN', 'Noto Serif CJK JP', 'Noto Serif JP', serif;
   font-weight: 900;
@@ -200,7 +200,7 @@
 .bt-alert {
   position: absolute;
   bottom: 12%;
-  left: calc(3.5vw + 13.5rem);
+  left: 3.5vw;
   font-family: 'Yu Mincho', 'Hiragino Mincho ProN', 'Noto Serif CJK JP', 'Noto Serif JP', serif;
   font-weight: 900;
   font-size: min(5rem, 8vw);
@@ -325,22 +325,8 @@
   justify-content: space-between;
   gap: 1rem 1.5rem;
 }
-.office-sign {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7rem;
-  padding: 0.3rem 0.5rem 0.3rem 0.9rem;
-  border-radius: 0.55rem;
-  background: #262634;
-  color: #efe2c4;
-  font-family: 'Barlow', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 600;
-  line-height: 1.1;
-}
 .office-title {
   display: inline-block;
-  margin-top: 0.9rem;
   font-family: 'Krona One', sans-serif;
   font-weight: 400;
   text-transform: uppercase;
@@ -377,29 +363,6 @@
 }
 .office-title::after {
   margin-top: 0.22em;
-}
-.office-stamp {
-  display: grid;
-  justify-items: center;
-  gap: 0.15rem;
-  padding: 0.5rem 0.85rem;
-  border: 2px solid #262634;
-  outline: 2px solid #262634;
-  outline-offset: 3px;
-  background: #efe2c4;
-  font-family: 'Special Elite', monospace;
-  font-size: 0.72rem;
-  line-height: 1.2;
-  text-align: center;
-  text-transform: uppercase;
-  transform: rotate(4deg);
-}
-.office-stamp strong {
-  font-family: 'Anton', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  color: #d9432f;
 }
 .office-faces {
   display: grid;
@@ -1802,24 +1765,6 @@
 .banner-bebop .banner-frame {
   background: #0b0a0a;
 }
-.bt-bb-img {
-  position: absolute;
-  left: calc(3.5vw + 14rem);
-  top: 9%;
-  bottom: 16%;
-  width: min(22rem, 24vw);
-  object-fit: cover;
-  object-position: 50% 30%;
-  border: 2px solid #f1e9d6;
-  box-shadow: 8px 8px 0 #d9382c;
-  transform: rotate(-2deg);
-  animation: bt-float 9s ease-in-out infinite alternate;
-}
-@keyframes bt-float {
-  to {
-    transform: rotate(-0.6deg) translateY(-0.6rem);
-  }
-}
 .bt-bb-blocks {
   position: absolute;
   left: 0;
@@ -1840,25 +1785,27 @@
     transform: scaleY(2.2);
   }
 }
-.bt-bb-tag {
-  position: absolute;
-  left: calc(3.5vw + 14rem);
-  bottom: 5%;
-  font-family: 'Newsreader Variable', Georgia, serif;
-  font-style: italic;
-  font-size: 1.4rem;
-  color: #f1e9d6;
-  opacity: 0.85;
-}
-/* A nave espera colada na beirada livre do cartão, de frente para fora; é daí que ela engata o cabo */
+/* A nave espera ao lado do cartão; dá para arrastá-la (DragShip em Worlds.tsx) e é dela que sai o voo até a tela */
 .bt-ship {
   position: absolute;
+  z-index: 3;
   right: calc(min(31rem, 42vw) + 1.5rem);
   bottom: 22%;
   width: min(22rem, 28vw);
   height: auto;
   scale: -1 1;
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: rotate 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
   animation: ship-bob 5s ease-in-out infinite;
+}
+.bt-ship[data-drag] {
+  cursor: grabbing;
+  transition: rotate 0.12s linear;
+  filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.5));
 }
 .banner[data-side='left'] .bt-ship {
   right: auto;
@@ -1875,10 +1822,6 @@
   }
 }
 @media (max-width: 767px) {
-  .bt-bb-img,
-  .bt-bb-tag {
-    display: none;
-  }
   .bt-ship {
     left: auto;
     right: 4%;
@@ -1901,7 +1844,7 @@
   border-radius: 0.2rem;
 }
 
-/* A nave que puxa o cartão (HomePage.tsx, towAway): ficam soltas sobre a tela inteira */
+/* A nave que voa até a tela (HomePage.tsx, flyIn) e o véu da passagem: soltos sobre a tela inteira */
 .tow-ship {
   position: fixed;
   z-index: 101;
@@ -1917,30 +1860,40 @@
   height: 100%;
   filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.55));
 }
-.tow-trail {
-  position: absolute;
-  top: 46%;
-  height: 3px;
-  border-radius: 2px;
-}
-.tow-line {
-  position: fixed;
+.fly-ghost {
   z-index: 100;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
+}
+.fly-ghost img {
+  filter: blur(2px) saturate(1.4);
+}
+/* Chama do motor: um jato curto e quente, que tremula (a escala muda a cada quadro em flyIn) */
+.fly-flame {
+  position: absolute;
+  width: 34%;
+  height: 16%;
+  translate: -50% -50%;
+  border-radius: 50%;
   pointer-events: none;
+  mix-blend-mode: screen;
 }
-.tow-line path {
-  fill: none;
-  stroke: #f1e9d6;
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-opacity: 0;
+.fly-flame[data-side='back-right'] {
+  translate: 0 -50%;
+  background: radial-gradient(ellipse at 0 50%, #fff6d8 0, #ffc04a 22%, rgba(238, 90, 53, 0.75) 48%, transparent 72%);
 }
-.tow-line circle {
-  fill: #fff3d8;
-  filter: drop-shadow(0 0 8px #f2c230);
+.fly-flame[data-side='back-left'] {
+  translate: -100% -50%;
+  background: radial-gradient(ellipse at 100% 50%, #fff6d8 0, #ffc04a 22%, rgba(238, 90, 53, 0.75) 48%, transparent 72%);
+}
+/* Linhas de velocidade que saem do centro quando a nave já vem em cima de nós */
+.fly-lines {
+  position: fixed;
+  z-index: 99;
+  inset: -25%;
+  pointer-events: none;
+  opacity: 0;
+  background: repeating-conic-gradient(from 0deg at 50% 48%, transparent 0 2.2deg, rgba(241, 233, 214, 0.18) 2.2deg 2.6deg, transparent 2.6deg 5deg);
+  -webkit-mask-image: radial-gradient(circle at 50% 48%, transparent 14%, #000 46%);
+  mask-image: radial-gradient(circle at 50% 48%, transparent 14%, #000 46%);
 }
 .tow-veil {
   position: fixed;
@@ -2117,7 +2070,6 @@
   .bb-vu i,
   .bb-ticker span,
   .session-tab::after,
-  .bt-bb-img,
   .bt-bb-blocks i,
   .bt-ship,
   .band-cosmos::before,
@@ -2132,5 +2084,191 @@
   }
   .bb-ship {
     left: 52%;
+  }
+}
+
+/* =====================================================================================================
+   Cartões da página inicial: títulos e marcadores de cada mundo
+   ===================================================================================================== */
+
+/* UEM: o título do cartão ganha o glitch e a divisão de cor da faixa, e cada disciplina um hexágono */
+.banner-eva .pane h2 {
+  color: #f2eefc;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-shadow:
+    0.04em 0 0 rgba(255, 59, 48, 0.8),
+    -0.03em 0 0 rgba(140, 240, 58, 0.4);
+  animation: eva-glitch 7s steps(1) infinite;
+}
+.banner-eva .pane h2::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin-top: 0.6rem;
+  background: linear-gradient(90deg, #ff3b30, rgba(255, 59, 48, 0));
+  box-shadow: 0 0 10px rgba(255, 59, 48, 0.6);
+}
+.banner-eva .pane ul li:not(.text-ink-3) {
+  position: relative;
+  padding-left: 1.4rem;
+}
+.banner-eva .pane ul li:not(.text-ink-3)::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.28em;
+  width: 0.8rem;
+  height: 0.92rem;
+  background: var(--accent);
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  filter: drop-shadow(0 0 4px rgba(169, 139, 255, 0.7));
+}
+
+/* Igreja: o título do cartão usa a fonte e o dourado do título da faixa */
+.banner[data-module='igreja'] .pane h2 {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 700;
+  color: #dcaa3c;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 0.6em rgba(220, 170, 60, 0.25);
+}
+
+/* Repertório: o título do cartão leva a tinta falhada e a sombra vermelha da faixa */
+.banner-bebop .pane h2 {
+  color: #f1e9d6;
+  text-shadow: 0.04em 0.04em 0 #d9382c;
+  filter: url(#bb-ink);
+}
+/* Repertório: o pôster ampliado cobre a tela inteira e vai deslizando devagar (Spike e os retratos coloridos passam
+   por trás). A retícula de pontos e as sombras o fundem no preto do cartão à direita e na faixa de cores embaixo. */
+.bt-bb-bg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: calc(100% - min(31rem, 42vw) + 4rem);
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 28%;
+  filter: saturate(1.15) contrast(1.08) brightness(0.85);
+  transform-origin: 55% 40%;
+  -webkit-mask-image: linear-gradient(90deg, #000 78%, transparent);
+  mask-image: linear-gradient(90deg, #000 78%, transparent);
+  animation: bb-pan 40s ease-in-out infinite alternate;
+}
+@keyframes bb-pan {
+  from {
+    transform: scale(1.04) translate(1%, 1%);
+  }
+  to {
+    transform: scale(1.14) translate(-1.5%, -2.5%);
+  }
+}
+.bt-bb-wash {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle, rgba(11, 10, 10, 0.45) 1px, transparent 1.6px) 0 0 / 5px 5px,
+    linear-gradient(0deg, #0b0a0a 0, rgba(11, 10, 10, 0.6) 14%, transparent 36%),
+    linear-gradient(180deg, rgba(11, 10, 10, 0.55) 0, transparent 22%),
+    linear-gradient(90deg, rgba(11, 10, 10, 0.45) 0, transparent 18%, transparent 52%, rgba(11, 10, 10, 0.7) 66%);
+}
+/* Grão quente por cima, como papel impresso */
+.bt-bb-wash::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(242, 194, 48, 0.1), transparent 45%, rgba(217, 56, 44, 0.12));
+  mix-blend-mode: overlay;
+}
+@media (max-width: 767px) {
+  .bt-bb-bg {
+    width: 100%;
+    object-position: 55% 20%;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .bt-bb-wash {
+    background:
+      radial-gradient(circle, rgba(11, 10, 10, 0.45) 1px, transparent 1.6px) 0 0 / 5px 5px,
+      linear-gradient(0deg, #0b0a0a 30%, transparent 70%);
+  }
+}
+
+/* Trabalho (módulo): os assuntos (Java, Spring...) usam o letreiro do título do módulo */
+[data-world='office'] section[id^='group-'] h2.display {
+  font-family: 'Krona One', sans-serif;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bt-bb-bg,
+  .banner-eva .pane h2 {
+    animation: none;
+  }
+}
+
+/* UEM: o EVA abre e fecha a boca no fundo do banner, com o olho vermelho de quando é dominado. São três quadros
+   gerados da mesma pintura (eva-lua-boca-*.jpg; o script que os gera está em ../estudos-app-teste/eva-boca-gerar.py).
+   A caixa (.eva-stack) leva a opacidade e a máscara do .bt-img; dentro, o quadro fechado fica sempre visível e os
+   outros dois acendem por cima, de uma vez (step-end), com um tranco da cabeça: o movimento seco de um animatrônico. */
+.eva-stack {
+  display: block;
+  animation: eva-twitch 3s step-end infinite;
+}
+.eva-stack img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+}
+.eva-f1,
+.eva-f2 {
+  opacity: 0;
+  will-change: opacity;
+  animation: 3s step-end infinite;
+}
+.eva-f1 {
+  animation-name: eva-f1;
+}
+.eva-f2 {
+  animation-name: eva-f2;
+}
+@keyframes eva-f1 {
+  0% { opacity: 0; }
+  24% { opacity: 1; }
+  27% { opacity: 0; }
+  54.7% { opacity: 1; }
+  57.7% { opacity: 0; }
+  63.9% { opacity: 1; }
+  66.9% { opacity: 0; }
+  70% { opacity: 1; }
+  73.1% { opacity: 0; }
+}
+@keyframes eva-f2 {
+  0% { opacity: 0; }
+  27% { opacity: 1; }
+  54.7% { opacity: 0; }
+  57.7% { opacity: 1; }
+  63.9% { opacity: 0; }
+}
+@keyframes eva-twitch {
+  0% { translate: 0 0; }
+  27% { translate: 4px 3px; }
+  31.7% { translate: 1px 1px; }
+  57.7% { translate: -3px 2px; }
+  60.8% { translate: 0 0; }
+  73.1% { translate: 2px -1px; }
+  76.1% { translate: 0 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .eva-stack,
+  .eva-f1,
+  .eva-f2 {
+    animation: none;
   }
 }

@@ -1,13 +1,12 @@
 import { Fragment, useState, type CSSProperties } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { AddForm } from '../components/AddForm'
-import { Band, Film } from '../components/Cover'
+import { Film } from '../components/Cover'
 import { CourseMap } from '../components/CourseMap'
 import { Icon } from '../components/Icon'
 import { Fraction, Orbit, ProgressMark, Punches, Sparkle } from '../components/Marks'
 import { ThemeBoard } from '../components/ThemeBoard'
 import { BebopHeader, CosmosHeader, EvaHeader, OfficeHeader } from '../components/Worlds'
-import { plural } from '../core/geometry'
 import { db, deleteTopicData, type Group, type ResourceKind, type Topic } from '../core/db'
 import { getModule, type AppModule } from '../core/modules'
 import { sumProgress, useModuleData, type Progress } from '../core/queries'
@@ -232,8 +231,6 @@ function SacredHeader({ mod }: { mod: AppModule }) {
       <div className="relative flex min-h-[23rem] flex-col justify-end px-6 pb-7 pt-14 text-[#f0e7cf] md:min-h-[26rem] md:px-10">
         <h1 className="cinzel relative self-start leading-[0.95]">
           {mod.label}
-          <Sparkle size={22} className="absolute -right-8 -top-3 text-accent" />
-          <Sparkle size={11} className="absolute -right-11 top-5 text-accent" />
         </h1>
         <p className="italic-serif mt-3 max-w-[26rem] text-lead leading-snug">{mod.tagline}</p>
         <p className="mt-6 text-xs text-[#c9bf9f]">
@@ -248,15 +245,12 @@ function SacredHeader({ mod }: { mod: AppModule }) {
 }
 
 // Provisório, até o módulo ganhar um mundo próprio: o cabeçalho repete a capa dele na página inicial.
-function FilmHeader({ mod, groupCount }: { mod: AppModule; groupCount: number }) {
+function FilmHeader({ mod }: { mod: AppModule; groupCount: number }) {
   const art = landscapes[mod.id]
   return (
     <header>
       <div className="cover">
         <Film art={art} eager />
-        <div aria-hidden="true">
-          <Band title={mod.short} world="mapa" foot={`${groupCount} ${groupCount === 1 ? mod.groupLabel : plural(mod.groupLabel)}`} />
-        </div>
         <div className="sticker">
           <h1 className="gloock-text text-cover leading-tight">{mod.label}</h1>
           <p className="mt-2 text-ink-2">{mod.tagline}</p>

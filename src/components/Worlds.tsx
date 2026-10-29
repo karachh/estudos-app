@@ -1,5 +1,7 @@
-import { type CSSProperties } from 'react'
+import { useRef, type CSSProperties, type PointerEvent } from 'react'
 import swordfish from '../assets/bebop/swordfish.png'
+import evaAberta from '../assets/eva/eva-lua-boca-aberta.jpg'
+import evaMeia from '../assets/eva/eva-lua-boca-meia.jpg'
 import face1 from '../assets/trabalho/face-1.jpg'
 import face2 from '../assets/trabalho/face-2.jpg'
 import face3 from '../assets/trabalho/face-3.jpg'
@@ -8,7 +10,6 @@ import face5 from '../assets/trabalho/face-5.jpg'
 import type { AppModule } from '../core/modules'
 import { plural } from '../core/geometry'
 import { backdrops } from '../data/backdrops'
-import { Icon } from './Icon'
 import { Sparkle } from './Marks'
 
 // Cabeçalhos dos quatro mundos que trocam só a pele do mapa: cosmos (Profissional), bebop (Repertório),
@@ -211,23 +212,14 @@ const faces = [
   { src: face5, name: 'Michael Scott' },
 ]
 
-export function OfficeHeader({ mod, groupCount }: HeaderProps) {
+export function OfficeHeader({ mod }: HeaderProps) {
   return (
     <div className="office-poster" style={{ '--len': mod.short.length } as CSSProperties}>
       <span className="office-halftone" aria-hidden="true" />
       <div className="office-head">
         <div className="office-copy">
-          <p className="office-sign" aria-hidden="true">
-            <span>The Office</span>
-            <Icon name="office" size={34} />
-          </p>
           <h1 className="office-title">{mod.short}</h1>
         </div>
-        <p className="office-stamp" aria-hidden="true">
-          <span>Aprovado pelo</span>
-          <strong>código de Scranton</strong>
-          <span>{count(mod, groupCount)}</span>
-        </p>
       </div>
       <ul className="office-faces" aria-hidden="true">
         {faces.map((f, i) => (
@@ -261,14 +253,14 @@ export function BannerBackdrop({ world }: { world: AppModule['world'] }) {
       <div className="banner-theme" aria-hidden="true">
         <InkFilter />
         <Stars n={44} seed={2} className="bb-stars" />
-        <img src={backdrops.cultura.images[2].src} alt="" className="bt-bb-img" loading="lazy" decoding="async" />
+        <img src={backdrops.cultura.images[0].src} alt="" className="bt-bb-bg" loading="lazy" decoding="async" />
+        <span className="bt-bb-wash" />
         <span className="bt-bb-blocks">
           {VU.slice(0, 4).map((c, i) => (
             <i key={c} style={{ '--c': c, '--i': i } as CSSProperties} />
           ))}
         </span>
-        <img src={swordfish} alt="" className="swordfish bt-ship" loading="lazy" decoding="async" />
-        <span className="bt-bb-tag">See you space cowboy…</span>
+        <DragShip />
       </div>
     )
   }
@@ -277,7 +269,13 @@ export function BannerBackdrop({ world }: { world: AppModule['world'] }) {
       <div className="banner-theme" aria-hidden="true">
         <Hexes />
         <span className="eva-glow" />
-        <img src={backdrops.uem.images[3].src} alt="" className="bt-img" loading="lazy" decoding="async" />
+        {/* Três quadros da mesma pintura (boca fechada, meia e aberta, com o olho vermelho) trocados aos trancos,
+            como animatrônico. O fechado fica sempre embaixo; os outros só se acendem por cima, sem buraco entre eles. */}
+        <span className="bt-img eva-stack">
+          <img src={backdrops.uem.images[3].src} alt="" decoding="async" />
+          <img src={evaMeia} alt="" className="eva-f1" decoding="async" />
+          <img src={evaAberta} alt="" className="eva-f2" decoding="async" />
+        </span>
         <span className="bt-kanji" lang="ja">
           新世紀
         </span>
@@ -297,4 +295,47 @@ export function BannerBackdrop({ world }: { world: AppModule['world'] }) {
     )
   }
   return null
+}
+
+// A Swordfish II do banner do Repertório: dá para pegar e arrastar com o mouse (ou o dedo). Ela inclina conforme a
+// velocidade do arrasto e fica onde foi solta; é de lá que ela parte quando o módulo é aberto (flyIn em HomePage.tsx).
+function DragShip() {
+  const drag = useRef<{ x: number; y: number; dx: number; dy: number; lastX: number; t: number } | null>(null)
+  const pos = useRef({ x: 0, y: 0 })
+  const down = (e: PointerEvent<HTMLImageElement>) => {
+    e.currentTarget.setPointerCapture(e.pointerId)
+    e.currentTarget.dataset.drag = ''
+    drag.current = { x: e.clientX, y: e.clientY, dx: pos.current.x, dy: pos.current.y, lastX: e.clientX, t: performance.now() }
+  }
+  const move = (e: PointerEvent<HTMLImageElement>) => {
+    const d = drag.current
+    if (!d) return
+    pos.current = { x: d.dx + e.clientX - d.x, y: d.dy + e.clientY - d.y }
+    const now = performance.now()
+    const v = (e.clientX - d.lastX) / Math.max(1, now - d.t) // px por ms
+    d.lastX = e.clientX
+    d.t = now
+    const el = e.currentTarget
+    el.style.translate = `${pos.current.x}px ${pos.current.y}px`
+    el.style.rotate = `${Math.max(-18, Math.min(18, v * 9)).toFixed(1)}deg`
+  }
+  const up = (e: PointerEvent<HTMLImageElement>) => {
+    drag.current = null
+    delete e.currentTarget.dataset.drag
+    e.currentTarget.style.rotate = '0deg'
+  }
+  return (
+    <img
+      src={swordfish}
+      alt=""
+      className="swordfish bt-ship"
+      draggable={false}
+      loading="lazy"
+      decoding="async"
+      onPointerDown={down}
+      onPointerMove={move}
+      onPointerUp={up}
+      onPointerCancel={up}
+    />
+  )
 }

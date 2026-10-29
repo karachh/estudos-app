@@ -4,7 +4,6 @@ import swordfish from '../assets/bebop/swordfish.png'
 import { Band, Film } from '../components/Cover'
 import { Icon } from '../components/Icon'
 import { BannerBackdrop } from '../components/Worlds'
-import { plural } from '../core/geometry'
 import { modules, type AppModule } from '../core/modules'
 import { sumProgress, useHomeData, type Progress } from '../core/queries'
 import { bannerFor, landscapes, type Artwork } from '../data/art'
@@ -77,7 +76,7 @@ export default function HomePage() {
         <h1 className="sr-only">Caderno de Estudos Pessoal</h1>
         <Film art={landscapes.inicio} eager />
         <div className="hero-group">
-          <Band title="Estudos" foot="Cauã Karach" />
+          <Band title="Estudos" foot="Cauã Karach" footStar={false} topStar={false} letters />
           <div className="sticker">
             <p className="gloock-text text-cover leading-tight">
               Caderno de Estudos Pessoal
@@ -98,6 +97,11 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Pontos de parada da rolagem: um por tela (ver html[data-snap] em index.css) */}
+      {[0, ...modules.map((_, i) => i + 1)].map((i) => (
+        <span key={i} className="snap-mark" style={{ '--i': i } as CSSProperties} aria-hidden="true" />
+      ))}
 
       {modules.map((m, i) => (
         <ModuleBanner
@@ -153,9 +157,12 @@ function useStack(root: React.RefObject<HTMLDivElement | null>, ready: boolean) 
     }
     measure()
     paint()
+    // A rolagem "trava" em cada tela, para o módulo não passar direto
+    document.documentElement.dataset.snap = ''
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', onResize)
     return () => {
+      delete document.documentElement.dataset.snap
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onResize)
       if (raf) cancelAnimationFrame(raf)
@@ -196,114 +203,130 @@ function expandInto(e: MouseEvent<HTMLAnchorElement>, go: () => void) {
   })
 }
 
-const ease = {
-  out: (t: number) => 1 - (1 - t) ** 3,
-  in: (t: number) => t ** 2,
-}
+// Repertório: ao abrir, a Swordfish II sai na hora de onde estiver (inclusive se foi arrastada) e faz uma curva em S:
+// avança para o lado em que o nariz aponta, sobe, vira e mergulha na direção da tela, crescendo até tapar a visão.
+// Ela inclina seguindo a própria trajetória, balança como quem pilota, solta chama pelo motor e deixa rastro; no
+// fim surgem linhas de velocidade e a tela treme de leve. Um véu escuro fecha a passagem e a página do módulo entra.
+const smooth = (t: number) => t * t * (3 - 2 * t)
+const clamp01 = (t: number) => Math.min(1, Math.max(0, t))
+const bezier = (a: number, b: number, c: number, d: number, t: number) =>
+  (1 - t) ** 3 * a + 3 * (1 - t) ** 2 * t * b + 3 * (1 - t) * t * t * c + t ** 3 * d
+const bezierSlope = (a: number, b: number, c: number, d: number, t: number) =>
+  3 * (1 - t) ** 2 * (b - a) + 6 * (1 - t) * t * (c - b) + 3 * t * t * (d - c)
 
-// Repertório: a Swordfish II já espera ao lado do cartão. Ao abrir, ela dá um tranco, engata o cabo na beirada
-// e puxa o cartão na diagonal, como quem vira uma página de livro: o cartão gira em torno do canto de cima do lado
-// da parede (dobradiça) e sai arrastado para cima. A nave e o cabo ficam num overlay à parte; no fim a página entra.
-function towAway(e: MouseEvent<HTMLAnchorElement>, side: 'left' | 'right', go: () => void) {
+function flyIn(e: MouseEvent<HTMLAnchorElement>, go: () => void) {
   if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
   e.preventDefault()
   const banner = (e.currentTarget as HTMLElement).closest<HTMLElement>('.banner')
   const pane = banner?.querySelector<HTMLElement>('.pane')
+  const frameEl = banner?.querySelector<HTMLElement>('.banner-frame')
   const rest = banner?.querySelector<HTMLElement>('.bt-ship')
-  if (!banner || !pane || !rest || still() || !window.matchMedia('(min-width: 768px)').matches) return go()
-  if (pane.dataset.towing) return
-  pane.dataset.towing = '1'
+  if (!banner || !pane || !frameEl || !rest || still()) return go()
+  if (pane.dataset.flying) return
+  pane.dataset.flying = '1'
 
-  const dir = side === 'right' ? -1 : 1 // para onde o cartão é puxado
-  const sr = rest.getBoundingClientRect()
-  const pr = pane.getBoundingClientRect()
-  const w = sr.width
-  const h = sr.height
-  const pivot = { x: dir === -1 ? pr.right : pr.left, y: pr.top }
-  // Ponto em que o cabo prende: a beirada livre do cartão, mais perto de baixo, onde a nave espera
-  const hv = { x: (dir === -1 ? pr.left : pr.right) - pivot.x, y: pr.height * 0.72 }
-  const start = { x: sr.left + w / 2, y: sr.top + h / 2 }
-  const MAX = (50 * Math.PI) / 180 // quanto a página gira
-  const slide = pr.right + pr.width * 0.6 // quanto ela anda para fora
-  const lift = pr.height * 0.4
+  const r = rest.getBoundingClientRect()
+  const flip = getComputedStyle(rest).scale.startsWith('-1') ? -1 : 1 // espelhada ou não
+  const facing = -flip // a imagem original aponta o nariz para a esquerda
+  const W = window.innerWidth
+  const H = window.innerHeight
+  const P0 = { x: r.left + r.width / 2, y: r.top + r.height / 2 }
+  const P3 = { x: W / 2, y: H * 0.48 }
+  const P1 = { x: P0.x + facing * W * 0.26, y: P0.y - H * 0.26 }
+  const P2 = { x: P3.x - facing * W * 0.2, y: P3.y - H * 0.18 }
+  // Escala final: a nave passa a cobrir bem mais que a tela
+  const grow = (Math.max(W, H) / r.width) * 3.2
 
-  const ship = document.createElement('div')
-  ship.className = 'tow-ship'
-  Object.assign(ship.style, { width: `${w}px`, height: `${h}px`, left: `${-w / 2}px`, top: `${-h / 2}px` })
-  const img = new Image()
-  img.src = swordfish
-  img.alt = ''
-  img.style.transform = `scaleX(${dir === -1 ? -1 : 1})`
-  const trail = document.createElement('span')
-  trail.className = 'tow-trail'
-  trail.style.background =
-    dir === -1 ? 'linear-gradient(90deg, rgba(255,243,216,.9), transparent)' : 'linear-gradient(270deg, rgba(255,243,216,.9), transparent)'
-  ship.append(trail, img)
-
-  const ns = 'http://www.w3.org/2000/svg'
-  const svg = document.createElementNS(ns, 'svg')
-  svg.setAttribute('class', 'tow-line')
-  const cable = document.createElementNS(ns, 'path')
-  const spark = document.createElementNS(ns, 'circle')
-  spark.setAttribute('r', '0')
-  svg.append(cable, spark)
-
+  const make = (cls: string) => {
+    const el = document.createElement('div')
+    el.className = cls
+    Object.assign(el.style, { width: `${r.width}px`, height: `${r.height}px`, left: `${-r.width / 2}px`, top: `${-r.height / 2}px` })
+    const img = new Image()
+    img.src = swordfish
+    img.alt = ''
+    img.style.transform = `scaleX(${flip})`
+    el.append(img)
+    return el
+  }
+  const ghosts = [0.3, 0.18, 0.09].map((o) => {
+    const g = make('tow-ship fly-ghost')
+    g.style.opacity = '0'
+    g.dataset.o = String(o)
+    return g
+  })
+  const ship = make('tow-ship')
+  // Chama do motor, presa na traseira (a imagem tem os motores do lado oposto ao nariz, um pouco acima do meio)
+  const flame = document.createElement('span')
+  flame.className = 'fly-flame'
+  Object.assign(flame.style, {
+    left: `${50 - facing * 44}%`,
+    top: '34%',
+    transformOrigin: facing === 1 ? '100% 50%' : '0 50%',
+  })
+  flame.dataset.side = facing === 1 ? 'back-left' : 'back-right'
+  ship.prepend(flame)
+  const lines = document.createElement('div')
+  lines.className = 'fly-lines'
   const veil = document.createElement('div')
   veil.className = 'tow-veil'
-  document.body.append(svg, ship, veil)
+  document.body.append(lines, ...ghosts, ship, veil)
   rest.style.visibility = 'hidden'
-  pane.style.transformOrigin = dir === -1 ? '100% 0' : '0 0'
+  pane.style.willChange = 'transform, filter'
 
-  const B = 380 // o tranco: engata o cabo
-  const C = 1300 // a página sai
+  const trail: string[] = []
+  const T = 1500
   const t0 = performance.now()
   const frame = (now: number) => {
-    const t = now - t0
-    const drag = t < B ? 0 : ease.in(Math.min(1, (t - B) / C))
-    const ang = -dir * MAX * drag // sentido horário quando a página sai para a esquerda
-    const tx = dir * slide * drag
-    const ty = -lift * drag
-    const cos = Math.cos(ang)
-    const sin = Math.sin(ang)
-    // Posição do ponto de engate depois de girar em torno da dobradiça e deslizar
-    const hook = {
-      x: pivot.x + hv.x * cos - hv.y * sin + tx,
-      y: pivot.y + hv.x * sin + hv.y * cos + ty,
-    }
-    pane.style.transform = `translate(${tx}px, ${ty}px) rotate(${ang}rad)`
+    const u = clamp01((now - t0) / T)
+    // Ponto da curva: começa rápido (sem parada) e assenta no centro
+    const k = 1 - (1 - u) ** 1.8
+    const x = bezier(P0.x, P1.x, P2.x, P3.x, k)
+    const y = bezier(P0.y, P1.y, P2.y, P3.y, k)
+    // Tamanho: cresce desde o início e acelera no fim, como algo vindo na nossa direção
+    const near = 0.22 * u + 0.78 * u ** 2.6
+    const scale = Math.exp(Math.log(grow) * near)
+    // Inclinação: o nariz segue a tangente da curva; perto de nós ela se endireita. Mais o balanço do piloto.
+    const tx = bezierSlope(P0.x, P1.x, P2.x, P3.x, k)
+    const ty = bezierSlope(P0.y, P1.y, P2.y, P3.y, k)
+    const heading = (Math.atan2(ty * facing, tx * facing) * 180) / Math.PI
+    const bank = Math.max(-55, Math.min(55, heading)) * (1 - 0.85 * near)
+    const sway = Math.sin(u * Math.PI * 3.2) * 7 * (1 - u)
+    const roll = 1 - 0.22 * Math.sin(u * Math.PI * 2.2) ** 2 * (1 - u) // achata como quem gira no próprio eixo
+    const tf = `translate(${x}px, ${y}px) rotate(${(bank + sway).toFixed(2)}deg) scale(${scale.toFixed(3)}, ${(scale * roll).toFixed(3)})`
+    ship.style.transform = tf
+    ship.style.filter = `blur(${(u ** 3 * 6).toFixed(2)}px)`
+    flame.style.scale = `${(0.75 + Math.random() * 0.5 + u).toFixed(2)} ${(0.85 + Math.random() * 0.3).toFixed(2)}`
 
-    // A nave segue o engate, um pouco adiante e acima, com o nariz levantado
-    const lead = { x: hook.x + dir * (w * 0.42 + 20), y: hook.y - h * 0.18 }
-    const k = Math.min(1, t / B)
-    const eased = ease.out(k)
-    const at0 = { x: hook.x + dir * (w * 0.42 + 20), y: hook.y - h * 0.18 }
-    const x = t < B ? start.x + (at0.x - start.x) * eased : lead.x
-    const y = t < B ? start.y + (at0.y - start.y) * eased : lead.y
-    ship.style.transform = `translate(${x}px, ${y}px) rotate(${(-dir * 22 * (0.4 + drag * 0.6)).toFixed(1)}deg)`
-    const tension = t < B ? eased * 0.5 : 0.5 + 0.5 * drag
-    const trailW = tension * w * 1.2
-    trail.style.width = `${trailW}px`
-    trail.style.left = dir === -1 ? `${w * 0.9}px` : `${w * 0.1 - trailW}px`
+    // Rastro: cópias que repetem onde a nave esteve alguns quadros atrás
+    trail.unshift(tf)
+    if (trail.length > 12) trail.pop()
+    ghosts.forEach((g, i) => {
+      const old = trail[(i + 1) * 3]
+      if (!old) return
+      g.style.transform = old
+      g.style.opacity = String(Number(g.dataset.o) * (1 - u * 0.6))
+    })
 
-    // Cabo: da cauda da nave até o ponto de engate; frouxo no tranco, esticado quando a página sai
-    const tail = { x: x - dir * w * 0.4, y: y + h * 0.06 }
-    const sag = (1 - Math.min(1, tension * 1.3)) * 36
-    cable.setAttribute('d', `M${tail.x} ${tail.y}Q${(tail.x + hook.x) / 2} ${(tail.y + hook.y) / 2 + sag} ${hook.x} ${hook.y}`)
-    cable.setAttribute('stroke-opacity', String(Math.min(1, t / 140)))
-    spark.setAttribute('cx', String(hook.x))
-    spark.setAttribute('cy', String(hook.y))
-    spark.setAttribute('r', String(t < B ? 14 * Math.sin(k * Math.PI) : 0))
+    // Linhas de velocidade e um tremor leve quando ela já está perto
+    lines.style.opacity = String((smooth(clamp01((u - 0.35) / 0.5)) * 0.9).toFixed(3))
+    lines.style.transform = `scale(${(1 + u * 0.6).toFixed(3)}) rotate(${(u * 8).toFixed(2)}deg)`
+    const shake = smooth(clamp01((u - 0.5) / 0.5)) * 5
+    frameEl.style.translate = `${((Math.random() - 0.5) * shake).toFixed(1)}px ${((Math.random() - 0.5) * shake).toFixed(1)}px`
 
-    // Véu escuro no fim da saída, para a página do módulo entrar sem corte
-    const fadeAt = B + C * 0.68
-    veil.style.opacity = String(t > fadeAt ? Math.min(1, (t - fadeAt) / (C * 0.32)) : 0)
+    // O cartão fica para trás: recua e escurece
+    pane.style.transform = `scale(${(1 - 0.06 * k).toFixed(4)})`
+    pane.style.filter = `brightness(${(1 - 0.5 * k).toFixed(3)})`
 
-    if (t < B + C) return void requestAnimationFrame(frame)
+    // Quando a nave já tapa a tela, o véu fecha
+    veil.style.opacity = String(smooth(clamp01((u - 0.72) / 0.28)))
+
+    if (u < 1) return void requestAnimationFrame(frame)
     go()
     window.setTimeout(() => {
       ship.remove()
-      svg.remove()
-      veil.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 420, fill: 'forwards' }).finished.then(() => veil.remove())
+      lines.remove()
+      ghosts.forEach((g) => g.remove())
+      veil.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 480, fill: 'forwards' }).finished.then(() => veil.remove())
     }, 60)
   }
   requestAnimationFrame(frame)
@@ -333,12 +356,6 @@ function ModuleBanner({ mod, side, groups, topics }: { mod: AppModule; side: 'le
     <section id={`mod-${mod.id}`} data-module={mod.id} data-side={side} className={`banner ${themed ? `banner-${mod.world}` : ''}`} aria-labelledby={`bn-${mod.id}`}>
       <div className="banner-frame">
         {themed ? <BannerBackdrop world={mod.world} /> : art && <Film art={art} />}
-        <Band
-          title={mod.short}
-          world={mod.world}
-          pct={p.total ? p.done / p.total : 0}
-          foot={`${groups.length} ${groups.length === 1 ? mod.groupLabel : plural(mod.groupLabel)}`}
-        />
         <div className="pane">
           <h2 id={`bn-${mod.id}`} className="gloock-text text-cover leading-tight">
             {mod.label}
@@ -370,7 +387,7 @@ function ModuleBanner({ mod, side, groups, topics }: { mod: AppModule; side: 'le
           <Link
             to={`/${mod.id}`}
             className="btn btn-primary mt-6 self-start"
-            onClick={(e) => (mod.world === 'bebop' ? towAway(e, side, open) : expandInto(e, open))}
+            onClick={(e) => (mod.world === 'bebop' ? flyIn(e, open) : expandInto(e, open))}
           >
             Abrir {mod.short}
             <Icon name="chevron" size={16} />
