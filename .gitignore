@@ -25,3 +25,7 @@ dist-ssr
 
 # Arquivos antigos movidos em vez de apagados
 _arquivo/
+
+# Estado local do impeccable
+.impeccable/config.local.json
+.impeccable/hook.cache.json
