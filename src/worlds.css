@@ -2284,3 +2284,132 @@
     animation: none;
   }
 }
+
+/* ---- Igreja: Cristo no Getsêmani, com a luz viva (components/Gethsemane.tsx) ---- */
+.gth {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  container-type: size;
+  background: #0b0d09;
+  pointer-events: none;
+}
+.gth-stage {
+  --ar: 0.713; /* largura / altura da pintura */
+  --sw: max(100cqw, calc(100cqh * var(--ar)));
+  --sh: calc(var(--sw) / var(--ar));
+  position: absolute;
+  width: var(--sw);
+  height: var(--sh);
+  left: calc((100cqw - var(--sw)) * var(--fx));
+  top: calc((100cqh - var(--sh)) * var(--fy));
+  transform-origin: 40% 33%; /* o rosto */
+  animation: gth-near 30s ease-in-out infinite alternate;
+}
+.gth-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+/* Feixe que desce da claridade do céu até o rosto */
+.gth-beam {
+  position: absolute;
+  left: 17%;
+  top: 2%;
+  width: 34%;
+  height: 40%;
+  translate: -50% 0;
+  rotate: -29deg;
+  transform-origin: 50% 0;
+  clip-path: polygon(44% 0, 56% 0, 100% 100%, 0 100%);
+  background: linear-gradient(180deg, rgba(255, 228, 160, 0.42), rgba(255, 214, 140, 0.12) 70%, transparent);
+  filter: blur(10px);
+  mix-blend-mode: screen;
+  animation: gth-beam 9s ease-in-out infinite;
+}
+.gth-sky,
+.gth-rock {
+  position: absolute;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+}
+.gth-sky {
+  left: 17%;
+  top: 4%;
+  width: 34%;
+  background: radial-gradient(closest-side, rgba(255, 236, 180, 0.6), rgba(255, 220, 150, 0.15) 55%, transparent);
+  animation: gth-pulse 9s ease-in-out infinite;
+}
+.gth-rock {
+  left: 16%;
+  top: 56%;
+  width: 40%;
+  aspect-ratio: 1.6;
+  background: radial-gradient(closest-side, rgba(255, 210, 130, 0.32), transparent);
+  animation: gth-candle 5.5s ease-in-out infinite;
+}
+.gth-mist {
+  position: absolute;
+  left: -25%;
+  top: 74%;
+  width: 150%;
+  height: 16%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(190, 200, 170, 0.22), transparent);
+  mix-blend-mode: screen;
+  animation: gth-drift 40s ease-in-out infinite alternate;
+}
+/* Poeira dourada no feixe: desce devagar e cintila */
+.gth-mote {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: max(2px, 0.35%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #ffe9b0;
+  box-shadow: 0 0 5px 1px rgba(255, 220, 140, 0.8);
+  opacity: 0;
+  animation: gth-mote var(--t) ease-in-out var(--d) infinite;
+}
+@keyframes gth-near {
+  from { scale: 1; }
+  to { scale: 1.06; }
+}
+@keyframes gth-beam {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+@keyframes gth-pulse {
+  0%, 100% { opacity: 0.6; scale: 0.94; }
+  50% { opacity: 1; scale: 1.05; }
+}
+@keyframes gth-candle {
+  0%, 100% { opacity: 0.7; }
+  30% { opacity: 1; }
+  45% { opacity: 0.82; }
+  70% { opacity: 0.95; }
+}
+@keyframes gth-drift {
+  from { translate: -6% 0; }
+  to { translate: 6% -6%; }
+}
+@keyframes gth-mote {
+  0% { opacity: 0; translate: 0 0; }
+  25% { opacity: 0.9; }
+  50% { opacity: 0.4; }
+  75% { opacity: 0.85; }
+  100% { opacity: 0; translate: 1.2cqw 2.2cqw; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gth *,
+  .gth-stage {
+    animation: none;
+  }
+  .gth-mote {
+    display: none;
+  }
+}

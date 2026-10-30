@@ -78,8 +78,8 @@ function BumpTitle({ title }: { title: string }) {
   useEffect(() => {
     const el = box.current
     if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const delay = 950 // depois que a faixa termina de entrar
-    const dur = 1700
+    const delay = 600 // depois que a faixa termina de entrar
+    const dur = 1100
     const t0 = performance.now() + delay
     const step = (now: number) => {
       const t = (now - t0) / dur

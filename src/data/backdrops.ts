@@ -13,8 +13,8 @@ import evaTokyo from '../assets/eva/eva-tokyo.jpg'
 import evaVerde from '../assets/eva/eva-verde.jpg'
 import evaVermelho from '../assets/eva/eva-vermelho.jpg'
 import igrejaCristo from '../assets/igreja/bg-cristo.jpg'
+import igrejaJose from '../assets/igreja/bg-jose.jpg'
 import igrejaMaria from '../assets/igreja/bg-maria.jpg'
-import igrejaMiguel from '../assets/igreja/bg-miguel.jpg'
 import igrejaPoster from '../assets/igreja/bg-poster.jpg'
 import mentalLago from '../assets/mental/bg-lago.jpg'
 import mentalOndas from '../assets/mental/bg-ondas.jpg'
@@ -29,7 +29,7 @@ import officeRedstar from '../assets/trabalho/bg-redstar.jpg'
 // - section: a imagem acompanha o grupo que está na tela (Igreja: Espiritualidade, Teologia...) e
 //   troca com um esmaecimento lento.
 // Origem: UEM, Igreja, Profissional (cosmos), Repertório (bebop) e Trabalho são referências que o dono pôs
-// em ../refs/; praias são CC0 de ../refs/paisagens/ (hoje no Motivação).
+// em refs/ (dentro do projeto); praias são CC0 de refs/paisagens/.
 // `pos` é o ponto da imagem que fica à vista no recorte; `tint` é a cor da varredura quando ela entra.
 export interface BackdropImage {
   src: string
@@ -62,7 +62,7 @@ export const backdrops: Record<string, Backdrop> = {
       { src: igrejaMaria, pos: '50% 22%', tint: '#dcaa3c' },
       { src: igrejaPoster, pos: '50% 30%', tint: '#dcaa3c' },
       { src: igrejaCristo, pos: '50% 25%', tint: '#dcaa3c' },
-      { src: igrejaMiguel, pos: '50% 28%', tint: '#dcaa3c' },
+      { src: igrejaJose, pos: '50% 25%', tint: '#dcaa3c' }, // São José com o Menino, no lugar de São Miguel (29/10/2026)
     ],
   },
   trabalho: {

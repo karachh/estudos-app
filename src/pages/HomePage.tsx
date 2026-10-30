@@ -1,35 +1,77 @@
-import { useEffect, useRef, type CSSProperties, type MouseEvent } from 'react'
+import { useEffect, useRef, useState, type CSSProperties, type MouseEvent } from 'react'
 import { Link, useNavigate, useNavigationType } from 'react-router-dom'
 import swordfishPixel from '../assets/bebop/swordfish-pixel.png'
 import { Band, Film } from '../components/Cover'
+import { Gethsemane } from '../components/Gethsemane'
 import { Icon } from '../components/Icon'
 import { BannerBackdrop } from '../components/Worlds'
 import { modules, type AppModule } from '../core/modules'
 import { sumProgress, useHomeData, type Progress } from '../core/queries'
 import { bannerFor, landscapes, type Artwork } from '../data/art'
 
-// Código de barras do progresso: um traço por tópico, mais grosso quanto mais avançado.
-function Barcode({ items, label, center }: { items: Progress[]; label: string; center?: boolean }) {
+// Código de barras do progresso: um traço por tópico, mais grosso quanto mais avançado. Ao aparecer, os traços
+// sobem rápido da esquerda para a direita e a contagem corre até o valor; de vez em quando um brilho fraco
+// atravessa o código (.barcode em index.css).
+function Barcode({ items, p, center }: { items: Progress[]; p: Progress; center?: boolean }) {
+  const box = useRef<HTMLSpanElement>(null)
+  const done = useCountUp(p.done, box)
+  const total = useCountUp(p.total, box)
   return (
     <div className={`text-accent ${center ? 'flex flex-col md:items-center' : ''}`}>
-      <span className="flex h-11 items-stretch gap-[2px]" aria-hidden="true">
+      <span ref={box} className="barcode flex h-11 items-stretch gap-[2px]" style={{ '--n': items.length } as CSSProperties} aria-hidden="true">
         {items.map((p, i) => {
           const done = p.total > 0 && p.done === p.total
           const started = p.done > 0
           return (
             <span
               key={i}
-              className={done ? 'w-[4px] bg-current' : started ? 'w-[2px] bg-current' : 'w-px bg-current opacity-45'}
+              style={{ '--i': i } as CSSProperties}
+              className={done ? 'w-[4px] bg-current' : started ? 'w-[2px] bg-current' : 'bc-idle w-px bg-current'}
             />
           )
         })}
+        <i className="bc-scan" />
       </span>
-      <span className="mono mt-1.5 block text-micro tracking-[0.2em]">{label}</span>
+      <span className="mono mt-1.5 block text-micro tracking-[0.2em]">
+        <span className="sr-only">{itemsLabel(p)}</span>
+        <span aria-hidden="true">{itemsLabel({ done, total })}</span>
+      </span>
     </div>
   )
 }
 
 const itemsLabel = (p: Progress) => `${p.done} de ${p.total} itens`
+
+// Conta de 0 até o valor na primeira vez que o elemento aparece na tela
+function useCountUp(value: number, el: React.RefObject<HTMLElement | null>) {
+  const [shown, setShown] = useState(() => (still() ? value : 0))
+  const started = useRef(false)
+  useEffect(() => {
+    const node = el.current
+    if (started.current || !node || still()) return setShown(value)
+    let raf = 0
+    const io = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return
+      io.disconnect()
+      started.current = true
+      node.dataset.on = '' // dispara a impressão dos traços
+      const t0 = performance.now()
+      const dur = 700
+      const step = (now: number) => {
+        const t = Math.min(1, (now - t0) / dur)
+        setShown(Math.round(value * (1 - (1 - t) ** 3)))
+        if (t < 1) raf = requestAnimationFrame(step)
+      }
+      raf = requestAnimationFrame(step)
+    })
+    io.observe(node)
+    return () => {
+      io.disconnect()
+      cancelAnimationFrame(raf)
+    }
+  }, [value, el])
+  return shown
+}
 
 // Módulo que a pessoa abriu a partir da página inicial: ao voltar pelo botão do navegador, a rolagem retorna ao banner dele
 const BACK_KEY = 'estudos:home-from'
@@ -82,7 +124,7 @@ export default function HomePage() {
               Caderno de Estudos Pessoal
             </p>
             <div className="mt-6">
-              <Barcode items={all} label={itemsLabel(total)} center />
+              <Barcode items={all} p={total} center />
             </div>
             <button
               className="btn mt-6"
@@ -200,6 +242,55 @@ function expandInto(e: MouseEvent<HTMLAnchorElement>, go: () => void) {
     window.setTimeout(() => {
       veil.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 380, fill: 'forwards' }).finished.then(() => veil.remove())
     }, 120)
+  })
+}
+
+// Trabalho: a tela fica branca e "That's what she said" atravessa da direita para a esquerda, como num
+// corte de The Office. A página do módulo monta por trás do branco, que se desfaz depois que a frase sai.
+function whiteOut(e: MouseEvent<HTMLAnchorElement>, go: () => void) {
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
+  e.preventDefault()
+  if (still()) return go()
+  const veil = document.createElement('div')
+  Object.assign(veil.style, {
+    position: 'fixed',
+    inset: '0',
+    zIndex: '100',
+    background: '#fbfaf6',
+    overflow: 'hidden',
+    pointerEvents: 'none',
+    opacity: '0',
+  })
+  const line = document.createElement('p')
+  line.textContent = "That's what she said"
+  Object.assign(line.style, {
+    position: 'absolute',
+    top: '50%',
+    left: '0',
+    margin: '0',
+    whiteSpace: 'nowrap',
+    color: '#111',
+    fontFamily: "'Krona One', sans-serif",
+    fontSize: 'clamp(3rem, 11vw, 10rem)',
+    letterSpacing: '-0.01em',
+    lineHeight: '1',
+    textTransform: 'uppercase',
+  })
+  veil.append(line)
+  document.body.append(veil)
+  const W = window.innerWidth
+  const tw = line.getBoundingClientRect().width
+  veil.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 220, fill: 'forwards' }).finished.then(() => {
+    window.setTimeout(go, 350)
+    line
+      .animate([{ transform: `translate(${W}px, -50%)` }, { transform: `translate(${-tw}px, -50%)` }], {
+        duration: 1000,
+        easing: 'cubic-bezier(0.35, 0, 0.65, 1)',
+        fill: 'forwards',
+      })
+      .finished.then(() =>
+        veil.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 380, fill: 'forwards' }).finished.then(() => veil.remove()),
+      )
   })
 }
 
@@ -324,8 +415,8 @@ function flyIn(e: MouseEvent<HTMLAnchorElement>, go: () => void) {
     let locked = 0 // instante em que a página encaixou e o cabo soltou
     const step = (now: number) => {
       const u = clamp01((now - tB) / B)
-      // Entra embalada, perde velocidade enquanto arrasta o peso da página e, solta, acelera de novo para sair
-      const k = u + 0.12 * Math.sin(2 * Math.PI * u)
+      // Entra embalada e cede só um pouco ao peso da página, sem chegar a parar, até sair do outro lado
+      const k = u + 0.035 * Math.sin(2 * Math.PI * u)
       const x = from + (to - from) * k
       const y = H * 0.4 - Math.sin(Math.PI * u) * H * 0.06
       const b = tilt(dir * 6 * Math.cos(Math.PI * u), now) // leve mergulho e subida ao cruzar a tela
@@ -334,10 +425,13 @@ function flyIn(e: MouseEvent<HTMLAnchorElement>, go: () => void) {
 
       // Traseira da nave (do lado de onde veio) e a beirada da página, que segue o cabo até encaixar
       const tail = x + dir * w * 0.55
-      const edge = dir === 1 ? Math.max(0, tail + gap) : Math.min(W, tail - gap)
-      app.style.transform = `translateX(${dir === 1 ? edge : edge - W}px)`
+      // A página não bate na borda: perto do encaixe ela freia aos poucos (curva softplus) até assentar
+      const ease = 70
+      const softEdge = (d: number) => (d > ease * 8 ? d : ease * Math.log1p(Math.exp(d / ease)))
+      const edge = dir === 1 ? softEdge(tail + gap) : W - softEdge(W - (tail - gap))
+      app.style.transform = `translateX(${(dir === 1 ? edge : edge - W).toFixed(1)}px)`
       under.style.filter = `brightness(${(0.4 + 0.6 * Math.abs(dir === 1 ? edge : W - edge) / W).toFixed(3)})`
-      if (!locked && (dir === 1 ? edge <= 0 : edge >= W)) locked = now
+      if (!locked && (dir === 1 ? edge <= 2 : edge >= W - 2)) locked = now
 
       const slack = locked ? clamp01((now - locked) / 180) : 0
       const hook = { x: edge, y: y + 18 }
@@ -386,7 +480,16 @@ function ModuleBanner({ mod, side, groups, topics }: { mod: AppModule; side: 'le
   return (
     <section id={`mod-${mod.id}`} data-module={mod.id} data-side={side} className={`banner ${themed ? `banner-${mod.world}` : ''}`} aria-labelledby={`bn-${mod.id}`}>
       <div className="banner-frame">
-        {themed ? <BannerBackdrop world={mod.world} /> : art && <Film art={art} />}
+        {themed ? (
+          <BannerBackdrop world={mod.world} />
+        ) : mod.id === 'igreja' ? (
+          <>
+            <Gethsemane fy={0.28} />
+            <span className="film-fade" aria-hidden="true" />
+          </>
+        ) : (
+          art && <Film art={art} />
+        )}
         <div className="pane">
           <h2 id={`bn-${mod.id}`} className="gloock-text text-cover leading-tight">
             {mod.label}
@@ -412,22 +515,26 @@ function ModuleBanner({ mod, side, groups, topics }: { mod: AppModule; side: 'le
           )}
           {topics.length > 0 && (
             <div className="mt-5">
-              <Barcode items={topics} label={itemsLabel(p)} />
+              <Barcode items={topics} p={p} />
             </div>
           )}
           <Link
             to={`/${mod.id}`}
             className="btn btn-primary mt-6 self-start"
-            onClick={(e) => (mod.world === 'bebop' ? flyIn(e, open) : expandInto(e, open))}
+            onClick={(e) => (mod.world === 'bebop' ? flyIn(e, open) : mod.world === 'office' ? whiteOut(e, open) : expandInto(e, open))}
           >
             Abrir {mod.short}
             <Icon name="chevron" size={16} />
           </Link>
           {art && !themed && (
             <p className="fine mt-5 text-ink-3">
-              <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:text-ink credit">
-                {landscapes[mod.id] ? 'Foto' : 'Obra'}: {art.credit}
-              </a>
+              {art.source ? (
+                <a href={art.source} target="_blank" rel="noopener noreferrer" className="hover:text-ink credit">
+                  {landscapes[mod.id] ? 'Foto' : 'Obra'}: {art.credit}
+                </a>
+              ) : (
+                <>Obra: {art.credit}</>
+              )}
             </p>
           )}
         </div>

@@ -3,6 +3,7 @@ import { Link, Navigate, useParams } from 'react-router-dom'
 import { AddForm } from '../components/AddForm'
 import { Film } from '../components/Cover'
 import { CourseMap } from '../components/CourseMap'
+import { Gethsemane } from '../components/Gethsemane'
 import { Icon } from '../components/Icon'
 import { Fraction, Orbit, ProgressMark, Punches, Sparkle } from '../components/Marks'
 import { ThemeBoard } from '../components/ThemeBoard'
@@ -218,14 +219,9 @@ function SacredHeader({ mod }: { mod: AppModule }) {
   return (
     <header>
     <div className="relative overflow-hidden rounded-[1.5rem] bg-[#0c0a08]">
-      <img
-        src={igrejaCover.src}
-        decoding="async"
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover opacity-85"
-        style={{ objectPosition: igrejaCover.position }}
-      />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(14,9,5,.94)_0%,rgba(14,9,5,.72)_45%,rgba(14,9,5,.08)_80%)]" />
+      {/* No desktop a pintura fica à direita, para o rosto de Cristo não ficar atrás do título */}
+      <Gethsemane fy={0.22} className="md:left-[36%] md:[mask-image:linear-gradient(90deg,transparent,#000_30%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(14,9,5,.94)_0%,rgba(14,9,5,.6)_40%,rgba(14,9,5,.05)_75%)] md:bg-[linear-gradient(90deg,rgba(14,9,5,.94)_0%,rgba(14,9,5,.7)_38%,rgba(14,9,5,.05)_62%)]" />
       {/* Filete dourado por dentro, como a moldura de um painel */}
       <div className="pointer-events-none absolute inset-2.5 rounded-[1.1rem] border border-[color-mix(in_oklab,var(--accent)_55%,transparent)]" />
       <div className="relative flex min-h-[23rem] flex-col justify-end px-6 pb-7 pt-14 text-[#f0e7cf] md:min-h-[26rem] md:px-10">
@@ -234,9 +230,13 @@ function SacredHeader({ mod }: { mod: AppModule }) {
         </h1>
         <p className="italic-serif mt-3 max-w-[26rem] text-lead leading-snug">{mod.tagline}</p>
         <p className="mt-6 text-xs text-[#c9bf9f]">
-          <a href={igrejaCover.source} target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:underline credit">
-            {igrejaCover.credit}
-          </a>
+          {igrejaCover.source ? (
+            <a href={igrejaCover.source} target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:underline credit">
+              {igrejaCover.credit}
+            </a>
+          ) : (
+            igrejaCover.credit
+          )}
         </p>
       </div>
     </div>

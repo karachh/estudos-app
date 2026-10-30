@@ -1,7 +1,7 @@
 import aquinas from '../assets/igreja/aquinas.jpg'
 import emmaus from '../assets/igreja/emmaus.jpg'
+import getsemani from '../assets/igreja/getsemani.jpg'
 import matthew from '../assets/igreja/matthew.jpg'
-import michael from '../assets/igreja/michael.jpg'
 import prodigal from '../assets/igreja/prodigal.jpg'
 import inicio from '../assets/paisagens/inicio.jpg'
 import mentalPhoto from '../assets/paisagens/mental.jpg'
@@ -13,17 +13,17 @@ import uem from '../assets/paisagens/uem.jpg'
 export interface Artwork {
   src: string
   credit: string
-  source: string
+  source?: string // sem endereço, o crédito aparece só como texto
   position?: string // object-position do recorte
 }
 
 // Imagem do topo de cada módulo que tem uma.
 export const covers: Record<string, Artwork> = {
+  // Escolhida pelo dono em 29/10/2026, no lugar do São Miguel de Guido Reni (michael.jpg, sem uso). Animada em components/Gethsemane.tsx.
   igreja: {
-    src: michael,
-    credit: 'Guido Reni, São Miguel Arcanjo, c. 1636',
-    source: 'https://commons.wikimedia.org/wiki/File:Guido_Reni_031.jpg',
-    position: '50% 8%',
+    src: getsemani,
+    credit: 'Heinrich Hofmann, Cristo no Getsêmani, 1886',
+    source: 'https://commons.wikimedia.org/wiki/File:Christ_in_Gethsemane.jpg',
   },
 }
 
