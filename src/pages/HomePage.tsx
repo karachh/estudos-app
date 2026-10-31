@@ -484,7 +484,7 @@ function ModuleBanner({ mod, side, groups, topics }: { mod: AppModule; side: 'le
           <BannerBackdrop world={mod.world} />
         ) : mod.id === 'igreja' ? (
           <>
-            <Gethsemane fy={0.28} />
+            <Gethsemane fy={0.28} className="gth-banner" />
             <span className="film-fade" aria-hidden="true" />
           </>
         ) : (

@@ -51,6 +51,12 @@
         "value": "montserrat variable",
         "createdAt": "2026-10-28T15:14:26.559Z",
         "reason": "fonte de mundo temático, documentada em DESIGN.md (Typography > Vozes de mundo) e no CLAUDE.md; escolha do projeto, não do dono por fonte"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "silkscreen",
+        "createdAt": "2026-10-30T03:25:20.532Z",
+        "reason": "Claude: fonte do tema fosforo do Profissional, pedido do dono de tema retro em 30/10/2026; documentada em DESIGN.md (sidecar design.json ainda desatualizado)"
       }
     ]
   }

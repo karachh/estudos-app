@@ -6,7 +6,7 @@ import { MAP_H, MAP_W } from '../core/terrain'
 import { sumProgress } from '../core/queries'
 
 // Painel de cada tema no lugar do mapa de orientação: eva = favo de hexágonos (painel de sincronia),
-// office = mural de papel pardo com retícula colorida, cosmos = céu de estrelas sobre o mar de nuvens. Os tópicos continuam clicáveis em qualquer ordem.
+// office = mural de papel pardo com retícula colorida, fosforo = radar de um monitor verde. Os tópicos continuam clicáveis em qualquer ordem.
 
 type Props = {
   world: World
@@ -24,28 +24,22 @@ const ratio = (p?: Progress) => (p && p.total > 0 ? p.done / p.total : 0)
 // Fundos dos cartões do Trabalho, nas cores dos retratos do pôster de The Office
 const OFFICE_TONES = ['#7fa8c9', '#f2b82e', '#e7837a', '#ec8a3f', '#e6cf9f']
 
-// Posições das estrelas no céu (parte de cima do painel): grade com desvio sorteado pela semente, para o
-// mesmo grupo sempre desenhar o mesmo céu e as estrelas nunca se encostarem
-function skySpots(n: number, seed: number): [number, number][] {
-  const cols = Math.max(1, Math.ceil(Math.sqrt((n * (MAP_W - 60)) / (MAP_H * 0.55))))
-  const rows = Math.max(1, Math.ceil(n / cols))
-  const cw = (MAP_W - 60) / cols
-  const ch = (MAP_H * 0.58) / rows
+// Posições dos pontos no radar: espiral de ângulo áureo (girada pela semente), do centro para a borda, para o
+// mesmo grupo sempre desenhar o mesmo radar e os pontos nunca se encostarem
+const RX = MAP_W / 2
+const RY = MAP_H / 2 + 12
+const RR = MAP_H / 2 - 26
+function radarSpots(n: number, seed: number): [number, number][] {
   return Array.from({ length: n }, (_, i) => {
-    const r = Math.floor(i / cols)
-    const c = i % cols
-    const jx = (((i * 73 + seed * 31) % 17) / 17 - 0.5) * cw * 0.5
-    const jy = (((i * 41 + seed * 19) % 13) / 13 - 0.5) * ch * 0.5
-    return [30 + cw * (c + 0.5) + jx + (r % 2 ? cw * 0.18 : 0), 44 + ch * (r + 0.5) + jy]
+    const r = RR * (0.22 + 0.72 * Math.sqrt((i + 0.5) / Math.max(1, n)))
+    const a = i * 2.39996 + seed * 0.7
+    return [RX + r * Math.cos(a) * 1.25, RY + r * Math.sin(a)]
   })
 }
 
-// Cordilheira escura em primeiro plano, como na foto de referência
-const RIDGE = 'M0 300V262L22 252 46 258 78 238 104 250 134 228 160 244 196 232 228 248 262 226 292 240 326 222 356 238 380 230 400 240V300Z'
-
 export function ThemeBoard(props: Props) {
   const { world, seed, title, moduleId, topics, byTopic, lit, onLight } = props
-  const spots = useMemo(() => (world === 'eva' || world === 'office' ? [] : skySpots(topics.length, seed)), [world, topics.length, seed])
+  const spots = useMemo(() => (world === 'eva' || world === 'office' ? [] : radarSpots(topics.length, seed)), [world, topics.length, seed])
   const total = sumProgress(topics.map((t) => byTopic.get(t.id)))
   const pct = total.total ? Math.round((total.done / total.total) * 100) : 0
 
@@ -173,58 +167,53 @@ export function ThemeBoard(props: Props) {
       </>
     )
   } else {
-    // cosmos: céu estrelado sobre o mar de nuvens; cada tópico é uma estrela que ganha a cruz de luz ao avançar
+    // fosforo: radar de varredura (elipse, para ocupar o painel largo); cada tópico é um ponto que cresce e ganha a
+    // mira ao avançar, e o feixe que gira acende os pontos por onde passa
     body = (
       <>
         <defs>
-          <radialGradient id={`cos-sun-${seed}`} cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0" stopColor="#ffd9a0" />
-            <stop offset="0.35" stopColor="#ee5a35" />
-            <stop offset="1" stopColor="#ee5a35" stopOpacity="0" />
-          </radialGradient>
-          <linearGradient id={`cos-sea-${seed}`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#f0b890" stopOpacity="0.55" />
-            <stop offset="1" stopColor="#5a6a8c" stopOpacity="0.1" />
+          <linearGradient id={`ph-beam-${seed}`} x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stopColor="var(--phos)" stopOpacity="0" />
+            <stop offset="1" stopColor="var(--phos)" stopOpacity="0.4" />
           </linearGradient>
+          <clipPath id={`ph-scope-${seed}`}>
+            <ellipse cx={RX} cy={RY} rx={RR * 1.25 + 14} ry={RR + 10} />
+          </clipPath>
         </defs>
-        {Array.from({ length: 34 }, (_, k) => (
-          <circle
-            key={`s${k}`}
-            cx={((k * 97 + seed * 13) % (MAP_W - 20)) + 10}
-            cy={((k * 61 + seed * 7) % (MAP_H * 0.62)) + 8}
-            r={k % 5 === 0 ? 1.5 : 0.8}
-            className="tb-star"
-            style={{ animationDelay: `${(k % 7) * 0.6}s` }}
-          />
+        <text x="14" y="22" className="tb-label">
+          SCANNER · {topics.length} ALVOS
+        </text>
+        <text x={MAP_W - 14} y="22" textAnchor="end" className="tb-label tb-label-hot">
+          {String(pct).padStart(3, '0')}%
+        </text>
+        <line x1="14" x2={MAP_W - 14} y1="30" y2="30" className="tb-rule" />
+        {[1, 0.75, 0.5, 0.25].map((f) => (
+          <ellipse key={f} cx={RX} cy={RY} rx={RR * 1.25 * f + 14} ry={RR * f + 10} className="tb-ring-ph" />
         ))}
-        <circle cx={MAP_W * 0.5} cy={MAP_H * 0.8} r="46" fill={`url(#cos-sun-${seed})`} className="tb-sun" />
-        <circle cx={MAP_W * 0.5} cy={MAP_H * 0.8} r="15" className="tb-sundisc" />
-        <rect x="0" y={MAP_H * 0.72} width={MAP_W} height={MAP_H * 0.28} fill={`url(#cos-sea-${seed})`} className="tb-sea" />
-        <path className="tb-drift" d={`M-30 ${MAP_H * 0.77}Q40 ${MAP_H * 0.74} 100 ${MAP_H * 0.77}T220 ${MAP_H * 0.77}T340 ${MAP_H * 0.77}T460 ${MAP_H * 0.77}`} />
-        <path className="tb-drift tb-drift-2" d={`M-30 ${MAP_H * 0.83}Q50 ${MAP_H * 0.8} 120 ${MAP_H * 0.83}T250 ${MAP_H * 0.83}T380 ${MAP_H * 0.83}T500 ${MAP_H * 0.83}`} />
-        <path d={RIDGE} className="tb-ridge" />
+        <path d={`M${RX - RR * 1.25 - 20} ${RY}H${RX + RR * 1.25 + 20}M${RX} ${RY - RR - 12}V${RY + RR + 12}`} className="tb-cross" />
+        <g clipPath={`url(#ph-scope-${seed})`}>
+          <g className="tb-beam" style={{ transformOrigin: `${RX}px ${RY}px` }}>
+            <path d={`M${RX} ${RY}L${RX + RR * 1.4} ${RY}L${RX + RR * 1.4} ${RY - RR * 0.8}Z`} fill={`url(#ph-beam-${seed})`} />
+          </g>
+        </g>
         {topics.map((t, i) => {
           const [x, y] = spots[i] ?? [0, 0]
           const k = ratio(byTopic.get(t.id))
-          const arm = 7 + 20 * k
+          const s = k >= 1 ? 9 : k > 0 ? 5 + 3 * k : 4
           return link(
             t,
             i,
             <g transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`}>
-              <circle r="22" fill="transparent" />
-              <g className="tb-twinkle" style={{ animationDelay: `${(i * 1.3) % 5}s` }}>
-                {k > 0 && (
-                  <>
-                    <line x1={-arm} x2={arm} className="tb-ray" />
-                    <line y1={-arm} y2={arm} className="tb-ray" />
-                  </>
-                )}
-                <circle r={k >= 1 ? 4.2 : k > 0 ? 3.2 : 2.4} className={k > 0 ? 'tb-fill' : 'tb-cell tb-dim'} />
-                {k > 0 && <circle r={k >= 1 ? 8 : 6} className="tb-halo" />}
-                {k === 0 && <circle r="6" className="tb-edge tb-dashed" />}
-              </g>
-              <text x="0" y="-12" textAnchor="middle" className="tb-num">
-                {i + 1}
+              <circle r="16" fill="transparent" />
+              {k > 0 ? (
+                <rect x={-s / 2} y={-s / 2} width={s} height={s} className="tb-fill tb-blip" style={{ animationDelay: `${((i * 0.37) % 4).toFixed(2)}s` }} />
+              ) : (
+                <rect x={-s / 2} y={-s / 2} width={s} height={s} className="tb-off-ph" />
+              )}
+              {k >= 1 && <path d="M-11 0h5M6 0h5M0-11v5M0 6v5" className="tb-aim" />}
+              <rect x="-10" y="-10" width="20" height="20" className="tb-edge tb-lock" />
+              <text x="9" y="-7" className="tb-num">
+                {String(i + 1).padStart(2, '0')}
               </text>
             </g>,
           )

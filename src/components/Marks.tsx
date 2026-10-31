@@ -32,19 +32,18 @@ export function ArchMark({ p, size = 40, filled }: { p?: Progress; size?: number
   )
 }
 
-// Sol nascendo atrás do horizonte (cosmos): o disco sobe e se enche de brasa conforme o tópico avança.
-export function SunMark({ p, size = 20, filled }: { p?: Progress; size?: number; filled?: boolean }) {
+// Monitor de fósforo (Profissional): as linhas de texto acendem de cima para baixo conforme o tópico avança;
+// concluído, a tela inteira fica acesa com o cursor.
+export function ScreenMark({ p, size = 20, filled }: { p?: Progress; size?: number; filled?: boolean }) {
   const r = filled ? 1 : ratioOf(p)
-  const clip = useId()
+  const lit = r >= 1 ? 5 : Math.floor(r * 5 + (r > 0 ? 0.999 : 0))
   return (
-    <svg width={size} height={size} viewBox="-12 -12 24 24" aria-hidden="true" className="shrink-0 text-accent">
-      <clipPath id={clip}>
-        <circle r="8.2" />
-      </clipPath>
-      {r > 0 && <rect x="-9" y={8.2 - 16.4 * r} width="18" height="17" fill="currentColor" clipPath={`url(#${clip})`} />}
-      <circle r="8.2" fill="none" stroke="currentColor" strokeWidth="1.3" />
-      <path d="M-11.5 4.6H11.5" stroke="currentColor" strokeWidth="1" opacity="0.65" />
-      {r >= 1 && <path d="M0-11.5v2.4M0 9.1v2.4M-11.5 0h2.4M9.1 0h2.4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />}
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" className="shrink-0 text-accent">
+      <rect x="1.5" y="2.5" width="21" height="17" rx="2.5" fill={r >= 1 ? 'currentColor' : 'none'} fillOpacity="0.18" stroke="currentColor" strokeWidth="1.6" />
+      {Array.from({ length: 5 }, (_, i) => (
+        <rect key={i} x="4.5" y={5 + i * 2.7} width={[14, 9, 12, 7, 11][i]} height="1.5" fill="currentColor" opacity={i < lit ? 1 : 0.25} />
+      ))}
+      <path d="M8 22.5h8" stroke="currentColor" strokeWidth="1.6" />
     </svg>
   )
 }
@@ -108,7 +107,7 @@ export function ProgressMark({ world, ...props }: { world: World; p?: Progress; 
   if (world === 'sacro') return <ArchMark {...props} />
   if (world === 'eva') return <HexMark {...props} />
   if (world === 'office') return <PixelMark {...props} />
-  if (world === 'cosmos') return <SunMark {...props} />
+  if (world === 'fosforo') return <ScreenMark {...props} />
   if (world === 'bebop') return <BlockMark {...props} />
   return <ControlMark {...props} />
 }

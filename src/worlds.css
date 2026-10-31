@@ -1,4 +1,4 @@
-/* Temas por cima do mapa: cosmos (Profissional), bebop (Repertório), eva (UEM) e office (Trabalho). As cores e fontes de cada
+/* Temas por cima do mapa: fosforo (Profissional), bebop (Repertório), eva (UEM) e office (Trabalho). As cores e fontes de cada
    mundo estão em index.css; aqui ficam as regras que trocam a pele dos componentes. Fica fora das camadas
    de propósito, para vencer o que .btn, .frame e .rule-head definem em @layer components. */
 
@@ -830,8 +830,20 @@
 [data-module='igreja'] .tbg::after {
   background: radial-gradient(120% 90% at 70% 40%, transparent 40%, rgba(14, 9, 5, 0.85) 100%);
 }
+/* Profissional: as linhas do monitor e a borda escura do tubo, as mesmas do cabeçalho e do banner */
 [data-module='profissional'] .tbg::after {
-  background: radial-gradient(120% 90% at 70% 40%, transparent 35%, rgba(7, 6, 10, 0.88) 100%);
+  background:
+    repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0 1px, transparent 1px 3px),
+    radial-gradient(120% 90% at 70% 40%, transparent 35%, rgba(4, 9, 6, 0.9) 100%);
+}
+:root[data-theme='light'] [data-module='profissional'] .tbg::after {
+  background: none;
+}
+[data-module='profissional'] .tbg-tag {
+  font-family: 'VT323', monospace;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-shadow: 0 0 6px currentColor;
 }
 [data-module='cultura'] .tbg::after {
   background: repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0 1px, transparent 1px 3px);
@@ -903,6 +915,66 @@
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 35%);
   mask-image: linear-gradient(90deg, transparent 0, #000 35%);
 }
+/* Homem de cabeça de abóbora (recorte em tinta de pôster): fica no meio do vão entre o cartão e o pôster, com os pés
+   sumindo no papel e uma sombra de tinta no chão. Multiply para a cor entrar no papel como impressão. */
+.bt-pumpkin {
+  --pane: min(31rem, 42vw);
+  --poster: calc(100% - min(72%, 46rem) * 0.65);
+  position: absolute;
+  bottom: 4%;
+  left: calc((var(--pane) + var(--poster)) / 2);
+  height: min(78%, 40rem);
+  aspect-ratio: 242 / 549;
+  translate: -50% 0;
+  mix-blend-mode: multiply;
+}
+.banner[data-side='right'] .bt-pumpkin {
+  --poster: 100%;
+  left: calc((100% - var(--pane)) / 2);
+}
+.bt-pumpkin::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -2%;
+  width: 150%;
+  height: 9%;
+  translate: -50% 0;
+  background: radial-gradient(closest-side, rgba(38, 38, 52, 0.35), transparent);
+}
+.bt-pumpkin img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  filter: contrast(1.05) sepia(0.12);
+  -webkit-mask-image: linear-gradient(180deg, #000 72%, rgba(0, 0, 0, 0.35) 94%, transparent);
+  mask-image: linear-gradient(180deg, #000 72%, rgba(0, 0, 0, 0.35) 94%, transparent);
+  transform-origin: 50% 100%;
+  animation: pumpkin-walk 1.4s ease-in-out infinite;
+}
+/* Balanço de quem anda: sobe e desce de leve a cada passo */
+@keyframes pumpkin-walk {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0.6deg);
+  }
+  50% {
+    transform: translateY(-1.2%) rotate(-0.6deg);
+  }
+}
+@media (max-width: 767px) {
+  .bt-pumpkin {
+    left: 50%;
+    bottom: auto;
+    top: 6%;
+    height: 42%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bt-pumpkin img {
+    animation: none;
+  }
+}
 .banner-office .band,
 .banner-office .pane {
   background: #262634;
@@ -951,39 +1023,12 @@
 }
 
 /* =====================================================================================================
-   Cosmos (Profissional) e Bebop (Repertório): letreiros, blocos, botões e fundos
+   Bebop (Repertório): letreiros, blocos, botões e fundos
    ===================================================================================================== */
-[data-world='cosmos'] .display {
-  font-weight: 300;
-  letter-spacing: 0.07em;
-  line-height: 1;
-}
 [data-world='bebop'] .display {
   font-weight: 900;
   letter-spacing: 0.012em;
   line-height: 0.92;
-}
-[data-world='cosmos'] .sub-head.display {
-  font-weight: 500;
-  letter-spacing: 0.04em;
-}
-[data-world='cosmos'] .rule-head {
-  font-weight: 300;
-  font-size: 1.4rem;
-  letter-spacing: 0.16em;
-}
-[data-world='cosmos'] .rule-head::before {
-  -webkit-mask: none;
-  mask: none;
-  width: 0.95rem;
-  height: 0.95rem;
-  border: 1px solid var(--accent);
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--accent) 0 28%, transparent 32%);
-}
-[data-world='cosmos'] .rule-head::after {
-  height: 1px;
-  background: linear-gradient(90deg, var(--accent), var(--frame) 30%, transparent);
 }
 [data-world='bebop'] .rule-head {
   font-weight: 900;
@@ -1001,41 +1046,20 @@
   height: 4px;
   background: linear-gradient(90deg, var(--bb-yellow) 0 20%, var(--bb-green) 20% 40%, var(--bb-red) 40% 60%, var(--bb-orange) 60% 80%, var(--bb-blue) 80%);
 }
-[data-world='cosmos'] .frame,
-[data-world='cosmos'] .map-sheet {
-  border-radius: 0.35rem;
-}
 [data-world='bebop'] .frame,
 [data-world='bebop'] .map-sheet {
   border-radius: 0.2rem;
   border-width: 2px;
 }
-[data-world='cosmos'] .btn,
 [data-world='bebop'] .btn {
   font-family: 'Big Shoulders Display Variable', sans-serif;
-}
-[data-world='cosmos'] .btn {
-  font-weight: 500;
-  letter-spacing: 0.12em;
 }
 [data-world='bebop'] .btn {
   font-weight: 800;
   border-radius: 0.2rem;
 }
-[data-world='cosmos'] .check {
-  border-radius: 50%;
-}
 [data-world='bebop'] .check {
   border-radius: 1px;
-}
-[data-world='cosmos'].app {
-  background-image:
-    radial-gradient(46rem 30rem at 100% 0%, rgba(238, 90, 53, 0.14), transparent 70%),
-    radial-gradient(40rem 26rem at 0% 100%, rgba(120, 140, 200, 0.08), transparent 70%);
-  background-attachment: fixed;
-}
-:root[data-theme='light'] [data-world='cosmos'].app {
-  background-image: radial-gradient(46rem 30rem at 100% 0%, rgba(179, 50, 26, 0.09), transparent 70%);
 }
 [data-world='bebop'].app {
   background-image:
@@ -1047,7 +1071,7 @@
   background-image: radial-gradient(44rem 28rem at 100% 0%, rgba(184, 50, 31, 0.08), transparent 70%);
 }
 
-/* Estrelas e cruzes de luz, comuns aos dois mundos */
+/* Estrelas piscando (Bebop) */
 .sky-stars {
   position: absolute;
   inset: 0;
@@ -1084,350 +1108,6 @@
     transform: scale(0.6);
   }
 }
-.flare {
-  position: absolute;
-  z-index: -1;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-}
-.flare i {
-  position: absolute;
-}
-.flare-v {
-  left: -0.5px;
-  top: -120vh;
-  width: 1px;
-  height: 240vh;
-  background: linear-gradient(180deg, transparent, var(--ember, #ee5a35) 42%, var(--ember, #ee5a35) 58%, transparent);
-  opacity: 0.75;
-  animation: flare-pulse 5s ease-in-out infinite;
-}
-.flare-h {
-  top: -0.5px;
-  left: -120vw;
-  width: 240vw;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--ember, #ee5a35) 42%, var(--ember, #ee5a35) 58%, transparent);
-  opacity: 0.75;
-  animation: flare-pulse 5s ease-in-out infinite 0.6s;
-}
-.flare-core {
-  position: absolute;
-  left: -11px;
-  top: -11px;
-  color: #fff3d8;
-  filter: drop-shadow(0 0 6px var(--ember, #ee5a35));
-  animation: twinkle 3.6s ease-in-out infinite;
-}
-@keyframes flare-pulse {
-  50% {
-    opacity: 0.3;
-  }
-}
-
-/* ---------- Cosmos: cabeçalho ---------- */
-.cos-poster {
-  --ink: #efe6d6;
-  --ink-2: #cfc3ae;
-  --ember: #ee5a35;
-  --sun: #f0a860;
-  container-type: inline-size;
-  position: relative;
-  overflow: clip;
-  isolation: isolate;
-  min-height: 24rem;
-  border: 1px solid #7a4430;
-  border-radius: 0.35rem;
-  background: #07060a;
-  color: var(--ink);
-}
-.cos-art {
-  position: absolute;
-  z-index: -3;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 38%;
-  animation: cos-drift 40s ease-in-out infinite alternate;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 58%);
-  mask-image: linear-gradient(90deg, transparent 0, #000 58%);
-}
-@keyframes cos-drift {
-  from {
-    transform: scale(1.04);
-  }
-  to {
-    transform: scale(1.11) translateY(-1.5%);
-  }
-}
-.cos-poster::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  background: linear-gradient(0deg, rgba(7, 6, 10, 0.85), transparent 55%);
-  pointer-events: none;
-}
-.cos-mist {
-  position: absolute;
-  z-index: -2;
-  left: -20%;
-  right: -20%;
-  bottom: 6%;
-  height: 34%;
-  background:
-    radial-gradient(50% 60% at 30% 60%, rgba(207, 216, 232, 0.24), transparent 70%),
-    radial-gradient(40% 55% at 75% 40%, rgba(240, 184, 144, 0.2), transparent 70%);
-  filter: blur(10px);
-  mix-blend-mode: screen;
-  animation: cos-mist 26s ease-in-out infinite alternate;
-}
-.cos-mist-2 {
-  bottom: 0;
-  height: 26%;
-  opacity: 0.8;
-  animation-duration: 38s;
-  animation-direction: alternate-reverse;
-}
-@keyframes cos-mist {
-  from {
-    transform: translateX(-6%);
-  }
-  to {
-    transform: translateX(6%);
-  }
-}
-.cos-stars {
-  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 45%, transparent 72%);
-  mask-image: linear-gradient(180deg, #000 0, #000 45%, transparent 72%);
-}
-.cos-flare {
-  right: 17%;
-  top: 22%;
-}
-.cos-side {
-  position: absolute;
-  top: 50%;
-  right: 0.6rem;
-  writing-mode: vertical-rl;
-  transform: translateY(-50%) rotate(180deg);
-  font-family: 'Space Mono', monospace;
-  font-size: var(--type-micro);
-  font-weight: 700;
-  letter-spacing: 0.3em;
-  color: var(--ink-2);
-  opacity: 0.7;
-  white-space: nowrap;
-}
-.cos-copy {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
-  min-height: 24rem;
-  max-width: min(100%, 40rem);
-  padding: 2rem 1.5rem 1.75rem;
-}
-.cos-kicker {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  font-family: 'Space Mono', monospace;
-  font-size: var(--type-micro);
-  font-weight: 700;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--ember);
-}
-.cos-title {
-  margin-top: 0.5rem;
-  font-family: 'Big Shoulders Display Variable', sans-serif;
-  font-weight: 200;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  line-height: 0.9;
-  font-size: min(6.4rem, calc(92cqw / (var(--len) * 0.5)));
-  text-shadow: 0 0 40px rgba(238, 90, 53, 0.4);
-}
-.cos-tag {
-  max-width: 26rem;
-  margin-top: 0.9rem;
-  font-family: 'Newsreader Variable', Georgia, serif;
-  font-style: italic;
-  font-size: 1.3rem;
-  line-height: 1.3;
-  color: var(--ink-2);
-}
-.cos-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem 1.5rem;
-  margin-top: 1.4rem;
-}
-.cos-chip {
-  padding: 0.2rem 0.85rem;
-  border: 1px solid var(--ember);
-  border-radius: 999px;
-  font-family: 'Space Mono', monospace;
-  font-size: var(--type-micro);
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-.cos-orbit {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  font-family: 'Space Mono', monospace;
-  font-size: var(--type-micro);
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  color: var(--ink-2);
-}
-.cos-orbit-track {
-  position: relative;
-  width: 9rem;
-  height: 1px;
-  background: #7a4430;
-}
-.cos-orbit-track i {
-  position: absolute;
-  left: 0;
-  top: -1px;
-  height: 3px;
-  width: max(var(--orbit), 2%);
-  background: var(--ember);
-  box-shadow: 0 0 8px var(--ember);
-  animation: orbit-load 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-}
-.cos-orbit-track i::after {
-  content: '';
-  position: absolute;
-  right: -4px;
-  top: -3px;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: #fff3d8;
-  box-shadow: 0 0 10px 2px var(--ember);
-}
-@keyframes orbit-load {
-  from {
-    width: 0;
-  }
-}
-@media (min-width: 768px) {
-  .cos-poster,
-  .cos-copy {
-    min-height: 26rem;
-  }
-  .cos-copy {
-    padding: 3rem 3rem 2.5rem;
-  }
-}
-
-/* ---------- Cosmos: painel dos tópicos (céu, mar de nuvens e cordilheira) ---------- */
-.tb-cosmos {
-  background:
-    radial-gradient(60% 50% at 50% 82%, rgba(238, 90, 53, 0.3), transparent 75%),
-    linear-gradient(#050408, #0e0a12);
-}
-:root[data-theme='light'] .tb-cosmos {
-  background:
-    radial-gradient(60% 50% at 50% 82%, rgba(179, 50, 26, 0.22), transparent 75%),
-    linear-gradient(#efe3c8, #e6d7b8);
-}
-.tb-cosmos .tb-star {
-  fill: var(--ink);
-  opacity: 0.8;
-}
-.tb-sun {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: sun-breathe 7s ease-in-out infinite;
-}
-@keyframes sun-breathe {
-  50% {
-    opacity: 0.65;
-    transform: scale(1.12);
-  }
-}
-.tb-sundisc {
-  fill: var(--ember);
-}
-.tb-drift {
-  fill: none;
-  stroke: rgba(240, 184, 144, 0.35);
-  stroke-width: 6;
-  stroke-linecap: round;
-  animation: tb-drift 18s ease-in-out infinite alternate;
-}
-.tb-drift-2 {
-  stroke: rgba(207, 216, 232, 0.22);
-  animation-duration: 26s;
-  animation-direction: alternate-reverse;
-}
-@keyframes tb-drift {
-  to {
-    transform: translateX(-60px);
-  }
-}
-.tb-ridge {
-  fill: #040306;
-}
-:root[data-theme='light'] .tb-ridge {
-  fill: #2c2a24;
-}
-.tb-cosmos .tb-ray {
-  stroke: var(--sun);
-  stroke-width: 1;
-  stroke-linecap: round;
-}
-.tb-cosmos .tb-halo {
-  fill: none;
-  stroke: var(--ember);
-  stroke-width: 1;
-  opacity: 0.6;
-}
-.tb-cosmos .tb-fill {
-  fill: #fff3d8;
-}
-:root[data-theme='light'] .tb-cosmos .tb-fill {
-  fill: var(--ember);
-}
-.tb-cosmos .tb-dim {
-  fill: var(--ink-3);
-  opacity: 0.7;
-}
-.tb-cosmos .tb-dashed {
-  fill: none;
-  stroke: var(--ink-3);
-  stroke-width: 1;
-  stroke-dasharray: 2 3;
-}
-.tb-twinkle {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: twinkle 4.4s ease-in-out infinite;
-}
-.tb-star {
-  animation: star-blink 3.4s ease-in-out infinite;
-}
-.tb-cosmos .tb-node.lit .tb-halo,
-.tb-cosmos .tb-node:focus-visible .tb-halo {
-  stroke: var(--ink);
-  stroke-width: 2;
-  opacity: 1;
-}
-.tb-cosmos .tb-node.lit .tb-dashed,
-.tb-cosmos .tb-node:focus-visible .tb-dashed {
-  stroke: var(--ink);
-}
-
 /* ---------- Bebop: cabeçalho ---------- */
 .bb-poster {
   --ink: #f1e9d6;
@@ -1709,52 +1389,10 @@
 }
 
 /* =====================================================================================================
-   Banners da página inicial: cosmos e bebop
+   Banners da página inicial: bebop
    ===================================================================================================== */
-.banner-theme .cos-mist {
-  z-index: 1;
-}
 .banner-theme .sky-stars {
   z-index: 1;
-}
-.banner-theme .flare {
-  z-index: 1;
-}
-.banner-cosmos {
-  --accent: #ee5a35;
-  --edge: #c9301c;
-  --on-accent: #0a0709;
-  --ember: #ee5a35;
-  --sun: #f0a860;
-}
-.banner-cosmos .banner-frame {
-  background: #07060a;
-}
-.bt-cos-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 42%;
-  animation: cos-drift 40s ease-in-out infinite alternate;
-  -webkit-mask-image: linear-gradient(90deg, transparent 6%, #000 40%);
-  mask-image: linear-gradient(90deg, transparent 6%, #000 40%);
-}
-.bt-flare {
-  left: 62%;
-  top: 28%;
-}
-.banner-cosmos .gloock-text {
-  font-family: 'Big Shoulders Display Variable', sans-serif;
-  font-weight: 300;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.banner-cosmos .btn-primary {
-  background: #ee5a35;
-  border-color: #ee5a35;
-  color: #0a0709;
 }
 
 .banner-bebop {
@@ -1922,25 +1560,6 @@
 .band-home {
   border-top: 3px solid var(--accent);
 }
-.band-cosmos {
-  background: linear-gradient(180deg, #07060a, #1a0c10 72%, #3a140f);
-  border: 1px solid #7a4430;
-  --accent: #ee5a35;
-}
-.band-cosmos::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  background: radial-gradient(circle at 50% 108%, rgba(238, 90, 53, 0.75), transparent 58%);
-  animation: sun-breathe 7s ease-in-out infinite;
-}
-.band-cosmos .band-title {
-  font-family: 'Big Shoulders Display Variable', sans-serif;
-  font-weight: 300;
-  letter-spacing: 0.14em;
-  color: #efe6d6;
-}
 .band-bebop {
   --accent: #f2c230;
   background: #0b0a0a;
@@ -2065,17 +1684,6 @@
 @media (prefers-reduced-motion: reduce) {
   .sky-stars i,
   .twinkle,
-  .flare-v,
-  .flare-h,
-  .flare-core,
-  .cos-art,
-  .cos-mist,
-  .cos-orbit-track i,
-  .bt-cos-img,
-  .tb-sun,
-  .tb-drift,
-  .tb-twinkle,
-  .tb-star,
   .bb-art img,
   .bb-art-scan::after,
   .bb-ship,
@@ -2084,7 +1692,6 @@
   .session-tab::after,
   .bt-bb-blocks i,
   .bt-ship,
-  .band-cosmos::before,
   .band-bebop::before,
   .band-eva::after,
   .band-eva .band-title,
@@ -2286,6 +1893,24 @@
 }
 
 /* ---- Igreja: Cristo no Getsêmani, com a luz viva (components/Gethsemane.tsx) ---- */
+/* No banner da página inicial a pintura encolhe para o lado livre do cartão, com o rosto (a ~42% da largura da
+   pintura) no meio da área que fica à vista. */
+@media (min-width: 768px) {
+  .banner[data-side='left'] .gth-banner {
+    left: calc(min(31rem, 42vw) * 0.86 + 13.8%);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%);
+    mask-image: linear-gradient(90deg, transparent, #000 18%);
+  }
+  .banner[data-side='right'] .gth-banner {
+    right: calc(100% - (100% - min(31rem, 42vw)) / 0.84);
+  }
+  /* Cabeçalho da página do módulo: o título fica à esquerda, então o rosto vai para o meio da metade direita */
+  .gth.gth-head {
+    left: 40%;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 25%);
+    mask-image: linear-gradient(90deg, transparent, #000 25%);
+  }
+}
 .gth {
   position: absolute;
   inset: 0;
@@ -2411,5 +2036,608 @@
   }
   .gth-mote {
     display: none;
+  }
+}
+
+/* =====================================================================================================
+   Fósforo (Profissional): monitor verde de um computador de pesquisa antigo. Referências em refs/profissional-fosforo/
+   (o navio no scanner, a tela de BIOS, as cabeças em malha e o aperto de mão em pixel art). Todas as imagens passaram
+   pela mesma rampa de verde (src/assets/fosforo/) e levam as mesmas linhas de varredura, para parecer um monitor só.
+   VT323 é a letra do terminal; Silkscreen, a dos rótulos miúdos. O monitor fica escuro também no tema claro.
+   ===================================================================================================== */
+[data-world='fosforo'] .display {
+  font-family: 'VT323', monospace;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 0.9;
+  text-shadow: 0 0 0.35em color-mix(in oklab, var(--phos) 45%, transparent);
+}
+:root[data-theme='light'] [data-world='fosforo'] .display {
+  text-shadow: none;
+}
+[data-world='fosforo'] .rule-head {
+  font-family: 'VT323', monospace;
+  font-weight: 400;
+  font-size: 1.6rem;
+  letter-spacing: 0.08em;
+}
+[data-world='fosforo'] .rule-head::before {
+  -webkit-mask: none;
+  mask: none;
+  width: 0.7rem;
+  height: 1.05rem;
+  background: var(--accent);
+  animation: ph-blink 1.1s steps(1) infinite;
+}
+[data-world='fosforo'] .rule-head::after {
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--accent) 0 10px, transparent 10px 14px);
+  opacity: 0.6;
+}
+[data-world='fosforo'] .frame,
+[data-world='fosforo'] .map-sheet {
+  border-radius: 2px;
+}
+[data-world='fosforo'] .btn {
+  font-family: 'VT323', monospace;
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  border-radius: 2px;
+}
+[data-world='fosforo'] .check {
+  border-radius: 1px;
+}
+[data-world='fosforo'] .mono {
+  font-family: 'VT323', 'Space Mono', monospace;
+  letter-spacing: 0.04em;
+}
+[data-world='fosforo'].app {
+  background-image:
+    radial-gradient(48rem 30rem at 100% 0%, rgba(125, 255, 154, 0.1), transparent 70%),
+    radial-gradient(36rem 24rem at 0% 100%, rgba(255, 122, 36, 0.05), transparent 70%);
+  background-attachment: fixed;
+}
+/* Claro: papel de impressora matricial, faixas verdes alternadas e os furos do trator na margem */
+:root[data-theme='light'] [data-world='fosforo'].app {
+  background-image:
+    radial-gradient(circle at 0.7rem 0.75rem, rgba(15, 36, 22, 0.13) 0 0.22rem, transparent 0.26rem),
+    repeating-linear-gradient(180deg, rgba(29, 107, 53, 0.075) 0 1.5rem, transparent 1.5rem 3rem);
+  background-size:
+    100% 1.5rem,
+    auto;
+  background-repeat: repeat-y, repeat;
+  background-attachment: local;
+}
+@keyframes ph-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ---------- Tela de tubo: linhas de varredura, borda escura e a faixa clara que desce ---------- */
+.ph-crt {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.32) 0 1px, transparent 1px 3px),
+    radial-gradient(130% 110% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.75) 100%);
+  animation: ph-flicker 6s steps(1) infinite;
+}
+.ph-crt::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -30%;
+  height: 22%;
+  background: linear-gradient(180deg, transparent, rgba(125, 255, 154, 0.06) 60%, rgba(125, 255, 154, 0.12) 92%, transparent);
+  animation: ph-roll 7s linear infinite;
+}
+@keyframes ph-roll {
+  to {
+    top: 110%;
+  }
+}
+@keyframes ph-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  41% {
+    opacity: 0.86;
+  }
+  42% {
+    opacity: 1;
+  }
+  77% {
+    opacity: 0.92;
+  }
+  78% {
+    opacity: 1;
+  }
+}
+
+/* ---------- Cabeçalho: a tela de BIOS com o navio no scanner ---------- */
+.ph-screen {
+  --ink: #c9ffd3;
+  --ink-2: #8fd9a0;
+  --phos: #7dff9a;
+  --phos-dim: #2c6b40;
+  --ember: #ff7a24;
+  container-type: inline-size;
+  position: relative;
+  overflow: clip;
+  isolation: isolate;
+  padding: 0.9rem;
+  border: 1px solid #2c6b40;
+  border-radius: 1rem;
+  background:
+    radial-gradient(90% 80% at 30% 40%, rgba(125, 255, 154, 0.08), transparent 70%),
+    #040906;
+  color: var(--ink);
+  font-family: 'VT323', monospace;
+  box-shadow:
+    inset 0 0 0 6px #020403,
+    inset 0 0 50px rgba(125, 255, 154, 0.08),
+    0 0 0 1px #0d1c12;
+}
+.ph-bar,
+.ph-menu {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.3rem 0.6rem;
+  color: var(--ink-2);
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.ph-bar-mid {
+  display: none;
+}
+.ph-menu {
+  margin-top: 0.4rem;
+  border: 1px solid var(--phos-dim);
+  font-size: 1.35rem;
+  color: var(--phos);
+  text-shadow: 0 0 8px rgba(125, 255, 154, 0.5);
+}
+.ph-menu span:nth-child(n + 4) {
+  display: none;
+}
+.ph-grid {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 0.9rem;
+}
+.ph-copy {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 0;
+  padding: 1.1rem 1rem 1rem;
+  border: 1px solid var(--phos-dim);
+}
+.ph-prompt {
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+}
+.ph-cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 0.2em;
+  vertical-align: -0.12em;
+  background: var(--phos);
+  animation: ph-blink 1.1s steps(1) infinite;
+}
+.ph-title {
+  position: relative;
+  margin-top: 0.4rem;
+  font-family: 'VT323', monospace;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.82;
+  letter-spacing: 0.01em;
+  font-size: min(8.5rem, calc(100cqw / (var(--len) * 0.52)));
+  color: var(--phos);
+  text-shadow:
+    0 0 0.08em rgba(201, 255, 211, 0.9),
+    0 0 0.35em rgba(125, 255, 154, 0.55),
+    0.035em 0 0 rgba(255, 122, 36, 0.35);
+  animation: ph-jitter 5s steps(1) infinite;
+}
+@keyframes ph-jitter {
+  0%,
+  100% {
+    transform: none;
+  }
+  62% {
+    transform: translateX(0.012em);
+  }
+  63% {
+    transform: none;
+  }
+}
+.ph-tag {
+  margin-top: 0.7rem;
+  font-size: 1.45rem;
+  line-height: 1.1;
+  color: var(--ink);
+}
+.ph-load {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.7rem;
+  margin-top: 1.1rem;
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-2);
+}
+.ph-bootbar {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--phos-dim);
+}
+.ph-bootbar i {
+  width: 0.55rem;
+  height: 0.9rem;
+  background: rgba(125, 255, 154, 0.1);
+}
+.ph-bootbar i.on {
+  background: var(--phos);
+  box-shadow: 0 0 6px rgba(125, 255, 154, 0.6);
+  animation: ph-boot 0.05s calc(var(--i) * 70ms) both steps(1);
+}
+@keyframes ph-boot {
+  from {
+    background: rgba(125, 255, 154, 0.1);
+    box-shadow: none;
+  }
+}
+.ph-load-pct {
+  color: var(--phos);
+  font-size: 1.35rem;
+}
+.ph-log {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-2);
+  opacity: 0.8;
+}
+.ph-art {
+  position: relative;
+  min-height: 12rem;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--phos-dim);
+  background: #040906;
+}
+.ph-art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 45%;
+  animation: ph-drift 26s ease-in-out infinite alternate;
+}
+@keyframes ph-drift {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.1) translate(-1.5%, 1%);
+  }
+}
+.ph-art figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25rem 0.5rem;
+  background: rgba(4, 9, 6, 0.8);
+  border-top: 1px solid var(--phos-dim);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-2);
+}
+.ph-foot {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.9rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--phos-dim);
+}
+.ph-foot .ph-radar {
+  width: 3.4rem;
+  flex: none;
+}
+.ph-foot .ph-sprite {
+  height: 3.2rem;
+  flex: none;
+}
+.ph-foot-txt {
+  margin-left: auto;
+  font-family: 'Silkscreen', monospace;
+  font-size: 0.62rem;
+  line-height: 1.5;
+  letter-spacing: 0.06em;
+  text-align: right;
+  color: var(--ink-2);
+}
+.ph-radar {
+  display: block;
+  color: var(--phos, #7dff9a);
+  overflow: visible;
+}
+.ph-radar-sweep {
+  transform-origin: 0 0;
+  animation: ph-sweep 4s linear infinite;
+}
+@keyframes ph-sweep {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.ph-blip {
+  animation: ph-ping 4s ease-out infinite;
+}
+.ph-blip-2 {
+  animation-delay: 2.1s;
+}
+@keyframes ph-ping {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  8% {
+    opacity: 1;
+  }
+}
+.ph-sprite {
+  display: block;
+  aspect-ratio: 25 / 17;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 0 4px rgba(125, 255, 154, 0.35));
+}
+@media (min-width: 768px) {
+  .ph-screen {
+    padding: 1.1rem;
+  }
+  .ph-bar-mid,
+  .ph-menu span:nth-child(n + 4) {
+    display: inline;
+  }
+  .ph-grid {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    min-height: 20rem;
+  }
+  .ph-copy {
+    padding: 1.6rem 1.6rem 1.3rem;
+  }
+  .ph-foot-txt {
+    font-size: 0.7rem;
+  }
+}
+
+/* ---------- Painel dos tópicos: radar de varredura (é uma tela: fica escuro também no claro) ---------- */
+.tb-fosforo {
+  background:
+    radial-gradient(60% 60% at 50% 55%, rgba(125, 255, 154, 0.09), transparent 75%),
+    #040906;
+}
+.tb-fosforo .tb-label,
+.tb-fosforo .tb-num {
+  font-family: 'VT323', monospace;
+  font-weight: 400;
+}
+.tb-fosforo .tb-label {
+  font-size: 15px;
+  fill: #8fd9a0;
+}
+.tb-fosforo .tb-label-hot {
+  fill: #7dff9a;
+}
+.tb-fosforo .tb-rule {
+  stroke: #2c6b40;
+}
+.tb-fosforo .tb-num {
+  font-size: 14px;
+  fill: #c9ffd3;
+  stroke: #040906;
+}
+.tb-ring-ph {
+  fill: none;
+  stroke: #2c6b40;
+  stroke-width: 1;
+}
+.tb-cross {
+  stroke: #2c6b40;
+  stroke-width: 0.8;
+  stroke-dasharray: 3 4;
+}
+.tb-beam {
+  animation: ph-sweep 5s linear infinite;
+}
+.tb-fosforo .tb-fill {
+  fill: #7dff9a;
+  filter: drop-shadow(0 0 3px rgba(125, 255, 154, 0.8));
+}
+.tb-blip {
+  animation: ph-ping 5s ease-out infinite;
+}
+.tb-off-ph {
+  fill: none;
+  stroke: #5fa872;
+  stroke-width: 1;
+  stroke-dasharray: 1.5 1.5;
+}
+.tb-aim {
+  stroke: #ff7a24;
+  stroke-width: 1.4;
+}
+.tb-fosforo .tb-lock {
+  stroke: #7dff9a;
+  stroke-width: 1;
+  opacity: 0;
+  transition: opacity 150ms;
+}
+.tb-fosforo .tb-node.lit .tb-lock,
+.tb-fosforo .tb-node:focus-visible .tb-lock {
+  opacity: 1;
+  stroke-width: 1.4;
+}
+
+/* ---------- Banner da página inicial e faixa vertical ---------- */
+.banner-fosforo {
+  --accent: #7dff9a;
+  --edge: #7dff9a;
+  --on-accent: #031006;
+  --phos: #7dff9a;
+}
+.banner-fosforo .banner-frame {
+  background: #040906;
+}
+.bt-ph-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  animation: ph-drift 30s ease-in-out infinite alternate;
+  -webkit-mask-image: linear-gradient(90deg, transparent 4%, #000 38%);
+  mask-image: linear-gradient(90deg, transparent 4%, #000 38%);
+}
+.banner[data-side='left'] .bt-ph-img {
+  -webkit-mask-image: linear-gradient(90deg, transparent calc(min(31rem, 42vw) - 4rem), #000 calc(min(31rem, 42vw) + 14rem));
+  mask-image: linear-gradient(90deg, transparent calc(min(31rem, 42vw) - 4rem), #000 calc(min(31rem, 42vw) + 14rem));
+}
+.bt-ph-radar {
+  position: absolute;
+  z-index: 2;
+  left: 4vw;
+  bottom: 6vh;
+  width: min(9rem, 22vw);
+}
+.bt-ph-sprite {
+  position: absolute;
+  z-index: 2;
+  left: calc(4vw + min(9rem, 22vw) + 1.5rem);
+  bottom: 6vh;
+  height: min(5rem, 11vw);
+}
+.banner[data-side='left'] .bt-ph-radar {
+  left: auto;
+  right: 4vw;
+}
+.banner[data-side='left'] .bt-ph-sprite {
+  left: auto;
+  right: calc(4vw + min(9rem, 22vw) + 1.5rem);
+}
+.bt-ph-side {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: calc(min(31rem, 42vw) + 1.6rem);
+  height: 100%;
+  overflow: hidden;
+  writing-mode: vertical-rl;
+  font-family: 'VT323', monospace;
+  font-size: 1.3rem;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  color: #8fd9a0;
+  opacity: 0.75;
+}
+.banner[data-side='left'] .bt-ph-side {
+  right: auto;
+  left: calc(min(31rem, 42vw) + 1.6rem);
+}
+@media (max-width: 767px) {
+  .bt-ph-side {
+    display: none;
+  }
+}
+.banner-fosforo .pane {
+  background: #040906;
+}
+.banner-fosforo .pane h2 {
+  font-family: 'VT323', monospace;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(2.6rem, 3.6vw, 3.8rem);
+  line-height: 0.85;
+  color: #7dff9a;
+  text-shadow:
+    0 0 0.08em rgba(201, 255, 211, 0.9),
+    0 0 0.35em rgba(125, 255, 154, 0.55);
+}
+.banner-fosforo .pane h2::after {
+  content: '_';
+  animation: ph-blink 1.1s steps(1) infinite;
+}
+.banner-fosforo .pane ul li:not(.text-ink-3) {
+  font-family: 'VT323', monospace;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+}
+.banner-fosforo .gloock-text {
+  font-family: 'VT323', monospace;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.banner-fosforo .btn-primary {
+  background: #7dff9a;
+  border-color: #7dff9a;
+  color: #031006;
+  font-family: 'VT323', monospace;
+  font-size: 1.15rem;
+  border-radius: 2px;
+}
+.band-fosforo {
+  --accent: #7dff9a;
+  background:
+    repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, #040906, #0a1f12);
+  border: 1px solid #2c6b40;
+}
+.band-fosforo .band-title {
+  font-family: 'VT323', monospace;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #7dff9a;
+  text-shadow: 0 0 0.3em rgba(125, 255, 154, 0.6);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ph-crt,
+  .ph-crt::after,
+  .ph-title,
+  .ph-cursor,
+  .ph-art img,
+  .ph-radar-sweep,
+  .ph-blip,
+  .ph-bootbar i.on,
+  .tb-beam,
+  .tb-blip,
+  .bt-ph-img,
+  .banner-fosforo .pane h2::after,
+  [data-world='fosforo'] .rule-head::before {
+    animation: none;
   }
 }

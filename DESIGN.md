@@ -176,6 +176,11 @@ typography:
     fontSize: "10rem"
     fontWeight: 850
     lineHeight: 0.82
+  fosforo-display:
+    fontFamily: "'VT323', monospace"
+    fontSize: "8.5rem"
+    fontWeight: 400
+    lineHeight: 0.82
   office-display:
     fontFamily: "'Krona One', sans-serif"
     fontSize: "5.2rem"
@@ -292,10 +297,10 @@ Referência: `../refs/c564aeb767c39bbc03d14bd03b530fc1.jpg`, uma capa de disco c
 - **Rodapé da faixa:** letra miúda no papel `micro` (0.78rem); a faixa cresce com o conteúdo, sem altura fixa.
 - **Voltar ao início:** a marca "Estudos" na lateral e na barra do celular leva para `/`.
 
-## Mundos temáticos (psico, eva, office)
+## Mundos temáticos (fosforo, eva, office)
 
 Cores e fontes em `src/index.css` (`[data-world=...]`), regras dos componentes em `src/worlds.css`, cabeçalhos em `components/Worlds.tsx`, marcadores em `Marks.tsx` e o painel no lugar do mapa em `components/ThemeBoard.tsx`. Todos têm tema claro.
-- **psico (Profissional):** pôster psicodélico de OVNI em violeta elétrico, tomate, mostarda e moldura rosa-choque. O OVNI (`Ufo` em `Worlds.tsx`) é uma cena desenhada no estilo do pôster: aura violeta de borda derretida com contornos que se repetem, disco com cúpula, olho de raios dourados e feixe de ondas que desce até a borda do quadro; pupila, pálpebras, ondas e contornos se mexem. O Concorde (`PlaneTrail`) voa em três fitas de luz, diminui ao se afastar, balança, tem pós-combustor e onda de choque; com movimento reduzido tudo fica parado. Título em Bagel Fat One; só a palavra Bronze, Prata ou Ouro do título da etapa leva a cor do metal. O olho é o marcador, e o painel é um céu de olhos que piscam. Claro: papel creme.
+- **fosforo (Profissional, desde 30/10/2026; refs em `refs/profissional-fosforo/`):** monitor de fósforo verde de um computador de pesquisa antigo. As referências (navio no scanner, retrato em ASCII da tela de BIOS, cabeças em malha) passam pela mesma rampa de verde em `src/assets/fosforo/` e levam as mesmas linhas de varredura (`.ph-crt`), para o fundo, o cabeçalho e o banner parecerem um monitor só. O laranja de brasa do aperto de mão em pixel art é a única cor quente (mira dos tópicos concluídos). Cabeçalho = tela de BIOS (barra de menu, prompt com cursor, barra de carga em blocos, navio no scanner, radar e o sprite); painel = radar de varredura com um ponto por tópico; marcador = monitorzinho cujas linhas acendem. O monitor fica escuro também no claro; a página clara vira papel de impressora matricial com faixas verdes.
 - **eva (UEM):** Evangelion, preto arroxeado com hexágonos finos, alerta vermelho, laranja e verde-ácido de detalhe. Título em Noto Serif Display condensada com aberração de cor; cabeçalho em grade com barra "SYNC RATE" do progresso e kanji (Yu Mincho ou equivalente do sistema). O hexágono é o marcador. Claro: verde-menta.
 - **office (Trabalho):** pôster de The Office em papel pardo, com placa da porta, carimbo e cinco retratos recortados. Título em Krona One (geométrica larga, entre duas barras vermelhas como no pôster de referência), rótulos em Special Elite e letreiro dos blocos em Anton; o painel é um mural de papel pardo. O cabeçalho não leva tagline.
 - **Fundo temático:** imagens fixas atrás da página do módulo (`ThemeBackdrop.tsx`, `data/backdrops.ts`), apagadas pelo CSS para o texto seguir legível (opacidade menor abaixo de 900px).
@@ -341,7 +346,7 @@ Uma cor saturada por tela, a do módulo, sobre preto quente e creme.
 **Vozes de mundo** (cada uma só dentro do seu mundo, regras em `src/worlds.css`):
 - Sacro: Young Serif, Newsreader itálica e Cinzel Decorative no título.
 - Renascença: Noto Serif Display condensada (wdth 62.5), Cormorant Garamond e Montserrat Variable.
-- Psico (Profissional): Bagel Fat One.
+- Fósforo (Profissional, desde 30/10/2026): VT323 (terminal de fósforo) no título, nos rótulos e nos números; Silkscreen nas letras miúdas do rodapé do monitor.
 - Eva (UEM): Noto Serif Display Variable condensada no título; kanji em Yu Mincho ou fonte equivalente do sistema.
 - Office (Trabalho): Krona One no título, Anton nos blocos e Special Elite nos rótulos.
 - Marca "Estudos" da lateral e capas em Gloock.

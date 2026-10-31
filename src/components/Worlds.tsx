@@ -3,6 +3,9 @@ import swordfish from '../assets/bebop/swordfish.png'
 import swordfishPixel from '../assets/bebop/swordfish-pixel.png'
 import evaAberta from '../assets/eva/eva-lua-boca-aberta.jpg'
 import evaMeia from '../assets/eva/eva-lua-boca-meia.jpg'
+import handshake from '../assets/fosforo/aperto-pixel.png'
+import shipFrame from '../assets/fosforo/navio-quadro.jpg'
+import pumpkin from '../assets/trabalho/abobora.png'
 import face1 from '../assets/trabalho/face-1.jpg'
 import face2 from '../assets/trabalho/face-2.jpg'
 import face3 from '../assets/trabalho/face-3.jpg'
@@ -11,9 +14,8 @@ import face5 from '../assets/trabalho/face-5.jpg'
 import type { AppModule } from '../core/modules'
 import { plural } from '../core/geometry'
 import { backdrops } from '../data/backdrops'
-import { Sparkle } from './Marks'
 
-// Cabeçalhos dos quatro mundos que trocam só a pele do mapa: cosmos (Profissional), bebop (Repertório),
+// Cabeçalhos dos quatro mundos que trocam só a pele do mapa: fosforo (Profissional), bebop (Repertório),
 // eva (UEM) e office (Trabalho). Os enfeites são aria-hidden; o texto de verdade é o h1 e a tagline.
 
 type HeaderProps = { mod: AppModule; groupCount: number; pct?: number }
@@ -41,47 +43,100 @@ export function Stars({ n = 28, seed = 1, className = '' }: { n?: number; seed?:
   )
 }
 
-// Cruz de luz fina de uma estrela (das referências do Profissional): duas linhas que atravessam o quadro e pulsam
-export function Flare({ className = '', style }: { className?: string; style?: CSSProperties }) {
+/* ---------- Fósforo (Profissional): monitor verde de um computador de pesquisa antigo ---------- */
+
+// Radar do scanner (o círculo de varredura da referência do navio): anéis, mira e um feixe que gira
+export function Radar({ className = '' }: { className?: string }) {
   return (
-    <span className={`flare ${className}`} style={style} aria-hidden="true">
-      <i className="flare-v" />
-      <i className="flare-h" />
-      <Sparkle size={22} className="flare-core" />
+    <svg viewBox="-50 -50 100 100" className={`ph-radar ${className}`} aria-hidden="true">
+      <defs>
+        <linearGradient id="ph-sweep" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="currentColor" stopOpacity="0" />
+          <stop offset="1" stopColor="currentColor" stopOpacity="0.55" />
+        </linearGradient>
+      </defs>
+      {[46, 34, 22, 10].map((r) => (
+        <circle key={r} r={r} fill="none" stroke="currentColor" strokeWidth="0.7" opacity="0.55" />
+      ))}
+      <path d="M-48 0H48M0-48V48" stroke="currentColor" strokeWidth="0.5" opacity="0.4" />
+      <g className="ph-radar-sweep">
+        <path d="M0 0L46 0A46 46 0 0 0 32.5-32.5Z" fill="url(#ph-sweep)" />
+      </g>
+      <rect x="18" y="-24" width="3" height="3" fill="currentColor" className="ph-blip" />
+      <rect x="-30" y="12" width="3" height="3" fill="currentColor" className="ph-blip ph-blip-2" />
+    </svg>
+  )
+}
+
+// O aperto de mão em pixel art (referência do dono), recolorido em fósforo com o fogo laranja
+export function PixelShake({ className = '' }: { className?: string }) {
+  return <img src={handshake} alt="" className={`ph-sprite ${className}`} aria-hidden="true" decoding="async" />
+}
+
+// Barra de carga em blocos, como num boot: 20 células, cada uma vale 5%
+function BootBar({ pct }: { pct: number }) {
+  const on = Math.round(pct / 5)
+  return (
+    <span className="ph-bootbar" aria-hidden="true">
+      {Array.from({ length: 20 }, (_, i) => (
+        <i key={i} className={i < on ? 'on' : ''} style={{ '--i': i } as CSSProperties} />
+      ))}
     </span>
   )
 }
 
-/* ---------- Cosmos (Profissional): o sol vermelho sobre o mar de nuvens ---------- */
-
-export function CosmosHeader({ mod, groupCount, pct = 0 }: HeaderProps) {
+export function FosforoHeader({ mod, groupCount, pct = 0 }: HeaderProps) {
   return (
-    <div className="cos-poster" style={{ '--len': mod.short.length, '--orbit': `${pct}%` } as CSSProperties}>
-      <img src={backdrops.profissional.images[1].src} alt="" className="cos-art" aria-hidden="true" />
-      <span className="cos-mist" aria-hidden="true" />
-      <span className="cos-mist cos-mist-2" aria-hidden="true" />
-      <Stars n={34} seed={3} className="cos-stars" />
-      <Flare className="cos-flare" />
-      <span className="cos-side" aria-hidden="true">
-        OBSERVATÓRIO · ROTA DE DADOS + IA
-      </span>
-      <div className="cos-copy">
-        <p className="cos-kicker" aria-hidden="true">
-          <Sparkle size={11} className="twinkle" /> Observatório
-        </p>
-        <h1 className="cos-title">{mod.short}</h1>
-        <p className="cos-tag">{mod.tagline}</p>
-        <div className="cos-meta" aria-hidden="true">
-          <span className="cos-chip">{count(mod, groupCount)}</span>
-          <span className="cos-orbit">
-            <span>ÓRBITA</span>
-            <span className="cos-orbit-track">
-              <i />
-            </span>
-            <span>{String(pct).padStart(3, '0')}%</span>
-          </span>
-        </div>
+    <div className="ph-screen" style={{ '--len': mod.short.length } as CSSProperties}>
+      <div className="ph-bar" aria-hidden="true">
+        <span>ESTUDOS BIOS (TM)</span>
+        <span className="ph-bar-mid">DADOS + IA · RESEARCH</span>
+        <span>VER 1.03</span>
+        <span>PORT{'.'.repeat(6)}{groupCount}</span>
       </div>
+      <div className="ph-menu" aria-hidden="true">
+        <span>ROTA</span>
+        <span>ETAPAS</span>
+        <span>BOOT</span>
+        <span>SEQ</span>
+        <span>MAIS+</span>
+      </div>
+      <div className="ph-grid">
+        <div className="ph-copy">
+          <p className="ph-prompt" aria-hidden="true">
+            C:\ESTUDOS\{mod.id.toUpperCase()}&gt; RUN ROADMAP.EXE<i className="ph-cursor" />
+          </p>
+          <h1 className="ph-title" data-text={mod.short}>
+            {mod.short}
+          </h1>
+          <p className="ph-tag">{mod.tagline}</p>
+          <div className="ph-load" aria-hidden="true">
+            <span>CARREGANDO</span>
+            <BootBar pct={pct} />
+            <span className="ph-load-pct">{String(pct).padStart(3, '0')}%</span>
+          </div>
+          <p className="ph-log" aria-hidden="true">
+            &gt; {count(mod, groupCount).toUpperCase()} NA MEMÓRIA · BANK 1 OK · BANK 2 OK
+          </p>
+        </div>
+        <figure className="ph-art" aria-hidden="true">
+          <img src={shipFrame} alt="" />
+          <figcaption>
+            <span>SCAN 0X3F · ALVO</span>
+            <span>N 47°36' · O 52°11'</span>
+          </figcaption>
+        </figure>
+      </div>
+      <div className="ph-foot" aria-hidden="true">
+        <Radar />
+        <PixelShake />
+        <span className="ph-foot-txt">
+          PENSAMENTOS SÃO PROGRAMAS.
+          <br />
+          RODE OS SEUS COM CUIDADO.
+        </span>
+      </div>
+      <span className="ph-crt" aria-hidden="true" />
     </div>
   )
 }
@@ -238,14 +293,14 @@ export function OfficeHeader({ mod }: HeaderProps) {
 
 // Mesmos enfeites dos cabeçalhos, soltos atrás da faixa e da etiqueta do banner.
 export function BannerBackdrop({ world }: { world: AppModule['world'] }) {
-  if (world === 'cosmos') {
+  if (world === 'fosforo') {
     return (
       <div className="banner-theme" aria-hidden="true">
-        <img src={backdrops.profissional.images[1].src} alt="" className="bt-cos-img" loading="lazy" decoding="async" />
-        <span className="cos-mist" />
-        <span className="cos-mist cos-mist-2" />
-        <Stars n={40} seed={9} className="cos-stars" />
-        <Flare className="bt-flare" />
+        <img src={backdrops.profissional.images[0].src} alt="" className="bt-ph-img" loading="lazy" decoding="async" />
+        <Radar className="bt-ph-radar" />
+        <PixelShake className="bt-ph-sprite" />
+        <span className="bt-ph-side">PENSAMENTOS SÃO PROGRAMAS · RODE OS SEUS COM CUIDADO · PENSAMENTOS SÃO PROGRAMAS ·</span>
+        <span className="ph-crt" />
       </div>
     )
   }
@@ -292,6 +347,10 @@ export function BannerBackdrop({ world }: { world: AppModule['world'] }) {
       <div className="banner-theme" aria-hidden="true">
         <span className="office-halftone" />
         <img src={backdrops.trabalho.images[0].src} alt="" className="bt-img bt-office-img" loading="lazy" decoding="async" />
+        {/* O homem de cabeça de abóbora atravessa o vão de papel pardo entre o cartão e o pôster */}
+        <span className="bt-pumpkin">
+          <img src={pumpkin} alt="" loading="lazy" decoding="async" />
+        </span>
       </div>
     )
   }

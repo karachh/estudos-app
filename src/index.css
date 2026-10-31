@@ -47,9 +47,9 @@
   --type-topic: clamp(2.4rem, 1.7rem + 1.6vw, 3rem);
   --type-display: clamp(5rem, 4rem + 2vw, 6rem);
 }
-[data-world='cosmos'] {
-  --type-headline: clamp(1.9rem, 1.4rem + 1.2vw, 2.4rem);
-  --type-topic: clamp(2.3rem, 1.5rem + 2vw, 3.1rem);
+[data-world='fosforo'] {
+  --type-headline: clamp(2.2rem, 1.6rem + 1.4vw, 2.8rem);
+  --type-topic: clamp(2.6rem, 1.8rem + 2.2vw, 3.5rem);
 }
 [data-world='bebop'] {
   --type-headline: clamp(2rem, 1.4rem + 1.3vw, 2.5rem);
@@ -113,14 +113,14 @@
   --grain: 0.06;
 }
 
-[data-module='profissional'] { --accent: #ee5a35; }
+[data-module='profissional'] { --accent: #7dff9a; }
 [data-module='trabalho'] { --accent: #f2b82e; }
 [data-module='uem'] { --accent: #a98bff; }
 [data-module='igreja'] { --accent: #dcaa3c; }
 [data-module='cultura'] { --accent: #f2c230; }
 [data-module='mental'] { --accent: #7cc4f0; }
 
-:root[data-theme='light'] [data-module='profissional'] { --accent: #b3321a; }
+:root[data-theme='light'] [data-module='profissional'] { --accent: #1d6b35; }
 :root[data-theme='light'] [data-module='trabalho'] { --accent: #b8322a; }
 :root[data-theme='light'] [data-module='uem'] { --accent: #5a2fb8; }
 :root[data-theme='light'] [data-module='igreja'] { --accent: #8c600a; }
@@ -156,37 +156,40 @@
   --grain: 0.07;
 }
 
-/* Mundo "cosmos" (Profissional): o sol vermelho sobre o mar de nuvens, a Terra com a cruz de luz, a nebulosa.
-   Preto de céu, brasa, creme de nuvem e linhas finas cor de cobre. No claro vira o papel do céu de amanhecer. */
-[data-world='cosmos'] {
-  --bg-base: #07060a;
-  --surface-base: #0e0b10;
-  --raised-base: #171219;
-  --line-base: #2a1d23;
-  --frame-base: #7a4430;
-  --ink: #efe6d6;
-  --ink-2: #cfc3ae;
-  --ink-3: #a89c88;
-  --on-accent: #0a0709;
-  --ember: #ee5a35;
-  --sun: #f0a860;
-  --cloud: #cfd8e8;
-  --grain: 0.12;
+/* Mundo "fosforo" (Profissional): monitor de fósforo verde de um computador de pesquisa antigo (o navio no scanner,
+   a tela de BIOS, as cabeças em malha). Preto esverdeado, verde aceso, um laranja de brasa (o fogo do pixel art) como
+   única cor quente. No claro vira papel de impressora matricial com faixas verdes. */
+[data-world='fosforo'] {
+  --bg-base: #040906;
+  --surface-base: #07100a;
+  --raised-base: #0c1810;
+  --line-base: #143020;
+  --frame-base: #2c6b40;
+  --ink: #c9ffd3;
+  --ink-2: #8fd9a0;
+  --ink-3: #5fa872;
+  --on-accent: #031006;
+  --phos: #7dff9a;
+  --phos-dim: #2c6b40;
+  --ember: #ff7a24;
+  --grain: 0.1;
+  --t-open-world: #0a1f12;
 }
-:root[data-theme='light'] [data-world='cosmos'] {
-  --bg-base: #ebe1ca;
-  --surface-base: #f1e8d3;
-  --raised-base: #f7f0df;
-  --line-base: #d3c5a6;
-  --frame-base: #8a6a52;
-  --ink: #1c1612;
-  --ink-2: #473b30;
-  --ink-3: #635547;
-  --on-accent: #ffffff;
-  --ember: #b3321a;
-  --sun: #b3541a;
-  --cloud: #5d6a8a;
-  --grain: 0.08;
+:root[data-theme='light'] [data-world='fosforo'] {
+  --bg-base: #eef3e6;
+  --surface-base: #f4f7ee;
+  --raised-base: #fafcf6;
+  --line-base: #bfd3b6;
+  --frame-base: #5f8a62;
+  --ink: #0f2416;
+  --ink-2: #2d4a35;
+  --ink-3: #4b6a52;
+  --on-accent: #f4f7ee;
+  --phos: #1d6b35;
+  --phos-dim: #9cc19f;
+  --ember: #c24a0c;
+  --grain: 0.05;
+  --t-open-world: #d7e8d0;
 }
 
 /* Mundo "bebop" (Repertório): pôsteres de Cowboy Bebop. Preto de impressão, creme, os painéis de cor
@@ -325,7 +328,7 @@
   --t-open: color-mix(in oklab, var(--accent) 18%, var(--bg-base));
 }
 [data-world='sacro'].app,
-[data-world='cosmos'].app,
+[data-world='fosforo'].app,
 [data-world='bebop'].app,
 [data-world='eva'].app,
 [data-world='office'].app {
@@ -339,8 +342,8 @@
 :root[data-theme='light'] [data-world='sacro'].app {
   --rail: #e2d3b4;
 }
-:root[data-theme='light'] [data-world='cosmos'].app {
-  --rail: #e2d6bb;
+:root[data-theme='light'] [data-world='fosforo'].app {
+  --rail: #dfe9d6;
 }
 :root[data-theme='light'] [data-world='bebop'].app {
   --rail: #dccfb0;
@@ -351,11 +354,11 @@
 :root[data-theme='light'] [data-world='office'].app {
   --rail: #dfcfa9;
 }
-[data-world='cosmos'].app,
+[data-world='fosforo'].app,
 [data-world='bebop'].app,
 [data-world='eva'].app,
 [data-world='office'].app,
-:root[data-theme='light'] [data-world='cosmos'].app,
+:root[data-theme='light'] [data-world='fosforo'].app,
 :root[data-theme='light'] [data-world='bebop'].app,
 :root[data-theme='light'] [data-world='eva'].app,
 :root[data-theme='light'] [data-world='office'].app {

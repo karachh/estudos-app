@@ -1,7 +1,7 @@
 // Mundo visual do interior do módulo. 'mapa' é o padrão (prova de orientação, hoje o do Motivação);
-// 'sacro' é o do Igreja. 'cosmos' (Profissional, sol sobre o mar de nuvens), 'bebop' (Repertório, Cowboy Bebop),
+// 'sacro' é o do Igreja. 'fosforo' (Profissional, monitor de fósforo verde), 'bebop' (Repertório, Cowboy Bebop),
 // 'eva' (UEM, Evangelion) e 'office' (Trabalho, The Office) são temas do mapa: mesma estrutura, outra pele.
-export type World = 'mapa' | 'cosmos' | 'bebop' | 'eva' | 'office' | 'sacro'
+export type World = 'mapa' | 'fosforo' | 'bebop' | 'eva' | 'office' | 'sacro'
 
 // Mundos que mostram o mapa de orientação com a tabela de controles
 export const hasMap = (w: World) => w !== 'sacro'
@@ -29,7 +29,7 @@ export interface AppModule {
 export const modules: AppModule[] = [
   {
     id: 'profissional',
-    world: 'cosmos',
+    world: 'fosforo',
     label: 'Estudos profissionais',
     short: 'Profissional',
     hideGroupMeta: true,

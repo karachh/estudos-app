@@ -7,7 +7,7 @@ import { Gethsemane } from '../components/Gethsemane'
 import { Icon } from '../components/Icon'
 import { Fraction, Orbit, ProgressMark, Punches, Sparkle } from '../components/Marks'
 import { ThemeBoard } from '../components/ThemeBoard'
-import { BebopHeader, CosmosHeader, EvaHeader, OfficeHeader } from '../components/Worlds'
+import { BebopHeader, EvaHeader, FosforoHeader, OfficeHeader } from '../components/Worlds'
 import { db, deleteTopicData, type Group, type ResourceKind, type Topic } from '../core/db'
 import { getModule, type AppModule } from '../core/modules'
 import { sumProgress, useModuleData, type Progress } from '../core/queries'
@@ -77,10 +77,10 @@ export default function ModulePage() {
     <article key={mod.id} className="enter">
       {mod.world === 'sacro' ? (
         <SacredHeader mod={mod} />
-      ) : mod.world === 'cosmos' || mod.world === 'bebop' || mod.world === 'eva' || mod.world === 'office' ? (
+      ) : mod.world === 'fosforo' || mod.world === 'bebop' || mod.world === 'eva' || mod.world === 'office' ? (
         <header>
-          {mod.world === 'cosmos' ? (
-            <CosmosHeader mod={mod} groupCount={groups.length} pct={pct} />
+          {mod.world === 'fosforo' ? (
+            <FosforoHeader mod={mod} groupCount={groups.length} pct={pct} />
           ) : mod.world === 'bebop' ? (
             <BebopHeader mod={mod} groupCount={groups.length} />
           ) : mod.world === 'eva' ? (
@@ -220,7 +220,7 @@ function SacredHeader({ mod }: { mod: AppModule }) {
     <header>
     <div className="relative overflow-hidden rounded-[1.5rem] bg-[#0c0a08]">
       {/* No desktop a pintura fica à direita, para o rosto de Cristo não ficar atrás do título */}
-      <Gethsemane fy={0.22} className="md:left-[36%] md:[mask-image:linear-gradient(90deg,transparent,#000_30%)]" />
+      <Gethsemane fy={0.22} className="gth-head" />
       <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(14,9,5,.94)_0%,rgba(14,9,5,.6)_40%,rgba(14,9,5,.05)_75%)] md:bg-[linear-gradient(90deg,rgba(14,9,5,.94)_0%,rgba(14,9,5,.7)_38%,rgba(14,9,5,.05)_62%)]" />
       {/* Filete dourado por dentro, como a moldura de um painel */}
       <div className="pointer-events-none absolute inset-2.5 rounded-[1.1rem] border border-[color-mix(in_oklab,var(--accent)_55%,transparent)]" />

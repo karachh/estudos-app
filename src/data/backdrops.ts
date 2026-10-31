@@ -3,15 +3,13 @@ import bebopCapa from '../assets/bebop/bebop-capa.jpg'
 import bebopJornal from '../assets/bebop/bebop-jornal.jpg'
 import bebopOlho from '../assets/bebop/bebop-olho.jpg'
 import bebopSepia from '../assets/bebop/bebop-sepia.jpg'
-import cosmosCidade from '../assets/cosmos/cidade.jpg'
-import cosmosNebulosa from '../assets/cosmos/nebulosa.jpg'
-import cosmosSolNuvens from '../assets/cosmos/sol-nuvens.jpg'
-import cosmosSolSepia from '../assets/cosmos/sol-sepia.jpg'
-import cosmosTerraCruz from '../assets/cosmos/terra-cruz.jpg'
 import evaLua from '../assets/eva/eva-lua.jpg'
 import evaTokyo from '../assets/eva/eva-tokyo.jpg'
 import evaVerde from '../assets/eva/eva-verde.jpg'
 import evaVermelho from '../assets/eva/eva-vermelho.jpg'
+import fosCabecas from '../assets/fosforo/cabecas.jpg'
+import fosNavio from '../assets/fosforo/navio.jpg'
+import fosRetrato from '../assets/fosforo/retrato-ascii.jpg'
 import igrejaCristo from '../assets/igreja/bg-cristo.jpg'
 import igrejaJose from '../assets/igreja/bg-jose.jpg'
 import igrejaMaria from '../assets/igreja/bg-maria.jpg'
@@ -28,7 +26,7 @@ import officeRedstar from '../assets/trabalho/bg-redstar.jpg'
 // - scroll: a cada ~uma tela rolada entra a próxima, com uma linha de varredura (o efeito do Evangelion);
 // - section: a imagem acompanha o grupo que está na tela (Igreja: Espiritualidade, Teologia...) e
 //   troca com um esmaecimento lento.
-// Origem: UEM, Igreja, Profissional (cosmos), Repertório (bebop) e Trabalho são referências que o dono pôs
+// Origem: UEM, Igreja, Profissional (fosforo), Repertório (bebop) e Trabalho são referências que o dono pôs
 // em refs/ (dentro do projeto); praias são CC0 de refs/paisagens/.
 // `pos` é o ponto da imagem que fica à vista no recorte; `tint` é a cor da varredura quando ela entra.
 export interface BackdropImage {
@@ -75,16 +73,15 @@ export const backdrops: Record<string, Backdrop> = {
       { src: officeComic, pos: '50% 45%', tint: '#d9432f' },
     ],
   },
-  // Profissional: o sol vermelho sobre o mar de nuvens, a Terra com a cruz de luz, a nebulosa e a cidade
+  // Profissional: as três referências do monitor de fósforo, todas passadas pela mesma rampa de verde
+  // (navio no scanner, cabeças em malha e o retrato em ASCII recortado da tela de BIOS), para o fundo parecer um monitor só
   profissional: {
     mode: 'scroll',
-    tag: 'OBSERVATÓRIO · DADOS + IA',
+    tag: 'ESTUDOS BIOS · DADOS + IA',
     images: [
-      { src: cosmosCidade, pos: '50% 78%', tint: '#ece4cf' },
-      { src: cosmosSolNuvens, pos: '50% 75%', tint: '#ee5a35' },
-      { src: cosmosTerraCruz, pos: '50% 62%', tint: '#f0a860' },
-      { src: cosmosNebulosa, pos: '50% 55%', tint: '#a58bff' },
-      { src: cosmosSolSepia, pos: '50% 55%', tint: '#ee5a35' },
+      { src: fosNavio, pos: '50% 35%', tint: '#7dff9a' },
+      { src: fosCabecas, pos: '50% 40%', tint: '#7dff9a' },
+      { src: fosRetrato, pos: '50% 30%', tint: '#ff7a24' },
     ],
   },
   // Repertório: os pôsteres de Cowboy Bebop
