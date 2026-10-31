@@ -47,7 +47,7 @@ Não é um app de produtividade genérico nem um curso. É um caderno pessoal pr
 ## Brand Commitments
 
 - Nome: "Estudos".
-- Logo: estrela de quatro pontas dentro de uma órbita, na cor do módulo (`src/components/Logo.tsx`, `public/favicon.svg`, ícones do PWA).
+- Logo: estrela de quatro pontas dentro de uma órbita, na cor do módulo (`components/ui/Logo.tsx`, `public/favicon.svg`, ícones do PWA).
 - Cada módulo tem a sua cor, e essa cor tinge o app quando ele está aberto.
 - Cada módulo pode ter um mundo visual próprio, guiado pelas referências do dono (Igreja: manuscrito medieval; Motivação: colagem renascentista). Os demais usam o mapa de orientação e, por enquanto, abrem com a capa da página inicial.
 - Conteúdo não é sequencial: nada no visual impõe ordem entre tópicos.

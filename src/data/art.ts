@@ -28,7 +28,7 @@ export const covers: Record<string, Artwork> = {
 }
 
 // Imagem de cada grupo, pelo título. Grupo criado depois fica sem imagem.
-export const groupArt: Record<string, Record<string, Artwork>> = {
+const groupArt: Record<string, Record<string, Artwork>> = {
   igreja: {
     Espiritualidade: {
       src: emmaus,

@@ -13,6 +13,8 @@ export interface TopicSeed {
   sections?: Record<string, string[]>
   links?: LinkSeed[]
   terms?: [string, string][]
+  project?: boolean // aparece na seção "Projetos" do cartão da fase (visão geral), com título e descrição
+  notes?: string // texto inicial das anotações; só entra em tópico novo (quem já tem o tópico recebe por migração em seed.ts)
 }
 
 export interface GroupSeed {
@@ -20,6 +22,7 @@ export interface GroupSeed {
   subtitle?: string
   description?: string
   criteria?: string
+  order?: number // posição do grupo novo; sem ela, entra no fim do módulo
   topics: TopicSeed[]
 }
 

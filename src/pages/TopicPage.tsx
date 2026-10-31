@@ -1,13 +1,13 @@
 import { useLiveQuery } from 'dexie-react-hooks'
 import { type ReactNode } from 'react'
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
-import { AutoTextarea } from '../components/AutoTextarea'
-import { Checklist } from '../components/Checklist'
-import { Icon } from '../components/Icon'
-import { Fraction, ProgressMark, Punches } from '../components/Marks'
-import { Resources } from '../components/Resources'
+import { AutoTextarea } from '../components/ui/AutoTextarea'
+import { Checklist } from '../components/topic/Checklist'
+import { Icon } from '../components/ui/Icon'
+import { Fraction, ProgressMark, Punches } from '../components/ui/Marks'
+import { Resources } from '../components/topic/Resources'
 import { db, deleteTopicData } from '../core/db'
-import { getModule, hasMap } from '../core/modules'
+import { getModule } from '../core/modules'
 import { sumProgress } from '../core/queries'
 import { artFor } from '../data/art'
 
@@ -32,6 +32,11 @@ export default function TopicPage() {
   const siblings = useLiveQuery(
     async () => (topic ? db.topics.where('groupId').equals(topic.groupId).sortBy('order') : []),
     [topic?.groupId],
+  )
+
+  const looseLinks = useLiveQuery(
+    () => db.resources.where('topicId').equals(id).filter((r) => r.checkId == null).count(),
+    [id],
   )
 
   if (!mod) return <Navigate to="/" replace />
@@ -62,10 +67,10 @@ export default function TopicPage() {
 
       <header className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-5 md:grid-cols-[auto_minmax(0,1fr)_auto]">
         <span className="relative mt-1 grid place-items-center">
-          <ProgressMark world={mod.world} p={progress} size={hasMap(mod.world) ? 64 : 72} />
-          {number > 0 && (
+          <ProgressMark world={mod.world} p={progress} size={mod.world === 'sacro' ? 72 : 64} />
+          {number > 0 && !mod.unnumbered?.includes(topic.title) && (
             <span
-              className={`mono absolute -right-3 -top-3 text-meta font-bold text-accent ${!hasMap(mod.world) ? 'hidden' : ''}`}
+              className={`mono absolute -right-3 -top-3 text-meta font-bold text-accent ${mod.world === 'sacro' ? 'hidden' : ''}`}
               style={{ textShadow: '0 0 6px var(--bg), 0 0 3px var(--bg)' }}
             >
               {String(number).padStart(2, '0')}
@@ -119,12 +124,23 @@ export default function TopicPage() {
       </header>
 
       <Block title="Checklist">
-        <Checklist topic={topic} items={items} defaultSections={mod.defaultSections} />
+        <Checklist topic={topic} items={items} defaultSections={mod.defaultSections} withLinks={mod.checkLinks} />
       </Block>
 
-      <Block title="Materiais">
-        <Resources topicId={id} />
-      </Block>
+      {!mod.checkLinks ? (
+        <Block title="Materiais">
+          <Resources topicId={id} />
+        </Block>
+      ) : (
+        !!looseLinks && (
+          <Block title="Links sem item">
+            <p className="mb-4 max-w-prose text-ink-2">
+              Links que vieram com o tópico, antes de cada item ter os seus. Mova cada um para o item a que ele pertence.
+            </p>
+            <Resources topicId={id} scope="loose" moveTo={[...items].sort((a, b) => a.section.localeCompare(b.section) || a.order - b.order)} />
+          </Block>
+        )
+      )}
 
       {topic.glossary.length > 0 && (
         <Block title="Termos">
@@ -139,7 +155,7 @@ export default function TopicPage() {
         </Block>
       )}
 
-      <Block title="Anotações">
+      <Block title={mod.checkLinks ? 'Observações' : 'Anotações'}>
         <textarea
           className="field min-h-44 max-w-[75ch] leading-relaxed"
           value={topic.notes}

@@ -11,7 +11,11 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       // Fontes e pinturas também entram no cache, para o app abrir completo sem internet
-      workbox: { globPatterns: ['**/*.{js,css,html,woff2,jpg,png,svg}'] },
+      // Alfabetos que o app não usa ficam de fora do cache
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,woff2,jpg,png,svg,mp4}'],
+        globIgnores: ['**/*-{cyrillic,cyrillic-ext,greek,greek-ext,vietnamese}-*.woff2'],
+      },
       manifest: {
         name: 'Estudos',
         short_name: 'Estudos',

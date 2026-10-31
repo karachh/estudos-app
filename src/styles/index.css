@@ -1,0 +1,1393 @@
+@import 'tailwindcss';
+
+@theme inline {
+  --font-sans: var(--body-face);
+  --font-display: var(--display-face);
+  --font-serif: 'Newsreader Variable', Georgia, serif;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-line: var(--line);
+  --color-frame: var(--frame);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-danger: var(--danger);
+  --text-micro: var(--type-micro);
+  --text-meta: var(--type-meta);
+  --text-reading: var(--type-reading);
+  --text-lead: var(--type-lead);
+  --text-card: var(--type-card);
+  --text-brand: var(--type-brand);
+  --text-cover: var(--type-cover);
+  --text-headline: var(--type-headline);
+  --text-topic: var(--type-topic);
+  --text-display: var(--type-display);
+}
+
+/* Escala de papéis tipográficos. Cada papel tem um tamanho; os mundos só ajustam o valor do token,
+   porque cada voz (letreiro condensado, serifa larga, Bodoni, Cormorant) tem outro tamanho aparente. */
+:root {
+  --type-micro: 0.78rem; /* créditos, letra miúda, selos, abas do celular: o menor texto informativo */
+  --type-meta: 0.95rem; /* atalhos de grupo, número do controle, "Recolher" */
+  --type-reading: 1.15rem; /* texto de leitura dentro de nicho e lâmina */
+  --type-lead: 1.4rem; /* tagline, subtítulo do tópico, seção do checklist */
+  --type-card: 1.65rem; /* título da lâmina */
+  --type-brand: 1.9rem; /* marca "Estudos" */
+  --type-cover: clamp(1.9rem, 1.4rem + 1.2vw, 2.3rem); /* título na etiqueta das capas */
+  --type-headline: clamp(2.1rem, 1.5rem + 1.4vw, 2.6rem); /* título do grupo e contagem do grupo */
+  --type-topic: clamp(2.6rem, 1.6rem + 2.4vw, 3.4rem); /* título do tópico */
+  --type-display: clamp(3.5rem, 1.5rem + 4.5vw, 5.5rem); /* nome do módulo */
+}
+[data-world='sacro'] {
+  --type-headline: clamp(1.9rem, 1.4rem + 1.2vw, 2.3rem);
+  --type-topic: clamp(2.4rem, 1.7rem + 1.6vw, 3rem);
+  --type-display: clamp(5rem, 4rem + 2vw, 6rem);
+}
+[data-world='fosforo'] {
+  --type-headline: clamp(2.2rem, 1.6rem + 1.4vw, 2.8rem);
+  --type-topic: clamp(2.6rem, 1.8rem + 2.2vw, 3.5rem);
+}
+[data-world='bebop'] {
+  --type-headline: clamp(2rem, 1.4rem + 1.3vw, 2.5rem);
+  --type-topic: clamp(2.4rem, 1.6rem + 2vw, 3.2rem);
+}
+[data-world='eva'] {
+  --type-headline: clamp(2rem, 1.4rem + 1.3vw, 2.5rem);
+  --type-topic: clamp(2.4rem, 1.6rem + 2vw, 3.2rem);
+}
+[data-world='neural'] {
+  --type-headline: clamp(2rem, 1.4rem + 1.3vw, 2.5rem);
+  --type-topic: clamp(2.2rem, 1.5rem + 1.8vw, 3rem);
+}
+[data-world='office'] {
+  --type-headline: clamp(1.6rem, 1.2rem + 1.1vw, 2.05rem);
+  --type-topic: clamp(1.9rem, 1.3rem + 1.6vw, 2.5rem);
+}
+
+/* Mundo central "cartaz analógico": capa de disco e pôster de ficção científica impressos.
+   Preto quente com grão, tinta creme, a cor do módulo como cor chapada, molduras finas de canto arredondado
+   e a estrela de quatro pontas como glifo comum. */
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --body-face: 'Barlow', system-ui, sans-serif;
+  --display-face: 'Big Shoulders Display Variable', 'Barlow', sans-serif;
+  --bg-base: #0d0c0a;
+  --surface-base: #14120f;
+  --raised-base: #1c1a16;
+  --line-base: #2e2b25;
+  --frame-base: #5a5446;
+  --bg: var(--bg-base);
+  --surface: var(--surface-base);
+  --raised: var(--raised-base);
+  --line: var(--line-base);
+  --frame: var(--frame-base);
+  --ink: #ece4cf;
+  --ink-2: #c4bca6;
+  --ink-3: #9c947f;
+  --on-accent: #0d0c0a;
+  --danger: #ef8f7f;
+  --accent: #6fd0b0;
+  --grain: 0.08;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg-base: #ece5d3;
+  --surface-base: #f2ecdd;
+  --raised-base: #f8f4ea;
+  --line-base: #d2c8b1;
+  --frame-base: #8c826b;
+  --ink: #1a1814;
+  --ink-2: #47423a;
+  --ink-3: #635d51;
+  --on-accent: #ffffff;
+  --danger: #b3382b;
+  --accent: #0e8a68;
+  --grain: 0.06;
+}
+
+[data-module='profissional'] { --accent: #7dff9a; }
+[data-module='trabalho'] { --accent: #f2b82e; }
+[data-module='ia'] { --accent: #7db4d6; }
+[data-module='uem'] { --accent: #a98bff; }
+[data-module='igreja'] { --accent: #dcaa3c; }
+[data-module='cultura'] { --accent: #f2c230; }
+[data-module='mental'] { --accent: #7cc4f0; }
+
+:root[data-theme='light'] [data-module='profissional'] { --accent: #1d6b35; }
+:root[data-theme='light'] [data-module='trabalho'] { --accent: #b8322a; }
+:root[data-theme='light'] [data-module='ia'] { --accent: #1f5f8a; }
+:root[data-theme='light'] [data-module='uem'] { --accent: #5a2fb8; }
+:root[data-theme='light'] [data-module='igreja'] { --accent: #8c600a; }
+:root[data-theme='light'] [data-module='cultura'] { --accent: #b8321f; }
+:root[data-theme='light'] [data-module='mental'] { --accent: #0b72b5; }
+
+/* Mundo "sacro" (Igreja): manuscrito medieval. Marrom de couro e madeira escura, pergaminho,
+   dourado de folha e vinho. Três vozes: letreiro condensado, serifa larga e serifa itálica. */
+[data-world='sacro'] {
+  --bg-base: #17110c;
+  --surface-base: #1e1610;
+  --raised-base: #271d15;
+  --line-base: #3d2e20;
+  --frame-base: #8a6d47;
+  --ink: #efe3c8;
+  --ink-2: #d2c3a2;
+  --ink-3: #aa9a7c;
+  --on-accent: #1a1209;
+  --wine: #7d2630;
+  --grain: 0.11;
+}
+:root[data-theme='light'] [data-world='sacro'] {
+  --bg-base: #ece0c6;
+  --surface-base: #f2e8d3;
+  --raised-base: #f8f1e2;
+  --line-base: #d3c19c;
+  --frame-base: #9a7f55;
+  --ink: #23180e;
+  --ink-2: #4d3c28;
+  --ink-3: #685640;
+  --on-accent: #ffffff;
+  --wine: #7d2630;
+  --grain: 0.07;
+}
+
+/* Mundo "fosforo" (Profissional): monitor de fósforo verde de um computador de pesquisa antigo (o navio no scanner,
+   a tela de BIOS, as cabeças em malha). Preto esverdeado, verde aceso, um laranja de brasa (o fogo do pixel art) como
+   única cor quente. No claro vira papel de impressora matricial com faixas verdes. */
+[data-world='fosforo'] {
+  --bg-base: #040906;
+  --surface-base: #07100a;
+  --raised-base: #0c1810;
+  --line-base: #143020;
+  --frame-base: #2c6b40;
+  --ink: #c9ffd3;
+  --ink-2: #8fd9a0;
+  --ink-3: #5fa872;
+  --on-accent: #031006;
+  --phos: #7dff9a;
+  --phos-dim: #2c6b40;
+  --grain: 0.1;
+  --t-open-world: #0a1f12;
+}
+:root[data-theme='light'] [data-world='fosforo'] {
+  --bg-base: #eef3e6;
+  --surface-base: #f4f7ee;
+  --raised-base: #fafcf6;
+  --line-base: #bfd3b6;
+  --frame-base: #5f8a62;
+  --ink: #0f2416;
+  --ink-2: #2d4a35;
+  --ink-3: #4b6a52;
+  --on-accent: #f4f7ee;
+  --phos: #1d6b35;
+  --phos-dim: #9cc19f;
+  --grain: 0.05;
+  --t-open-world: #d7e8d0;
+}
+
+/* Mundo "bebop" (Repertório): pôsteres de Cowboy Bebop. Preto de impressão, creme, os painéis de cor
+   (amarelo, verde, vermelho, laranja, azul) e a nave vermelha. No claro vira o papel pardo do pôster. */
+[data-world='bebop'] {
+  --bg-base: #0b0a0a;
+  --surface-base: #131110;
+  --raised-base: #1c1917;
+  --line-base: #2f2a26;
+  --frame-base: #6a5d50;
+  --ink: #f1e9d6;
+  --ink-2: #cfc6b0;
+  --ink-3: #a39a85;
+  --on-accent: #0b0a0a;
+  --bb-yellow: #f2c230;
+  --bb-green: #3c8d4a;
+  --bb-red: #d9382c;
+  --bb-orange: #e8761e;
+  --bb-blue: #3b7de0;
+  --bb-pink: #e7b8c4;
+  --grain: 0.13;
+}
+:root[data-theme='light'] [data-world='bebop'] {
+  --bg-base: #e9dcc0;
+  --surface-base: #efe4cb;
+  --raised-base: #f5ecd8;
+  --line-base: #d0c09a;
+  --frame-base: #5b4a3a;
+  --ink: #1b1713;
+  --ink-2: #453b30;
+  --ink-3: #605444;
+  --on-accent: #ffffff;
+  --bb-red: #b8321f;
+  --bb-yellow: #c28a00;
+  --grain: 0.08;
+}
+
+/* Mundo "eva" (UEM): pôster de anime. Preto arroxeado com brilho violeta, vermelho de alerta, laranja e
+   verde-ácido de detalhe; no claro, o verde-menta do primeiro pôster. Serifa pesada nos títulos. */
+[data-world='eva'] {
+  --display-face: 'Gloock', serif;
+  --bg-base: #07050f;
+  --surface-base: #0f0a1d;
+  --raised-base: #181129;
+  --line-base: #2a1f47;
+  --frame-base: #7656d0;
+  --ink: #f2eefc;
+  --ink-2: #cbc2e6;
+  --ink-3: #9b90c2;
+  --on-accent: #0b0714;
+  --alert: #ff3b30;
+  --grain: 0.12;
+  --t-open-world: #1d1238;
+}
+:root[data-theme='light'] [data-world='eva'] {
+  --bg-base: #d5ebe2;
+  --surface-base: #e0f0e9;
+  --raised-base: #ecf7f2;
+  --line-base: #b3d4c6;
+  --frame-base: #5a2fb8;
+  --ink: #120a24;
+  --ink-2: #3a2d5c;
+  --ink-3: #54497a;
+  --on-accent: #ffffff;
+  --alert: #b3262a;
+  --grain: 0.07;
+  --t-open-world: #bde0d1;
+}
+
+/* Mundo "neural" (IA): azul-petróleo quase preto, azul-aço e vermelho quente das referências em refs/ia-neural/.
+   Tudo em Nebula Sans. No claro, azul-gelo. */
+[data-world='neural'] {
+  --display-face: 'Nebula Sans', 'Big Shoulders Display Variable', sans-serif;
+  --bg-base: #0a131d;
+  --surface-base: #101b27;
+  --raised-base: #172432;
+  --line-base: #24384a;
+  --frame-base: #47708f;
+  --ink: #edf4f9;
+  --ink-2: #bcccd9;
+  --ink-3: #8da1b2;
+  --on-accent: #0a131d;
+  --alert: #ff2e55;
+  --grain: 0.08;
+  --t-open-world: #142433;
+}
+:root[data-theme='light'] [data-world='neural'] {
+  --bg-base: #dfe9f2;
+  --surface-base: #e9f0f6;
+  --raised-base: #f3f7fa;
+  --line-base: #bdcedc;
+  --frame-base: #1f5f8a;
+  --ink: #0d1a26;
+  --ink-2: #304454;
+  --ink-3: #4b5f70;
+  --on-accent: #ffffff;
+  --alert: #c7163a;
+  --grain: 0.05;
+  --t-open-world: #cddce8;
+}
+
+/* Mundo "office" (Trabalho): pôster de The Office em papel pardo. No escuro, tinta marrom quase preta com
+   letras de papel; no claro, o próprio papel pardo. Vermelho de retícula, mostarda e azul dos retratos.
+   Letreiro em Anton (o "THE OFFICE" condensado) e rótulos em Special Elite (máquina de escrever). */
+[data-world='office'] {
+  --display-face: 'Anton', 'Big Shoulders Display Variable', sans-serif;
+  --bg-base: #15120d;
+  --surface-base: #1e1a13;
+  --raised-base: #29231a;
+  --line-base: #3a3226;
+  --frame-base: #8a7350;
+  --ink: #efe2c4;
+  --ink-2: #d4c5a2;
+  --ink-3: #ab9b7a;
+  --on-accent: #15120d;
+  --office-red: #d9432f;
+  --grain: 0.14;
+  --t-open-world: #2a2318;
+}
+:root[data-theme='light'] [data-world='office'] {
+  --bg-base: #eadcbc;
+  --surface-base: #f3e8cd;
+  --raised-base: #f8f0dc;
+  --line-base: #d1bf98;
+  --frame-base: #262634;
+  --ink: #23222c;
+  --ink-2: #45414a;
+  --ink-3: #5f5853;
+  --on-accent: #ffffff;
+  --office-red: #b8322a;
+  --grain: 0.08;
+  --t-open-world: #e0cfa8;
+}
+
+/* O módulo aberto tinge de leve o fundo, a lateral e o terreno */
+.app {
+  --bg: color-mix(in oklab, var(--accent) 2.5%, var(--bg-base));
+  --surface: color-mix(in oklab, var(--accent) 4%, var(--surface-base));
+  --raised: color-mix(in oklab, var(--accent) 6%, var(--raised-base));
+  --line: color-mix(in oklab, var(--accent) 10%, var(--line-base));
+  --frame: color-mix(in oklab, var(--accent) 22%, var(--frame-base));
+  --rail: color-mix(in oklab, var(--accent) 5%, color-mix(in oklab, black 35%, var(--bg-base)));
+  --t-open: color-mix(in oklab, var(--accent) 16%, var(--bg-base));
+  scrollbar-color: color-mix(in oklab, var(--accent) 40%, transparent) transparent;
+}
+:root[data-theme='light'] .app {
+  --rail: color-mix(in oklab, var(--accent) 6%, color-mix(in oklab, black 5%, var(--bg-base)));
+  --t-open: color-mix(in oklab, var(--accent) 18%, var(--bg-base));
+}
+[data-world='sacro'].app,
+[data-world='fosforo'].app,
+[data-world='bebop'].app,
+[data-world='eva'].app,
+[data-world='neural'].app,
+[data-world='office'].app {
+  --bg: var(--bg-base);
+  --surface: var(--surface-base);
+  --raised: var(--raised-base);
+  --line: var(--line-base);
+  --frame: var(--frame-base);
+  --rail: color-mix(in oklab, black 32%, var(--bg-base));
+}
+:root[data-theme='light'] [data-world='sacro'].app {
+  --rail: #e2d3b4;
+}
+:root[data-theme='light'] [data-world='fosforo'].app {
+  --rail: #dfe9d6;
+}
+:root[data-theme='light'] [data-world='bebop'].app {
+  --rail: #dccfb0;
+}
+:root[data-theme='light'] [data-world='eva'].app {
+  --rail: #c3ded2;
+}
+:root[data-theme='light'] [data-world='office'].app {
+  --rail: #dfcfa9;
+}
+:root[data-theme='light'] [data-world='neural'].app {
+  --rail: #cddce8;
+}
+[data-world='fosforo'].app,
+[data-world='bebop'].app,
+[data-world='eva'].app,
+[data-world='neural'].app,
+[data-world='office'].app,
+:root[data-theme='light'] [data-world='fosforo'].app,
+:root[data-theme='light'] [data-world='bebop'].app,
+:root[data-theme='light'] [data-world='eva'].app,
+:root[data-theme='light'] [data-world='neural'].app,
+:root[data-theme='light'] [data-world='office'].app {
+  --t-open: var(--t-open-world);
+}
+
+/* Grão de impressão em todo o app */
+.app::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: var(--grain);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -.25'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+:root[data-theme='light'] .app::before {
+  filter: invert(1);
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--ink);
+  font-family: var(--body-face);
+  font-size: 1rem; /* rem, não px: respeita o tamanho de letra que a pessoa escolheu no navegador */
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
+/* Letreiro condensado das capas retrô */
+.display {
+  font-family: var(--display-face);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+  line-height: 0.9;
+}
+
+.mono {
+  font-family: 'Space Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+/* Serifa larga e itálica do mundo sacro */
+.wide-serif {
+  font-family: 'Young Serif', Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+.italic-serif {
+  font-family: 'Newsreader Variable', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 38%, transparent);
+  color: var(--ink);
+}
+
+input,
+textarea {
+  caret-color: var(--accent);
+}
+
+@layer components {
+/* Moldura fina de canto arredondado, como os painéis das capas */
+.frame {
+  border: 1px solid var(--frame);
+  border-radius: 1.5rem;
+}
+
+/* Título de bloco: estrela, nome em letreiro e filete até a borda */
+.rule-head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--display-face);
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.rule-head::before {
+  content: '';
+  flex: none;
+  width: 0.85rem;
+  height: 0.85rem;
+  background: var(--accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0c.6 6.4 5.6 11.4 12 12-6.4.6-11.4 5.6-12 12-.6-6.4-5.6-11.4-12-12C6.4 11.4 11.4 6.4 12 0z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0c.6 6.4 5.6 11.4 12 12-6.4.6-11.4 5.6-12 12-.6-6.4-5.6-11.4-12-12C6.4 11.4 11.4 6.4 12 0z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.rule-head::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--frame);
+}
+[data-world='sacro'] .rule-head {
+  font-family: 'Young Serif', Georgia, serif;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1.55rem;
+}
+[data-world='sacro'] .rule-head::after {
+  background: linear-gradient(90deg, var(--accent), var(--wine) 35%, var(--line) 70%);
+}
+
+/* Disclosure com o ícone do app no lugar do triângulo do navegador */
+.intro summary {
+  list-style: none;
+}
+.intro summary::-webkit-details-marker {
+  display: none;
+}
+.intro-chevron {
+  transition: transform 180ms;
+}
+.intro[open] .intro-chevron {
+  transform: rotate(90deg);
+}
+
+/* Navegação */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  border-radius: 999px;
+  font-weight: 500;
+  color: var(--ink-2);
+  transition: color 150ms, background-color 150ms, border-color 150ms;
+  border: 1px solid transparent;
+}
+.nav-item:hover {
+  color: var(--ink);
+  border-color: var(--line);
+}
+.nav-item.active {
+  color: var(--ink);
+  border-color: color-mix(in oklab, var(--accent) 55%, transparent);
+  background: color-mix(in oklab, var(--accent) 10%, transparent);
+}
+.nav-tab {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  color: var(--ink-3);
+}
+/* Lateral recolhida: só a inicial, sem forma atrás; a ativa ganha um traço embaixo */
+.nav-item.nav-mini {
+  position: relative;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+}
+.nav-item.nav-mini.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0.35rem;
+  left: 50%;
+  width: 1.1rem;
+  height: 2px;
+  translate: -50% 0;
+  background: var(--accent);
+}
+/* Aba ativa: traço na cor do módulo no topo, no lugar do círculo */
+.nav-tab.active {
+  color: var(--ink);
+  font-weight: 600;
+}
+.nav-tab.active::before {
+  content: '';
+  position: absolute;
+  inset: 0 0.6rem auto;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: var(--accent);
+}
+
+/* Campos */
+.field {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 0.7rem;
+  padding: 0.55rem 0.85rem;
+  color: var(--ink);
+}
+.field::placeholder {
+  color: var(--ink-3);
+}
+.field:hover {
+  border-color: var(--frame);
+}
+.field:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 18%, transparent);
+}
+
+/* Botões em cápsula, rótulo em letreiro condensado */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  padding: 0.48rem 1rem;
+  font-family: var(--display-face);
+  font-weight: 700;
+  font-size: 1.02rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  border: 1px solid var(--frame);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 150ms, background-color 150ms, color 150ms;
+}
+.btn:hover {
+  border-color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 8%, transparent);
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--ink-2);
+}
+.btn-ghost:hover {
+  color: var(--ink);
+  border-color: var(--line);
+  background: transparent;
+}
+
+/* Checkbox quadrado de canto suave */
+.check {
+  appearance: none;
+  flex: none;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-top: 0.15rem;
+  border: 1.5px solid var(--ink-3);
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  background: transparent;
+  transition: background-color 120ms, border-color 120ms;
+}
+.check:hover {
+  border-color: var(--accent);
+}
+.check:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.check:checked::after {
+  content: '';
+  width: 0.72rem;
+  height: 0.72rem;
+  background: var(--on-accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.8' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.8' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Linha da tabela acesa sob o mouse ou o foco */
+.row-lit:hover,
+.row-lit:focus {
+  background: color-mix(in oklab, var(--accent) 11%, transparent);
+}
+
+/* Nicho em arco do mundo sacro. Sem auréola: o próprio arco vai se enchendo de dourado,
+   de baixo para cima, conforme o conteúdo avança. */
+.niche {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid var(--frame);
+  border-radius: 999px 999px 1rem 1rem;
+  overflow: hidden;
+  background: var(--surface);
+  transition: background-color 180ms, border-color 180ms;
+}
+.niche-head {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: calc(100% - 1.25rem);
+  height: 6.25rem;
+  margin-top: 0.625rem;
+  border: 1px solid color-mix(in oklab, var(--accent) 55%, transparent);
+  border-radius: 999px 999px 0 0;
+  overflow: hidden;
+  background: color-mix(in oklab, var(--accent) 6%, var(--bg));
+}
+.niche-fill {
+  position: absolute;
+  inset: auto 0 0;
+  background: var(--accent);
+  transition: height 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.niche-star {
+  position: relative;
+  color: var(--accent);
+}
+.niche-star.over {
+  color: var(--on-accent);
+}
+.niche:hover,
+.niche:focus-visible {
+  background: color-mix(in oklab, var(--wine) 22%, var(--surface));
+  border-color: color-mix(in oklab, var(--wine) 70%, var(--accent));
+}
+.niche-active {
+  border-color: color-mix(in oklab, var(--wine) 80%, var(--ink));
+  background: color-mix(in oklab, var(--wine) 14%, var(--surface));
+}
+
+}
+
+/* Movimento: os controles e discos pousam no lugar uma vez, ao abrir a tela */
+@keyframes land {
+  from {
+    transform: scale(1.7);
+    opacity: 0.25;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .niche-fill {
+    transition: none;
+  }
+}
+
+/* Subtítulos do checklist nos mundos com serifa. Fica fora da camada de componentes
+   para vencer o .display, que também está fora dela. */
+[data-world='sacro'] .sub-head.display {
+  font-family: 'Newsreader Variable', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+/* A marca do app usa sempre o letreiro, em qualquer mundo */
+/* Marca no topo da lateral: o mesmo letreiro serifado da capa, igual em todos os módulos */
+.brand {
+  font-family: 'Fraunces Variable', 'Gloock', serif;
+  font-size: 1.65rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+
+/* Página inicial: capa de disco com foto de filme analógico e uma "capa" por módulo que cresce ao rolar */
+.gloock,
+.gloock-text {
+  font-family: 'Fraunces Variable', 'Gloock', serif;
+  font-weight: 400;
+}
+/* Página inicial e Motivação: Fraunces em negrito e cantos macios, a mais próxima da MADE Mountain pedida pelo dono */
+.brand,
+.film-section .gloock,
+.film-section .gloock-text,
+.cover .gloock-text,
+.banner[data-module='mental'] .gloock-text {
+  font-weight: 700;
+  font-variation-settings: 'SOFT' 100;
+}
+.gloock {
+  text-transform: uppercase;
+  line-height: 0.8;
+  letter-spacing: -0.005em;
+}
+.fine {
+  font-family: 'Archivo Narrow Variable', 'Barlow', sans-serif;
+  font-size: var(--type-micro);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+/* A página inicial é sempre escura, como a capa: as tintas não seguem o tema claro */
+.home {
+  --ink: #ece4cf;
+  --ink-2: #c9c0aa;
+  --ink-3: #a39a84;
+  --frame: #5a5446;
+  --line: #2e2b25;
+  --on-accent: #0d0c0a;
+  background: #0d0c0a;
+  color: var(--ink);
+}
+
+.film-section,
+.banner {
+  --p: 1;
+  --cover: 0;
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 34rem;
+  overflow: clip;
+}
+.banner-frame {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+}
+
+.film-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.66) contrast(0.86) brightness(1.05) sepia(0.18) hue-rotate(-8deg);
+}
+/* Pretos levantados (o preto do filme nunca é preto) e vinheta */
+.film-lift {
+  position: absolute;
+  inset: 0;
+  background: #34302b;
+  mix-blend-mode: lighten;
+  opacity: 0.6;
+}
+.film-fade {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(130% 95% at 55% 40%, transparent 50%, rgba(12, 10, 8, 0.5)),
+    linear-gradient(180deg, rgba(120, 140, 160, 0.1), transparent 45%, rgba(40, 30, 15, 0.12));
+}
+.film-fade::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.6 -.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  /* O grão do filme pula de quadro em quadro, como numa projeção */
+  animation: film-grain 0.9s steps(1) infinite;
+}
+@keyframes film-grain {
+  0% { background-position: 0 0; }
+  20% { background-position: -61px 37px; }
+  40% { background-position: 83px -22px; }
+  60% { background-position: -29px -71px; }
+  80% { background-position: 47px 88px; }
+}
+
+/* Código de barras do progresso (Barcode em HomePage.tsx): impressão rápida ao aparecer e, de vez em quando,
+   um brilho fraco que atravessa os traços */
+.barcode {
+  position: relative;
+  overflow: hidden;
+  width: fit-content; /* o brilho percorre só os traços, não a largura toda */
+  max-width: 100%;
+}
+.barcode > span {
+  transform-origin: 50% 100%;
+}
+.barcode > .bc-idle {
+  opacity: 0.45;
+}
+.bc-scan {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 18%;
+  background: linear-gradient(90deg, transparent, rgba(255, 250, 235, 0.22), transparent);
+  translate: -100% 0;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .barcode:not([data-on]) > span {
+    scale: 1 0;
+  }
+  .barcode[data-on] > span {
+    animation: bc-print 0.3s ease-out calc(var(--i) / var(--n) * 400ms) both;
+  }
+  .barcode[data-on] .bc-scan {
+    animation: bc-sweep 11s ease-in-out 2s infinite;
+  }
+}
+@keyframes bc-print {
+  from { scale: 1 0; }
+  to { scale: 1 1; }
+}
+@keyframes bc-sweep {
+  0% { translate: -100% 0; }
+  12%, 100% { translate: 560% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .film-fade::after {
+    animation: none;
+  }
+}
+
+/* Faixa preta vertical; o tamanho da letra sai do comprimento do nome para ele ocupar a altura */
+.band {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  left: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.55rem 0.8rem 0.9rem 0.8rem;
+  background: #0d0c0a;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Camadas vivas da faixa: brilho que passa, medidor do progresso e uma estrela que pisca.
+   Cada mundo troca a pele em worlds.css (`band-<mundo>`). */
+.band-glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  /* sem brilho que passa: só um tom suave que sobe do rodapé, parado */
+  background: linear-gradient(0deg, color-mix(in oklab, var(--accent) 14%, transparent), transparent 55%);
+}
+.band-meter {
+  position: absolute;
+  top: 0.9rem;
+  bottom: 0.9rem;
+  right: 0.3rem;
+  width: 3px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: color-mix(in oklab, var(--accent) 22%, transparent);
+}
+.band-meter i {
+  position: absolute;
+  inset: auto 0 0;
+  height: max(var(--pct), 4%);
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  transform-origin: bottom;
+  animation: meter-rise 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes meter-rise {
+  from {
+    transform: scaleY(0);
+  }
+}
+.band-star {
+  position: absolute;
+  top: 0.5rem;
+  left: 50%;
+  translate: -50% 0;
+  color: var(--accent);
+}
+.band-home .band-meter {
+  display: none;
+}
+.band-title {
+  writing-mode: vertical-rl;
+  line-height: 1; /* a caixa cobre os acentos (Ó, Ã), que saíam pela borda da faixa */
+  font-size: min(calc(24svh / (var(--len) * 0.9)), 3.1rem);
+}
+.band-foot {
+  display: flex;
+  writing-mode: vertical-rl;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  font-size: var(--type-micro);
+}
+@media (min-width: 768px) {
+  .band {
+    top: 4svh;
+    left: 3.5vw;
+    bottom: 10svh;
+    padding: 2.1rem 1.15rem 1.1rem 1.3rem;
+  }
+  .band-title {
+    font-size: min(calc(46svh / (var(--len) * 0.9)), 6.75rem);
+  }
+}
+
+/* Etiqueta preta com o texto, como o selo de uma contracapa */
+.sticker {
+  position: absolute;
+  z-index: 2;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  padding: 1.25rem 1.25rem 1rem;
+  background: #0d0c0a;
+}
+@media (min-width: 768px) {
+  .sticker {
+    left: auto;
+    right: 3.5vw;
+    bottom: 10svh;
+    width: min(27rem, 42vw);
+    padding: 1.75rem 1.75rem 1.25rem;
+  }
+}
+
+/* Cabeçalho provisório dos módulos sem mundo próprio: a capa da página inicial, em moldura.
+   Escuro nos dois temas, como a capa. A letra da faixa sai da altura da moldura (cqh). */
+.cover {
+  --ink: #ece4cf;
+  --ink-2: #c9c0aa;
+  --ink-3: #a39a84;
+  position: relative;
+  height: 30rem;
+  overflow: clip;
+  border: 1px solid var(--frame);
+  border-radius: 1.5rem;
+  background: #0d0c0a;
+  color: var(--ink);
+  container-type: size;
+}
+.cover .band {
+  top: 0.75rem;
+  left: 0.75rem;
+  bottom: 42%;
+}
+.cover .band-title {
+  font-size: min(calc(36cqh / (var(--len) * 0.8)), 3.5rem);
+}
+.cover .sticker {
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.75rem;
+}
+@media (min-width: 768px) {
+  .cover {
+    height: 34rem;
+  }
+  .cover .band {
+    top: 1.5rem;
+    left: 1.5rem;
+    bottom: 1.5rem;
+  }
+  .cover .band-title {
+    font-size: min(calc(80cqh / (var(--len) * 0.8)), 7rem);
+  }
+  .cover .sticker {
+    left: 1.5rem;
+    right: auto;
+    bottom: 1.5rem;
+    width: min(26rem, 48%);
+  }
+}
+
+/* Telas empilhadas: cada uma fica presa no topo e a seguinte sobe por cima e a cobre. --p e --cover vêm do
+   JS (useStack em HomePage.tsx). Movimento só em duas coisas: a de baixo escurece e o cartão desliza. */
+.film-section,
+.banner {
+  --edge: var(--accent);
+}
+.film-section[data-dim],
+.banner[data-dim] {
+  filter: brightness(calc(1 - var(--cover) * 0.5));
+}
+/* Tela coberta por inteiro não pinta nada */
+.film-section[inert],
+.banner[inert] {
+  visibility: hidden;
+}
+/* Animações contínuas só rodam na tela que está à vista */
+.banner:not([data-live]) * {
+  animation-play-state: paused !important;
+}
+
+/* Cartão de informações: ocupa a altura toda de um lado; o título (faixa) vai para o outro. A linha grossa
+   na beirada separa o cartão do fundo, na cor do tema (--edge). */
+.pane {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 78%;
+  overflow: hidden auto;
+  padding: 1.5rem 1.25rem 1.25rem;
+  background: #0d0c0a;
+  border-top: 0.5rem solid var(--edge);
+  translate: 0 calc((1 - clamp(0, (var(--p) - 0.05) * 1.6, 1)) * 100%);
+}
+.pane > * {
+  opacity: clamp(0, calc((var(--p) - 0.5) * 3), 1);
+}
+@media (min-width: 768px) {
+  .pane {
+    top: 0;
+    left: auto;
+    right: 0;
+    width: min(31rem, 42vw);
+    max-height: none;
+    padding: 3rem 2.75rem 2.5rem 3rem;
+    border-top: 0;
+    border-left: 0.75rem solid var(--edge);
+    translate: calc((1 - clamp(0, (var(--p) - 0.05) * 1.6, 1)) * 100%) 0;
+  }
+  .pane h2 {
+    font-size: clamp(2.2rem, 3.2vw, 3.2rem);
+  }
+  .pane ul.fine {
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+  .pane > p:not(.fine) {
+    font-size: 1.1rem;
+  }
+  /* Segundo filete, fino, por dentro da linha grossa */
+  .pane::after {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0.75rem;
+    width: 3px;
+    background: var(--edge);
+    opacity: 0.55;
+  }
+  .banner[data-side='left'] .pane {
+    left: 0;
+    right: auto;
+    padding: 3rem 3rem 2.5rem 2.75rem;
+    border-left: 0;
+    border-right: 0.75rem solid var(--edge);
+    translate: calc((1 - clamp(0, (var(--p) - 0.05) * 1.6, 1)) * -100%) 0;
+  }
+  .banner[data-side='left'] .pane::after {
+    inset: 0 0.75rem 0 auto;
+  }
+  .banner[data-side='left'] .band {
+    left: auto;
+    right: 3.5vw;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pane,
+  .pane > * {
+    translate: none;
+    opacity: 1;
+  }
+  .band-glow,
+  .band-meter i {
+    animation: none;
+  }
+}
+
+/* Só na tela inicial: o título é uma faixa horizontal sobre as informações da capa, tudo centralizado */
+.film-section .band {
+  top: 1rem;
+  right: 1rem;
+  bottom: auto;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.7rem 1.1rem 0.8rem;
+}
+.film-section .band-title {
+  writing-mode: horizontal-tb;
+  font-size: clamp(2.6rem, 14vw, 4rem);
+  line-height: 1;
+}
+.film-section .band-foot {
+  writing-mode: horizontal-tb;
+}
+.hero-group {
+  display: contents;
+}
+@media (min-width: 768px) {
+  .hero-group {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    display: flex;
+    flex-direction: column;
+    width: min(34rem, 60vw);
+    gap: 1rem;
+  }
+  .hero-group .band,
+  .hero-group .sticker {
+    position: static;
+    width: auto;
+  }
+  .hero-group .band {
+    padding: 1rem 1.75rem 1.1rem;
+  }
+  .hero-group .band-title {
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
+  }
+  .hero-group .sticker {
+    text-align: center;
+  }
+  .hero-group .sticker .btn {
+    display: flex;
+    width: fit-content;
+    margin-inline: auto;
+  }
+}
+
+/* Contagem do grupo sobre a imagem de fundo do tema: uma placa quase opaca garante a leitura */
+.count-plate {
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.4rem;
+  background: color-mix(in oklab, var(--bg) 78%, transparent);
+}
+
+/* Alvos de toque: links de crédito e botões ganham área maior sem mudar o layout */
+.credit {
+  display: inline-block;
+  padding-block: 0.4rem;
+  margin-block: -0.4rem;
+}
+@media (pointer: coarse) {
+  .btn {
+    min-height: 2.75rem;
+  }
+  .btn[aria-label] {
+    min-width: 2.75rem;
+    justify-content: center;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+}
+
+/* Logo → início: o selo gira e a página some (App.tsx, useGoHome) */
+.app[data-leaving] .brand svg {
+  animation: logo-spin 0.52s cubic-bezier(0.5, 0, 0.2, 1) forwards;
+}
+.app[data-leaving] main,
+.app[data-leaving] .tbg {
+  opacity: 0;
+  transform: scale(0.985);
+  transition:
+    opacity 0.45s ease 0.07s,
+    transform 0.5s ease;
+}
+@keyframes logo-spin {
+  to {
+    transform: rotate(360deg) scale(1.15);
+  }
+}
+
+/* Capa: relevo sob o título (BumpTitle em Cover.tsx). --w (0 a 1) é a altura da lombada sob cada letra. */
+.bump {
+  position: relative;
+  display: inline-block;
+}
+.bump-row {
+  display: inline-flex;
+}
+.bump-l {
+  --w: 0;
+  display: inline-block;
+  transform: translateY(calc(var(--w) * -0.17em)) scale(calc(1 + var(--w) * 0.07));
+  transform-origin: 50% 100%;
+  text-shadow: 0 calc(var(--w) * 0.12em) calc(var(--w) * 0.18em) rgba(0, 0, 0, 0.55);
+  transition:
+    transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+    text-shadow 0.28s ease;
+}
+/* As letras que sobem saem da caixa da faixa */
+.film-section .band {
+  overflow: visible;
+}
+/* Capa sem caixas pretas (pedido do dono, 31/10/2026): a letra fica direto na foto, e a sombra garante a leitura */
+.film-section .band,
+.film-section .sticker {
+  background: none;
+  border-top: 0;
+  /* marrom-café sobre a areia da montanha, com um halo claro onde a foto escurece */
+  text-shadow: 0 0 14px rgb(244 232 208 / 0.55);
+}
+.film-section .band-glow {
+  display: none;
+}
+.film-section .band-title,
+.film-section .band-foot,
+.film-section .sticker p {
+  color: #1f120a;
+}
+.film-section .band-foot {
+  font-size: var(--type-meta);
+  font-weight: 700;
+}
+.film-section .sticker .btn,
+.film-section .sticker .btn:hover {
+  color: #fbf3e2;
+  background: rgb(31 18 10 / 0.42);
+  border-color: rgb(251 243 226 / 0.55);
+  text-shadow: 0 1px 3px rgb(31 18 10 / 0.7);
+  backdrop-filter: blur(3px);
+}
+.film-section .sticker .btn:hover {
+  background: rgb(31 18 10 / 0.68);
+  border-color: rgb(251 243 226 / 0.8);
+}
+/* O título sobe para o céu da foto, como título da página */
+@media (min-width: 768px) {
+  .hero-group {
+    top: 0;
+    height: 100%;
+    translate: -50% 0;
+  }
+  .hero-group .band {
+    margin-top: 6svh;
+    align-self: center;
+  }
+}
+/* Subtítulo e botão no centro exato da tela, no computador e no celular */
+.film-section .sticker,
+.hero-group .sticker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  translate: -50% -50%;
+  width: min(34rem, calc(100vw - 2rem));
+  text-align: center;
+}
+.film-section .sticker .btn {
+  display: flex;
+  width: fit-content;
+  margin-inline: auto;
+}
+/* Assinatura no rodapé da capa: clara, porque o pé da foto é escuro */
+.home-signature {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 1.25rem;
+  text-align: center;
+  font-size: var(--type-meta);
+  font-weight: 700;
+  color: #fbf3e2;
+  text-shadow: 0 1px 4px rgb(31 18 10 / 0.85);
+}
+
+/* Entrada da capa: o título e a etiqueta deslizam para o lugar, um depois do outro */
+@keyframes box-in {
+  from {
+    opacity: 0;
+    transform: translateY(2.5rem);
+  }
+}
+.film-section .band {
+  animation: box-in 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) 0.05s both;
+}
+.film-section .sticker {
+  animation: box-in 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .film-section .band,
+  .film-section .sticker {
+    animation: none;
+  }
+  .bump-l {
+    transition: none;
+  }
+}
+
+/* Rolagem com "trava": um ponto de parada por tela; passa de uma tela por gesto, em vez de atravessar várias */
+.home {
+  position: relative;
+}
+.snap-mark {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  top: calc(var(--i) * max(100svh, 34rem));
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  pointer-events: none;
+}
+html[data-snap] {
+  scroll-snap-type: y mandatory;
+}

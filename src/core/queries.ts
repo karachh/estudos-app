@@ -1,5 +1,5 @@
 import { useLiveQuery } from 'dexie-react-hooks'
-import { db, type ResourceKind } from './db'
+import { db, type CheckItem, type ResourceKind } from './db'
 
 export interface Progress {
   done: number
@@ -12,8 +12,6 @@ const add = (map: Map<number, Progress>, key: number, done: boolean) => {
   if (done) p.done += 1
   map.set(key, p)
 }
-
-export const ratio = (p?: Progress) => (p && p.total > 0 ? p.done / p.total : 0)
 
 export function sumProgress(list: (Progress | undefined)[]): Progress {
   return list.reduce<Progress>(
@@ -31,7 +29,11 @@ export function useModuleData(moduleId: string) {
       db.checks.where('moduleId').equals(moduleId).toArray(),
     ])
     const byTopic = new Map<number, Progress>()
-    for (const c of checks) add(byTopic, c.topicId, c.done)
+    const checksByTopic = new Map<number, CheckItem[]>()
+    for (const c of checks) {
+      add(byTopic, c.topicId, c.done)
+      checksByTopic.set(c.topicId, [...(checksByTopic.get(c.topicId) ?? []), c])
+    }
     // Quantos materiais cada tópico tem: tópico sem checklist ainda pode ter vídeos e links
     const materials = new Map<number, number>()
     // E de que tipo: vídeo do YouTube, link (artigo, site) ou arquivo
@@ -43,7 +45,7 @@ export function useModuleData(moduleId: string) {
       k[r.kind] = (k[r.kind] ?? 0) + 1
       kinds.set(r.topicId, k)
     }
-    return { groups, topics, byTopic, materials, kinds }
+    return { groups, topics, byTopic, checksByTopic, materials, kinds }
   }, [moduleId])
 }
 

@@ -77,12 +77,12 @@ colors:
   film-sky-tint: "#788ca0"
 typography:
   cover-display:
-    fontFamily: "'Gloock', 'Bodoni Moda Variable', serif"
+    fontFamily: "'Fraunces Variable', 'Gloock', 'Bodoni Moda Variable', serif"
     fontSize: "9rem"
     fontWeight: 400
     lineHeight: 0.8
   cover-heading:
-    fontFamily: "'Gloock', 'Bodoni Moda Variable', serif"
+    fontFamily: "'Fraunces Variable', 'Gloock', 'Bodoni Moda Variable', serif"
     fontSize: "2.3rem"
     fontWeight: 400
     lineHeight: 1.2
@@ -145,7 +145,7 @@ typography:
     lineHeight: 1.05
     letterSpacing: "-0.01em"
   pane-title:
-    fontFamily: "'Gloock', 'Bodoni Moda Variable', serif"
+    fontFamily: "'Fraunces Variable', 'Gloock', 'Bodoni Moda Variable', serif"
     fontSize: "3.2rem"
     fontWeight: 400
     lineHeight: 1.1
@@ -279,12 +279,12 @@ O progresso nunca é barra de porcentagem. Cada mundo tem seu desenho que se com
 - Lateral recolhível no desktop, lembrada por aparelho (`estudos:rail` no localStorage).
 - Obras de arte em domínio público com crédito visível, empacotadas para uso offline.
 
-## Página inicial (`pages/HomePage.tsx`, rota `/`)
+## Página inicial (`pages/HomePage.tsx` e `pages/home/`, rota `/`)
 
 Referência: `../refs/c564aeb767c39bbc03d14bd03b530fc1.jpg`, uma capa de disco com foto de montanha em filme, faixa preta vertical com letreiro laranja de alto contraste, letras miúdas e código de barras. A página fica sempre escura e não tem lateral nem abas.
 - **Capa:** foto de paisagem em tela cheia com filtro de filme (`.film-img`: saturação e contraste baixos, sépia leve). Por cima vão `.film-lift` (pretos levantados) e `.film-fade` (vinheta, céu frio e grão próprio).
-  - **Faixa** (`.band`): à esquerda, com "ESTUDOS" em Gloock na vertical, em laranja de filme (`#e5582b`). O rodapé da faixa vai em letra miúda.
-  - **Etiqueta** (`.sticker`): à direita, com "Caderno de Estudos Pessoal" em Gloock, o código de barras do progresso geral, o botão "Ver os módulos" e o crédito da foto.
+  - **Faixa** (`.band`): à esquerda, com "ESTUDOS" em Fraunces na vertical, em laranja de filme (`#e5582b`). O rodapé da faixa vai em letra miúda.
+  - **Etiqueta** (`.sticker`): à direita, com "Caderno de Estudos Pessoal" em Fraunces, o código de barras do progresso geral, o botão "Ver os módulos" e o crédito da foto.
 - **Um banner por módulo, na ordem de `modules.ts`:** cada um é uma seção de tela cheia com a foto (`landscapes` em `data/art.ts`), a capa pintada (Igreja) ou o fundo do tema (psico, eva, office).
   - A faixa traz o nome curto na cor do módulo.
   - O cartão (`.pane`) ocupa a altura toda de um lado e traz o nome, a tagline, os grupos com fração (três no celular, seis no desktop), o código de barras, "Abrir <módulo>" e o crédito. Uma linha grossa (0.75rem) mais uma fina, na cor do tema (`--edge`), separam o cartão do fundo.
@@ -299,7 +299,7 @@ Referência: `../refs/c564aeb767c39bbc03d14bd03b530fc1.jpg`, uma capa de disco c
 
 ## Mundos temáticos (fosforo, eva, office)
 
-Cores e fontes em `src/index.css` (`[data-world=...]`), regras dos componentes em `src/worlds.css`, cabeçalhos em `components/Worlds.tsx`, marcadores em `Marks.tsx` e o painel no lugar do mapa em `components/ThemeBoard.tsx`. Todos têm tema claro.
+Cores e fontes em `src/styles/index.css` (`[data-world=...]`), regras dos componentes em `src/styles/worlds.css`, cabeçalhos em `components/worlds/headers.tsx` e marcadores em `components/ui/Marks.tsx`. Todos têm tema claro.
 - **fosforo (Profissional, desde 30/10/2026; refs em `refs/profissional-fosforo/`):** monitor de fósforo verde de um computador de pesquisa antigo. As referências (navio no scanner, retrato em ASCII da tela de BIOS, cabeças em malha) passam pela mesma rampa de verde em `src/assets/fosforo/` e levam as mesmas linhas de varredura (`.ph-crt`), para o fundo, o cabeçalho e o banner parecerem um monitor só. O laranja de brasa do aperto de mão em pixel art é a única cor quente (mira dos tópicos concluídos). Cabeçalho = tela de BIOS (barra de menu, prompt com cursor, barra de carga em blocos, navio no scanner, radar e o sprite); painel = radar de varredura com um ponto por tópico; marcador = monitorzinho cujas linhas acendem. O monitor fica escuro também no claro; a página clara vira papel de impressora matricial com faixas verdes.
 - **eva (UEM):** Evangelion, preto arroxeado com hexágonos finos, alerta vermelho, laranja e verde-ácido de detalhe. Título em Noto Serif Display condensada com aberração de cor; cabeçalho em grade com barra "SYNC RATE" do progresso e kanji (Yu Mincho ou equivalente do sistema). O hexágono é o marcador. Claro: verde-menta.
 - **office (Trabalho):** pôster de The Office em papel pardo, com placa da porta, carimbo e cinco retratos recortados. Título em Krona One (geométrica larga, entre duas barras vermelhas como no pôster de referência), rótulos em Special Elite e letreiro dos blocos em Anton; o painel é um mural de papel pardo. O cabeçalho não leva tagline.
@@ -343,13 +343,16 @@ Uma cor saturada por tela, a do módulo, sobre preto quente e creme.
 **Display Font:** Big Shoulders Display, variável (com Barlow). No mundo renascença, Bodoni Moda (com Didot).
 **Body Font:** Barlow (com system-ui).
 **Data Font:** Space Mono, só para números e dados: frações, numeração dos controles, selos.
-**Vozes de mundo** (cada uma só dentro do seu mundo, regras em `src/worlds.css`):
+**Vozes de mundo** (cada uma só dentro do seu mundo, regras em `src/styles/worlds.css`):
 - Sacro: Young Serif, Newsreader itálica e Cinzel Decorative no título.
 - Renascença: Noto Serif Display condensada (wdth 62.5), Cormorant Garamond e Montserrat Variable.
 - Fósforo (Profissional, desde 30/10/2026): VT323 (terminal de fósforo) no título, nos rótulos e nos números; Silkscreen nas letras miúdas do rodapé do monitor.
 - Eva (UEM): Noto Serif Display Variable condensada no título; kanji em Yu Mincho ou fonte equivalente do sistema.
-- Office (Trabalho): Krona One no título, Anton nos blocos e Special Elite nos rótulos.
-- Marca "Estudos" da lateral e capas em Gloock.
+- Office (Trabalho): ITC American Typewriter onde estiver instalada (é paga, não vem com o app) e Special Elite nos outros aparelhos, no título, nos blocos e no texto, também no banner da página inicial.
+- Bebop (Repertório, desde 30/10/2026): Bookman Old Style onde estiver instalada e Besley nos outros aparelhos, no título, nos blocos e no texto.
+- Eva (UEM, desde 30/10/2026): título desenhado (`UemLogo`) no estilo do logotipo de Evangelion; por dentro, Century onde existir e Old Standard TT nos outros aparelhos.
+- Neural (IA, desde 30/10/2026): Nebula Sans no título, nos blocos e no texto; Space Mono nos números e rótulos.
+- Marca "Estudos" da lateral e capas em Fraunces (negrito e cantos macios, no lugar da MADE Mountain, pedido do dono em 31/10/2026).
 
 **Character:** letreiro condensado de capa retrô em caixa-alta para títulos e rótulos de botão, grotesca neutra no corpo e monoespaçada de etiqueta técnica para os números.
 
@@ -364,7 +367,7 @@ Uma cor saturada por tela, a do módulo, sobre preto quente e creme.
 - **Data** (Space Mono): número do controle com dois dígitos (01, 02…), frações e selos (selo a 0.78rem, o menor tamanho de texto informativo).
 
 ### Escala de papéis
-Todo tamanho de texto sai de um token de papel em `src/index.css` (`--type-*`, classes `text-*` do Tailwind). Nenhum componente escreve tamanho solto (`text-[1.45rem]`).
+Todo tamanho de texto sai de um token de papel em `src/styles/index.css` (`--type-*`, classes `text-*` do Tailwind). Nenhum componente escreve tamanho solto (`text-[1.45rem]`).
 - `micro` (0.78rem): créditos, letra miúda, selos, abas do celular. É o piso do texto informativo.
 - `meta` (0.95rem): atalhos de grupo, número do controle, "Recolher".
 - `body` (1rem, nunca em px, para respeitar a letra escolhida no navegador).
@@ -437,9 +440,9 @@ O sistema é plano, sem sombra de caixa: a profundidade vem do tom e da moldura.
 - **Ghost:** sem borda até o hover. É também a base dos atalhos de grupo (Barlow, com a marca de progresso e a fração em mono).
 
 ### Capa do módulo (provisória, mundo mapa)
-Enquanto Profissional, Trabalho, UEM e Repertório não ganham mundo próprio, o cabeçalho deles repete a capa da página inicial (`FilmHeader` em `ModulePage.tsx`, componentes `Film` e `Band` em `components/Cover.tsx`).
+Enquanto Profissional, Trabalho, UEM e Repertório não ganham mundo próprio, o cabeçalho deles repete a capa da página inicial (`FilmHeader` em `ModulePage.tsx`, componentes `Film` e `Band` em `components/worlds/Cover.tsx`).
 - Moldura de 1.5rem de raio, 30rem de altura no celular e 34rem no desktop, sempre escura (troca as tintas localmente, como a página inicial).
-- Foto com o filtro de filme, faixa preta vertical com o nome curto na cor do módulo e a contagem de grupos, e etiqueta preta com o nome em Gloock, a tagline e o crédito.
+- Foto com o filtro de filme, faixa preta vertical com o nome curto na cor do módulo e a contagem de grupos, e etiqueta preta com o nome em Fraunces, a tagline e o crédito.
 - O letreiro da faixa usa a altura da moldura (`cqh`), não a da tela.
 - Sai quando o módulo ganhar mundo próprio.
 

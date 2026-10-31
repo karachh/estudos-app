@@ -1,6 +1,6 @@
 import type { LinkSeed, ModuleContent } from '../data/content/helpers'
 import { roadmap } from '../data/roadmap'
-import { db, deleteTopicData, type CheckItem, type Resource } from './db'
+import { db, deleteTopicData, type CheckItem, type Group, type Resource } from './db'
 
 const SEED_KEY = 'seed:v1'
 const CONTENT_KEY = 'content'
@@ -32,7 +32,7 @@ async function applyModule(c: ModuleContent) {
   for (const g of c.groups) {
     let group = groups.find((x) => x.title === g.title)
     if (!group) {
-      const order = Math.max(-1, ...groups.map((x) => x.order)) + 1
+      const order = g.order ?? Math.max(-1, ...groups.map((x) => x.order)) + 1
       const data = {
         moduleId: c.moduleId,
         title: g.title,
@@ -56,8 +56,8 @@ async function applyModule(c: ModuleContent) {
           summary: t.summary ?? '',
           badge: t.badge ?? '',
           flow: '',
-          isProject: false,
-          notes: '',
+          isProject: !!t.project,
+          notes: t.notes ?? '',
           glossary: (t.terms ?? []).map(([term, def]) => ({ term, def })),
           order: Math.max(-1, ...topics.map((x) => x.order)) + 1,
           createdAt: Date.now(),
@@ -78,6 +78,22 @@ async function applyModule(c: ModuleContent) {
       }
     }
   }
+}
+
+async function updateGroup(moduleId: string, title: string, changes: Partial<Group>) {
+  const group = await db.groups.where('moduleId').equals(moduleId).filter((g) => g.title === title).first()
+  if (group) await db.groups.update(group.id, changes)
+}
+
+// Grupo com item marcado ou anotação fica, para não perder o que o dono fez
+async function removeUntouchedGroup(moduleId: string, title: string) {
+  const group = await db.groups.where('moduleId').equals(moduleId).filter((g) => g.title === title).first()
+  if (!group) return
+  const topics = await db.topics.where('groupId').equals(group.id).toArray()
+  const marked = await db.checks.where('topicId').anyOf(topics.map((t) => t.id)).filter((c) => c.done).count()
+  if (marked || topics.some((t) => t.notes.trim())) return
+  for (const t of topics) await deleteTopicData(t.id)
+  await db.groups.delete(group.id)
 }
 
 // O conteúdo vem num arquivo à parte, carregado só aqui, para não pesar a abertura do app.
@@ -116,6 +132,91 @@ async function applyContent() {
         if (marked) continue
         for (const t of topics) await deleteTopicData(t.id)
         await db.groups.delete(g.id)
+      }
+    }
+    // v9: pedidos do dono de 31/10/2026 (grupos, textos da Igreja e da Motivação, prazos da IA, áreas do Repertório)
+    if (done < 9) {
+      await removeUntouchedGroup('cultura', 'Literatura e fé')
+      await removeUntouchedGroup('mental', 'Minhas razões')
+      await updateGroup('mental', 'Para os dias de desânimo', { subtitle: '', description: '' })
+      await updateGroup('igreja', 'Teologia', {
+        description: 'Ordem sugerida: fundamentos, depois doutrina, depois aprofundamento e, por último, história e apologética.',
+        criteria: '',
+      })
+      await updateGroup('igreja', 'Nosso coração', { description: 'Emoções, temperamentos, ansiedade, tristeza e tentações.', criteria: '' })
+      await updateGroup('igreja', 'Maturidade espiritual', { criteria: '' })
+      await updateGroup('ia', 'Fase 0: Base', { subtitle: 'Serve para as duas trilhas' })
+      for (const g of await db.groups.where('moduleId').equals('ia').toArray()) if (/\d{4}/.test(g.subtitle)) await db.groups.update(g.id, { subtitle: '' })
+      const seeds = contentModules.find((c) => c.moduleId === 'cultura')!.groups.flatMap((g) => g.topics)
+      for (const t of await db.topics.where('moduleId').equals('cultura').toArray()) {
+        const badge = seeds.find((s) => s.title === t.title)?.badge
+        if (badge && !t.badge) await db.topics.update(t.id, { badge })
+      }
+    }
+    // v11: o dono tirou "Fé e esperança" da Motivação e os vídeos sugeridos dos outros temas (31/10/2026).
+    // Só saem os vídeos que o app trouxe; o que o dono adicionou por conta própria fica.
+    if (done < 11) {
+      const suggested = ['M-DPRkSqTXI', 'xsE964xxuxI', 'GaFO6bRc8uI', 'xv3VQF6nex8', 'rNnROej7V4E', 'tG1eE2sdDX4']
+      for (const t of await db.topics.where('moduleId').equals('mental').toArray()) {
+        if (t.title === 'Fé e esperança') await deleteTopicData(t.id)
+        else await db.resources.where('topicId').equals(t.id).filter((r) => suggested.includes(r.url)).delete()
+      }
+    }
+    // v12: o dono trocou o roadmap da IA pelo plano de 12 meses e pediu para remover o antigo por inteiro (31/10/2026),
+    // inclusive o que tinha progresso, anotação ou material.
+    if (done < 12) {
+      const old = ['Fase 0: Base', 'Fase 1: Trilha B, AI Builder', 'Fase 2: Base de dados e ML', 'Fase 3: Trilha A, AI Engineer']
+      for (const g of await db.groups.where('moduleId').equals('ia').filter((g) => old.includes(g.title)).toArray()) {
+        for (const t of await db.topics.where('groupId').equals(g.id).toArray()) await deleteTopicData(t.id)
+        await db.groups.delete(g.id)
+      }
+    }
+    // v14: o dono tirou as datas da frente dos tópicos da IA ("Jan/2027: ...") em 31/10/2026.
+    // Vem antes da v13, que procura os tópicos pelo título novo.
+    if (done < 14) {
+      for (const t of await db.topics.where('moduleId').equals('ia').toArray()) {
+        const rest = t.title.replace(/^[A-Z][a-z]{2}\/\d{4}:\s*/, '')
+        if (rest !== t.title) await db.topics.update(t.id, { title: rest.charAt(0).toUpperCase() + rest.slice(1) })
+      }
+    }
+    // v13: o dono pediu os materiais de "Cursos e recursos" (IA) dentro dos meses a que dizem respeito (31/10/2026).
+    // Os links saem daqui e o applyModule, logo abaixo, cria cada um no mês certo; as orientações vão para as anotações.
+    // Tópico em que o dono marcou item, anotou, registrou sessão ou pôs material próprio fica, para não perder nada.
+    if (done < 13) {
+      const seeds = contentModules.find((c) => c.moduleId === 'ia')!.groups.flatMap((g) => g.topics)
+      const planned = new Set(seeds.flatMap((s) => s.links ?? []).map((l) => toStored(l).url))
+      const group = await db.groups.where('moduleId').equals('ia').filter((g) => g.title === 'Cursos e recursos').first()
+      if (group) {
+        let kept = 0
+        for (const t of await db.topics.where('groupId').equals(group.id).toArray()) {
+          await db.resources.where('topicId').equals(t.id).filter((r) => planned.has(r.url)).delete()
+          const marked = await db.checks.where('topicId').equals(t.id).filter((c) => c.done).count()
+          const resources = await db.resources.where('topicId').equals(t.id).count()
+          const sessions = await db.sessions.where('topicId').equals(t.id).count()
+          if (marked || resources || sessions || t.notes.trim()) kept++
+          else await deleteTopicData(t.id)
+        }
+        if (!kept) await db.groups.delete(group.id)
+      }
+      for (const t of await db.topics.where('moduleId').equals('ia').toArray()) {
+        const notes = seeds.find((s) => s.title === t.title)?.notes
+        if (notes && !t.notes.includes(notes)) await db.topics.update(t.id, { notes: t.notes.trim() ? `${t.notes.trim()}\n\n${notes}` : notes })
+      }
+    }
+    // v15: o dono pediu o "Portfólio público" da IA dentro das fases, como seção "Projetos" (31/10/2026).
+    // Os projetos novos vêm do applyModule. Tópico antigo com progresso, anotação, material ou sessão fica, para não perder nada.
+    if (done < 15) {
+      const group = await db.groups.where('moduleId').equals('ia').filter((g) => g.title === 'Portfólio público').first()
+      if (group) {
+        let kept = 0
+        for (const t of await db.topics.where('groupId').equals(group.id).toArray()) {
+          const marked = await db.checks.where('topicId').equals(t.id).filter((c) => c.done).count()
+          const resources = await db.resources.where('topicId').equals(t.id).count()
+          const sessions = await db.sessions.where('topicId').equals(t.id).count()
+          if (marked || resources || sessions || t.notes.trim()) kept++
+          else await deleteTopicData(t.id)
+        }
+        if (!kept) await db.groups.delete(group.id)
       }
     }
     for (const c of contentModules) await applyModule(c)

@@ -47,8 +47,7 @@ export const igreja: ModuleContent = {
       title: 'Teologia',
       subtitle: 'Doutrina, Bíblia e história da Igreja',
       description:
-        'Ordem sugerida: fundamentos, depois doutrina, depois aprofundamento e, por último, história e apologética. Um curso por vez; ritmo de 1 a 2 aulas por dia nos dias úteis.',
-      criteria: 'Consigo explicar o Credo, os sacramentos e os mandamentos com as minhas palavras para alguém que nunca estudou isso.',
+        'Ordem sugerida: fundamentos, depois doutrina, depois aprofundamento e, por último, história e apologética.',
       topics: [
         curso('Catequese para Adultos', 'catequese-para-adultos', 34, 'Fundamentos da fé em um só curso. Boa primeira escolha.', [], { badge: 'Fundamentos' }),
         curso('Como Ler a Bíblia', 'como-ler-a-biblia', 16, 'Curso sobre como ler a Bíblia.', [], { badge: 'Fundamentos' }),
@@ -84,8 +83,7 @@ export const igreja: ModuleContent = {
       title: 'Nosso coração',
       subtitle: 'Entender o coração, o seu e o dos outros, para saber aconselhar',
       description:
-        'Emoções, temperamentos, ansiedade, tristeza e tentações. A ideia é conhecer o próprio interior e ganhar repertório para ouvir e aconselhar quem está sofrendo. Comece por temperamentos, que dão o vocabulário para o resto.',
-      criteria: 'Consigo ouvir um amigo em sofrimento sem me apressar em dar solução e sei apontar para a ajuda certa, inclusive profissional.',
+        'Emoções, temperamentos, ansiedade, tristeza e tentações.',
       topics: [
         curso('Os Quatro Temperamentos', 'os-quatro-temperamentos', 16, 'Vocabulário para entender por que cada pessoa reage de um jeito.', [
           'Identificar o meu temperamento e o de 3 pessoas próximas',
@@ -123,7 +121,6 @@ export const igreja: ModuleContent = {
       subtitle: 'Crescer na vida interior com constância',
       description:
         'Direção espiritual, santidade no cotidiano e combate espiritual. Só vale a pena avançar aqui com a oração diária já funcionando (veja Espiritualidade).',
-      criteria: 'Tenho uma regra de vida de oração mantida há pelo menos 3 meses e converso regularmente com um diretor espiritual.',
       topics: [
         curso('Direção Espiritual: a Jornada', 'direcao-espiritual-a-jornada', 15, 'Curso sobre direção espiritual.', [
           'Procurar um padre para direção espiritual regular',

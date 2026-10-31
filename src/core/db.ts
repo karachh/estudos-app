@@ -13,7 +13,7 @@ export interface Group {
   order: number
 }
 
-export interface Term {
+interface Term {
   term: string
   def: string
 }
@@ -48,6 +48,7 @@ export type ResourceKind = 'link' | 'youtube' | 'file'
 export interface Resource {
   id: number
   topicId: number
+  checkId?: number // item do checklist ao qual o link pertence; sem ele, é material do tópico inteiro
   kind: ResourceKind
   title: string
   url: string
@@ -156,5 +157,3 @@ export async function deleteTopicData(topicId: number) {
   await db.sessions.where('topicId').equals(topicId).delete()
   await db.topics.delete(topicId)
 }
-
-export const today = () => new Date().toLocaleDateString('sv-SE') // YYYY-MM-DD no fuso local

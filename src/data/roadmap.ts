@@ -1,7 +1,7 @@
 // Importado de roadmap.pdf (Roadmap de Engenharia de Dados + IA, out/2026 a dez/2027).
 // Depois de importado, o conteúdo vive no banco e é editado pelo app; este arquivo só alimenta a primeira carga.
 
-export interface SeedTopic {
+interface SeedTopic {
   title: string
   badge?: string
   summary: string
@@ -19,25 +19,6 @@ export interface SeedTier {
   criteria: string
   topics: SeedTopic[]
 }
-
-export const roadmapIntro = [
-  {
-    title: 'Um conceito novo por projeto',
-    text: 'Se o projeto tem três ferramentas que você nunca usou, ele vai te perder. Troque uma delas por algo que você já domina.',
-  },
-  {
-    title: 'A IA destrava, você pensa',
-    text: 'Deixe a IA gerar código de apoio e explicar erros. As queries e a lógica do pipeline você escreve com as próprias mãos.',
-  },
-  {
-    title: 'Só avança com o critério de saída',
-    text: 'Cada tier tem um critério no fim. Não cumpriu, não passa para o próximo, mesmo que o calendário diga que sim.',
-  },
-  {
-    title: 'Ritmo realista',
-    text: 'Sábado: 3h de projeto. Domingo: 2h de estudo. Dias úteis: 20 min de exercício de SQL no almoço. Cerca de 6 a 7h por semana; os prazos foram calculados com isso.',
-  },
-]
 
 export const roadmap: SeedTier[] = [
   {

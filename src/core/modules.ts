@@ -1,10 +1,8 @@
 // Mundo visual do interior do módulo. 'mapa' é o padrão (prova de orientação, hoje o do Motivação);
 // 'sacro' é o do Igreja. 'fosforo' (Profissional, monitor de fósforo verde), 'bebop' (Repertório, Cowboy Bebop),
-// 'eva' (UEM, Evangelion) e 'office' (Trabalho, The Office) são temas do mapa: mesma estrutura, outra pele.
-export type World = 'mapa' | 'fosforo' | 'bebop' | 'eva' | 'office' | 'sacro'
+// 'eva' (UEM, Evangelion), 'office' (Trabalho, The Office) e 'neural' (IA, cabeças sintéticas) são temas do mapa: mesma estrutura, outra pele.
+export type World = 'mapa' | 'fosforo' | 'bebop' | 'eva' | 'office' | 'neural' | 'sacro'
 
-// Mundos que mostram o mapa de orientação com a tabela de controles
-export const hasMap = (w: World) => w !== 'sacro'
 
 export interface AppModule {
   id: string
@@ -13,8 +11,12 @@ export interface AppModule {
   introTitle?: string
   introOpen?: boolean
   overview?: boolean // mostra todos os grupos lado a lado, em vez de um sob o outro
-  sections?: { title: string; hint: string; groups: string[] }[] // divide a visão geral; grupo fora da lista vai para "Outros"
+  areas?: boolean // na visão geral, cada grupo vira uma seção, com um cartão por área (`badge` do tópico)
+  checkLinks?: boolean // o tópico abre o checklist ali mesmo na lista; dentro dele, os links ficam em cada item
   hideGroupMeta?: boolean // esconde o prazo (subtítulo) e o critério de saída dos grupos
+  hideGroupNav?: boolean // sem a fileira de atalhos para os grupos logo abaixo do cabeçalho
+  unnumbered?: string[] // títulos de tópicos que aparecem sem o número
+  sameSide?: boolean // na página inicial, o cartão repete o lado do módulo anterior, sem mudar o lado dos seguintes
   label: string
   short: string
   tagline: string
@@ -25,7 +27,7 @@ export interface AppModule {
   emptyHint: string
 }
 
-// Para criar um módulo novo: adicione aqui, escolha o world e uma cor em index.css. As telas são as mesmas para todos.
+// Para criar um módulo novo: adicione aqui, escolha o world e uma cor em styles/index.css. As telas são as mesmas para todos.
 export const modules: AppModule[] = [
   {
     id: 'profissional',
@@ -33,6 +35,8 @@ export const modules: AppModule[] = [
     label: 'Estudos profissionais',
     short: 'Profissional',
     hideGroupMeta: true,
+    hideGroupNav: true,
+    checkLinks: true,
     tagline: 'Roadmap de Engenharia de Dados + IA',
     groupLabel: 'etapa',
     newGroup: 'Nova etapa',
@@ -51,6 +55,51 @@ export const modules: AppModule[] = [
     topicLabel: 'tópico',
     defaultSections: ['Estudar', 'Fazer'],
     emptyHint: 'Crie uma área (por exemplo, uma ferramenta ou projeto) e liste os tópicos dela.',
+  },
+  {
+    id: 'ia',
+    overview: true,
+    sameSide: true,
+    world: 'neural',
+    label: 'IA',
+    short: 'IA',
+    tagline: 'Plano de 12 meses, de nov/2026 a out/2027',
+    introTitle: 'Como seguir este plano',
+    intro: [
+      {
+        title: 'A ordem importa mais que a lista',
+        text: 'Fazer os 10 temas ao mesmo tempo significa terminar nenhum. Primeiro o que dá resultado rápido e já ajuda no trabalho, depois a base sólida, depois a especialização. n8n, Make, Zapier e vibe coding se aprendem em semanas; machine learning e engenharia de IA levam meses.',
+      },
+      {
+        title: 'O que mais pesa para vaga júnior',
+        text: 'Python, SQL, estatística básica, ML clássico, uma aplicação com LLM funcionando e portfólio público no GitHub. Automação e vibe coding são diferenciais, não base.',
+      },
+      {
+        title: 'Cada mês termina com uma entrega pública',
+        text: 'Se não há entrega, o mês não conta. Se as férias da faculdade caírem em dez/jan/fev, use para adiantar a Fase 2.',
+      },
+      {
+        title: 'Portfólio: qualidade vence quantidade',
+        text: 'Um recrutador abre 2 ou 3 repositórios, no máximo. Cada projeto está na seção "Projetos" da sua fase. Metas em 12 meses: 6 repositórios de ML e dados, 2 de engenharia de IA, 2 modelos e 1 Space no Hugging Face, 3 competições no Kaggle, 1 projeto de pesquisa e 3 artigos técnicos.',
+      },
+      {
+        title: 'Sua vantagem escondida',
+        text: 'Você já trabalha com dados georreferenciados e SQL. Um projeto de ML ou IA em cima de dados geográficos públicos (IBGE, INPE) é raro entre iniciantes e conta uma história boa na entrevista. Nunca use dados confidenciais da empresa em projetos públicos; use bases abertas.',
+      },
+      {
+        title: 'Kaggle e artigos ficam para depois',
+        text: 'Competição sem base vira frustração: antes, use os cursos gratuitos do Kaggle Learn e as competições de treino (Playground). Pesquisa e artigos ficam para a fase final, quando você já tem o que contar.',
+      },
+      {
+        title: 'Próximo passo real',
+        text: 'Criar a conta no GitHub (se ainda não tem), o primeiro repositório com README, e começar a trilha de Python e Pandas do Kaggle Learn.',
+      },
+    ],
+    groupLabel: 'fase',
+    newGroup: 'Nova fase',
+    topicLabel: 'tópico',
+    defaultSections: ['Estudar'],
+    emptyHint: 'Crie uma fase do plano e liste os tópicos dela.',
   },
   {
     id: 'uem',
@@ -80,13 +129,7 @@ export const modules: AppModule[] = [
   {
     id: 'cultura',
     overview: true,
-    sections: [
-      {
-        title: 'Por formato',
-        hint: 'Documentários, podcasts, séries, canais e livros',
-        groups: ['Documentários e filmes', 'Podcasts', 'Séries', 'Canais e artigos', 'Literatura e fé'],
-      },
-    ],
+    areas: true,
     world: 'bebop',
     label: 'Repertório',
     short: 'Repertório',
@@ -102,7 +145,8 @@ export const modules: AppModule[] = [
     world: 'mapa',
     label: 'Motivação',
     short: 'Motivação',
-    tagline: 'Vídeos e lembretes para os dias em que o ânimo cai',
+    tagline: 'Foque no seu objetivo',
+    unnumbered: ['Fé e esperança'],
     groupLabel: 'coleção',
     newGroup: 'Nova coleção',
     topicLabel: 'tema',

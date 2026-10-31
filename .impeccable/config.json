@@ -57,6 +57,54 @@
         "value": "silkscreen",
         "createdAt": "2026-10-30T03:25:20.532Z",
         "reason": "Claude: fonte do tema fosforo do Profissional, pedido do dono de tema retro em 30/10/2026; documentada em DESIGN.md (sidecar design.json ainda desatualizado)"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "oxanium variable",
+        "createdAt": "2026-10-31T01:19:54.683Z",
+        "reason": "Claude: fonte do mundo neural (IA), declarada na tipografia do DESIGN.md em 30/10/2026"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "nebula sans",
+        "createdAt": "2026-10-31T01:25:06.158Z",
+        "reason": "user confirmed: pediu a fonte Nebula para o modulo IA em 30/10/2026"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "made mountain",
+        "createdAt": "2026-10-31T01:33:16.815Z",
+        "reason": "user confirmed: pediu a MADE Mountain para a pagina inicial e o Motivacao em 30/10/2026"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "bookman old style",
+        "createdAt": "2026-10-31T01:33:16.902Z",
+        "reason": "user confirmed: amostra repertorio_fonte enviada pelo dono em 30/10/2026"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "century",
+        "createdAt": "2026-10-31T01:33:16.943Z",
+        "reason": "user confirmed: pediu a fonte Century para a UEM em 30/10/2026"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "itc american typewriter",
+        "createdAt": "2026-10-31T01:33:17.037Z",
+        "reason": "user confirmed: pediu a fonte para o Trabalho em 30/10/2026"
+      },
+      {
+        "rule": "overused-font",
+        "value": "fraunces",
+        "createdAt": "2026-10-31T12:00:00.000Z",
+        "reason": "fonte parecida com a MADE Mountain, pedida pelo dono em 31/10/2026 para a página inicial e o Motivação"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "fraunces variable",
+        "createdAt": "2026-10-31T12:00:00.000Z",
+        "reason": "fonte parecida com a MADE Mountain, pedida pelo dono em 31/10/2026 para a página inicial e o Motivação"
       }
     ]
   }

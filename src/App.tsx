@@ -1,10 +1,16 @@
-import { useRef, useState, type MouseEvent } from 'react'
+import { useRef, useState, type CSSProperties, type MouseEvent } from 'react'
 import { Link, NavLink, Navigate, Route, Routes, useMatch, useNavigate } from 'react-router-dom'
-import { Icon, type IconName } from './components/Icon'
-import { Logo } from './components/Logo'
-import { ThemeBackdrop } from './components/ThemeBackdrop'
+import { Icon, type IconName } from './components/ui/Icon'
+import { Logo } from './components/ui/Logo'
+import { ThemeBackdrop } from './components/worlds/ThemeBackdrop'
 import { getModule, modules } from './core/modules'
 import { backdrops } from './data/backdrops'
+import iconeCerebro from './assets/icones/cerebro.png'
+import iconeEva from './assets/icones/eva.png'
+import iconeEstrela from './assets/icones/estrela.png'
+import iconeMontanha from './assets/icones/montanha.png'
+import iconeNave from './assets/icones/nave.png'
+import iconePomba from './assets/icones/pomba.png'
 import { useTheme } from './core/theme'
 import ModulePage from './pages/ModulePage'
 import HomePage from './pages/HomePage'
@@ -25,12 +31,17 @@ function ThemeToggle() {
 
 // Ícone de cada módulo, usado quando a lateral está recolhida
 const moduleIcons: Record<string, IconName> = {
-  profissional: 'database',
   trabalho: 'office',
-  uem: 'cap',
-  igreja: 'cross',
-  cultura: 'book',
-  mental: 'sunrise',
+}
+
+// Ícones feitos das imagens do dono (refs/icones/): só a forma, pintada na cor do módulo pelo CSS (.mod-glyph)
+const moduleGlyphs: Record<string, string> = {
+  profissional: iconeEstrela,
+  ia: iconeCerebro,
+  uem: iconeEva,
+  igreja: iconePomba,
+  cultura: iconeNave,
+  mental: iconeMontanha,
 }
 
 const RAIL_KEY = 'estudos:rail'
@@ -57,10 +68,12 @@ function useRail() {
 }
 
 // Logo → início com uma saída curta: o selo gira e a página some antes de trocar de tela
-function useGoHome() {
+function useGoHome(home: boolean) {
   const navigate = useNavigate()
   const [leaving, setLeaving] = useState(false)
   const timer = useRef(0)
+  // O App não desmonta ao trocar de tela: ao chegar no início a saída acaba, senão o próximo módulo abre apagado
+  if (leaving && home) setLeaving(false)
   const go = (e: MouseEvent) => {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
@@ -77,7 +90,7 @@ export default function App() {
   const { collapsed, toggle } = useRail()
   const home = useMatch('/')
   const backdrop = backdrops[current.id]
-  const { leaving, go } = useGoHome()
+  const { leaving, go } = useGoHome(!!home)
 
   // A página inicial ocupa a tela inteira, sem lateral nem abas
   if (home) {
@@ -119,7 +132,11 @@ export default function App() {
             >
               {collapsed ? (
                 <span className="text-accent">
-                  <Icon name={moduleIcons[m.id] ?? 'chevron'} size={22} />
+                  {moduleGlyphs[m.id] ? (
+                    <span className="mod-glyph" style={{ '--glyph': `url(${moduleGlyphs[m.id]})` } as CSSProperties} aria-hidden="true" />
+                  ) : (
+                    <Icon name={moduleIcons[m.id] ?? 'chevron'} size={22} />
+                  )}
                 </span>
               ) : (
                 m.label

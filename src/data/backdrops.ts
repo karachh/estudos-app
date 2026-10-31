@@ -10,11 +10,15 @@ import evaVermelho from '../assets/eva/eva-vermelho.jpg'
 import fosCabecas from '../assets/fosforo/cabecas.jpg'
 import fosNavio from '../assets/fosforo/navio.jpg'
 import fosRetrato from '../assets/fosforo/retrato-ascii.jpg'
+import iaCromado from '../assets/ia/ia-cromado.jpg'
+import iaMalha from '../assets/ia/ia-malha.jpg'
+import iaMascara from '../assets/ia/ia-mascara.jpg'
+import iaVermelha from '../assets/ia/ia-vermelha-virada-fim.jpg'
 import igrejaCristo from '../assets/igreja/bg-cristo.jpg'
 import igrejaJose from '../assets/igreja/bg-jose.jpg'
 import igrejaMaria from '../assets/igreja/bg-maria.jpg'
 import igrejaPoster from '../assets/igreja/bg-poster.jpg'
-import mentalLago from '../assets/mental/bg-lago.jpg'
+import mentalMontanha from '../assets/mental/bg-montanha.jpg'
 import mentalOndas from '../assets/mental/bg-ondas.jpg'
 import mentalSurf from '../assets/mental/bg-surf.jpg'
 import officeComic from '../assets/trabalho/bg-comic.jpg'
@@ -29,10 +33,11 @@ import officeRedstar from '../assets/trabalho/bg-redstar.jpg'
 // Origem: UEM, Igreja, Profissional (fosforo), Repertório (bebop) e Trabalho são referências que o dono pôs
 // em refs/ (dentro do projeto); praias são CC0 de refs/paisagens/.
 // `pos` é o ponto da imagem que fica à vista no recorte; `tint` é a cor da varredura quando ela entra.
-export interface BackdropImage {
+interface BackdropImage {
   src: string
   pos: string
   tint: string
+  turn?: boolean // na página do módulo, toca a virada do alien (components/AlienTurn.tsx) no lugar da imagem
 }
 
 export interface Backdrop {
@@ -42,6 +47,17 @@ export interface Backdrop {
 }
 
 export const backdrops: Record<string, Backdrop> = {
+  // IA: as cabeças sintéticas de refs/ia-neural/, recortadas dos sites de referência, sem os textos deles
+  ia: {
+    mode: 'scroll',
+    tag: 'THE FUTURE HAS COME',
+    images: [
+      { src: iaMalha, pos: '56% 45%', tint: '#8a63ff' },
+      { src: iaVermelha, pos: '62% 40%', tint: '#ff2e55', turn: true },
+      { src: iaCromado, pos: '62% 40%', tint: '#7db4d6' },
+      { src: iaMascara, pos: '62% 40%', tint: '#ff2e55' },
+    ],
+  },
   uem: {
     mode: 'scroll',
     tag: 'EVA UNIT 01 · SYNC',
@@ -96,14 +112,14 @@ export const backdrops: Record<string, Backdrop> = {
       { src: bebopOlho, pos: '50% 35%', tint: '#e5453a' },
     ],
   },
-  // Motivação: mar e lago das referências em ../refs/refs_motivacao_novo/ (as praias antigas estão em _arquivo/)
+  // Motivação: mar e montanha das referências em ../refs/refs_motivacao_novo/ (as praias antigas estão em _arquivo/)
   mental: {
     mode: 'scroll',
     tag: 'MOTIVAÇÃO · MARÉ',
     images: [
       { src: mentalSurf, pos: '50% 45%', tint: '#5fa3a8' },
+      { src: mentalMontanha, pos: '50% 50%', tint: '#8fa89a' }, // a página /mental começa nesta (semente em ThemeBackdrop)
       { src: mentalOndas, pos: '50% 60%', tint: '#e8c987' },
-      { src: mentalLago, pos: '50% 55%', tint: '#d6c27a' },
     ],
   },
 }
